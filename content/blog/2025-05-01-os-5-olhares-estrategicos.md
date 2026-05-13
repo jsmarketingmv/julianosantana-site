@@ -2,7 +2,9 @@
 title: Os 5 Olhares Estratégicos para Criar Experiências que Vendem
 date: 2025-05-01
 category: Estratégia
-summary: Experiência de compra não nasce no produto. Nasce na percepção. E percepção se constrói com intenção estratégica.
+summary: Experiência de compra não nasce no produto. Nasce na percepção. E
+  percepção se constrói com intenção estratégica.
+image: /assets/blog/img_3167.jpeg
 ---
 
 Experiência de compra não nasce no produto. Nasce na percepção. E percepção se constrói com intenção estratégica.
