@@ -4,7 +4,7 @@ date: 2025-03-01
 category: Mentalidade
 summary: Meta sem rota é desejo. Desejo sem ação é fantasia. A diferença entre
   quem realiza e quem fica no "vou fazer" está na constância, não no talento.
-image: /assets/blog/img_5631.jpeg
+image: /assets/blog/img_3565.jpeg
 ---
 
 Meta sem rota é desejo. Desejo sem ação é fantasia. A diferença entre quem realiza e quem fica no "vou fazer" está na constância, não no talento.
