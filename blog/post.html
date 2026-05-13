@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Juliano Sant'Ana</title>
+  <meta name="description" content="" id="meta-desc" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --verde-escuro: #1C3A2A;
+      --verde-medio: #2D5A3D;
+      --verde-sage: #4A7C59;
+      --verde-claro: #7FB069;
+      --areia: #C49A6C;
+      --terra: #8B5E3C;
+      --creme: #F5F0E8;
+      --creme-escuro: #EDE7D9;
+      --texto-escuro: #1A2A1F;
+      --texto-medio: #3D5C47;
+      --branco: #FFFFFF;
+      --radius: 16px;
+      --sombra-suave: 0 4px 24px rgba(28,58,42,0.10);
+      --transicao: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    .navbar { background: rgba(28,58,42,0.97); backdrop-filter: blur(12px); padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,3rem); display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--creme); letter-spacing: -0.01em; }
+    .logo span { font-weight: 300; color: var(--areia); }
+    .nav-back { font-size: 0.85rem; font-weight: 500; color: rgba(245,240,232,0.7); letter-spacing: 0.05em; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; transition: color var(--transicao); }
+    .nav-back:hover { color: var(--areia); }
+    .nav-back svg { transform: rotate(180deg); }
+
+    /* Hero do post */
+    .post-hero { background: linear-gradient(160deg, var(--verde-escuro) 0%, #243D2F 100%); padding: clamp(4rem,8vw,6rem) 0 clamp(3rem,5vw,4.5rem); }
+    .container { max-width: 780px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,3rem); }
+    .container-wide { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,3rem); }
+    .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .post-categoria { background: var(--areia); color: var(--verde-escuro); font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 20px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .post-data { font-size: 0.82rem; color: rgba(245,240,232,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+    .post-titulo { font-size: clamp(1.8rem,4vw,3rem); font-weight: 800; color: var(--creme); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1.2rem; }
+    .post-resumo { font-size: 1.05rem; color: rgba(245,240,232,0.65); font-style: italic; font-weight: 300; line-height: 1.7; }
+
+    /* Conteúdo do post */
+    .post-conteudo { padding: clamp(3rem,6vw,5rem) 0; }
+    .post-body { background: var(--branco); border-radius: var(--radius); padding: clamp(2rem,5vw,3.5rem); box-shadow: var(--sombra-suave); }
+    .post-body h2 { font-size: 1.5rem; font-weight: 700; color: var(--verde-escuro); margin: 2.5rem 0 1rem; letter-spacing: -0.01em; }
+    .post-body h3 { font-size: 1.2rem; font-weight: 600; color: var(--verde-medio); margin: 2rem 0 0.8rem; }
+    .post-body p { font-size: 1rem; color: var(--texto-medio); line-height: 1.85; margin-bottom: 1.3rem; }
+    .post-body strong { color: var(--texto-escuro); font-weight: 700; }
+    .post-body em { font-style: italic; }
+    .post-body ul, .post-body ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .post-body li { font-size: 1rem; color: var(--texto-medio); line-height: 1.8; margin-bottom: 0.4rem; }
+    .post-body blockquote { border-left: 4px solid var(--areia); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--creme-escuro); border-radius: 0 var(--radius) var(--radius) 0; }
+    .post-body blockquote p { font-style: italic; font-size: 1.05rem; color: var(--verde-escuro); margin-bottom: 0; }
+    .post-body a { color: var(--verde-sage); text-decoration: underline; text-underline-offset: 3px; transition: color var(--transicao); }
+    .post-body a:hover { color: var(--verde-medio); }
+    .post-body hr { border: none; border-top: 2px solid var(--creme-escuro); margin: 2.5rem 0; }
+
+    /* CTA footer */
+    .post-cta { background: var(--verde-escuro); border-radius: var(--radius); padding: 2.5rem; margin-top: 2.5rem; text-align: center; }
+    .post-cta p { color: rgba(245,240,232,0.7); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .post-cta h3 { font-size: 1.4rem; font-weight: 700; color: var(--creme); letter-spacing: -0.01em; margin-bottom: 0.5rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; border-radius: 50px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; transition: all var(--transicao); }
+    .btn-areia { background: var(--areia); color: var(--verde-escuro); }
+    .btn-areia:hover { background: var(--terra); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,94,60,0.35); }
+
+    /* Voltar */
+    .post-voltar { padding: 1.5rem 0 0; }
+    .voltar-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-medio); transition: color var(--transicao); }
+    .voltar-link svg { transform: rotate(180deg); }
+    .voltar-link:hover { color: var(--verde-sage); }
+
+    /* Loading / erro */
+    .loading { text-align: center; padding: 6rem 2rem; color: var(--texto-medio); }
+    .loading-spinner { width: 40px; height: 40px; border: 3px solid rgba(28,58,42,0.1); border-top-color: var(--verde-sage); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer mini */
+    .footer-mini { background: #0F1E16; padding: 2rem 0; text-align: center; margin-top: 5rem; }
+    .footer-mini p { font-size: 0.82rem; color: rgba(245,240,232,0.25); }
+    .footer-mini a { color: rgba(196,154,108,0.6); transition: color var(--transicao); }
+    .footer-mini a:hover { color: var(--areia); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo">Juliano <span>Sant'Ana</span></a>
+      <a href="/blog/" class="nav-back">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Todos os posts
+      </a>
+    </div>
+  </nav>
+
+  <div id="post-hero-area">
+    <div style="padding: 6rem 0; text-align: center;">
+      <div class="loading-spinner" style="margin: 0 auto;"></div>
+    </div>
+  </div>
+
+  <footer class="footer-mini">
+    <div class="container-wide">
+      <p>&copy; 2025 Juliano Sant'Ana — <a href="/">julianosantana.com.br</a></p>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    const REPO = 'jsmarketingmv/julianosantana-site';
+    const BRANCH = 'main';
+
+    function parseFrontmatter(raw) {
+      const match = raw.match(/^---\n([\s\S]*?)\n---/);
+      if (!match) return { body: raw };
+      const meta = {};
+      match[1].split('\n').forEach(line => {
+        const idx = line.indexOf(':');
+        if (idx === -1) return;
+        const key = line.slice(0, idx).trim();
+        const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+        meta[key] = val;
+      });
+      meta.body = raw.slice(match[0].length).trim();
+      return meta;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr + 'T12:00:00');
+      return d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function renderPost(post) {
+      document.title = post.title + ' — Juliano Sant\'Ana';
+      const metaDesc = document.getElementById('meta-desc');
+      if (metaDesc) metaDesc.content = post.summary || '';
+
+      const heroArea = document.getElementById('post-hero-area');
+      heroArea.innerHTML = `
+        <section class="post-hero">
+          <div class="container">
+            <div class="post-meta">
+              <span class="post-categoria">${post.category || 'Blog'}</span>
+              <span class="post-data">${formatDate(post.date)}</span>
+            </div>
+            <h1 class="post-titulo">${post.title}</h1>
+            <p class="post-resumo">${post.summary || ''}</p>
+          </div>
+        </section>
+
+        <section class="post-conteudo">
+          <div class="container">
+            <div class="post-voltar">
+              <a href="/blog/" class="voltar-link">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                Voltar para o blog
+              </a>
+            </div>
+            <div class="post-body" style="margin-top: 1.5rem;">
+              ${marked.parse(post.body)}
+            </div>
+            <div class="post-cta">
+              <h3>Gostou da reflexão?</h3>
+              <p>Se faz sentido para o seu negócio, podemos conversar. Diagnóstico direto, sem enrolação.</p>
+              <a href="/#contato" class="btn btn-areia">Quero um diagnóstico</a>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function showErro(msg) {
+      document.getElementById('post-hero-area').innerHTML = `
+        <div class="loading">
+          <p style="color:#8B5E3C;">${msg}</p>
+          <a href="/blog/" style="display:inline-block;margin-top:1rem;color:#4A7C59;font-weight:600;">← Voltar para o blog</a>
+        </div>
+      `;
+    }
+
+    async function init() {
+      const params = new URLSearchParams(location.search);
+      const slug = params.get('slug');
+      if (!slug) { showErro('Post não encontrado.'); return; }
+
+      try {
+        const url = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/content/blog/${encodeURIComponent(slug)}.md`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Post não encontrado');
+        const raw = await res.text();
+        const post = parseFrontmatter(raw);
+        renderPost(post);
+      } catch (err) {
+        showErro('Post não encontrado ou indisponível.');
+        console.error(err);
+      }
+    }
+
+    init();
+  })();
+  </script>
+
+</body>
+</html>
