@@ -2,7 +2,9 @@
 title: O Turismo Mudou. Minha Bússola Também!
 date: 2025-04-01
 category: Mercado
-summary: O viajante de hoje não quer destino. Quer história. Não quer pacote. Quer propósito. E isso muda tudo no marketing de turismo.
+summary: O viajante de hoje não quer destino. Quer história. Não quer pacote.
+  Quer propósito. E isso muda tudo no marketing de turismo.
+image: /assets/blog/img_4914.jpeg
 ---
 
 O viajante de hoje não quer destino. Quer história. Não quer pacote. Quer propósito. E isso muda tudo no marketing de turismo.
