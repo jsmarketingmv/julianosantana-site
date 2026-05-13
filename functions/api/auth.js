@@ -24,14 +24,13 @@ export async function onRequest({ request, env }) {
       const data = await resp.json();
 
       if (data.error || !data.access_token) {
-        return postMessageResponse('error', data.error_description || 'Autenticação falhou');
+        return errorResponse(data.error_description || 'Autenticação falhou');
       }
 
-      const payload = JSON.stringify({ token: data.access_token, provider: 'github' });
-      return postMessageResponse('success', payload);
+      return successResponse(data.access_token);
 
     } catch (err) {
-      return postMessageResponse('error', err.message);
+      return errorResponse(err.message);
     }
   }
 
@@ -46,27 +45,44 @@ export async function onRequest({ request, env }) {
   return Response.redirect(githubUrl.toString(), 302);
 }
 
-function postMessageResponse(status, content) {
-  const safe = content
+function successResponse(token) {
+  // Handshake de duas etapas compatível com Decap CMS / Netlify CMS
+  const tokenJson = JSON.stringify({ token, provider: 'github' })
     .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/</g, '\\x3C');
+    .replace(/"/g, '\\"');
 
   const html = `<!DOCTYPE html>
 <html>
 <body>
 <script>
 (function() {
-  var msg = 'authorization:github:${status}:${safe}';
-  function send() {
-    if (window.opener) { window.opener.postMessage(msg, '*'); window.close(); }
-    else { setTimeout(send, 100); }
+  var tokenData = "${tokenJson}";
+  function receiveMessage(e) {
+    window.opener.postMessage(
+      'authorization:github:success:' + tokenData,
+      e.origin
+    );
   }
-  send();
+  window.addEventListener('message', receiveMessage, false);
+  window.opener.postMessage('authorizing:github', '*');
 })();
 </script>
 </body>
 </html>`;
 
+  return new Response(html, { headers: { 'Content-Type': 'text/html' } });
+}
+
+function errorResponse(message) {
+  const safe = String(message).replace(/'/g, "\\'").replace(/</g, '\\x3C');
+  const html = `<!DOCTYPE html>
+<html>
+<body>
+<script>
+window.opener && window.opener.postMessage('authorization:github:error:${safe}', '*');
+window.close();
+</script>
+</body>
+</html>`;
   return new Response(html, { headers: { 'Content-Type': 'text/html' } });
 }
