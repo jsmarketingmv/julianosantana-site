@@ -148,8 +148,11 @@
       if (metaDesc) metaDesc.content = post.summary || '';
 
       const heroArea = document.getElementById('post-hero-area');
+      const heroBg = post.image
+        ? `background:linear-gradient(160deg,rgba(18,40,28,0.85) 0%,rgba(28,58,42,0.75) 100%),url('${post.image}') center/cover no-repeat`
+        : '';
       heroArea.innerHTML = `
-        <section class="post-hero">
+        <section class="post-hero" ${heroBg ? `style="${heroBg}"` : ''}>
           <div class="container">
             <div class="post-meta">
               <span class="post-categoria">${post.category || 'Blog'}</span>
@@ -196,7 +199,7 @@
       if (!slug) { showErro('Post não encontrado.'); return; }
 
       try {
-        const url = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/content/blog/${encodeURIComponent(slug)}.md`;
+        const url = `/content/blog/${encodeURIComponent(slug)}.md`;
         const res = await fetch(url);
         if (!res.ok) throw new Error('Post não encontrado');
         const raw = await res.text();
