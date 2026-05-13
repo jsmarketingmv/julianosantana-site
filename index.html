@@ -985,22 +985,22 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <div class="animar animar-delay-2">
           <div class="contato-form">
             <h3 class="form-titulo">Agendar Diagnóstico</h3>
-            <form id="formContato">
+            <form id="formContato" action="https://formspree.io/f/mrejdrqv" method="POST">
               <div class="form-grupo">
                 <label>Seu Nome</label>
-                <input type="text" placeholder="Como te chamo?" required />
+                <input type="text" name="nome" placeholder="Como te chamo?" required />
               </div>
               <div class="form-grupo">
                 <label>E-mail</label>
-                <input type="email" placeholder="seu@email.com" required />
+                <input type="email" name="email" placeholder="seu@email.com" required />
               </div>
               <div class="form-grupo">
                 <label>Seu Negócio / Segmento</label>
-                <input type="text" placeholder="Ex: restaurante, agência de viagens, e-commerce..." />
+                <input type="text" name="negocio" placeholder="Ex: restaurante, agência de viagens, e-commerce..." />
               </div>
               <div class="form-grupo">
                 <label>O que você precisa?</label>
-                <select>
+                <select name="servico">
                   <option value="">Selecione...</option>
                   <option>Mentoria Individual</option>
                   <option>Consultoria Estratégica</option>
@@ -1013,7 +1013,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
               </div>
               <div class="form-grupo">
                 <label>Contexto (opcional)</label>
-                <textarea placeholder="Me conta um pouco do que está acontecendo no seu negócio..."></textarea>
+                <textarea name="contexto" placeholder="Me conta um pouco do que está acontecendo no seu negócio..."></textarea>
               </div>
               <button type="submit" class="btn btn-primario" style="width:100%;justify-content:center;font-size:1rem;">
                 Enviar e Agendar →
@@ -1149,7 +1149,7 @@ function enviar(){const t=chatInput.value.trim();if(!t)return;addUser(t);chatInp
 chatSend?.addEventListener('click',enviar);chatInput?.addEventListener('keydown',e=>{if(e.key==='Enter')enviar()});
 setTimeout(()=>{if(!aberto&&chatTip){chatTip.classList.add('visivel');setTimeout(()=>chatTip.classList.remove('visivel'),5000)}},3000);
 // Form
-const form=document.getElementById('formContato'),formOk=document.getElementById('formSucesso');form?.addEventListener('submit',e=>{e.preventDefault();const b=form.querySelector('button[type="submit"]');b.textContent='Enviando...';b.disabled=true;setTimeout(()=>{form.style.display='none';formOk.style.display='block'},1500)});
+const form=document.getElementById('formContato'),formOk=document.getElementById('formSucesso');form?.addEventListener('submit',e=>{e.preventDefault();const b=form.querySelector('button[type="submit"]');b.textContent='Enviando...';b.disabled=true;fetch('https://formspree.io/f/mrejdrqv',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)}).then(r=>{if(r.ok){form.style.display='none';formOk.style.display='block';}else{b.textContent='Enviar e Agendar →';b.disabled=false;alert('Erro ao enviar. Tente novamente.');}}).catch(()=>{b.textContent='Enviar e Agendar →';b.disabled=false;alert('Erro de conexão. Tente novamente.');});});
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(l=>l.addEventListener('click',e=>{const t=document.querySelector(l.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}}));
 // Popup fechar
