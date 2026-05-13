@@ -3,7 +3,7 @@ backend:
   repo: jsmarketingmv/julianosantana-site
   branch: main
   auth_type: pkce
-  app_id: SEU_GITHUB_CLIENT_ID
+  app_id: Ov23liTaoGjtM0gTHMrm
 
 locale: pt
 
