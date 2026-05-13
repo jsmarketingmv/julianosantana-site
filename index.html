@@ -1128,6 +1128,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
 
   <script src="js/main.js"></script>
   <script>
+(function(){
 // Navbar scroll
 const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>60)});
 // Menu mobile
@@ -1155,6 +1156,7 @@ document.querySelectorAll('a[href^="#"]').forEach(l=>l.addEventListener('click',
 // Popup fechar
 document.getElementById('popup-fechar')?.addEventListener('click',()=>document.getElementById('popup-saibamais').classList.remove('aberto'));
 document.getElementById('popup-saibamais')?.addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.classList.remove('aberto');});
+})();
   </script>
 
   <!-- POPUP: Conheça minha rota -->
