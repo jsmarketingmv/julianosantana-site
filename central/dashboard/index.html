@@ -181,25 +181,63 @@
     .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
 
     /* ---- TELEPROMPTER ---- */
-    .tp-overlay { position: fixed; inset: 0; background: #07120a; z-index: 1000; display: none; flex-direction: column; }
+    .tp-overlay { position: fixed; inset: 0; background: #06100a; z-index: 1000; display: none; flex-direction: column; }
     .tp-overlay.aberto { display: flex; }
-    .tp-header { padding: 1.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(196,154,108,0.12); flex-shrink: 0; }
-    .tp-titulo { font-size: 0.85rem; font-weight: 700; color: var(--areia); letter-spacing: 0.05em; flex: 1; }
-    .tp-counter { font-size: 0.8rem; font-weight: 600; color: rgba(245,240,232,0.35); margin: 0 1.5rem; }
-    .tp-close { background: none; border: 1px solid rgba(245,240,232,0.15); border-radius: 6px; color: rgba(245,240,232,0.45); font-size: 1rem; width: 36px; height: 36px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
-    .tp-close:hover { color: var(--creme); border-color: rgba(245,240,232,0.4); }
-    .tp-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 12%; overflow: hidden; }
-    .tp-step-text { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--creme); line-height: 1.65; text-align: center; max-width: 820px; }
-    .tp-footer { padding: 1.8rem 2.5rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(196,154,108,0.12); flex-shrink: 0; }
-    .tp-btn { padding: 0.7rem 1.8rem; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(245,240,232,0.15); background: transparent; color: rgba(245,240,232,0.7); }
-    .tp-btn:hover:not(:disabled) { background: rgba(255,255,255,0.07); color: var(--creme); }
-    .tp-btn:disabled { opacity: 0.25; cursor: not-allowed; }
-    .tp-btn-next { background: rgba(45,90,61,0.6); border-color: var(--verde-sage); color: var(--creme); }
-    .tp-btn-next:hover:not(:disabled) { background: var(--verde-medio); }
-    .tp-progress { display: flex; gap: 8px; align-items: center; }
-    .tp-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(245,240,232,0.15); transition: all 0.25s; }
-    .tp-dot.ativo { background: var(--areia); width: 20px; border-radius: 4px; }
-    .tp-hint { font-size: 0.62rem; color: rgba(245,240,232,0.2); letter-spacing: 0.1em; text-transform: uppercase; position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); }
+
+    /* Camera video background */
+    .tp-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.18; z-index: 0; pointer-events: none; display: none; transform: scaleX(-1); }
+    .tp-video.ativa { display: block; }
+
+    /* Header */
+    .tp-header { padding: 0.9rem 1.5rem; display: flex; align-items: center; gap: 0.9rem; border-bottom: 1px solid rgba(196,154,108,0.1); flex-shrink: 0; position: relative; z-index: 2; }
+    .tp-titulo { font-size: 0.82rem; font-weight: 700; color: var(--areia); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Play/Pause */
+    .tp-play-btn { padding: 0.45rem 1.4rem; border-radius: 8px; background: rgba(45,90,61,0.6); border: 1px solid var(--verde-sage); color: var(--creme); font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.18s; min-width: 110px; white-space: nowrap; }
+    .tp-play-btn:hover { background: var(--verde-medio); }
+    .tp-play-btn.pausando { background: rgba(196,154,108,0.15); border-color: var(--areia); color: var(--areia); }
+
+    /* Restart */
+    .tp-restart-btn { width: 34px; height: 34px; border-radius: 7px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(245,240,232,0.5); font-size: 1rem; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .tp-restart-btn:hover { color: var(--creme); background: rgba(255,255,255,0.1); }
+
+    /* Speed selector */
+    .tp-speed-group { display: flex; align-items: center; gap: 0.35rem; }
+    .tp-speed-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.28); margin-right: 0.2rem; }
+    .tp-spd { padding: 0.3rem 0.65rem; border-radius: 5px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: rgba(245,240,232,0.38); font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: 'Montserrat', sans-serif; white-space: nowrap; }
+    .tp-spd:hover { color: var(--creme); border-color: rgba(255,255,255,0.25); }
+    .tp-spd.ativo { background: rgba(196,154,108,0.2); border-color: var(--areia); color: var(--areia); }
+
+    /* Camera toggle */
+    .tp-cam-btn { padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: rgba(245,240,232,0.45); font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.18s; font-family: 'Montserrat', sans-serif; white-space: nowrap; }
+    .tp-cam-btn:hover { color: var(--creme); }
+    .tp-cam-btn.ativa { background: rgba(196,154,108,0.15); border-color: var(--areia); color: var(--areia); }
+
+    /* Close */
+    .tp-close { width: 34px; height: 34px; border-radius: 7px; background: none; border: 1px solid rgba(245,240,232,0.12); color: rgba(245,240,232,0.38); font-size: 1rem; cursor: pointer; transition: all 0.18s; flex-shrink: 0; }
+    .tp-close:hover { color: var(--creme); border-color: rgba(245,240,232,0.35); }
+
+    /* Scroll area */
+    .tp-scroll-wrap { flex: 1; position: relative; overflow-y: auto; overflow-x: hidden; scroll-behavior: auto; z-index: 1; }
+    .tp-scroll-wrap::-webkit-scrollbar { display: none; }
+    .tp-scroll-wrap { scrollbar-width: none; }
+
+    /* Gradient fades — creates the "reading tunnel" effect */
+    .tp-fade-top { position: fixed; top: 52px; left: 0; right: 0; height: 32%; background: linear-gradient(to bottom, #06100a 20%, transparent 100%); z-index: 3; pointer-events: none; }
+    .tp-fade-bottom { position: fixed; bottom: 32px; left: 0; right: 0; height: 32%; background: linear-gradient(to top, #06100a 20%, transparent 100%); z-index: 3; pointer-events: none; }
+    /* Subtle center glow to highlight reading zone */
+    .tp-center-glow { position: fixed; top: 50%; left: 0; right: 0; height: 18vh; transform: translateY(-50%); background: rgba(245,240,232,0.022); z-index: 1; pointer-events: none; border-top: 1px solid rgba(245,240,232,0.04); border-bottom: 1px solid rgba(245,240,232,0.04); }
+
+    /* Scrolling text */
+    .tp-scroll-inner { padding: 50vh 12% 50vh; }
+    .tp-bloco { text-align: center; margin-bottom: 2.5rem; }
+    .tp-bloco-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(196,154,108,0.45); margin-bottom: 0.6rem; }
+    .tp-bloco-texto { font-size: clamp(1.15rem, 2.2vw, 1.65rem); font-weight: 600; color: var(--creme); line-height: 1.75; }
+    .tp-separador { border: none; border-top: 1px solid rgba(196,154,108,0.12); margin: 2.5rem auto; width: 60px; }
+
+    /* Footer hint */
+    .tp-footer-bar { padding: 0.5rem 1.5rem; display: flex; align-items: center; justify-content: center; border-top: 1px solid rgba(196,154,108,0.07); flex-shrink: 0; position: relative; z-index: 2; }
+    .tp-hint { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.16); }
 
     /* ---- CALENDÁRIO ---- */
     .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
@@ -569,20 +607,44 @@
 
   <!-- =================== TELEPROMPTER =================== -->
   <div class="tp-overlay" id="tp-overlay">
+    <!-- Camera background -->
+    <video class="tp-video" id="tp-video" autoplay muted playsinline></video>
+
+    <!-- Fade overlays (fixed so they stay while content scrolls) -->
+    <div class="tp-fade-top"></div>
+    <div class="tp-fade-bottom"></div>
+    <div class="tp-center-glow"></div>
+
+    <!-- Header controls -->
     <div class="tp-header">
       <span class="tp-titulo" id="tp-titulo">Roteiro</span>
-      <span class="tp-counter" id="tp-counter">1 / 1</span>
+
+      <button class="tp-restart-btn" id="tp-restart" title="Reiniciar">⟲</button>
+      <button class="tp-play-btn" id="tp-play">▶ Play</button>
+
+      <div class="tp-speed-group">
+        <span class="tp-speed-label">Velocidade</span>
+        <button class="tp-spd" data-spd="0.35">Lenta</button>
+        <button class="tp-spd ativo" data-spd="0.85">Normal</button>
+        <button class="tp-spd" data-spd="1.8">Rápida</button>
+        <button class="tp-spd" data-spd="3.2">Turbo</button>
+      </div>
+
+      <button class="tp-cam-btn" id="tp-cam-toggle">📷 Câmera</button>
       <button class="tp-close" id="tp-close" title="Fechar (Esc)">✕</button>
     </div>
-    <div class="tp-body">
-      <div class="tp-step-text" id="tp-step-text"></div>
+
+    <!-- Scrolling text area -->
+    <div class="tp-scroll-wrap" id="tp-scroll-wrap">
+      <div class="tp-scroll-inner" id="tp-scroll-inner">
+        <!-- preenchido via JS -->
+      </div>
     </div>
-    <div class="tp-footer">
-      <button class="tp-btn" id="tp-prev">← Anterior</button>
-      <div class="tp-progress" id="tp-progress"></div>
-      <button class="tp-btn tp-btn-next" id="tp-next">Próximo →</button>
+
+    <!-- Footer hint -->
+    <div class="tp-footer-bar">
+      <span class="tp-hint">Espaço = play/pause &nbsp;·&nbsp; ↑↓ = scroll manual &nbsp;·&nbsp; Esc = sair</span>
     </div>
-    <span class="tp-hint">Espaço / → próximo &nbsp;·&nbsp; ← anterior &nbsp;·&nbsp; Esc sair</span>
   </div>
 
   <script>
@@ -754,7 +816,6 @@ Link na bio. Vagas limitadas por semana.` },
   let platFiltro = 'todos';
   let calOffset = 0;
   let tpRoteiro = null;
-  let tpStep = 0;
 
   // ================================================
   //  HELPERS
@@ -1180,59 +1241,143 @@ Link na bio. Vagas limitadas por semana.` },
   }
 
   // ================================================
-  //  TELEPROMPTER
+  //  TELEPROMPTER — AUTO-SCROLL
   // ================================================
+  let tpPlaying = false;
+  let tpSpeed = 0.85;   // px per animation frame
+  let tpRAF = null;
+  let tpCamStream = null;
+
   function abrirTP(id) {
     tpRoteiro = ROTEIROS.find(r => r.id === id);
     if (!tpRoteiro) return;
-    tpStep = 0;
+
     document.getElementById('tp-titulo').textContent = tpRoteiro.titulo;
-    atualizarTP();
+
+    // Build continuous scrolling text
+    const inner = document.getElementById('tp-scroll-inner');
+    inner.innerHTML = tpRoteiro.steps.map((step, i) => `
+      <div class="tp-bloco">
+        <div class="tp-bloco-num">Parte ${i + 1} de ${tpRoteiro.steps.length}</div>
+        <div class="tp-bloco-texto">${step}</div>
+      </div>
+      ${i < tpRoteiro.steps.length - 1 ? '<hr class="tp-separador" />' : ''}
+    `).join('');
+
+    // Reset scroll
+    const wrap = document.getElementById('tp-scroll-wrap');
+    wrap.scrollTop = 0;
+    tpPlaying = false;
+    atualizarPlayBtn();
+
     document.getElementById('tp-overlay').classList.add('aberto');
     document.body.style.overflow = 'hidden';
   }
 
-  function atualizarTP() {
-    if (!tpRoteiro) return;
-    const total = tpRoteiro.steps.length;
-    document.getElementById('tp-counter').textContent = `${tpStep + 1} / ${total}`;
-    document.getElementById('tp-step-text').textContent = tpRoteiro.steps[tpStep];
-    document.getElementById('tp-prev').disabled = tpStep === 0;
-    document.getElementById('tp-next').textContent = tpStep === total - 1 ? '✅ Concluído' : 'Próximo →';
-
-    const dots = document.getElementById('tp-progress');
-    dots.innerHTML = tpRoteiro.steps.map((_, i) =>
-      `<div class="tp-dot ${i === tpStep ? 'ativo' : ''}"></div>`
-    ).join('');
+  function atualizarPlayBtn() {
+    const btn = document.getElementById('tp-play');
+    if (tpPlaying) {
+      btn.textContent = '⏸ Pausar';
+      btn.classList.add('pausando');
+    } else {
+      btn.textContent = '▶ Play';
+      btn.classList.remove('pausando');
+    }
   }
 
-  function tpNext() {
+  function tpTogglePlay() {
     if (!tpRoteiro) return;
-    if (tpStep < tpRoteiro.steps.length - 1) { tpStep++; atualizarTP(); }
-    else fecharTP();
+    tpPlaying = !tpPlaying;
+    atualizarPlayBtn();
+    if (tpPlaying) tpTick();
   }
 
-  function tpPrev() {
-    if (!tpRoteiro || tpStep === 0) return;
-    tpStep--;
-    atualizarTP();
+  function tpTick() {
+    if (!tpPlaying) return;
+    const wrap = document.getElementById('tp-scroll-wrap');
+    wrap.scrollTop += tpSpeed;
+    // Stop at bottom
+    if (wrap.scrollTop >= wrap.scrollHeight - wrap.clientHeight) {
+      wrap.scrollTop = wrap.scrollHeight - wrap.clientHeight;
+      tpPlaying = false;
+      atualizarPlayBtn();
+      return;
+    }
+    tpRAF = requestAnimationFrame(tpTick);
+  }
+
+  function tpRestart() {
+    tpPlaying = false;
+    cancelAnimationFrame(tpRAF);
+    atualizarPlayBtn();
+    document.getElementById('tp-scroll-wrap').scrollTop = 0;
+  }
+
+  async function tpToggleCam() {
+    const vid = document.getElementById('tp-video');
+    const btn = document.getElementById('tp-cam-toggle');
+    if (tpCamStream) {
+      tpCamStream.getTracks().forEach(t => t.stop());
+      tpCamStream = null;
+      vid.srcObject = null;
+      vid.classList.remove('ativa');
+      btn.classList.remove('ativa');
+      btn.textContent = '📷 Câmera';
+    } else {
+      try {
+        tpCamStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+        vid.srcObject = tpCamStream;
+        vid.classList.add('ativa');
+        btn.classList.add('ativa');
+        btn.textContent = '📷 Câmera ON';
+      } catch {
+        alert('Não foi possível acessar a câmera.\nVerifique as permissões do navegador.');
+      }
+    }
   }
 
   function fecharTP() {
+    tpPlaying = false;
+    cancelAnimationFrame(tpRAF);
+    if (tpCamStream) {
+      tpCamStream.getTracks().forEach(t => t.stop());
+      tpCamStream = null;
+      const vid = document.getElementById('tp-video');
+      vid.srcObject = null;
+      vid.classList.remove('ativa');
+      document.getElementById('tp-cam-toggle').classList.remove('ativa');
+      document.getElementById('tp-cam-toggle').textContent = '📷 Câmera';
+    }
     document.getElementById('tp-overlay').classList.remove('aberto');
     document.body.style.overflow = '';
     tpRoteiro = null;
   }
 
-  document.getElementById('tp-prev').addEventListener('click', tpPrev);
-  document.getElementById('tp-next').addEventListener('click', tpNext);
+  document.getElementById('tp-play').addEventListener('click', tpTogglePlay);
+  document.getElementById('tp-restart').addEventListener('click', tpRestart);
   document.getElementById('tp-close').addEventListener('click', fecharTP);
+  document.getElementById('tp-cam-toggle').addEventListener('click', tpToggleCam);
+
+  document.querySelectorAll('.tp-spd').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tp-spd').forEach(b => b.classList.remove('ativo'));
+      btn.classList.add('ativo');
+      tpSpeed = parseFloat(btn.dataset.spd);
+    });
+  });
 
   document.addEventListener('keydown', e => {
     if (!document.getElementById('tp-overlay').classList.contains('aberto')) return;
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); tpNext(); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); tpPrev(); }
+    if (e.key === ' ') { e.preventDefault(); tpTogglePlay(); }
     if (e.key === 'Escape') fecharTP();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      document.getElementById('tp-scroll-wrap').scrollTop += 40;
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      document.getElementById('tp-scroll-wrap').scrollTop -= 40;
+    }
   });
 
   // ================================================
