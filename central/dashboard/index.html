@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Central — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --verde-escuro: #1C3A2A; --verde-medio: #2D5A3D; --verde-sage: #4A7C59;
+      --verde-claro: #7FB069; --areia: #C49A6C; --terra: #8B5E3C;
+      --creme: #F5F0E8; --creme-escuro: #EDE7D9;
+      --texto-escuro: #1A2A1F; --texto-medio: #3D5C47;
+      --branco: #FFFFFF; --radius: 12px;
+      --sidebar: 240px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); display: flex; min-height: 100vh; }
+
+    /* ---- SIDEBAR ---- */
+    .sidebar {
+      width: var(--sidebar); background: var(--verde-escuro); min-height: 100vh;
+      position: fixed; top: 0; left: 0; z-index: 50;
+      display: flex; flex-direction: column; padding: 1.5rem 0;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    .sidebar-logo { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
+    .sidebar-logo-nome { font-size: 1rem; font-weight: 800; color: var(--creme); line-height: 1.2; }
+    .sidebar-logo-nome span { color: var(--areia); font-weight: 300; }
+    .sidebar-logo-tag { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,240,232,0.3); margin-top: 0.3rem; display: block; }
+    .sidebar-logo-badge { display: inline-block; margin-top: 0.6rem; background: rgba(196,154,108,0.15); border: 1px solid rgba(196,154,108,0.25); color: var(--areia); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 20px; }
+
+    .nav-section-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.25); padding: 0 1.5rem; margin-bottom: 0.5rem; margin-top: 1rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1.5rem; font-size: 0.82rem; font-weight: 600; color: rgba(245,240,232,0.55); cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
+    .nav-item:hover { color: var(--creme); background: rgba(255,255,255,0.05); }
+    .nav-item.ativo { color: var(--areia); background: rgba(196,154,108,0.1); border-left-color: var(--areia); }
+    .nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+    .sidebar-rodape { margin-top: auto; padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); }
+    .btn-sair { width: 100%; padding: 0.6rem; background: rgba(139,94,60,0.15); border: 1px solid rgba(139,94,60,0.25); border-radius: 8px; color: rgba(196,154,108,0.7); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.05em; }
+    .btn-sair:hover { background: rgba(139,94,60,0.25); color: var(--areia); }
+
+    /* ---- MAIN ---- */
+    .main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar { background: var(--branco); border-bottom: 1px solid rgba(28,58,42,0.08); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 8px rgba(28,58,42,0.06); }
+    .topbar-titulo { font-size: 1rem; font-weight: 700; color: var(--verde-escuro); }
+    .topbar-semana { font-size: 0.75rem; color: var(--texto-medio); background: var(--creme); padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid rgba(28,58,42,0.1); }
+    .topbar-user { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: var(--texto-medio); }
+    .topbar-avatar { width: 32px; height: 32px; background: var(--verde-escuro); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--areia); font-size: 0.8rem; font-weight: 800; }
+
+    .content { padding: 2rem; flex: 1; }
+
+    /* ---- VIEWS ---- */
+    .view { display: none; }
+    .view.ativa { display: block; }
+
+    /* ---- CARDS RESUMO ---- */
+    .resumo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .resumo-card { background: var(--branco); border-radius: var(--radius); padding: 1.2rem 1.5rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); border-top: 3px solid; }
+    .resumo-card.verde { border-color: var(--verde-sage); }
+    .resumo-card.areia { border-color: var(--areia); }
+    .resumo-card.terra { border-color: var(--terra); }
+    .resumo-card.claro { border-color: var(--verde-claro); }
+    .resumo-num { font-size: 2rem; font-weight: 800; color: var(--verde-escuro); line-height: 1; margin-bottom: 0.3rem; }
+    .resumo-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-medio); }
+
+    /* ---- PLANO DA SEMANA ---- */
+    .semana-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .semana-nav { display: flex; align-items: center; gap: 0.8rem; }
+    .semana-nav button { padding: 0.4rem 0.9rem; border: 1px solid rgba(28,58,42,0.15); background: var(--branco); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--texto-medio); cursor: pointer; transition: all 0.2s; }
+    .semana-nav button:hover { border-color: var(--verde-sage); color: var(--verde-sage); }
+    .semana-label { font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); min-width: 100px; text-align: center; }
+
+    .dias-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+    .dia-col { background: var(--branco); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
+    .dia-header { padding: 0.8rem 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .dia-seg .dia-header { background: var(--verde-escuro); color: var(--creme); }
+    .dia-ter .dia-header { background: var(--terra); color: var(--creme); }
+    .dia-qua .dia-header { background: var(--verde-medio); color: var(--creme); }
+    .dia-qui .dia-header { background: var(--areia); color: var(--verde-escuro); }
+    .dia-sex .dia-header { background: var(--verde-sage); color: var(--creme); }
+    .dia-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .post-slot { border: 1px solid rgba(28,58,42,0.1); border-radius: 8px; padding: 0.7rem; cursor: pointer; transition: all 0.2s; }
+    .post-slot:hover { border-color: var(--verde-sage); box-shadow: 0 2px 8px rgba(74,124,89,0.15); }
+    .post-slot-plat { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.3rem; }
+    .plat-ig { color: var(--terra); }
+    .plat-li { color: var(--verde-sage); }
+    .post-slot-pilar { font-size: 0.68rem; font-weight: 600; color: var(--texto-medio); margin-bottom: 0.4rem; }
+    .post-slot-preview { font-size: 0.75rem; color: var(--texto-escuro); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .post-status { display: inline-block; margin-top: 0.5rem; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 20px; }
+    .status-pendente { background: rgba(28,58,42,0.07); color: var(--texto-medio); }
+    .status-aprovado { background: rgba(74,124,89,0.15); color: var(--verde-sage); }
+    .status-producao { background: rgba(196,154,108,0.2); color: var(--terra); }
+    .status-publicado { background: rgba(127,176,105,0.2); color: #3a7a2a; }
+
+    /* ---- MODAL DE POST ---- */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.aberto { display: flex; }
+    .modal { background: var(--branco); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .modal-header { padding: 1.5rem; border-bottom: 1px solid rgba(28,58,42,0.08); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--branco); z-index: 1; }
+    .modal-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
+    .modal-fechar { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--texto-medio); padding: 0.2rem; transition: color 0.2s; }
+    .modal-fechar:hover { color: var(--verde-escuro); }
+    .modal-body { padding: 1.5rem; }
+    .modal-grupo { margin-bottom: 1.2rem; }
+    .modal-grupo label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(28,58,42,0.5); margin-bottom: 0.5rem; }
+    .modal-grupo textarea { width: 100%; padding: 0.8rem; border: 1px solid rgba(28,58,42,0.15); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: var(--texto-escuro); resize: vertical; min-height: 100px; outline: none; transition: border-color 0.2s; line-height: 1.6; }
+    .modal-grupo textarea:focus { border-color: var(--verde-sage); }
+    .modal-grupo input[type="text"] { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid rgba(28,58,42,0.15); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: var(--texto-escuro); outline: none; transition: border-color 0.2s; }
+    .modal-grupo input:focus { border-color: var(--verde-sage); }
+    .status-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .status-btn { padding: 0.45rem 1rem; border-radius: 20px; border: 1px solid; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .status-btn.s-pendente { border-color: rgba(28,58,42,0.2); color: var(--texto-medio); background: transparent; }
+    .status-btn.s-aprovado { border-color: rgba(74,124,89,0.3); color: var(--verde-sage); background: rgba(74,124,89,0.08); }
+    .status-btn.s-producao { border-color: rgba(196,154,108,0.4); color: var(--terra); background: rgba(196,154,108,0.1); }
+    .status-btn.s-publicado { border-color: rgba(127,176,105,0.4); color: #3a7a2a; background: rgba(127,176,105,0.1); }
+    .status-btn.selecionado { font-weight: 800; transform: scale(1.05); }
+    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(28,58,42,0.08); display: flex; gap: 0.8rem; justify-content: flex-end; }
+    .btn-modal { padding: 0.6rem 1.4rem; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: none; }
+    .btn-salvar { background: var(--verde-escuro); color: var(--creme); }
+    .btn-salvar:hover { background: var(--verde-medio); }
+    .btn-cancelar { background: transparent; border: 1px solid rgba(28,58,42,0.15); color: var(--texto-medio); }
+    .btn-cancelar:hover { background: var(--creme); }
+
+    /* ---- BIBLIOTECA ---- */
+    .biblioteca-filtros { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .filtro-pill { padding: 0.4rem 1rem; border-radius: 20px; border: 1px solid rgba(28,58,42,0.15); background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; color: var(--texto-medio); transition: all 0.2s; }
+    .filtro-pill:hover, .filtro-pill.ativo { background: var(--verde-escuro); color: var(--creme); border-color: var(--verde-escuro); }
+    .copys-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .copy-card { background: var(--branco); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
+    .copy-card-header { padding: 0.7rem 1rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
+    .copy-card-body { padding: 1rem 1.2rem; }
+    .copy-texto { font-size: 0.82rem; color: var(--texto-medio); line-height: 1.7; white-space: pre-line; margin-bottom: 0.8rem; }
+    .copy-acoes { display: flex; gap: 0.5rem; }
+    .btn-copiar { padding: 0.4rem 0.9rem; border-radius: 6px; background: var(--creme); border: 1px solid rgba(28,58,42,0.12); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; cursor: pointer; color: var(--texto-medio); transition: all 0.2s; }
+    .btn-copiar:hover { background: var(--verde-escuro); color: var(--creme); border-color: var(--verde-escuro); }
+    .btn-copiar.copiado { background: rgba(74,124,89,0.15); color: var(--verde-sage); border-color: rgba(74,124,89,0.3); }
+    .ch-acao { background: var(--verde-escuro); color: var(--creme); }
+    .ch-reacao { background: var(--terra); color: var(--creme); }
+    .ch-campo { background: var(--verde-sage); color: var(--creme); }
+    .ch-neg { background: var(--creme-escuro); color: var(--verde-escuro); }
+    .ch-mapa { background: var(--areia); color: var(--verde-escuro); }
+
+    /* ---- MÉTRICAS ---- */
+    .metricas-form { background: var(--branco); border-radius: var(--radius); padding: 2rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); margin-bottom: 2rem; }
+    .metricas-form h3 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-sage); margin-bottom: 1.5rem; }
+    .metricas-inputs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .metrica-input label { display: block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(28,58,42,0.45); margin-bottom: 0.4rem; }
+    .metrica-input input { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid rgba(28,58,42,0.12); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; color: var(--verde-escuro); text-align: center; outline: none; transition: border-color 0.2s; }
+    .metrica-input input:focus { border-color: var(--verde-sage); }
+    .btn-salvar-metricas { margin-top: 1.5rem; padding: 0.8rem 2rem; background: var(--verde-escuro); color: var(--creme); border: none; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .btn-salvar-metricas:hover { background: var(--verde-medio); }
+    .historico-metricas { background: var(--branco); border-radius: var(--radius); padding: 2rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
+    .historico-metricas h3 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--verde-sage); margin-bottom: 1.5rem; }
+    .historico-vazio { font-size: 0.85rem; color: var(--texto-medio); font-style: italic; text-align: center; padding: 2rem; }
+    .historico-item { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid rgba(28,58,42,0.07); flex-wrap: wrap; }
+    .historico-item:last-child { border-bottom: none; }
+    .historico-semana { font-size: 0.72rem; font-weight: 700; color: var(--verde-escuro); min-width: 100px; }
+    .historico-num { display: flex; flex-direction: column; align-items: center; }
+    .historico-num strong { font-size: 1.1rem; font-weight: 800; color: var(--verde-escuro); }
+    .historico-num span { font-size: 0.6rem; color: var(--texto-medio); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ---- SEÇÃO TÍTULO ---- */
+    .secao-titulo { font-size: 1.2rem; font-weight: 800; color: var(--verde-escuro); letter-spacing: -0.01em; margin-bottom: 0.3rem; }
+    .secao-sub { font-size: 0.85rem; color: var(--texto-medio); margin-bottom: 1.5rem; }
+
+    /* ---- ROTEIROS ---- */
+    .roteiro-card { background: var(--branco); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
+    .roteiro-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; }
+    .roteiro-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
+    .roteiro-meta { font-size: 0.68rem; color: var(--areia); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
+    .roteiro-check { width: 24px; height: 24px; accent-color: var(--verde-sage); flex-shrink: 0; cursor: pointer; }
+    .roteiro-steps { list-style: none; counter-reset: step; }
+    .roteiro-steps li { counter-increment: step; display: flex; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(28,58,42,0.06); font-size: 0.8rem; color: var(--texto-medio); line-height: 1.5; }
+    .roteiro-steps li:last-child { border-bottom: none; }
+    .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .main { margin-left: 0; }
+      .dias-grid { grid-template-columns: 1fr; }
+      .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+      .copys-grid { grid-template-columns: 1fr; }
+      .metricas-inputs { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =================== SIDEBAR =================== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-nome">Juliano <span>Sant'Ana</span></div>
+      <span class="sidebar-logo-tag">Central de Comando</span>
+      <span class="sidebar-logo-badge">⚡ Área Restrita</span>
+    </div>
+
+    <span class="nav-section-label">Principal</span>
+    <a class="nav-item ativo" data-view="visao-geral" href="#">
+      <span class="nav-icon">🏠</span> Visão Geral
+    </a>
+    <a class="nav-item" data-view="plano" href="#">
+      <span class="nav-icon">📅</span> Plano da Semana
+    </a>
+    <a class="nav-item" data-view="biblioteca" href="#">
+      <span class="nav-icon">✍️</span> Biblioteca de Copys
+    </a>
+    <a class="nav-item" data-view="roteiros" href="#">
+      <span class="nav-icon">🎬</span> Roteiros de Vídeo
+    </a>
+
+    <span class="nav-section-label">Análise</span>
+    <a class="nav-item" data-view="metricas" href="#">
+      <span class="nav-icon">📊</span> Métricas
+    </a>
+
+    <span class="nav-section-label">Guias</span>
+    <a class="nav-item" href="/brandbook/" target="_blank">
+      <span class="nav-icon">🎨</span> Brandbook
+    </a>
+    <a class="nav-item" href="/plano-comunicacao/" target="_blank">
+      <span class="nav-icon">📋</span> Plano Completo
+    </a>
+    <a class="nav-item" href="/" target="_blank">
+      <span class="nav-icon">🌐</span> Ver Site
+    </a>
+
+    <div class="sidebar-rodape">
+      <button class="btn-sair" id="btn-sair">← Sair da Central</button>
+    </div>
+  </aside>
+
+  <!-- =================== MAIN =================== -->
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-titulo" id="topbar-titulo">Visão Geral</span>
+      <span class="topbar-semana" id="topbar-semana">Semana —</span>
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="topbar-avatar">J</div>
+        <span id="topbar-nome">Juliano</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ============ VIEW: VISÃO GERAL ============ -->
+      <div class="view ativa" id="view-visao-geral">
+        <div class="resumo-grid" id="resumo-cards">
+          <div class="resumo-card verde">
+            <div class="resumo-num" id="res-total">0</div>
+            <div class="resumo-label">Posts esta semana</div>
+          </div>
+          <div class="resumo-card areia">
+            <div class="resumo-num" id="res-aprovados">0</div>
+            <div class="resumo-label">Aprovados</div>
+          </div>
+          <div class="resumo-card terra">
+            <div class="resumo-num" id="res-producao">0</div>
+            <div class="resumo-label">Em produção</div>
+          </div>
+          <div class="resumo-card claro">
+            <div class="resumo-num" id="res-publicados">0</div>
+            <div class="resumo-label">Publicados</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:2rem;color:var(--creme);">
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--areia);margin-bottom:0.8rem;">⚡ Filosofia de Marca</div>
+            <div style="font-size:1.2rem;font-weight:800;margin-bottom:0.5rem;">AÇÃO &amp; REAÇÃO</div>
+            <div style="font-size:0.82rem;color:rgba(245,240,232,0.55);line-height:1.6;">Uma filosofia de vida e carreira. Nunca um método. Toda comunicação nasce daqui.</div>
+          </div>
+          <div style="background:var(--branco);border-radius:var(--radius);padding:2rem;box-shadow:0 2px 10px rgba(28,58,42,0.07);">
+            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde-sage);margin-bottom:0.8rem;">📌 Links rápidos</div>
+            <div style="display:flex;flex-direction:column;gap:0.6rem;">
+              <a href="https://instagram.com/julianopsantana" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">📷 @julianopsantana</a>
+              <a href="https://linkedin.com/in/julianopsantana" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">💼 LinkedIn</a>
+              <a href="https://www.julianosantana.com.br/link" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">🔗 Página do Instagram</a>
+              <a href="https://www.mapadaverdade.com.br" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">🗺️ Mapa da Verdade</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ VIEW: PLANO DA SEMANA ============ -->
+      <div class="view" id="view-plano">
+        <div class="secao-titulo">Plano da Semana</div>
+        <p class="secao-sub">Clique em qualquer post para editar a copy, ajustar o status e adicionar observações.</p>
+
+        <div class="semana-header">
+          <div class="semana-nav">
+            <button id="btn-semana-ant">← Anterior</button>
+            <span class="semana-label" id="label-semana">—</span>
+            <button id="btn-semana-prox">Próxima →</button>
+          </div>
+        </div>
+
+        <div class="dias-grid" id="dias-grid">
+          <!-- preenchido via JS -->
+        </div>
+      </div>
+
+      <!-- ============ VIEW: BIBLIOTECA ============ -->
+      <div class="view" id="view-biblioteca">
+        <div class="secao-titulo">Biblioteca de Copys</div>
+        <p class="secao-sub">Todas as copys prontas, organizadas por pilar. Clique em "Copiar" para usar no Instagram ou LinkedIn.</p>
+        <div class="biblioteca-filtros">
+          <button class="filtro-pill ativo" data-pilar="todos">Todos</button>
+          <button class="filtro-pill" data-pilar="acao">⚡ Ação</button>
+          <button class="filtro-pill" data-pilar="reacao">🔄 Reação</button>
+          <button class="filtro-pill" data-pilar="campo">🏔️ Campo</button>
+          <button class="filtro-pill" data-pilar="negocios">📊 Negócios</button>
+          <button class="filtro-pill" data-pilar="mapa">🗺️ Mapa</button>
+        </div>
+        <div class="copys-grid" id="copys-grid">
+          <!-- preenchido via JS -->
+        </div>
+      </div>
+
+      <!-- ============ VIEW: ROTEIROS ============ -->
+      <div class="view" id="view-roteiros">
+        <div class="secao-titulo">Roteiros de Vídeo</div>
+        <p class="secao-sub">Roteiros prontos para Reels e vídeos curtos. Marque como gravado quando concluir.</p>
+        <div id="roteiros-lista">
+          <!-- preenchido via JS -->
+        </div>
+      </div>
+
+      <!-- ============ VIEW: MÉTRICAS ============ -->
+      <div class="view" id="view-metricas">
+        <div class="secao-titulo">Métricas da Semana</div>
+        <p class="secao-sub">Cole os números do Instagram aqui. O histórico fica salvo para acompanhar a evolução.</p>
+
+        <div class="metricas-form">
+          <h3>📊 Registrar semana — <span id="label-semana-met">—</span></h3>
+          <div class="metricas-inputs">
+            <div class="metrica-input"><label>Alcance</label><input type="number" id="met-alcance" placeholder="0" /></div>
+            <div class="metrica-input"><label>Impressões</label><input type="number" id="met-impressoes" placeholder="0" /></div>
+            <div class="metrica-input"><label>Seguidores Novos</label><input type="number" id="met-seguidores" placeholder="0" /></div>
+            <div class="metrica-input"><label>Curtidas</label><input type="number" id="met-curtidas" placeholder="0" /></div>
+            <div class="metrica-input"><label>Comentários</label><input type="number" id="met-comentarios" placeholder="0" /></div>
+            <div class="metrica-input"><label>Salvamentos</label><input type="number" id="met-salvamentos" placeholder="0" /></div>
+            <div class="metrica-input"><label>Cliques no Link</label><input type="number" id="met-cliques" placeholder="0" /></div>
+            <div class="metrica-input"><label>Posts Publicados</label><input type="number" id="met-posts" placeholder="0" /></div>
+            <div class="metrica-input"><label>Melhor Pilar</label>
+              <select id="met-pilar" style="width:100%;padding:0.7rem 0.9rem;border:1px solid rgba(28,58,42,0.12);border-radius:8px;font-family:'Montserrat',sans-serif;font-size:0.85rem;color:var(--texto-escuro);outline:none;appearance:none;">
+                <option value="">Escolha</option>
+                <option value="acao">⚡ Ação</option>
+                <option value="reacao">🔄 Reação</option>
+                <option value="campo">🏔️ Campo</option>
+                <option value="negocios">📊 Negócios</option>
+                <option value="mapa">🗺️ Mapa</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-salvar-metricas" id="btn-salvar-met">Salvar métricas desta semana</button>
+        </div>
+
+        <div class="historico-metricas">
+          <h3>📈 Histórico</h3>
+          <div id="historico-lista"><p class="historico-vazio">Nenhuma métrica registrada ainda. Comece registrando a semana acima.</p></div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+
+  <!-- =================== MODAL DE POST =================== -->
+  <div class="modal-overlay" id="modal-post">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-titulo" id="modal-titulo">Editar Post</span>
+        <button class="modal-fechar" id="modal-fechar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grupo">
+          <label>Copy / Texto do post</label>
+          <textarea id="modal-copy" rows="6" placeholder="Escreva ou cole a copy aqui..."></textarea>
+        </div>
+        <div class="modal-grupo">
+          <label>Observação / Ajuste</label>
+          <input type="text" id="modal-obs" placeholder="Ex: mudar o tom, usar foto da trilha X..." />
+        </div>
+        <div class="modal-grupo">
+          <label>Status</label>
+          <div class="status-btns">
+            <button class="status-btn s-pendente" data-status="pendente">⬜ Pendente</button>
+            <button class="status-btn s-aprovado" data-status="aprovado">✅ Aprovado</button>
+            <button class="status-btn s-producao" data-status="producao">🎨 Em Produção</button>
+            <button class="status-btn s-publicado" data-status="publicado">🚀 Publicado</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-modal btn-cancelar" id="btn-cancelar-modal">Cancelar</button>
+        <button class="btn-modal btn-salvar" id="btn-salvar-modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // ================================================
+  //  DADOS
+  // ================================================
+  const COPYS = [
+    { pilar:'acao', plat:'ig', formato:'Carrossel', titulo:'Meta sem rota é desejo', texto:`A maioria das pessoas tem metas.
+Poucos têm rota.
+
+Meta sem rota é desejo.
+Desejo sem ação é fantasia.
+
+A diferença entre quem realiza e quem fica no "vou fazer" não é talento.
+É constância.
+
+Pergunta honesta:
+Se você fizesse exatamente o que fez essa semana pelas próximas 52, onde estaria?
+
+Responde aqui. Eu leio.` },
+    { pilar:'acao', plat:'li', formato:'LinkedIn', titulo:'Você não tem problema de motivação', texto:`Você não tem problema de motivação.
+
+Você tem problema de sistema.
+
+Motivação arranca o carro.
+Sistema mantém o carro na estrada.
+
+Em 25 anos acompanhando empreendedores, aprendi que os que chegam não são os mais motivados.
+São os que construíram hábitos, revisões e rotas claras — mesmo quando não queriam.
+
+Qual é o seu sistema esta semana?` },
+    { pilar:'reacao', plat:'ig', formato:'Carrossel', titulo:'Caí. Errei. Recomeçai.', texto:`Caí.
+Errei.
+Recomeçai.
+Cresci.
+Conquistei.
+
+E repetiria tudo de novo.
+
+Porque REAÇÃO não é fraqueza.
+É o que separa quem aprende de quem desiste.
+
+3 coisas que aprendi caindo:
+
+1. O erro certo te leva mais longe que o acerto com sorte
+2. Recomeçar não é derrota — é estratégia
+3. Quem não erra está imóvel
+
+Qual foi o seu recomeço mais importante?` },
+    { pilar:'reacao', plat:'li', formato:'LinkedIn', titulo:'O mercado mudou. E você?', texto:`O mercado mudou.
+Seus clientes mudaram.
+Seus concorrentes mudaram.
+
+E você?
+
+REAÇÃO não é esperar passar a tempestade.
+É aprender a trabalhar na chuva.
+
+Os empreendedores que acompanho na mentoria não são os mais inteligentes do mercado.
+São os que reagem mais rápido e mais bem.
+
+Adaptação é vantagem competitiva.
+Teimosia com o que não funciona é suicídio de negócio.` },
+    { pilar:'campo', plat:'ig', formato:'Reels / Caption', titulo:'2.100km e uma lição de negócio', texto:`Em 2023 trilhei mais de 2.100km.
+
+Nenhuma montanha foi conquistada pela motivação.
+
+Todas foram conquistadas pela disciplina de dar o próximo passo — mesmo quando eu não queria.
+
+A névoa não some porque você quer.
+O frio não passa porque você pede.
+A dúvida não vai embora sozinha.
+
+O que muda é o que você faz com isso.
+
+Nos seus negócios não é diferente.` },
+    { pilar:'campo', plat:'ig', formato:'Foto + legenda', titulo:'Na trilha não existe atalho', texto:`Na trilha você aprende cedo:
+não existe atalho que não cobre o seu preço.
+
+No negócio é igual.
+
+Quem promete chegar mais rápido geralmente não te diz o que você vai perder no caminho.
+
+Campo ensina isso melhor do que qualquer sala de aula.` },
+    { pilar:'negocios', plat:'li', formato:'LinkedIn', titulo:'Kotler tinha 4 Ps', texto:`Kotler tinha 4 Ps.
+
+O mercado ganhou mais 4.
+
+E mesmo assim, a maioria dos negócios ainda erra no básico:
+não conhece o próprio produto como o cliente vê.
+não sabe o preço que o mercado aguenta.
+não está no lugar certo.
+e não fala com quem precisa falar.
+
+Antes de complexificar a estratégia — revisita os fundamentos.
+
+Os Ps de Kotler ainda matam mais negócios do que qualquer tendência nova.` },
+    { pilar:'negocios', plat:'ig', formato:'Carrossel', titulo:'5 perguntas que revelam a verdade', texto:`O problema não é falta de estratégia.
+É excesso de estratégia sem execução.
+
+5 perguntas que vão revelar a verdade do seu negócio:
+
+1. Você sabe exatamente quem é o seu cliente ideal?
+2. Seu preço reflete o valor que você entrega?
+3. Você está onde seu cliente compra?
+4. Sua comunicação resolve ou só informa?
+5. O que você fez essa semana que aproximou uma venda?
+
+Cada "não sei" é uma rota a corrigir.` },
+    { pilar:'mapa', plat:'ig', formato:'CTA', titulo:'Criei uma IA com minha filosofia', texto:`Criei uma IA com a minha filosofia de vida e carreira.
+
+Não é mais um chatbot genérico.
+É uma ferramenta treinada com 25 anos de campo, mentoria e AÇÃO & REAÇÃO.
+
+Para empreendedores que precisam de:
+→ Clareza de rota
+→ Diagnóstico real do negócio
+→ Respostas diretas, sem rodeios
+
+O Mapa da Verdade está no link da bio.
+
+Acessa. Testa. Me fala o que achou.` },
+    { pilar:'mapa', plat:'ig', formato:'Sexta-feira', titulo:'Diagnóstico: onde você estaria?', texto:`Toda sexta faço a mesma pergunta:
+
+O que você fez essa semana que move o ponteiro?
+
+Se a resposta demorou mais de 10 segundos — você precisa de clareza de rota, não de mais esforço.
+
+É isso que o Diagnóstico resolve.
+45 minutos. Direto ao ponto.
+Sem enrolação, sem proposta disfarçada de consultoria.
+
+Só a verdade do que está funcionando e o que não está.
+
+Link na bio. Vagas limitadas por semana.` },
+  ];
+
+  const ROTEIROS = [
+    { id:'r1', titulo:'A pergunta que muda o jogo', meta:'Reels 45s · Pilar AÇÃO · câmera direta', gravado: false,
+      steps:['Gancho (0–3s): "Se você fizesse exatamente o que fez essa semana pelas próximas 52..." — pausa dramática.','Desenvolvimento (3–25s): "Na mentoria eu faço essa pergunta pra todo empreendedor que chega travado. E geralmente o silêncio é a resposta. Não por falta de esforço. Por falta de rota."','Analogia de campo (25–38s): "Na trilha, nenhuma montanha me esperou. O que me levou ao topo foi dar o próximo passo mesmo sem ver o destino."','CTA (38–45s): "Responde nos comentários: onde você estaria em 52 semanas se mantivesse o ritmo de agora?"']},
+    { id:'r2', titulo:'2.100km e uma lição de negócio', meta:'Reels 60s · Pilar CAMPO · com imagens de trilha', gravado: false,
+      steps:['Gancho (0–4s): Foto/vídeo de trilha na tela. Voz: "Em 2023 eu andei mais de 2.100km em trilhas pelo Brasil."','Problema (4–20s): "E a lição que o campo me ensinou é que nenhuma montanha se conquista com motivação. Motivação te tira do ponto zero. Ela não sustenta a jornada."','Virada (20–40s): "O que conquista montanha — e negócio — é disciplina. É dar o próximo passo no frio, na névoa, na dúvida. Sem esperar a vontade aparecer."','Conexão (40–55s): "Seus clientes não estão esperando você ter vontade de ligar. Seu negócio não cresce na espera da inspiração. O próximo passo existe agora."','CTA (55–60s): "Qual é o seu próximo passo? Me conta aqui."']},
+    { id:'r3', titulo:'AÇÃO & REAÇÃO — o que é isso?', meta:'Reels 50s · Filosofia · câmera direta', gravado: false,
+      steps:['Gancho (0–3s): "AÇÃO e REAÇÃO não é um método. É uma filosofia de vida e carreira."','AÇÃO (3–20s): "AÇÃO é o que você coloca no mundo. Atitude. Verdade. Resiliência. É você decidindo antes de estar pronto. Porque perfeito não existe no campo."','REAÇÃO (20–38s): "REAÇÃO é como você responde ao que a vida traz. Empatia com seu cliente. Confiança no seu processo. Fidelidade aos seus valores mesmo quando custa caro."','Síntese (38–47s): "Todo negócio vive entre AÇÃO e REAÇÃO. O que define o resultado é a qualidade com que você pratica os dois."','CTA (47–50s): "Você está mais no modo AÇÃO ou REAÇÃO agora? Me conta."']},
+    { id:'r4', titulo:'Por que criei o Mapa da Verdade', meta:'Reels 60s · Pilar MAPA · storytelling', gravado: false,
+      steps:['Problema (0–12s): "Empreendedor que chega pra mim geralmente não tem falta de informação. Tem excesso. E o excesso paralisa. Vi isso em centenas de mentorias."','Insight (12–28s): "A maioria erra porque não conhece a própria verdade. Não sabe onde está de verdade. Acha que sabe, mas nunca parou pra olhar com honestidade."','Solução (28–48s): "Por isso criei o Mapa da Verdade. Uma IA treinada com a minha filosofia de 25 anos de campo. Não pra te dizer o que você quer ouvir. Pra te dizer o que você precisa fazer."','CTA (48–60s): "Está no link da bio. Gratuito pra você começar. Acessa, testa e me conta o que achou."']},
+  ];
+
+  const PLANO_PADRAO = [
+    { dia:'seg', label:'Segunda', plat:'ig', pilar:'⚡ Ação', preview:'Carrossel de reflexão — provocação sobre execução e constância.' },
+    { dia:'seg', label:'Segunda', plat:'li', pilar:'📊 Negócios', preview:'Insight de negócios com analogia de campo. Texto longo.' },
+    { dia:'ter', label:'Terça', plat:'ig', pilar:'🔄 Reação', preview:'Stories: bastidores do dia, pergunta ao público, enquete.' },
+    { dia:'qua', label:'Quarta', plat:'ig', pilar:'🏔️ Campo', preview:'Reels curto (30–45s): história de trilha com lição de negócio.' },
+    { dia:'qua', label:'Quarta', plat:'li', pilar:'📊 Negócios', preview:'Citação ou dado de mercado com seu ponto de vista direto.' },
+    { dia:'qui', label:'Quinta', plat:'ig', pilar:'⚡ Ação', preview:'Quote card: frase forte sua. Fundo verde-escuro ou terra.' },
+    { dia:'qui', label:'Quinta', plat:'li', pilar:'📊 Negócios', preview:'Post de estratégia: Os Ps, empreendedorismo com base real.' },
+    { dia:'sex', label:'Sexta', plat:'ig', pilar:'🗺️ Mapa', preview:'CTA direto: Mapa da Verdade ou Diagnóstico.' },
+    { dia:'sex', label:'Sexta', plat:'li', pilar:'🗺️ Mapa', preview:'Reflexão de semana + convite para mentoria ou diagnóstico.' },
+    { dia:'sab', label:'Sábado', plat:'ig', pilar:'🏔️ Campo', preview:'Conteúdo leve: foto de trilha, natureza, bastidor real.' },
+  ];
+
+  // ================================================
+  //  ESTADO
+  // ================================================
+  let semanaOffset = 0;
+  let postAtual = null;
+  let statusAtual = 'pendente';
+
+  function getSemanaKey(offset = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() - d.getDay() + 1 + (offset * 7));
+    const ano = d.getFullYear();
+    const sem = Math.ceil(((d - new Date(ano, 0, 1)) / 86400000 + 1) / 7);
+    return `${ano}-W${String(sem).padStart(2,'0')}`;
+  }
+
+  function getSemanaLabel(offset = 0) {
+    const d = new Date();
+    d.setDate(d.getDate() - d.getDay() + 1 + (offset * 7));
+    const ini = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+    d.setDate(d.getDate() + 4);
+    const fim = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+    return `${ini} – ${fim}`;
+  }
+
+  function getPostKey(semKey, dia, plat, idx) {
+    return `post_${semKey}_${dia}_${plat}_${idx}`;
+  }
+
+  function loadPost(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || null; } catch { return null; }
+  }
+
+  function savePost(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  // ================================================
+  //  AUTENTICAÇÃO
+  // ================================================
+  async function verificarAuth() {
+    const token = localStorage.getItem('central_token');
+    if (!token) { window.location.href = '/central/'; return; }
+    try {
+      const res = await fetch('/api/central/auth', { headers: { 'Authorization': 'Bearer ' + token } });
+      if (!res.ok) { localStorage.removeItem('central_token'); window.location.href = '/central/'; }
+      else {
+        const data = await res.json();
+        const nome = data.user || 'Juliano';
+        document.getElementById('topbar-nome').textContent = nome;
+        document.getElementById('topbar-avatar').textContent = nome[0].toUpperCase();
+      }
+    } catch { window.location.href = '/central/'; }
+  }
+
+  document.getElementById('btn-sair').addEventListener('click', () => {
+    localStorage.removeItem('central_token');
+    window.location.href = '/central/';
+  });
+
+  // ================================================
+  //  NAVEGAÇÃO
+  // ================================================
+  document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const view = item.dataset.view;
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+      item.classList.add('ativo');
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+      document.getElementById('view-' + view).classList.add('ativa');
+      document.getElementById('topbar-titulo').textContent = item.textContent.trim();
+    });
+  });
+
+  // ================================================
+  //  PLANO DA SEMANA
+  // ================================================
+  function renderPlano() {
+    const semKey = getSemanaKey(semanaOffset);
+    const semLabel = getSemanaLabel(semanaOffset);
+    document.getElementById('label-semana').textContent = semLabel;
+    document.getElementById('topbar-semana').textContent = semLabel;
+    document.getElementById('label-semana-met').textContent = semLabel;
+
+    const grid = document.getElementById('dias-grid');
+    const dias = ['seg','ter','qua','qui','sex'];
+    const labels = { seg:'Segunda', ter:'Terça', qua:'Quarta', qui:'Quinta', sex:'Sexta' };
+
+    grid.innerHTML = '';
+    dias.forEach(dia => {
+      const posts = PLANO_PADRAO.filter(p => p.dia === dia);
+      const col = document.createElement('div');
+      col.className = `dia-col dia-${dia}`;
+      col.innerHTML = `<div class="dia-header">${labels[dia]}</div><div class="dia-body" id="dia-body-${dia}"></div>`;
+      grid.appendChild(col);
+
+      const body = col.querySelector('.dia-body');
+      posts.forEach((post, idx) => {
+        const key = getPostKey(semKey, dia, post.plat, idx);
+        const saved = loadPost(key) || { copy: post.preview, obs: '', status: 'pendente' };
+        const slot = document.createElement('div');
+        slot.className = 'post-slot';
+        slot.dataset.key = key;
+        slot.dataset.default = post.preview;
+        slot.dataset.pilar = post.pilar;
+        slot.dataset.plat = post.plat;
+        slot.innerHTML = `
+          <div class="post-slot-plat ${post.plat === 'ig' ? 'plat-ig' : 'plat-li'}">
+            ${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'}
+          </div>
+          <div class="post-slot-pilar">${post.pilar}</div>
+          <div class="post-slot-preview">${saved.copy}</div>
+          <span class="post-status status-${saved.status}">${labelStatus(saved.status)}</span>
+        `;
+        slot.addEventListener('click', () => abrirModal(key, post, saved));
+        body.appendChild(slot);
+      });
+    });
+
+    atualizarResumo(semKey);
+  }
+
+  function labelStatus(s) {
+    return { pendente:'⬜ Pendente', aprovado:'✅ Aprovado', producao:'🎨 Em Produção', publicado:'🚀 Publicado' }[s] || s;
+  }
+
+  function atualizarResumo(semKey) {
+    let total=0, aprov=0, prod=0, pub=0;
+    PLANO_PADRAO.forEach((post, idx) => {
+      const key = getPostKey(semKey, post.dia, post.plat, idx);
+      const saved = loadPost(key);
+      total++;
+      if (saved) {
+        if (saved.status === 'aprovado') aprov++;
+        if (saved.status === 'producao') prod++;
+        if (saved.status === 'publicado') pub++;
+      }
+    });
+    document.getElementById('res-total').textContent = total;
+    document.getElementById('res-aprovados').textContent = aprov;
+    document.getElementById('res-producao').textContent = prod;
+    document.getElementById('res-publicados').textContent = pub;
+  }
+
+  document.getElementById('btn-semana-ant').addEventListener('click', () => { semanaOffset--; renderPlano(); });
+  document.getElementById('btn-semana-prox').addEventListener('click', () => { semanaOffset++; renderPlano(); });
+
+  // ================================================
+  //  MODAL
+  // ================================================
+  function abrirModal(key, post, saved) {
+    postAtual = key;
+    statusAtual = saved.status || 'pendente';
+    document.getElementById('modal-titulo').textContent = `${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${post.dia.toUpperCase()} · ${post.pilar}`;
+    document.getElementById('modal-copy').value = saved.copy || post.preview;
+    document.getElementById('modal-obs').value = saved.obs || '';
+    atualizarStatusBtns(statusAtual);
+    document.getElementById('modal-post').classList.add('aberto');
+  }
+
+  function atualizarStatusBtns(status) {
+    document.querySelectorAll('.status-btn').forEach(btn => {
+      btn.classList.toggle('selecionado', btn.dataset.status === status);
+    });
+    statusAtual = status;
+  }
+
+  document.querySelectorAll('.status-btn').forEach(btn => {
+    btn.addEventListener('click', () => atualizarStatusBtns(btn.dataset.status));
+  });
+
+  function fecharModal() { document.getElementById('modal-post').classList.remove('aberto'); postAtual = null; }
+  document.getElementById('modal-fechar').addEventListener('click', fecharModal);
+  document.getElementById('btn-cancelar-modal').addEventListener('click', fecharModal);
+  document.getElementById('modal-post').addEventListener('click', e => { if (e.target === document.getElementById('modal-post')) fecharModal(); });
+
+  document.getElementById('btn-salvar-modal').addEventListener('click', () => {
+    if (!postAtual) return;
+    const data = {
+      copy: document.getElementById('modal-copy').value,
+      obs: document.getElementById('modal-obs').value,
+      status: statusAtual,
+    };
+    savePost(postAtual, data);
+    fecharModal();
+    renderPlano();
+  });
+
+  // ================================================
+  //  BIBLIOTECA
+  // ================================================
+  function renderBiblioteca(filtro = 'todos') {
+    const grid = document.getElementById('copys-grid');
+    grid.innerHTML = '';
+    const filtradas = filtro === 'todos' ? COPYS : COPYS.filter(c => c.pilar === filtro);
+    filtradas.forEach(c => {
+      const headerClass = { acao:'ch-acao', reacao:'ch-reacao', campo:'ch-campo', negocios:'ch-neg', mapa:'ch-mapa' }[c.pilar] || '';
+      const pilarLabel = { acao:'⚡ Ação', reacao:'🔄 Reação', campo:'🏔️ Campo', negocios:'📊 Negócios', mapa:'🗺️ Mapa' }[c.pilar] || c.pilar;
+      const card = document.createElement('div');
+      card.className = 'copy-card';
+      card.innerHTML = `
+        <div class="copy-card-header ${headerClass}">
+          <span>${pilarLabel} · ${c.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${c.formato}</span>
+        </div>
+        <div class="copy-card-body">
+          <div class="copy-texto">${c.texto}</div>
+          <div class="copy-acoes">
+            <button class="btn-copiar" data-texto="${encodeURIComponent(c.texto)}">📋 Copiar</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    grid.querySelectorAll('.btn-copiar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(decodeURIComponent(btn.dataset.texto)).then(() => {
+          btn.textContent = '✅ Copiado!';
+          btn.classList.add('copiado');
+          setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copiado'); }, 2000);
+        });
+      });
+    });
+  }
+
+  document.querySelectorAll('.filtro-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.filtro-pill').forEach(p => p.classList.remove('ativo'));
+      pill.classList.add('ativo');
+      renderBiblioteca(pill.dataset.pilar);
+    });
+  });
+
+  // ================================================
+  //  ROTEIROS
+  // ================================================
+  function renderRoteiros() {
+    const lista = document.getElementById('roteiros-lista');
+    lista.innerHTML = '';
+    const saved = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
+    ROTEIROS.forEach(r => {
+      const gravado = saved[r.id] || false;
+      const card = document.createElement('div');
+      card.className = 'roteiro-card';
+      card.innerHTML = `
+        <div class="roteiro-header">
+          <div>
+            <div class="roteiro-titulo">${r.titulo}</div>
+            <div class="roteiro-meta">${r.meta}</div>
+          </div>
+          <input type="checkbox" class="roteiro-check" data-id="${r.id}" title="Marcar como gravado" ${gravado ? 'checked' : ''} />
+        </div>
+        <ol class="roteiro-steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+      lista.appendChild(card);
+    });
+
+    lista.querySelectorAll('.roteiro-check').forEach(chk => {
+      chk.addEventListener('change', () => {
+        const sv = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
+        sv[chk.dataset.id] = chk.checked;
+        localStorage.setItem('roteiros_gravados', JSON.stringify(sv));
+      });
+    });
+  }
+
+  // ================================================
+  //  MÉTRICAS
+  // ================================================
+  function renderHistorico() {
+    const hist = JSON.parse(localStorage.getItem('metricas_hist') || '[]');
+    const lista = document.getElementById('historico-lista');
+    if (!hist.length) {
+      lista.innerHTML = '<p class="historico-vazio">Nenhuma métrica registrada ainda. Comece registrando a semana acima.</p>';
+      return;
+    }
+    lista.innerHTML = hist.slice().reverse().map(m => `
+      <div class="historico-item">
+        <span class="historico-semana">📅 ${m.semana}</span>
+        <div class="historico-num"><strong>${(m.alcance||0).toLocaleString()}</strong><span>Alcance</span></div>
+        <div class="historico-num"><strong>${(m.impressoes||0).toLocaleString()}</strong><span>Impressões</span></div>
+        <div class="historico-num"><strong>+${(m.seguidores||0)}</strong><span>Seguidores</span></div>
+        <div class="historico-num"><strong>${(m.curtidas||0)}</strong><span>Curtidas</span></div>
+        <div class="historico-num"><strong>${(m.salvamentos||0)}</strong><span>Salvamentos</span></div>
+        <div class="historico-num"><strong>${m.pilar ? {acao:'⚡ Ação',reacao:'🔄 Reação',campo:'🏔️ Campo',negocios:'📊 Neg.',mapa:'🗺️ Mapa'}[m.pilar] : '—'}</strong><span>Melhor pilar</span></div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('btn-salvar-met').addEventListener('click', () => {
+    const semKey = getSemanaKey(semanaOffset);
+    const semLabel = getSemanaLabel(semanaOffset);
+    const entrada = {
+      semana: semLabel, semKey,
+      alcance: parseInt(document.getElementById('met-alcance').value) || 0,
+      impressoes: parseInt(document.getElementById('met-impressoes').value) || 0,
+      seguidores: parseInt(document.getElementById('met-seguidores').value) || 0,
+      curtidas: parseInt(document.getElementById('met-curtidas').value) || 0,
+      comentarios: parseInt(document.getElementById('met-comentarios').value) || 0,
+      salvamentos: parseInt(document.getElementById('met-salvamentos').value) || 0,
+      cliques: parseInt(document.getElementById('met-cliques').value) || 0,
+      posts: parseInt(document.getElementById('met-posts').value) || 0,
+      pilar: document.getElementById('met-pilar').value,
+    };
+    const hist = JSON.parse(localStorage.getItem('metricas_hist') || '[]');
+    const idx = hist.findIndex(h => h.semKey === semKey);
+    if (idx >= 0) hist[idx] = entrada; else hist.push(entrada);
+    localStorage.setItem('metricas_hist', JSON.stringify(hist));
+    renderHistorico();
+    const btn = document.getElementById('btn-salvar-met');
+    btn.textContent = '✅ Salvo!';
+    setTimeout(() => { btn.textContent = 'Salvar métricas desta semana'; }, 2000);
+  });
+
+  // ================================================
+  //  INIT
+  // ================================================
+  verificarAuth();
+  renderPlano();
+  renderBiblioteca();
+  renderRoteiros();
+  renderHistorico();
+  </script>
+</body>
+</html>
