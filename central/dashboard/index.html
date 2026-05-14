@@ -21,24 +21,17 @@
     body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); display: flex; min-height: 100vh; }
 
     /* ---- SIDEBAR ---- */
-    .sidebar {
-      width: var(--sidebar); background: var(--verde-escuro); min-height: 100vh;
-      position: fixed; top: 0; left: 0; z-index: 50;
-      display: flex; flex-direction: column; padding: 1.5rem 0;
-      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
-    }
+    .sidebar { width: var(--sidebar); background: var(--verde-escuro); min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 50; display: flex; flex-direction: column; padding: 1.5rem 0; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
     .sidebar-logo { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
     .sidebar-logo-nome { font-size: 1rem; font-weight: 800; color: var(--creme); line-height: 1.2; }
     .sidebar-logo-nome span { color: var(--areia); font-weight: 300; }
     .sidebar-logo-tag { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,240,232,0.3); margin-top: 0.3rem; display: block; }
     .sidebar-logo-badge { display: inline-block; margin-top: 0.6rem; background: rgba(196,154,108,0.15); border: 1px solid rgba(196,154,108,0.25); color: var(--areia); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 20px; }
-
     .nav-section-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.25); padding: 0 1.5rem; margin-bottom: 0.5rem; margin-top: 1rem; }
     .nav-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1.5rem; font-size: 0.82rem; font-weight: 600; color: rgba(245,240,232,0.55); cursor: pointer; transition: all 0.2s; border-left: 3px solid transparent; text-decoration: none; }
     .nav-item:hover { color: var(--creme); background: rgba(255,255,255,0.05); }
     .nav-item.ativo { color: var(--areia); background: rgba(196,154,108,0.1); border-left-color: var(--areia); }
     .nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
-
     .sidebar-rodape { margin-top: auto; padding: 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); }
     .btn-sair { width: 100%; padding: 0.6rem; background: rgba(139,94,60,0.15); border: 1px solid rgba(139,94,60,0.25); border-radius: 8px; color: rgba(196,154,108,0.7); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.05em; }
     .btn-sair:hover { background: rgba(139,94,60,0.25); color: var(--areia); }
@@ -50,7 +43,6 @@
     .topbar-semana { font-size: 0.75rem; color: var(--texto-medio); background: var(--creme); padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid rgba(28,58,42,0.1); }
     .topbar-user { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: var(--texto-medio); }
     .topbar-avatar { width: 32px; height: 32px; background: var(--verde-escuro); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--areia); font-size: 0.8rem; font-weight: 800; }
-
     .content { padding: 2rem; flex: 1; }
 
     /* ---- VIEWS ---- */
@@ -74,6 +66,14 @@
     .semana-nav button:hover { border-color: var(--verde-sage); color: var(--verde-sage); }
     .semana-label { font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); min-width: 100px; text-align: center; }
 
+    /* Platform filter pills */
+    .plat-filter { display: flex; gap: 0.5rem; }
+    .plat-pill { padding: 0.35rem 0.9rem; border-radius: 20px; border: 1px solid rgba(28,58,42,0.15); background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 600; cursor: pointer; color: var(--texto-medio); transition: all 0.2s; }
+    .plat-pill:hover { opacity: 0.8; }
+    .plat-pill[data-plat="todos"].ativo { background: var(--verde-escuro); color: var(--creme); border-color: var(--verde-escuro); }
+    .plat-pill[data-plat="ig"].ativo { background: var(--terra); color: var(--creme); border-color: var(--terra); }
+    .plat-pill[data-plat="li"].ativo { background: var(--verde-sage); color: var(--creme); border-color: var(--verde-sage); }
+
     .dias-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
     .dia-col { background: var(--branco); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
     .dia-header { padding: 0.8rem 1rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -83,9 +83,12 @@
     .dia-qui .dia-header { background: var(--areia); color: var(--verde-escuro); }
     .dia-sex .dia-header { background: var(--verde-sage); color: var(--creme); }
     .dia-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .dia-body-empty { padding: 1rem; font-size: 0.75rem; color: rgba(28,58,42,0.3); font-style: italic; text-align: center; }
 
     .post-slot { border: 1px solid rgba(28,58,42,0.1); border-radius: 8px; padding: 0.7rem; cursor: pointer; transition: all 0.2s; }
     .post-slot:hover { border-color: var(--verde-sage); box-shadow: 0 2px 8px rgba(74,124,89,0.15); }
+    .post-slot.slot-ig { border-left: 3px solid var(--terra); }
+    .post-slot.slot-li { border-left: 3px solid var(--verde-sage); }
     .post-slot-plat { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.3rem; }
     .plat-ig { color: var(--terra); }
     .plat-li { color: var(--verde-sage); }
@@ -100,7 +103,7 @@
     /* ---- MODAL DE POST ---- */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
     .modal-overlay.aberto { display: flex; }
-    .modal { background: var(--branco); border-radius: var(--radius); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .modal { background: var(--branco); border-radius: var(--radius); width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
     .modal-header { padding: 1.5rem; border-bottom: 1px solid rgba(28,58,42,0.08); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--branco); z-index: 1; }
     .modal-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
     .modal-fechar { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--texto-medio); padding: 0.2rem; transition: color 0.2s; }
@@ -119,12 +122,19 @@
     .status-btn.s-producao { border-color: rgba(196,154,108,0.4); color: var(--terra); background: rgba(196,154,108,0.1); }
     .status-btn.s-publicado { border-color: rgba(127,176,105,0.4); color: #3a7a2a; background: rgba(127,176,105,0.1); }
     .status-btn.selecionado { font-weight: 800; transform: scale(1.05); }
-    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(28,58,42,0.08); display: flex; gap: 0.8rem; justify-content: flex-end; }
+    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(28,58,42,0.08); display: flex; gap: 0.8rem; justify-content: flex-end; align-items: center; }
     .btn-modal { padding: 0.6rem 1.4rem; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: none; }
     .btn-salvar { background: var(--verde-escuro); color: var(--creme); }
     .btn-salvar:hover { background: var(--verde-medio); }
     .btn-cancelar { background: transparent; border: 1px solid rgba(28,58,42,0.15); color: var(--texto-medio); }
     .btn-cancelar:hover { background: var(--creme); }
+
+    /* AI generate button */
+    .ai-row { display: flex; align-items: center; gap: 0.7rem; margin-top: 0.6rem; flex-wrap: wrap; }
+    .btn-ai { padding: 0.45rem 1.1rem; border-radius: 8px; background: linear-gradient(135deg, var(--verde-escuro), var(--verde-medio)); color: var(--areia); border: 1px solid rgba(196,154,108,0.3); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s; letter-spacing: 0.04em; }
+    .btn-ai:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-ai:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .ai-status { font-size: 0.72rem; font-weight: 600; color: var(--verde-sage); }
 
     /* ---- BIBLIOTECA ---- */
     .biblioteca-filtros { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
@@ -144,6 +154,82 @@
     .ch-campo { background: var(--verde-sage); color: var(--creme); }
     .ch-neg { background: var(--creme-escuro); color: var(--verde-escuro); }
     .ch-mapa { background: var(--areia); color: var(--verde-escuro); }
+
+    /* Saved copys section */
+    .saved-section { margin-top: 2.5rem; display: none; }
+    .saved-section-titulo { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--verde-sage); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(28,58,42,0.1); }
+    .saved-copys-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .saved-copy-item { background: var(--branco); border-radius: 8px; padding: 0.9rem 1rem; box-shadow: 0 2px 8px rgba(28,58,42,0.06); border-left: 3px solid var(--areia); }
+    .saved-copy-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; }
+    .saved-copy-titulo { font-size: 0.72rem; font-weight: 700; color: var(--verde-escuro); }
+    .saved-copy-remover { background: none; border: none; color: rgba(28,58,42,0.3); font-size: 0.75rem; cursor: pointer; padding: 0.1rem 0.3rem; border-radius: 4px; transition: color 0.2s; }
+    .saved-copy-remover:hover { color: var(--terra); }
+    .saved-copy-preview { font-size: 0.75rem; color: var(--texto-medio); line-height: 1.5; margin-bottom: 0.6rem; white-space: pre-line; }
+
+    /* ---- ROTEIROS ---- */
+    .roteiro-card { background: var(--branco); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
+    .roteiro-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; }
+    .roteiro-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
+    .roteiro-meta { font-size: 0.68rem; color: var(--areia); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
+    .roteiro-acoes { display: flex; gap: 0.6rem; align-items: center; flex-shrink: 0; }
+    .roteiro-check { width: 22px; height: 22px; accent-color: var(--verde-sage); cursor: pointer; }
+    .btn-tp { padding: 0.45rem 1rem; border-radius: 6px; background: var(--verde-escuro); color: var(--areia); border: 1px solid rgba(196,154,108,0.3); font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .btn-tp:hover { background: var(--verde-medio); }
+    .roteiro-steps { list-style: none; counter-reset: step; }
+    .roteiro-steps li { counter-increment: step; display: flex; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(28,58,42,0.06); font-size: 0.8rem; color: var(--texto-medio); line-height: 1.5; }
+    .roteiro-steps li:last-child { border-bottom: none; }
+    .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
+
+    /* ---- TELEPROMPTER ---- */
+    .tp-overlay { position: fixed; inset: 0; background: #07120a; z-index: 1000; display: none; flex-direction: column; }
+    .tp-overlay.aberto { display: flex; }
+    .tp-header { padding: 1.5rem 2.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(196,154,108,0.12); flex-shrink: 0; }
+    .tp-titulo { font-size: 0.85rem; font-weight: 700; color: var(--areia); letter-spacing: 0.05em; flex: 1; }
+    .tp-counter { font-size: 0.8rem; font-weight: 600; color: rgba(245,240,232,0.35); margin: 0 1.5rem; }
+    .tp-close { background: none; border: 1px solid rgba(245,240,232,0.15); border-radius: 6px; color: rgba(245,240,232,0.45); font-size: 1rem; width: 36px; height: 36px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .tp-close:hover { color: var(--creme); border-color: rgba(245,240,232,0.4); }
+    .tp-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 12%; overflow: hidden; }
+    .tp-step-text { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--creme); line-height: 1.65; text-align: center; max-width: 820px; }
+    .tp-footer { padding: 1.8rem 2.5rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(196,154,108,0.12); flex-shrink: 0; }
+    .tp-btn { padding: 0.7rem 1.8rem; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(245,240,232,0.15); background: transparent; color: rgba(245,240,232,0.7); }
+    .tp-btn:hover:not(:disabled) { background: rgba(255,255,255,0.07); color: var(--creme); }
+    .tp-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+    .tp-btn-next { background: rgba(45,90,61,0.6); border-color: var(--verde-sage); color: var(--creme); }
+    .tp-btn-next:hover:not(:disabled) { background: var(--verde-medio); }
+    .tp-progress { display: flex; gap: 8px; align-items: center; }
+    .tp-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(245,240,232,0.15); transition: all 0.25s; }
+    .tp-dot.ativo { background: var(--areia); width: 20px; border-radius: 4px; }
+    .tp-hint { font-size: 0.62rem; color: rgba(245,240,232,0.2); letter-spacing: 0.1em; text-transform: uppercase; position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); }
+
+    /* ---- CALENDÁRIO ---- */
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .cal-mes-label { font-size: 1rem; font-weight: 700; color: var(--verde-escuro); text-transform: capitalize; }
+    .cal-nav { display: flex; align-items: center; gap: 0.8rem; }
+    .cal-nav button { padding: 0.4rem 0.9rem; border: 1px solid rgba(28,58,42,0.15); background: var(--branco); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--texto-medio); cursor: pointer; transition: all 0.2s; }
+    .cal-nav button:hover { border-color: var(--verde-sage); color: var(--verde-sage); }
+    .cal-legend { display: flex; gap: 1rem; margin-bottom: 1.2rem; }
+    .cal-leg-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; font-weight: 600; color: var(--texto-medio); }
+    .cal-leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .cal-day-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 4px; }
+    .cal-day-label { text-align: center; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--texto-medio); padding: 0.4rem 0.2rem; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-cell { background: var(--branco); border-radius: 8px; padding: 0.5rem 0.4rem; min-height: 64px; border: 1px solid rgba(28,58,42,0.07); transition: border-color 0.2s; }
+    .cal-cell.cal-fora { background: rgba(245,240,232,0.4); opacity: 0.5; }
+    .cal-cell.cal-hoje { border-color: var(--areia) !important; background: rgba(196,154,108,0.05); }
+    .cal-cell.cal-fds { background: rgba(245,240,232,0.6); }
+    .cal-cell.cal-clicavel { cursor: pointer; }
+    .cal-cell.cal-clicavel:hover { border-color: var(--verde-sage); box-shadow: 0 2px 8px rgba(74,124,89,0.12); }
+    .cal-num { font-size: 0.72rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.35rem; }
+    .cal-cell.cal-fora .cal-num { color: rgba(28,58,42,0.3); }
+    .cal-cell.cal-fds .cal-num { color: rgba(28,58,42,0.35); }
+    .cal-dots { display: flex; gap: 3px; flex-wrap: wrap; }
+    .cal-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .cal-dot-ig { background: var(--terra); }
+    .cal-dot-li { background: var(--verde-sage); }
+    .cal-dot.op-pendente { opacity: 0.3; }
+    .cal-dot.op-aprovado { opacity: 0.6; }
+    .cal-dot.op-producao { opacity: 0.85; }
+    .cal-dot.op-publicado { opacity: 1; }
 
     /* ---- MÉTRICAS ---- */
     .metricas-form { background: var(--branco); border-radius: var(--radius); padding: 2rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); margin-bottom: 2rem; }
@@ -168,24 +254,14 @@
     .secao-titulo { font-size: 1.2rem; font-weight: 800; color: var(--verde-escuro); letter-spacing: -0.01em; margin-bottom: 0.3rem; }
     .secao-sub { font-size: 0.85rem; color: var(--texto-medio); margin-bottom: 1.5rem; }
 
-    /* ---- ROTEIROS ---- */
-    .roteiro-card { background: var(--branco); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(28,58,42,0.07); }
-    .roteiro-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1rem; gap: 1rem; }
-    .roteiro-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
-    .roteiro-meta { font-size: 0.68rem; color: var(--areia); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 0.2rem; }
-    .roteiro-check { width: 24px; height: 24px; accent-color: var(--verde-sage); flex-shrink: 0; cursor: pointer; }
-    .roteiro-steps { list-style: none; counter-reset: step; }
-    .roteiro-steps li { counter-increment: step; display: flex; gap: 0.8rem; padding: 0.5rem 0; border-bottom: 1px solid rgba(28,58,42,0.06); font-size: 0.8rem; color: var(--texto-medio); line-height: 1.5; }
-    .roteiro-steps li:last-child { border-bottom: none; }
-    .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
-
     @media (max-width: 900px) {
       .sidebar { transform: translateX(-100%); }
       .main { margin-left: 0; }
       .dias-grid { grid-template-columns: 1fr; }
       .resumo-grid { grid-template-columns: repeat(2, 1fr); }
-      .copys-grid { grid-template-columns: 1fr; }
+      .copys-grid, .saved-copys-grid { grid-template-columns: 1fr; }
       .metricas-inputs { grid-template-columns: 1fr 1fr; }
+      .cal-grid, .cal-day-labels { grid-template-columns: repeat(7, 1fr); }
     }
   </style>
 </head>
@@ -202,6 +278,9 @@
     <span class="nav-section-label">Principal</span>
     <a class="nav-item ativo" data-view="visao-geral" href="#">
       <span class="nav-icon">🏠</span> Visão Geral
+    </a>
+    <a class="nav-item" data-view="calendario" href="#">
+      <span class="nav-icon">📆</span> Calendário
     </a>
     <a class="nav-item" data-view="plano" href="#">
       <span class="nav-icon">📅</span> Plano da Semana
@@ -267,7 +346,6 @@
             <div class="resumo-label">Publicados</div>
           </div>
         </div>
-
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
           <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:2rem;color:var(--creme);">
             <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--areia);margin-bottom:0.8rem;">⚡ Filosofia de Marca</div>
@@ -286,16 +364,56 @@
         </div>
       </div>
 
+      <!-- ============ VIEW: CALENDÁRIO ============ -->
+      <div class="view" id="view-calendario">
+        <div class="secao-titulo">Calendário</div>
+        <p class="secao-sub">Visão macro do mês. Pontos coloridos indicam posts agendados. Clique em um dia para abrir a semana.</p>
+
+        <div class="cal-header">
+          <div class="cal-nav">
+            <button id="btn-cal-ant">← Mês anterior</button>
+            <span class="cal-mes-label" id="cal-mes-label">—</span>
+            <button id="btn-cal-prox">Próximo mês →</button>
+          </div>
+        </div>
+
+        <div class="cal-legend">
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--terra)"></div> Instagram</div>
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--verde-sage)"></div> LinkedIn</div>
+          <div class="cal-leg-item" style="gap:0.6rem;">
+            <span style="font-size:0.65rem;color:rgba(28,58,42,0.4);">Opacidade = status (pendente → publicado)</span>
+          </div>
+        </div>
+
+        <div class="cal-day-labels">
+          <div class="cal-day-label">Seg</div>
+          <div class="cal-day-label">Ter</div>
+          <div class="cal-day-label">Qua</div>
+          <div class="cal-day-label">Qui</div>
+          <div class="cal-day-label">Sex</div>
+          <div class="cal-day-label">Sáb</div>
+          <div class="cal-day-label">Dom</div>
+        </div>
+        <div class="cal-grid" id="cal-grid">
+          <!-- preenchido via JS -->
+        </div>
+      </div>
+
       <!-- ============ VIEW: PLANO DA SEMANA ============ -->
       <div class="view" id="view-plano">
         <div class="secao-titulo">Plano da Semana</div>
-        <p class="secao-sub">Clique em qualquer post para editar a copy, ajustar o status e adicionar observações.</p>
+        <p class="secao-sub">Clique em qualquer post para editar a copy, gerar com IA e ajustar o status.</p>
 
         <div class="semana-header">
           <div class="semana-nav">
             <button id="btn-semana-ant">← Anterior</button>
             <span class="semana-label" id="label-semana">—</span>
             <button id="btn-semana-prox">Próxima →</button>
+          </div>
+          <div class="plat-filter">
+            <button class="plat-pill ativo" data-plat="todos">Todos</button>
+            <button class="plat-pill" data-plat="ig">📷 Instagram</button>
+            <button class="plat-pill" data-plat="li">💼 LinkedIn</button>
           </div>
         </div>
 
@@ -307,7 +425,7 @@
       <!-- ============ VIEW: BIBLIOTECA ============ -->
       <div class="view" id="view-biblioteca">
         <div class="secao-titulo">Biblioteca de Copys</div>
-        <p class="secao-sub">Todas as copys prontas, organizadas por pilar. Clique em "Copiar" para usar no Instagram ou LinkedIn.</p>
+        <p class="secao-sub">Copys prontas por pilar. Ao clicar em "Copiar", a copy fica salva na seção abaixo.</p>
         <div class="biblioteca-filtros">
           <button class="filtro-pill ativo" data-pilar="todos">Todos</button>
           <button class="filtro-pill" data-pilar="acao">⚡ Ação</button>
@@ -316,18 +434,20 @@
           <button class="filtro-pill" data-pilar="negocios">📊 Negócios</button>
           <button class="filtro-pill" data-pilar="mapa">🗺️ Mapa</button>
         </div>
-        <div class="copys-grid" id="copys-grid">
-          <!-- preenchido via JS -->
+        <div class="copys-grid" id="copys-grid"></div>
+
+        <!-- Saved copys -->
+        <div class="saved-section" id="saved-section">
+          <div class="saved-section-titulo">📌 Copys Salvas</div>
+          <div class="saved-copys-grid" id="saved-copys-grid"></div>
         </div>
       </div>
 
       <!-- ============ VIEW: ROTEIROS ============ -->
       <div class="view" id="view-roteiros">
         <div class="secao-titulo">Roteiros de Vídeo</div>
-        <p class="secao-sub">Roteiros prontos para Reels e vídeos curtos. Marque como gravado quando concluir.</p>
-        <div id="roteiros-lista">
-          <!-- preenchido via JS -->
-        </div>
+        <p class="secao-sub">Roteiros prontos. Clique em "Teleprompter" para modo de gravação em tela cheia.</p>
+        <div id="roteiros-lista"></div>
       </div>
 
       <!-- ============ VIEW: MÉTRICAS ============ -->
@@ -362,7 +482,7 @@
 
         <div class="historico-metricas">
           <h3>📈 Histórico</h3>
-          <div id="historico-lista"><p class="historico-vazio">Nenhuma métrica registrada ainda. Comece registrando a semana acima.</p></div>
+          <div id="historico-lista"><p class="historico-vazio">Nenhuma métrica registrada ainda.</p></div>
         </div>
       </div>
 
@@ -380,10 +500,14 @@
         <div class="modal-grupo">
           <label>Copy / Texto do post</label>
           <textarea id="modal-copy" rows="6" placeholder="Escreva ou cole a copy aqui..."></textarea>
+          <div class="ai-row">
+            <button class="btn-ai" id="btn-gerar-ia">⚡ Gerar com IA</button>
+            <span class="ai-status" id="ai-status"></span>
+          </div>
         </div>
         <div class="modal-grupo">
-          <label>Observação / Ajuste</label>
-          <input type="text" id="modal-obs" placeholder="Ex: mudar o tom, usar foto da trilha X..." />
+          <label>Observação / Contexto (usado pela IA)</label>
+          <input type="text" id="modal-obs" placeholder="Ex: foco em empreendedores iniciantes, tom mais direto..." />
         </div>
         <div class="modal-grupo">
           <label>Status</label>
@@ -400,6 +524,24 @@
         <button class="btn-modal btn-salvar" id="btn-salvar-modal">Salvar</button>
       </div>
     </div>
+  </div>
+
+  <!-- =================== TELEPROMPTER =================== -->
+  <div class="tp-overlay" id="tp-overlay">
+    <div class="tp-header">
+      <span class="tp-titulo" id="tp-titulo">Roteiro</span>
+      <span class="tp-counter" id="tp-counter">1 / 1</span>
+      <button class="tp-close" id="tp-close" title="Fechar (Esc)">✕</button>
+    </div>
+    <div class="tp-body">
+      <div class="tp-step-text" id="tp-step-text"></div>
+    </div>
+    <div class="tp-footer">
+      <button class="tp-btn" id="tp-prev">← Anterior</button>
+      <div class="tp-progress" id="tp-progress"></div>
+      <button class="tp-btn tp-btn-next" id="tp-next">Próximo →</button>
+    </div>
+    <span class="tp-hint">Espaço / → próximo &nbsp;·&nbsp; ← anterior &nbsp;·&nbsp; Esc sair</span>
   </div>
 
   <script>
@@ -538,27 +680,27 @@ Link na bio. Vagas limitadas por semana.` },
   ];
 
   const ROTEIROS = [
-    { id:'r1', titulo:'A pergunta que muda o jogo', meta:'Reels 45s · Pilar AÇÃO · câmera direta', gravado: false,
+    { id:'r1', titulo:'A pergunta que muda o jogo', meta:'Reels 45s · Pilar AÇÃO · câmera direta',
       steps:['Gancho (0–3s): "Se você fizesse exatamente o que fez essa semana pelas próximas 52..." — pausa dramática.','Desenvolvimento (3–25s): "Na mentoria eu faço essa pergunta pra todo empreendedor que chega travado. E geralmente o silêncio é a resposta. Não por falta de esforço. Por falta de rota."','Analogia de campo (25–38s): "Na trilha, nenhuma montanha me esperou. O que me levou ao topo foi dar o próximo passo mesmo sem ver o destino."','CTA (38–45s): "Responde nos comentários: onde você estaria em 52 semanas se mantivesse o ritmo de agora?"']},
-    { id:'r2', titulo:'2.100km e uma lição de negócio', meta:'Reels 60s · Pilar CAMPO · com imagens de trilha', gravado: false,
+    { id:'r2', titulo:'2.100km e uma lição de negócio', meta:'Reels 60s · Pilar CAMPO · com imagens de trilha',
       steps:['Gancho (0–4s): Foto/vídeo de trilha na tela. Voz: "Em 2023 eu andei mais de 2.100km em trilhas pelo Brasil."','Problema (4–20s): "E a lição que o campo me ensinou é que nenhuma montanha se conquista com motivação. Motivação te tira do ponto zero. Ela não sustenta a jornada."','Virada (20–40s): "O que conquista montanha — e negócio — é disciplina. É dar o próximo passo no frio, na névoa, na dúvida. Sem esperar a vontade aparecer."','Conexão (40–55s): "Seus clientes não estão esperando você ter vontade de ligar. Seu negócio não cresce na espera da inspiração. O próximo passo existe agora."','CTA (55–60s): "Qual é o seu próximo passo? Me conta aqui."']},
-    { id:'r3', titulo:'AÇÃO & REAÇÃO — o que é isso?', meta:'Reels 50s · Filosofia · câmera direta', gravado: false,
+    { id:'r3', titulo:'AÇÃO & REAÇÃO — o que é isso?', meta:'Reels 50s · Filosofia · câmera direta',
       steps:['Gancho (0–3s): "AÇÃO e REAÇÃO não é um método. É uma filosofia de vida e carreira."','AÇÃO (3–20s): "AÇÃO é o que você coloca no mundo. Atitude. Verdade. Resiliência. É você decidindo antes de estar pronto. Porque perfeito não existe no campo."','REAÇÃO (20–38s): "REAÇÃO é como você responde ao que a vida traz. Empatia com seu cliente. Confiança no seu processo. Fidelidade aos seus valores mesmo quando custa caro."','Síntese (38–47s): "Todo negócio vive entre AÇÃO e REAÇÃO. O que define o resultado é a qualidade com que você pratica os dois."','CTA (47–50s): "Você está mais no modo AÇÃO ou REAÇÃO agora? Me conta."']},
-    { id:'r4', titulo:'Por que criei o Mapa da Verdade', meta:'Reels 60s · Pilar MAPA · storytelling', gravado: false,
+    { id:'r4', titulo:'Por que criei o Mapa da Verdade', meta:'Reels 60s · Pilar MAPA · storytelling',
       steps:['Problema (0–12s): "Empreendedor que chega pra mim geralmente não tem falta de informação. Tem excesso. E o excesso paralisa. Vi isso em centenas de mentorias."','Insight (12–28s): "A maioria erra porque não conhece a própria verdade. Não sabe onde está de verdade. Acha que sabe, mas nunca parou pra olhar com honestidade."','Solução (28–48s): "Por isso criei o Mapa da Verdade. Uma IA treinada com a minha filosofia de 25 anos de campo. Não pra te dizer o que você quer ouvir. Pra te dizer o que você precisa fazer."','CTA (48–60s): "Está no link da bio. Gratuito pra você começar. Acessa, testa e me conta o que achou."']},
   ];
 
   const PLANO_PADRAO = [
-    { dia:'seg', label:'Segunda', plat:'ig', pilar:'⚡ Ação', preview:'Carrossel de reflexão — provocação sobre execução e constância.' },
-    { dia:'seg', label:'Segunda', plat:'li', pilar:'📊 Negócios', preview:'Insight de negócios com analogia de campo. Texto longo.' },
-    { dia:'ter', label:'Terça', plat:'ig', pilar:'🔄 Reação', preview:'Stories: bastidores do dia, pergunta ao público, enquete.' },
-    { dia:'qua', label:'Quarta', plat:'ig', pilar:'🏔️ Campo', preview:'Reels curto (30–45s): história de trilha com lição de negócio.' },
-    { dia:'qua', label:'Quarta', plat:'li', pilar:'📊 Negócios', preview:'Citação ou dado de mercado com seu ponto de vista direto.' },
-    { dia:'qui', label:'Quinta', plat:'ig', pilar:'⚡ Ação', preview:'Quote card: frase forte sua. Fundo verde-escuro ou terra.' },
-    { dia:'qui', label:'Quinta', plat:'li', pilar:'📊 Negócios', preview:'Post de estratégia: Os Ps, empreendedorismo com base real.' },
-    { dia:'sex', label:'Sexta', plat:'ig', pilar:'🗺️ Mapa', preview:'CTA direto: Mapa da Verdade ou Diagnóstico.' },
-    { dia:'sex', label:'Sexta', plat:'li', pilar:'🗺️ Mapa', preview:'Reflexão de semana + convite para mentoria ou diagnóstico.' },
-    { dia:'sab', label:'Sábado', plat:'ig', pilar:'🏔️ Campo', preview:'Conteúdo leve: foto de trilha, natureza, bastidor real.' },
+    { dia:'seg', label:'Segunda', plat:'ig', pilar:'⚡ Ação',     pilarKey:'acao',     preview:'Carrossel de reflexão — provocação sobre execução e constância.' },
+    { dia:'seg', label:'Segunda', plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Insight de negócios com analogia de campo. Texto longo.' },
+    { dia:'ter', label:'Terça',   plat:'ig', pilar:'🔄 Reação',   pilarKey:'reacao',   preview:'Stories: bastidores do dia, pergunta ao público, enquete.' },
+    { dia:'qua', label:'Quarta',  plat:'ig', pilar:'🏔️ Campo',    pilarKey:'campo',    preview:'Reels curto (30–45s): história de trilha com lição de negócio.' },
+    { dia:'qua', label:'Quarta',  plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Citação ou dado de mercado com seu ponto de vista direto.' },
+    { dia:'qui', label:'Quinta',  plat:'ig', pilar:'⚡ Ação',     pilarKey:'acao',     preview:'Quote card: frase forte sua. Fundo verde-escuro ou terra.' },
+    { dia:'qui', label:'Quinta',  plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Post de estratégia: Os Ps, empreendedorismo com base real.' },
+    { dia:'sex', label:'Sexta',   plat:'ig', pilar:'🗺️ Mapa',    pilarKey:'mapa',     preview:'CTA direto: Mapa da Verdade ou Diagnóstico.' },
+    { dia:'sex', label:'Sexta',   plat:'li', pilar:'🗺️ Mapa',    pilarKey:'mapa',     preview:'Reflexão de semana + convite para mentoria ou diagnóstico.' },
+    { dia:'sab', label:'Sábado',  plat:'ig', pilar:'🏔️ Campo',   pilarKey:'campo',    preview:'Conteúdo leve: foto de trilha, natureza, bastidor real.' },
   ];
 
   // ================================================
@@ -566,8 +708,16 @@ Link na bio. Vagas limitadas por semana.` },
   // ================================================
   let semanaOffset = 0;
   let postAtual = null;
+  let postInfo = { pilar: 'acao', plat: 'ig' };
   let statusAtual = 'pendente';
+  let platFiltro = 'todos';
+  let calOffset = 0;
+  let tpRoteiro = null;
+  let tpStep = 0;
 
+  // ================================================
+  //  HELPERS
+  // ================================================
   function getSemanaKey(offset = 0) {
     const d = new Date();
     d.setDate(d.getDate() - d.getDay() + 1 + (offset * 7));
@@ -585,6 +735,29 @@ Link na bio. Vagas limitadas por semana.` },
     return `${ini} – ${fim}`;
   }
 
+  function getWeekKeyForDate(date) {
+    const d = new Date(date);
+    const day = d.getDay();
+    d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    const ano = d.getFullYear();
+    const sem = Math.ceil(((d - new Date(ano, 0, 1)) / 86400000 + 1) / 7);
+    return `${ano}-W${String(sem).padStart(2, '0')}`;
+  }
+
+  function getWeekOffsetForDate(date) {
+    const todayMonday = new Date();
+    const td = todayMonday.getDay();
+    todayMonday.setDate(todayMonday.getDate() - (td === 0 ? 6 : td - 1));
+    todayMonday.setHours(0, 0, 0, 0);
+
+    const targetMonday = new Date(date);
+    const dd = targetMonday.getDay();
+    targetMonday.setDate(targetMonday.getDate() - (dd === 0 ? 6 : dd - 1));
+    targetMonday.setHours(0, 0, 0, 0);
+
+    return Math.round((targetMonday - todayMonday) / (7 * 86400000));
+  }
+
   function getPostKey(semKey, dia, plat, idx) {
     return `post_${semKey}_${dia}_${plat}_${idx}`;
   }
@@ -595,6 +768,10 @@ Link na bio. Vagas limitadas por semana.` },
 
   function savePost(key, data) {
     localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  function labelStatus(s) {
+    return { pendente:'⬜ Pendente', aprovado:'✅ Aprovado', producao:'🎨 Em Produção', publicado:'🚀 Publicado' }[s] || s;
   }
 
   // ================================================
@@ -632,6 +809,7 @@ Link na bio. Vagas limitadas por semana.` },
       document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
       document.getElementById('view-' + view).classList.add('ativa');
       document.getElementById('topbar-titulo').textContent = item.textContent.trim();
+      if (view === 'calendario') renderCalendario();
     });
   });
 
@@ -651,22 +829,28 @@ Link na bio. Vagas limitadas por semana.` },
 
     grid.innerHTML = '';
     dias.forEach(dia => {
-      const posts = PLANO_PADRAO.filter(p => p.dia === dia);
+      const allPosts = PLANO_PADRAO.filter(p => p.dia === dia);
+      const posts = platFiltro === 'todos' ? allPosts : allPosts.filter(p => p.plat === platFiltro);
+
       const col = document.createElement('div');
       col.className = `dia-col dia-${dia}`;
       col.innerHTML = `<div class="dia-header">${labels[dia]}</div><div class="dia-body" id="dia-body-${dia}"></div>`;
       grid.appendChild(col);
 
       const body = col.querySelector('.dia-body');
-      posts.forEach((post, idx) => {
+
+      if (posts.length === 0) {
+        body.innerHTML = '<div class="dia-body-empty">Sem posts filtrados</div>';
+        return;
+      }
+
+      posts.forEach((post) => {
+        const idx = PLANO_PADRAO.indexOf(post);
         const key = getPostKey(semKey, dia, post.plat, idx);
         const saved = loadPost(key) || { copy: post.preview, obs: '', status: 'pendente' };
         const slot = document.createElement('div');
-        slot.className = 'post-slot';
+        slot.className = `post-slot slot-${post.plat}`;
         slot.dataset.key = key;
-        slot.dataset.default = post.preview;
-        slot.dataset.pilar = post.pilar;
-        slot.dataset.plat = post.plat;
         slot.innerHTML = `
           <div class="post-slot-plat ${post.plat === 'ig' ? 'plat-ig' : 'plat-li'}">
             ${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'}
@@ -681,10 +865,6 @@ Link na bio. Vagas limitadas por semana.` },
     });
 
     atualizarResumo(semKey);
-  }
-
-  function labelStatus(s) {
-    return { pendente:'⬜ Pendente', aprovado:'✅ Aprovado', producao:'🎨 Em Produção', publicado:'🚀 Publicado' }[s] || s;
   }
 
   function atualizarResumo(semKey) {
@@ -708,15 +888,27 @@ Link na bio. Vagas limitadas por semana.` },
   document.getElementById('btn-semana-ant').addEventListener('click', () => { semanaOffset--; renderPlano(); });
   document.getElementById('btn-semana-prox').addEventListener('click', () => { semanaOffset++; renderPlano(); });
 
+  document.querySelectorAll('.plat-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.plat-pill').forEach(p => p.classList.remove('ativo'));
+      pill.classList.add('ativo');
+      platFiltro = pill.dataset.plat;
+      renderPlano();
+    });
+  });
+
   // ================================================
   //  MODAL
   // ================================================
   function abrirModal(key, post, saved) {
     postAtual = key;
     statusAtual = saved.status || 'pendente';
-    document.getElementById('modal-titulo').textContent = `${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${post.dia.toUpperCase()} · ${post.pilar}`;
+    postInfo = { pilar: post.pilarKey || 'acao', plat: post.plat };
+    document.getElementById('modal-titulo').textContent =
+      `${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${post.label || post.dia.toUpperCase()} · ${post.pilar}`;
     document.getElementById('modal-copy').value = saved.copy || post.preview;
     document.getElementById('modal-obs').value = saved.obs || '';
+    document.getElementById('ai-status').textContent = '';
     atualizarStatusBtns(statusAtual);
     document.getElementById('modal-post').classList.add('aberto');
   }
@@ -732,10 +924,15 @@ Link na bio. Vagas limitadas por semana.` },
     btn.addEventListener('click', () => atualizarStatusBtns(btn.dataset.status));
   });
 
-  function fecharModal() { document.getElementById('modal-post').classList.remove('aberto'); postAtual = null; }
+  function fecharModal() {
+    document.getElementById('modal-post').classList.remove('aberto');
+    postAtual = null;
+  }
   document.getElementById('modal-fechar').addEventListener('click', fecharModal);
   document.getElementById('btn-cancelar-modal').addEventListener('click', fecharModal);
-  document.getElementById('modal-post').addEventListener('click', e => { if (e.target === document.getElementById('modal-post')) fecharModal(); });
+  document.getElementById('modal-post').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-post')) fecharModal();
+  });
 
   document.getElementById('btn-salvar-modal').addEventListener('click', () => {
     if (!postAtual) return;
@@ -750,12 +947,65 @@ Link na bio. Vagas limitadas por semana.` },
   });
 
   // ================================================
+  //  GERAR COM IA
+  // ================================================
+  async function gerarComIA() {
+    const token = localStorage.getItem('central_token');
+    if (!token) return;
+
+    const btn = document.getElementById('btn-gerar-ia');
+    const statusEl = document.getElementById('ai-status');
+    const contexto = document.getElementById('modal-obs').value.trim();
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Gerando...';
+    statusEl.textContent = 'IA trabalhando...';
+    statusEl.style.color = 'var(--verde-sage)';
+
+    try {
+      const res = await fetch('/api/central/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          pilar: postInfo.pilar,
+          plataforma: postInfo.plat,
+          formato: 'Post',
+          contexto: contexto || ''
+        })
+      });
+
+      const data = await res.json();
+      if (data.ok && data.copy) {
+        document.getElementById('modal-copy').value = data.copy;
+        statusEl.textContent = '✅ Copy gerada!';
+        statusEl.style.color = 'var(--verde-sage)';
+      } else {
+        statusEl.textContent = '❌ ' + (data.error || 'Erro. Tente novamente.');
+        statusEl.style.color = 'var(--terra)';
+      }
+    } catch {
+      statusEl.textContent = '❌ Erro de conexão.';
+      statusEl.style.color = 'var(--terra)';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '⚡ Gerar com IA';
+      setTimeout(() => { statusEl.textContent = ''; }, 4000);
+    }
+  }
+
+  document.getElementById('btn-gerar-ia').addEventListener('click', gerarComIA);
+
+  // ================================================
   //  BIBLIOTECA
   // ================================================
   function renderBiblioteca(filtro = 'todos') {
     const grid = document.getElementById('copys-grid');
     grid.innerHTML = '';
     const filtradas = filtro === 'todos' ? COPYS : COPYS.filter(c => c.pilar === filtro);
+
     filtradas.forEach(c => {
       const headerClass = { acao:'ch-acao', reacao:'ch-reacao', campo:'ch-campo', negocios:'ch-neg', mapa:'ch-mapa' }[c.pilar] || '';
       const pilarLabel = { acao:'⚡ Ação', reacao:'🔄 Reação', campo:'🏔️ Campo', negocios:'📊 Negócios', mapa:'🗺️ Mapa' }[c.pilar] || c.pilar;
@@ -772,17 +1022,17 @@ Link na bio. Vagas limitadas por semana.` },
           </div>
         </div>
       `;
-      grid.appendChild(card);
-    });
 
-    grid.querySelectorAll('.btn-copiar').forEach(btn => {
-      btn.addEventListener('click', () => {
-        navigator.clipboard.writeText(decodeURIComponent(btn.dataset.texto)).then(() => {
-          btn.textContent = '✅ Copiado!';
-          btn.classList.add('copiado');
-          setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copiado'); }, 2000);
+      card.querySelector('.btn-copiar').addEventListener('click', function() {
+        navigator.clipboard.writeText(decodeURIComponent(this.dataset.texto)).then(() => {
+          this.textContent = '✅ Copiado!';
+          this.classList.add('copiado');
+          setTimeout(() => { this.textContent = '📋 Copiar'; this.classList.remove('copiado'); }, 2000);
         });
+        salvarCopy(c);
       });
+
+      grid.appendChild(card);
     });
   }
 
@@ -794,6 +1044,63 @@ Link na bio. Vagas limitadas por semana.` },
     });
   });
 
+  // ------------------------------------------------
+  //  COPYS SALVAS
+  // ------------------------------------------------
+  function salvarCopy(c) {
+    const salvas = JSON.parse(localStorage.getItem('copys_salvas') || '[]');
+    if (!salvas.find(s => s.titulo === c.titulo)) {
+      salvas.unshift({ titulo: c.titulo, texto: c.texto, pilar: c.pilar, plat: c.plat, salvoEm: Date.now() });
+      localStorage.setItem('copys_salvas', JSON.stringify(salvas));
+    }
+    renderSavedCopys();
+  }
+
+  function removerCopySalva(titulo) {
+    let salvas = JSON.parse(localStorage.getItem('copys_salvas') || '[]');
+    salvas = salvas.filter(s => s.titulo !== titulo);
+    localStorage.setItem('copys_salvas', JSON.stringify(salvas));
+    renderSavedCopys();
+  }
+
+  function renderSavedCopys() {
+    const salvas = JSON.parse(localStorage.getItem('copys_salvas') || '[]');
+    const section = document.getElementById('saved-section');
+    const grid = document.getElementById('saved-copys-grid');
+
+    if (!salvas.length) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+
+    grid.innerHTML = '';
+    salvas.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'saved-copy-item';
+      const preview = c.texto.length > 120 ? c.texto.substring(0, 120) + '...' : c.texto;
+      const tituloEnc = encodeURIComponent(c.titulo);
+      const textoEnc = encodeURIComponent(c.texto);
+      item.innerHTML = `
+        <div class="saved-copy-header">
+          <span class="saved-copy-titulo">${c.titulo}</span>
+          <button class="saved-copy-remover" data-titulo="${tituloEnc}">✕</button>
+        </div>
+        <div class="saved-copy-preview">${preview}</div>
+        <div class="copy-acoes">
+          <button class="btn-copiar" data-texto="${textoEnc}">📋 Copiar</button>
+        </div>
+      `;
+      item.querySelector('.saved-copy-remover').addEventListener('click', function() {
+        removerCopySalva(decodeURIComponent(this.dataset.titulo));
+      });
+      item.querySelector('.btn-copiar').addEventListener('click', function() {
+        navigator.clipboard.writeText(decodeURIComponent(this.dataset.texto)).then(() => {
+          this.textContent = '✅ Copiado!';
+          setTimeout(() => { this.textContent = '📋 Copiar'; }, 2000);
+        });
+      });
+      grid.appendChild(item);
+    });
+  }
+
   // ================================================
   //  ROTEIROS
   // ================================================
@@ -801,6 +1108,7 @@ Link na bio. Vagas limitadas por semana.` },
     const lista = document.getElementById('roteiros-lista');
     lista.innerHTML = '';
     const saved = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
+
     ROTEIROS.forEach(r => {
       const gravado = saved[r.id] || false;
       const card = document.createElement('div');
@@ -811,21 +1119,163 @@ Link na bio. Vagas limitadas por semana.` },
             <div class="roteiro-titulo">${r.titulo}</div>
             <div class="roteiro-meta">${r.meta}</div>
           </div>
-          <input type="checkbox" class="roteiro-check" data-id="${r.id}" title="Marcar como gravado" ${gravado ? 'checked' : ''} />
+          <div class="roteiro-acoes">
+            <button class="btn-tp" data-id="${r.id}">▶ Teleprompter</button>
+            <input type="checkbox" class="roteiro-check" data-id="${r.id}" title="Marcar como gravado" ${gravado ? 'checked' : ''} />
+          </div>
         </div>
         <ol class="roteiro-steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
       `;
-      lista.appendChild(card);
-    });
 
-    lista.querySelectorAll('.roteiro-check').forEach(chk => {
-      chk.addEventListener('change', () => {
+      card.querySelector('.btn-tp').addEventListener('click', () => abrirTP(r.id));
+      card.querySelector('.roteiro-check').addEventListener('change', function() {
         const sv = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
-        sv[chk.dataset.id] = chk.checked;
+        sv[this.dataset.id] = this.checked;
         localStorage.setItem('roteiros_gravados', JSON.stringify(sv));
       });
+
+      lista.appendChild(card);
     });
   }
+
+  // ================================================
+  //  TELEPROMPTER
+  // ================================================
+  function abrirTP(id) {
+    tpRoteiro = ROTEIROS.find(r => r.id === id);
+    if (!tpRoteiro) return;
+    tpStep = 0;
+    document.getElementById('tp-titulo').textContent = tpRoteiro.titulo;
+    atualizarTP();
+    document.getElementById('tp-overlay').classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function atualizarTP() {
+    if (!tpRoteiro) return;
+    const total = tpRoteiro.steps.length;
+    document.getElementById('tp-counter').textContent = `${tpStep + 1} / ${total}`;
+    document.getElementById('tp-step-text').textContent = tpRoteiro.steps[tpStep];
+    document.getElementById('tp-prev').disabled = tpStep === 0;
+    document.getElementById('tp-next').textContent = tpStep === total - 1 ? '✅ Concluído' : 'Próximo →';
+
+    const dots = document.getElementById('tp-progress');
+    dots.innerHTML = tpRoteiro.steps.map((_, i) =>
+      `<div class="tp-dot ${i === tpStep ? 'ativo' : ''}"></div>`
+    ).join('');
+  }
+
+  function tpNext() {
+    if (!tpRoteiro) return;
+    if (tpStep < tpRoteiro.steps.length - 1) { tpStep++; atualizarTP(); }
+    else fecharTP();
+  }
+
+  function tpPrev() {
+    if (!tpRoteiro || tpStep === 0) return;
+    tpStep--;
+    atualizarTP();
+  }
+
+  function fecharTP() {
+    document.getElementById('tp-overlay').classList.remove('aberto');
+    document.body.style.overflow = '';
+    tpRoteiro = null;
+  }
+
+  document.getElementById('tp-prev').addEventListener('click', tpPrev);
+  document.getElementById('tp-next').addEventListener('click', tpNext);
+  document.getElementById('tp-close').addEventListener('click', fecharTP);
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('tp-overlay').classList.contains('aberto')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); tpNext(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); tpPrev(); }
+    if (e.key === 'Escape') fecharTP();
+  });
+
+  // ================================================
+  //  CALENDÁRIO
+  // ================================================
+  function renderCalendario() {
+    const hoje = new Date();
+    const target = new Date(hoje.getFullYear(), hoje.getMonth() + calOffset, 1);
+    const ano = target.getFullYear();
+    const mes = target.getMonth();
+
+    const nomeMes = target.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+    document.getElementById('cal-mes-label').textContent =
+      nomeMes.charAt(0).toUpperCase() + nomeMes.slice(1);
+
+    // First Monday on or before the 1st
+    const primeiro = new Date(ano, mes, 1);
+    const startDay = new Date(primeiro);
+    const dow = startDay.getDay();
+    startDay.setDate(startDay.getDate() - (dow === 0 ? 6 : dow - 1));
+
+    // Last day of month
+    const ultimo = new Date(ano, mes + 1, 0);
+
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
+
+    const cur = new Date(startDay);
+    // Build until we've passed the last day and are at a Monday
+    while (cur <= ultimo || cur.getDay() !== 1) {
+      if (cur > ultimo && cur.getDay() === 1) break;
+
+      const date = new Date(cur);
+      const isMes = date.getMonth() === mes;
+      const isHoje = date.toDateString() === hoje.toDateString();
+      const dayNum = date.getDay(); // 0=Sun,1=Mon...
+      const isFds = dayNum === 0 || dayNum === 6;
+
+      const cell = document.createElement('div');
+      let cls = 'cal-cell';
+      if (!isMes) cls += ' cal-fora';
+      if (isHoje) cls += ' cal-hoje';
+      if (isFds) cls += ' cal-fds';
+
+      const diaNomes = ['dom','seg','ter','qua','qui','sex','sab'];
+      const diaKey = diaNomes[dayNum];
+      const weekKey = getWeekKeyForDate(date);
+      const postsNoDia = PLANO_PADRAO.filter(p => p.dia === diaKey);
+
+      if (!isFds && isMes && postsNoDia.length > 0) cls += ' cal-clicavel';
+      cell.className = cls;
+
+      let dotsHtml = '';
+      if (!isFds && isMes) {
+        postsNoDia.forEach((post, idx) => {
+          const allIdx = PLANO_PADRAO.indexOf(post);
+          const key = getPostKey(weekKey, diaKey, post.plat, allIdx);
+          const saved = loadPost(key);
+          const status = saved?.status || 'pendente';
+          dotsHtml += `<span class="cal-dot cal-dot-${post.plat} op-${status}" title="${post.plat === 'ig' ? 'Instagram' : 'LinkedIn'} · ${labelStatus(status)}"></span>`;
+        });
+      }
+
+      cell.innerHTML = `<div class="cal-num">${date.getDate()}</div><div class="cal-dots">${dotsHtml}</div>`;
+
+      if (cell.classList.contains('cal-clicavel')) {
+        cell.addEventListener('click', () => {
+          semanaOffset = getWeekOffsetForDate(date);
+          renderPlano();
+          document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+          document.querySelector('[data-view="plano"]').classList.add('ativo');
+          document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+          document.getElementById('view-plano').classList.add('ativa');
+          document.getElementById('topbar-titulo').textContent = 'Plano da Semana';
+        });
+      }
+
+      grid.appendChild(cell);
+      cur.setDate(cur.getDate() + 1);
+    }
+  }
+
+  document.getElementById('btn-cal-ant').addEventListener('click', () => { calOffset--; renderCalendario(); });
+  document.getElementById('btn-cal-prox').addEventListener('click', () => { calOffset++; renderCalendario(); });
 
   // ================================================
   //  MÉTRICAS
@@ -855,15 +1305,15 @@ Link na bio. Vagas limitadas por semana.` },
     const semLabel = getSemanaLabel(semanaOffset);
     const entrada = {
       semana: semLabel, semKey,
-      alcance: parseInt(document.getElementById('met-alcance').value) || 0,
-      impressoes: parseInt(document.getElementById('met-impressoes').value) || 0,
-      seguidores: parseInt(document.getElementById('met-seguidores').value) || 0,
-      curtidas: parseInt(document.getElementById('met-curtidas').value) || 0,
-      comentarios: parseInt(document.getElementById('met-comentarios').value) || 0,
-      salvamentos: parseInt(document.getElementById('met-salvamentos').value) || 0,
-      cliques: parseInt(document.getElementById('met-cliques').value) || 0,
-      posts: parseInt(document.getElementById('met-posts').value) || 0,
-      pilar: document.getElementById('met-pilar').value,
+      alcance:     parseInt(document.getElementById('met-alcance').value)      || 0,
+      impressoes:  parseInt(document.getElementById('met-impressoes').value)   || 0,
+      seguidores:  parseInt(document.getElementById('met-seguidores').value)   || 0,
+      curtidas:    parseInt(document.getElementById('met-curtidas').value)     || 0,
+      comentarios: parseInt(document.getElementById('met-comentarios').value)  || 0,
+      salvamentos: parseInt(document.getElementById('met-salvamentos').value)  || 0,
+      cliques:     parseInt(document.getElementById('met-cliques').value)      || 0,
+      posts:       parseInt(document.getElementById('met-posts').value)        || 0,
+      pilar:       document.getElementById('met-pilar').value,
     };
     const hist = JSON.parse(localStorage.getItem('metricas_hist') || '[]');
     const idx = hist.findIndex(h => h.semKey === semKey);
@@ -881,6 +1331,7 @@ Link na bio. Vagas limitadas por semana.` },
   verificarAuth();
   renderPlano();
   renderBiblioteca();
+  renderSavedCopys();
   renderRoteiros();
   renderHistorico();
   </script>
