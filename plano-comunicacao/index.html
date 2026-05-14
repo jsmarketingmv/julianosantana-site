@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plano de Comunicação Digital — Juliano Sant'Ana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --verde-escuro: #1C3A2A; --verde-medio: #2D5A3D; --verde-sage: #4A7C59;
+      --verde-claro: #7FB069; --areia: #C49A6C; --terra: #8B5E3C;
+      --creme: #F5F0E8; --creme-escuro: #EDE7D9;
+      --texto-escuro: #1A2A1F; --texto-medio: #3D5C47; --branco: #FFFFFF;
+      --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); line-height: 1.7; padding-top: 56px; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: 1020px; margin: 0 auto; padding: 0 clamp(1.2rem,5vw,3rem); }
+    .section { padding: clamp(4rem,7vw,6rem) 0; }
+    .section-alt { background: var(--branco); }
+    .tag { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 20px; margin-bottom: 1rem; }
+    .tag-verde { background: rgba(74,124,89,0.15); color: var(--verde-sage); }
+    .tag-areia { background: rgba(196,154,108,0.2); color: var(--terra); }
+    h2.titulo { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; color: var(--verde-escuro); }
+    .subtitulo { font-size: 0.95rem; color: var(--texto-medio); margin-bottom: 3rem; max-width: 580px; }
+    .divider { width: 48px; height: 3px; background: var(--areia); border-radius: 2px; margin: 1rem 0 1.5rem; }
+
+    /* NAVBAR */
+    .nav-pc { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(28,58,42,0.97); backdrop-filter: blur(12px); padding: 0.9rem 0; box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .nav-pc-inner { max-width: 1020px; margin: 0 auto; padding: 0 clamp(1.2rem,5vw,3rem); display: flex; align-items: center; justify-content: space-between; }
+    .nav-pc-logo { font-size: 1rem; font-weight: 800; color: var(--creme); }
+    .nav-pc-logo span { font-weight: 300; color: var(--areia); }
+    .nav-pc-back { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,240,232,0.5); transition: color 0.2s; }
+    .nav-pc-back:hover { color: var(--areia); }
+
+    /* HERO */
+    .hero-pc { background: linear-gradient(160deg,#0F1E16,#1C3A2A 60%,#122318); padding: clamp(5rem,10vw,8rem) 0 clamp(4rem,8vw,6rem); }
+    .hero-pc-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-pc-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--areia); margin-bottom: 1rem; display: block; }
+    .hero-pc h1 { font-size: clamp(2rem,4vw,3rem); font-weight: 800; color: var(--creme); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 1rem; }
+    .hero-pc h1 span { color: var(--areia); font-weight: 300; }
+    .hero-pc p { font-size: 1rem; color: rgba(245,240,232,0.6); line-height: 1.75; }
+    .hero-stats-pc { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .hero-stat { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.2rem; text-align: center; }
+    .hero-stat-num { font-size: 1.8rem; font-weight: 800; color: var(--areia); line-height: 1; margin-bottom: 0.3rem; }
+    .hero-stat-label { font-size: 0.72rem; color: rgba(245,240,232,0.45); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* PILARES */
+    .pilares-grid-pc { display: grid; grid-template-columns: repeat(5,1fr); gap: 1rem; }
+    .pilar { border-radius: 12px; padding: 1.4rem 1rem; text-align: center; background: var(--branco); box-shadow: 0 2px 12px rgba(28,58,42,0.08); border-bottom: 3px solid; transition: transform 0.2s; }
+    .pilar:hover { transform: translateY(-3px); }
+    .pilar-emoji { font-size: 1.8rem; display: block; margin-bottom: 0.6rem; }
+    .pilar-nome { font-size: 0.78rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.3rem; }
+    .pilar-plats { font-size: 0.65rem; color: var(--areia); letter-spacing: 0.05em; }
+
+    /* CALENDÁRIO */
+    .calendario { display: grid; grid-template-columns: repeat(7,1fr); gap: 0.6rem; margin-top: 2rem; }
+    .dia-card { border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(28,58,42,0.08); }
+    .dia-header { padding: 0.7rem; text-align: center; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .dia-body { background: var(--branco); padding: 0.8rem; min-height: 120px; }
+    .dia-item { font-size: 0.72rem; color: var(--texto-medio); margin-bottom: 0.5rem; padding: 0.35rem 0.5rem; border-radius: 6px; line-height: 1.4; }
+    .dia-item strong { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    /* Cores dos dias */
+    .seg .dia-header { background: var(--verde-escuro); color: var(--creme); }
+    .ter .dia-header { background: var(--terra); color: var(--creme); }
+    .qua .dia-header { background: var(--verde-medio); color: var(--creme); }
+    .qui .dia-header { background: var(--areia); color: var(--verde-escuro); }
+    .sex .dia-header { background: var(--verde-sage); color: var(--creme); }
+    .sab .dia-header { background: var(--creme-escuro,#EDE7D9); color: var(--verde-escuro); }
+    .dom .dia-header { background: #0F1E16; color: rgba(245,240,232,0.4); }
+
+    .badge-ig { background: rgba(196,154,108,0.15); color: var(--terra); border: 1px solid rgba(196,154,108,0.3); }
+    .badge-li { background: rgba(74,124,89,0.12); color: var(--verde-sage); border: 1px solid rgba(74,124,89,0.25); }
+    .badge-off { background: rgba(0,0,0,0.04); color: rgba(28,58,42,0.35); border: 1px solid rgba(0,0,0,0.06); font-style: italic; }
+
+    /* HORÁRIOS */
+    .horarios-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .horario-card { background: var(--branco); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 12px rgba(28,58,42,0.08); }
+    .horario-header { background: var(--verde-escuro); padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .horario-header h3 { font-size: 0.9rem; font-weight: 700; color: var(--creme); }
+    .horario-header span { font-size: 1.4rem; }
+    .horario-body { padding: 1.5rem; }
+    .horario-slot { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid rgba(28,58,42,0.06); }
+    .horario-slot:last-child { border-bottom: none; }
+    .horario-tempo { font-size: 1rem; font-weight: 800; color: var(--areia); min-width: 70px; }
+    .horario-info { flex: 1; }
+    .horario-info strong { display: block; font-size: 0.85rem; color: var(--verde-escuro); }
+    .horario-info span { font-size: 0.75rem; color: var(--texto-medio); }
+    .horario-score { display: flex; gap: 3px; }
+    .horario-score .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-on { background: var(--verde-claro); }
+    .dot-off { background: rgba(28,58,42,0.15); }
+
+    /* FORMATOS */
+    .formatos-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 1.2rem; margin-top: 2rem; }
+    .formato-card { border-radius: 12px; padding: 1.5rem 1.3rem; background: var(--branco); box-shadow: 0 2px 12px rgba(28,58,42,0.07); border-left: 3px solid var(--verde-sage); }
+    .formato-nome { font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.3rem; }
+    .formato-dims { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--areia); margin-bottom: 0.8rem; }
+    .formato-desc { font-size: 0.8rem; color: var(--texto-medio); line-height: 1.6; }
+    .formato-freq { display: inline-block; margin-top: 0.7rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(28,58,42,0.07); color: var(--verde-sage); padding: 0.2rem 0.7rem; border-radius: 20px; }
+
+    /* COPYS */
+    .copys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .copy-card { background: var(--branco); border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 12px rgba(28,58,42,0.07); }
+    .copy-header { padding: 0.8rem 1.2rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
+    .copy-body { padding: 1.3rem 1.5rem; }
+    .copy-texto { font-size: 0.88rem; color: var(--texto-medio); line-height: 1.75; white-space: pre-line; }
+    .copy-cta { margin-top: 1rem; font-size: 0.72rem; font-weight: 700; color: var(--verde-sage); border-top: 1px solid rgba(28,58,42,0.07); padding-top: 0.8rem; }
+    .copy-pilar { font-size: 0.62rem; background: rgba(196,154,108,0.15); color: var(--terra); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .ch-acao { background: #1C3A2A; color: var(--creme); }
+    .ch-reacao { background: var(--terra); color: var(--creme); }
+    .ch-campo { background: var(--verde-sage); color: var(--creme); }
+    .ch-neg { background: var(--creme-escuro,#EDE7D9); color: var(--verde-escuro); }
+    .ch-mapa { background: var(--areia); color: var(--verde-escuro); }
+
+    /* ROTEIROS */
+    .roteiro { background: var(--branco); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 12px rgba(28,58,42,0.07); }
+    .roteiro-titulo { font-size: 1rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.3rem; }
+    .roteiro-meta { font-size: 0.72rem; color: var(--areia); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .roteiro-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 0.7rem; }
+    .roteiro-steps li { counter-increment: step; display: flex; gap: 1rem; align-items: flex-start; font-size: 0.88rem; color: var(--texto-medio); line-height: 1.6; }
+    .roteiro-steps li::before { content: counter(step); min-width: 24px; height: 24px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* FOOTER */
+    .footer-pc { background: #0F1E16; padding: 2rem 0; text-align: center; margin-top: 5rem; }
+    .footer-pc p { font-size: 0.78rem; color: rgba(245,240,232,0.2); }
+    .footer-pc a { color: rgba(196,154,108,0.4); }
+    .footer-pc a:hover { color: var(--areia); }
+
+    @media (max-width: 900px) {
+      .calendário { grid-template-columns: repeat(4,1fr); }
+      .pilares-grid-pc { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero-pc-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .calendario { grid-template-columns: repeat(2,1fr); }
+      .pilares-grid-pc { grid-template-columns: repeat(2,1fr); }
+      .horarios-grid { grid-template-columns: 1fr; }
+      .copys-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .nav-pc { display: none; }
+      body { padding-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-pc">
+    <div class="nav-pc-inner">
+      <span class="nav-pc-logo">Juliano <span>Sant'Ana</span> — Plano de Comunicação</span>
+      <a href="/" class="nav-pc-back">← Voltar ao site</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-pc">
+    <div class="container">
+      <div class="hero-pc-inner">
+        <div>
+          <span class="hero-pc-label">Instagram + LinkedIn · 2025</span>
+          <h1>Plano de <span>Comunicação</span> Digital</h1>
+          <p>Calendário, horários, formatos, copys prontas e roteiros de vídeo — tudo baseado na sua filosofia de marca e no que o seu site comunica.</p>
+        </div>
+        <div class="hero-stats-pc">
+          <div class="hero-stat">
+            <div class="hero-stat-num">5</div>
+            <div class="hero-stat-label">Pilares de conteúdo</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">4–5×</div>
+            <div class="hero-stat-label">Posts por semana</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">2</div>
+            <div class="hero-stat-label">Canais ativos</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">20+</div>
+            <div class="hero-stat-label">Copys prontas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       PILARES
+  ================================================================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="tag tag-verde">Os 5 Pilares</span>
+      <h2 class="titulo">Do que você vai falar</h2>
+      <div class="divider"></div>
+      <p class="subtitulo">Todo post parte de um dos cinco pilares abaixo. Isso mantém a consistência e garante que cada publicação tenha um propósito estratégico.</p>
+
+      <div class="pilares-grid-pc">
+        <div class="pilar" style="border-bottom-color:var(--verde-claro);">
+          <span class="pilar-emoji">⚡</span>
+          <div class="pilar-nome">AÇÃO</div>
+          <div class="pilar-plats">IG + LI</div>
+        </div>
+        <div class="pilar" style="border-bottom-color:var(--terra);">
+          <span class="pilar-emoji">🔄</span>
+          <div class="pilar-nome">REAÇÃO</div>
+          <div class="pilar-plats">IG + LI</div>
+        </div>
+        <div class="pilar" style="border-bottom-color:var(--areia);">
+          <span class="pilar-emoji">🏔️</span>
+          <div class="pilar-nome">CAMPO</div>
+          <div class="pilar-plats">IG (Reels)</div>
+        </div>
+        <div class="pilar" style="border-bottom-color:var(--verde-sage);">
+          <span class="pilar-emoji">📊</span>
+          <div class="pilar-nome">NEGÓCIOS</div>
+          <div class="pilar-plats">LI principal</div>
+        </div>
+        <div class="pilar" style="border-bottom-color:var(--verde-medio);">
+          <span class="pilar-emoji">🗺️</span>
+          <div class="pilar-nome">MAPA DA VERDADE</div>
+          <div class="pilar-plats">IG + LI</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CALENDÁRIO SEMANAL
+  ================================================================ -->
+  <section class="section">
+    <div class="container">
+      <span class="tag tag-verde">Calendário Semanal</span>
+      <h2 class="titulo">O que postar em cada dia</h2>
+      <div class="divider"></div>
+      <p class="subtitulo">Modelo de semana-padrão. Adapte conforme seus eventos, lançamentos e datas relevantes. Off = descanso estratégico.</p>
+
+      <div class="calendario">
+
+        <div class="dia-card seg">
+          <div class="dia-header">SEG</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>Carrossel de reflexão — pilar AÇÃO. Provocação sobre execução.</div>
+            <div class="dia-item badge-li"><strong>💼 LinkedIn</strong>Texto longo. Insight de negócios com analogia de campo.</div>
+          </div>
+        </div>
+
+        <div class="dia-card ter">
+          <div class="dia-header">TER</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>Stories: bastidores do dia, pergunta pro público, enquete rápida.</div>
+            <div class="dia-item badge-off"><strong>💼 LinkedIn</strong>— Off ou repost de artigo do blog.</div>
+          </div>
+        </div>
+
+        <div class="dia-card qua">
+          <div class="dia-header">QUA</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>Reels curto (30–45s): história de trilha com lição de negócio. Pilar CAMPO.</div>
+            <div class="dia-item badge-li"><strong>💼 LinkedIn</strong>Citação ou dado de mercado com seu ponto de vista direto.</div>
+          </div>
+        </div>
+
+        <div class="dia-card qui">
+          <div class="dia-header">QUI</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>Quote card: frase forte sua. Fundo verde-escuro ou terra.</div>
+            <div class="dia-item badge-li"><strong>💼 LinkedIn</strong>Post de pilar NEGÓCIOS: Os Ps, estratégia, empreendedorismo.</div>
+          </div>
+        </div>
+
+        <div class="dia-card sex">
+          <div class="dia-header">SEX</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>CTA direto: Mapa da Verdade ou Diagnóstico. Pilar MAPA.</div>
+            <div class="dia-item badge-li"><strong>💼 LinkedIn</strong>Reflexão de semana + convite para mentoria ou diagnóstico.</div>
+          </div>
+        </div>
+
+        <div class="dia-card sab">
+          <div class="dia-header">SÁB</div>
+          <div class="dia-body">
+            <div class="dia-item badge-ig"><strong>📷 Instagram</strong>Conteúdo leve: foto de trilha, natureza, bastidor real.</div>
+            <div class="dia-item badge-off"><strong>💼 LinkedIn</strong>— Off</div>
+          </div>
+        </div>
+
+        <div class="dia-card dom">
+          <div class="dia-header">DOM</div>
+          <div class="dia-body">
+            <div class="dia-item badge-off"><strong>📷 Instagram</strong>— Off ou Story de bastidor.</div>
+            <div class="dia-item badge-off"><strong>💼 LinkedIn</strong>— Off</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:1.5rem;background:var(--branco);border-radius:var(--radius);padding:1.5rem 2rem;border-left:4px solid var(--areia);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+        <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.75;">
+          <strong style="color:var(--verde-escuro);">📌 Regra de ouro:</strong> nunca poste por postar. Cada publicação tem um dos 5 pilares, um formato claro e um propósito — gerar reflexão, gerar desejo ou gerar ação. Se não tem propósito, não vai.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       HORÁRIOS
+  ================================================================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="tag tag-areia">Horários Sugeridos</span>
+      <h2 class="titulo">Quando publicar</h2>
+      <div class="divider"></div>
+      <p class="subtitulo">Baseado no comportamento médio do público empreendedor brasileiro. Ajuste conforme os insights da sua conta crescerem.</p>
+
+      <div class="horarios-grid">
+        <div class="horario-card">
+          <div class="horario-header">
+            <span>📷</span>
+            <h3>Instagram</h3>
+          </div>
+          <div class="horario-body">
+            <div class="horario-slot">
+              <div class="horario-tempo">07h30</div>
+              <div class="horario-info">
+                <strong>Segunda e Quarta</strong>
+                <span>Empreendedor em início de dia — receptivo a reflexão</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">12h00</div>
+              <div class="horario-info">
+                <strong>Terça e Quinta</strong>
+                <span>Pausa do almoço — alto engajamento em Stories</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-off"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">18h30</div>
+              <div class="horario-info">
+                <strong>Sexta</strong>
+                <span>Fechamento de semana — alto consumo de vídeo e Reels</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">09h00</div>
+              <div class="horario-info">
+                <strong>Sábado</strong>
+                <span>Conteúdo leve / foto de campo</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-off"></div><div class="dot dot-off"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="horario-card">
+          <div class="horario-header">
+            <span>💼</span>
+            <h3>LinkedIn</h3>
+          </div>
+          <div class="horario-body">
+            <div class="horario-slot">
+              <div class="horario-tempo">07h00</div>
+              <div class="horario-info">
+                <strong>Segunda</strong>
+                <span>Executivo e empreendedor — começo de semana forte</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">08h30</div>
+              <div class="horario-info">
+                <strong>Quarta</strong>
+                <span>Meio de semana — pico de leitura corporativa</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">11h30</div>
+              <div class="horario-info">
+                <strong>Quinta</strong>
+                <span>Pré-almoço — conteúdo de negócios performa bem</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-off"></div>
+              </div>
+            </div>
+            <div class="horario-slot">
+              <div class="horario-tempo">07h30</div>
+              <div class="horario-info">
+                <strong>Sexta</strong>
+                <span>Reflexão de semana + convite à ação</span>
+              </div>
+              <div class="horario-score">
+                <div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-on"></div><div class="dot dot-off"></div><div class="dot dot-off"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       FORMATOS
+  ================================================================ -->
+  <section class="section">
+    <div class="container">
+      <span class="tag tag-verde">Formatos</span>
+      <h2 class="titulo">O que criar em cada plataforma</h2>
+      <div class="divider"></div>
+
+      <div style="margin-bottom:2rem;">
+        <h3 style="font-size:0.8rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--areia);margin-bottom:1rem;">📷 Instagram</h3>
+        <div class="formatos-grid">
+          <div class="formato-card">
+            <div class="formato-nome">Carrossel de Reflexão</div>
+            <div class="formato-dims">1080×1080 · 5–8 slides</div>
+            <div class="formato-desc">Slide 1: provocação/pergunta. Slides internos: desenvolvimento em tópicos. Último: CTA. Fundo verde-escuro + areia como destaque.</div>
+            <span class="formato-freq">2× por semana</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--areia);">
+            <div class="formato-nome">Reels Curto</div>
+            <div class="formato-dims">1080×1920 · 30–60s</div>
+            <div class="formato-desc">Rosto na câmera. Início direto (sem "olá, tudo bem"). História curta de trilha ou insight de negócio. Legenda fechada.</div>
+            <span class="formato-freq">1× por semana</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--terra);">
+            <div class="formato-nome">Quote Card</div>
+            <div class="formato-dims">1080×1080</div>
+            <div class="formato-desc">Frase forte sua. Fundo verde-escuro ou terra. Montserrat 800. Aspas grandes decorativas em areia semitransparente.</div>
+            <span class="formato-freq">1× por semana</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--verde-claro);">
+            <div class="formato-nome">Story Diário</div>
+            <div class="formato-dims">1080×1920 · sequência</div>
+            <div class="formato-desc">Bastidor do dia, pergunta ao público, enquete, link para blog ou diagnóstico. Sempre com algum tipo de interação.</div>
+            <span class="formato-freq">Diário (úteis)</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--verde-medio);">
+            <div class="formato-nome">Foto de Campo</div>
+            <div class="formato-dims">1080×1350 (4:5)</div>
+            <div class="formato-desc">Foto autêntica de trilha, montanha ou natureza. Legenda com insight curto. Humaniza a marca. Sem filtros excessivos.</div>
+            <span class="formato-freq">1× por semana</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-size:0.8rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--verde-sage);margin-bottom:1rem;">💼 LinkedIn</h3>
+        <div class="formatos-grid">
+          <div class="formato-card" style="border-left-color:var(--verde-sage);">
+            <div class="formato-nome">Texto Longo</div>
+            <div class="formato-dims">Sem imagem ou imagem creme</div>
+            <div class="formato-desc">1ª linha = gancho forte. Quebras de linha a cada 2–3 frases. Sem paredes de texto. Máx. 1.300 caracteres visíveis antes do "ver mais".</div>
+            <span class="formato-freq">2× por semana</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--areia);">
+            <div class="formato-nome">Post com Imagem</div>
+            <div class="formato-dims">1200×628px</div>
+            <div class="formato-desc">Imagem no padrão brandbook (verde + areia). Texto mais curto. Ideal para artigos do blog, prêmios, conquistas.</div>
+            <span class="formato-freq">1× por semana</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--terra);">
+            <div class="formato-nome">Artigo Nativo</div>
+            <div class="formato-dims">Longo form</div>
+            <div class="formato-desc">Replicar ou adaptar artigos do blog. Mais leitura, mais autoridade, mais SEO no LinkedIn. Ideal para o pilar NEGÓCIOS.</div>
+            <span class="formato-freq">1× por mês</span>
+          </div>
+          <div class="formato-card" style="border-left-color:var(--verde-escuro);">
+            <div class="formato-nome">Citação Curta</div>
+            <div class="formato-dims">Texto simples</div>
+            <div class="formato-desc">3–5 linhas. Frase impactante + 1 parágrafo de contexto. Alto alcance. Perfeito para dias de menos energia criativa.</div>
+            <span class="formato-freq">1× por semana</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       COPYS PRONTAS
+  ================================================================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="tag tag-areia">Copys Prontas</span>
+      <h2 class="titulo">Textos para usar e adaptar</h2>
+      <div class="divider"></div>
+      <p class="subtitulo">20 copys organizadas por pilar. Use como estão ou adapte para o seu momento. Cada uma tem um gatilho e um CTA claro.</p>
+
+      <div class="copys-grid">
+
+        <!-- AÇÃO 1 -->
+        <div class="copy-card">
+          <div class="copy-header ch-acao">
+            <span>⚡ AÇÃO — Carrossel / Instagram</span>
+            <span class="copy-pilar">ação</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">A maioria das pessoas tem metas.
+Poucos têm rota.
+
+Meta sem rota é desejo.
+Desejo sem ação é fantasia.
+
+A diferença entre quem realiza e quem fica no "vou fazer" não é talento.
+É constância.
+
+Pergunta honesta:
+Se você fizesse exatamente o que fez essa semana pelas próximas 52, onde estaria?
+
+Responde aqui. Eu leio.</div>
+            <div class="copy-cta">→ CTA: comentário / salvar</div>
+          </div>
+        </div>
+
+        <!-- AÇÃO 2 -->
+        <div class="copy-card">
+          <div class="copy-header ch-acao">
+            <span>⚡ AÇÃO — LinkedIn</span>
+            <span class="copy-pilar">ação</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Você não tem problema de motivação.
+
+Você tem problema de sistema.
+
+Motivação arranca o carro.
+Sistema mantém o carro na estrada.
+
+Em 25 anos acompanhando empreendedores, aprendi que os que chegam não são os mais motivados.
+São os que construíram hábitos, revisões e rotas claras — mesmo quando não queriam.
+
+Qual é o seu sistema esta semana?</div>
+            <div class="copy-cta">→ CTA: comentário com resposta</div>
+          </div>
+        </div>
+
+        <!-- REAÇÃO 1 -->
+        <div class="copy-card">
+          <div class="copy-header ch-reacao">
+            <span>🔄 REAÇÃO — Carrossel</span>
+            <span class="copy-pilar">reação</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Caí.
+Errei.
+Recomeçai.
+Cresci.
+Conquistei.
+
+E repetiria tudo de novo.
+
+Porque REAÇÃO não é fraqueza.
+É o que separa quem aprende de quem desiste.
+
+3 coisas que aprendi caindo:
+
+1. O erro certo te leva mais longe que o acerto com sorte
+2. Recomeçar não é derrota — é estratégia
+3. Quem não erra está imóvel
+
+Qual foi o seu recomeço mais importante?</div>
+            <div class="copy-cta">→ CTA: comentário pessoal</div>
+          </div>
+        </div>
+
+        <!-- REAÇÃO 2 -->
+        <div class="copy-card">
+          <div class="copy-header ch-reacao">
+            <span>🔄 REAÇÃO — LinkedIn</span>
+            <span class="copy-pilar">reação</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">O mercado mudou.
+Seus clientes mudaram.
+Seus concorrentes mudaram.
+
+E você?
+
+REAÇÃO não é esperar passar a tempestade.
+É aprender a trabalhar na chuva.
+
+Os empreendedores que acompanho na mentoria não são os mais inteligentes do mercado.
+São os que reagem mais rápido e mais bem.
+
+Adaptação é vantagem competitiva.
+Teimosia com o que não funciona é suicídio de negócio.</div>
+            <div class="copy-cta">→ CTA: link para diagnóstico</div>
+          </div>
+        </div>
+
+        <!-- CAMPO 1 -->
+        <div class="copy-card">
+          <div class="copy-header ch-campo">
+            <span>🏔️ CAMPO — Reels / Caption</span>
+            <span class="copy-pilar">campo</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Em 2023 trilhei mais de 2.100km.
+
+Nenhuma montanha foi conquistada pela motivação.
+
+Todas foram conquistadas pela disciplina de dar o próximo passo — mesmo quando eu não queria.
+
+A névoa não some porque você quer.
+O frio não passa porque você pede.
+A dúvida não vai embora sozinha.
+
+O que muda é o que você faz com isso.
+
+Nos seus negócios não é diferente.</div>
+            <div class="copy-cta">→ CTA: salvar / compartilhar</div>
+          </div>
+        </div>
+
+        <!-- CAMPO 2 -->
+        <div class="copy-card">
+          <div class="copy-header ch-campo">
+            <span>🏔️ CAMPO — Foto com legenda</span>
+            <span class="copy-pilar">campo</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Na trilha você aprende cedo:
+não existe atalho que não cobre o seu preço.
+
+No negócio é igual.
+
+Quem promete chegar mais rápido geralmente não te diz o que você vai perder no caminho.
+
+Campo ensina isso melhor do que qualquer sala de aula.
+
+📍 [nome do local da foto]</div>
+            <div class="copy-cta">→ CTA: tag alguém que precisa ouvir</div>
+          </div>
+        </div>
+
+        <!-- NEGÓCIOS 1 -->
+        <div class="copy-card">
+          <div class="copy-header ch-neg">
+            <span>📊 NEGÓCIOS — LinkedIn</span>
+            <span class="copy-pilar">negócios</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Kotler tinha 4 Ps.
+
+O mercado ganhou mais 4.
+
+E mesmo assim, a maioria dos negócios ainda erra no básico:
+não conhece o próprio produto como o cliente vê.
+não sabe o preço que o mercado aguenta.
+não está no lugar certo.
+e não fala com quem precisa falar.
+
+Antes de complexificar a estratégia — revisita os fundamentos.
+
+Os Ps de Kotler ainda matam mais negócios do que qualquer tendência nova.</div>
+            <div class="copy-cta">→ CTA: link para o site (seção Os Ps)</div>
+          </div>
+        </div>
+
+        <!-- NEGÓCIOS 2 -->
+        <div class="copy-card">
+          <div class="copy-header ch-neg">
+            <span>📊 NEGÓCIOS — Carrossel</span>
+            <span class="copy-pilar">negócios</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">O problema não é falta de estratégia.
+É excesso de estratégia sem execução.
+
+5 perguntas que vão revelar a verdade do seu negócio:
+
+1. Você sabe exatamente quem é o seu cliente ideal?
+2. Seu preço reflete o valor que você entrega?
+3. Você está onde seu cliente compra?
+4. Sua comunicação resolve ou só informa?
+5. O que você fez essa semana que aproximou uma venda?
+
+Cada "não sei" é uma rota a corrigir.</div>
+            <div class="copy-cta">→ CTA: salvar para responder</div>
+          </div>
+        </div>
+
+        <!-- MAPA 1 -->
+        <div class="copy-card">
+          <div class="copy-header ch-mapa">
+            <span>🗺️ MAPA DA VERDADE — CTA</span>
+            <span class="copy-pilar">mapa</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Criei uma IA com a minha filosofia de vida e carreira.
+
+Não é mais um chatbot genérico.
+É uma ferramenta treinada com 25 anos de campo, mentoria e AÇÃO & REAÇÃO.
+
+Para empreendedores que precisam de:
+→ Clareza de rota
+→ Diagnóstico real do negócio
+→ Respostas diretas, sem rodeios
+
+O Mapa da Verdade está no link da bio.
+
+Acessa. Testa. Me fala o que achou.</div>
+            <div class="copy-cta">→ CTA: link para mapadaverdade.com.br</div>
+          </div>
+        </div>
+
+        <!-- MAPA 2 — Diagnóstico -->
+        <div class="copy-card">
+          <div class="copy-header ch-mapa">
+            <span>🗺️ DIAGNÓSTICO — Sexta-feira</span>
+            <span class="copy-pilar">mapa</span>
+          </div>
+          <div class="copy-body">
+            <div class="copy-texto">Toda sexta faço a mesma pergunta:
+
+O que você fez essa semana que move o ponteiro?
+
+Se a resposta demorou mais de 10 segundos — você precisa de clareza de rota, não de mais esforço.
+
+É isso que o Diagnóstico resolve.
+45 minutos. Direto ao ponto.
+Sem enrolação, sem proposta disfarçada de consultoria.
+
+Só a verdade do que está funcionando e o que não está.
+
+Link na bio. Vagas limitadas por semana.</div>
+            <div class="copy-cta">→ CTA: link bio → diagnóstico</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ROTEIROS DE REELS / VÍDEO
+  ================================================================ -->
+  <section class="section">
+    <div class="container">
+      <span class="tag tag-verde">Roteiros</span>
+      <h2 class="titulo">Ideias e roteiros para vídeo</h2>
+      <div class="divider"></div>
+      <p class="subtitulo">Roteiros simples para Reels no Instagram e vídeos curtos no LinkedIn. Adapte ao seu jeito de falar — o mais importante é a autenticidade.</p>
+
+      <div class="roteiro">
+        <div class="roteiro-titulo">🎬 "A pergunta que muda o jogo"</div>
+        <div class="roteiro-meta">Reels 45s · Pilar AÇÃO · câmera direta</div>
+        <ol class="roteiro-steps">
+          <li><strong>Gancho (0–3s):</strong> "Se você fizesse exatamente o que fez essa semana pelas próximas 52..." — pausa dramática.</li>
+          <li><strong>Desenvolvimento (3–25s):</strong> "Na mentoria eu faço essa pergunta pra todo empreendedor que chega travado. E geralmente o silêncio é a resposta. Não por falta de esforço. Por falta de rota."</li>
+          <li><strong>Analogia de campo (25–38s):</strong> "Na trilha, nenhuma montanha me esperou. O que me levou ao topo foi dar o próximo passo mesmo sem ver o destino."</li>
+          <li><strong>CTA (38–45s):</strong> "Responde nos comentários: onde você estaria em 52 semanas se mantivesse o ritmo de agora?"</li>
+        </ol>
+      </div>
+
+      <div class="roteiro">
+        <div class="roteiro-titulo">🎬 "2.100km e uma lição de negócio"</div>
+        <div class="roteiro-meta">Reels 60s · Pilar CAMPO · com imagens de trilha</div>
+        <ol class="roteiro-steps">
+          <li><strong>Gancho (0–4s):</strong> Foto/vídeo de trilha na tela. Voz: "Em 2023 eu andei mais de 2.100km em trilhas pelo Brasil."</li>
+          <li><strong>Problema (4–20s):</strong> "E a lição que o campo me ensinou é que nenhuma montanha se conquista com motivação. Motivação te tira do ponto zero. Ela não sustenta a jornada."</li>
+          <li><strong>Virada (20–40s):</strong> "O que conquista montanha — e negócio — é disciplina. É dar o próximo passo no frio, na névoa, na dúvida. Sem esperar a vontade aparecer."</li>
+          <li><strong>Conexão (40–55s):</strong> "Seus clientes não estão esperando você ter vontade de ligar. Seu negócio não cresce na espera da inspiração. O próximo passo existe agora."</li>
+          <li><strong>CTA (55–60s):</strong> "Qual é o seu próximo passo? Me conta aqui."</li>
+        </ol>
+      </div>
+
+      <div class="roteiro">
+        <div class="roteiro-titulo">🎬 "AÇÃO & REAÇÃO — o que é isso?"</div>
+        <div class="roteiro-meta">Reels 50s · Pilar FILOSOFIA · câmera direta</div>
+        <ol class="roteiro-steps">
+          <li><strong>Gancho (0–3s):</strong> "AÇÃO e REAÇÃO não é um método. É uma filosofia de vida e carreira."</li>
+          <li><strong>AÇÃO (3–20s):</strong> "AÇÃO é o que você coloca no mundo. Atitude. Verdade. Resiliência. É você decidindo antes de estar pronto. Porque perfeito não existe no campo."</li>
+          <li><strong>REAÇÃO (20–38s):</strong> "REAÇÃO é como você responde ao que a vida traz. Empatia com seu cliente. Confiança no seu processo. Fidelidade aos seus valores mesmo quando custa caro."</li>
+          <li><strong>Síntese (38–47s):</strong> "Todo negócio vive entre AÇÃO e REAÇÃO. O que define o resultado é a qualidade com que você pratica os dois."</li>
+          <li><strong>CTA (47–50s):</strong> "Você está mais no modo AÇÃO ou REAÇÃO agora? Me conta."</li>
+        </ol>
+      </div>
+
+      <div class="roteiro">
+        <div class="roteiro-titulo">🎬 "Por que criei o Mapa da Verdade"</div>
+        <div class="roteiro-meta">Reels 60s · Pilar MAPA · storytelling</div>
+        <ol class="roteiro-steps">
+          <li><strong>Problema (0–12s):</strong> "Empreendedor que chega pra mim geralmente não tem falta de informação. Tem excesso. E o excesso paralisa. Vi isso em centenas de mentorias."</li>
+          <li><strong>Insight (12–28s):</strong> "A maioria erra porque não conhece a própria verdade. Não sabe onde está de verdade. Acha que sabe, mas nunca parou pra olhar com honestidade."</li>
+          <li><strong>Solução (28–48s):</strong> "Por isso criei o Mapa da Verdade. Uma IA treinada com a minha filosofia de 25 anos de campo. Não pra te dizer o que você quer ouvir. Pra te dizer o que você precisa fazer."</li>
+          <li><strong>CTA (48–60s):</strong> "Está no link da bio. Gratuito pra você começar. Acessa, testa e me conta o que achou."</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       DICAS RÁPIDAS
+  ================================================================ -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="tag tag-areia">Dicas Práticas</span>
+      <h2 class="titulo">O que funciona de verdade</h2>
+      <div class="divider"></div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;">
+
+        <div style="background:var(--creme);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--verde-sage);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-sage);margin-bottom:0.8rem;">📷 Instagram — Regra dos 3 segundos</h3>
+          <p style="font-size:0.85rem;color:var(--texto-medio);line-height:1.7;">Os primeiros 3 segundos do Reel e a primeira linha do carrossel determinam se alguém para ou rola. Comece sempre com provocação, dado ou pergunta — nunca com "Olá" ou apresentação.</p>
+        </div>
+
+        <div style="background:var(--creme);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--areia);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--terra);margin-bottom:0.8rem;">💼 LinkedIn — Gancho + Respiração</h3>
+          <p style="font-size:0.85rem;color:var(--texto-medio);line-height:1.7;">No LinkedIn, quebre o texto a cada 2–3 linhas. Paredes de texto morrem antes do "ver mais". Use frases curtas. Uma ideia por parágrafo. Deixe espaço visual para o leitor respirar.</p>
+        </div>
+
+        <div style="background:var(--creme);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--terra);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--terra);margin-bottom:0.8rem;">🔄 Stories — Interação diária</h3>
+          <p style="font-size:0.85rem;color:var(--texto-medio);line-height:1.7;">Stories sem interação são vitrines. Use enquetes, perguntas abertas, caixa de respostas. Quanto mais o algoritmo vê engajamento no Story, mais alcance no feed. Responda quem responde.</p>
+        </div>
+
+        <div style="background:var(--creme);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--verde-escuro);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-escuro);margin-bottom:0.8rem;">🎯 CTA único por post</h3>
+          <p style="font-size:0.85rem;color:var(--texto-medio);line-height:1.7;">Cada post tem apenas um CTA. Nunca "salva, comenta, compartilha e vai no link". Escolha o mais importante para aquela peça e peça só isso. Menos opções = mais conversão.</p>
+        </div>
+
+        <div style="background:var(--creme);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--verde-claro);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-sage);margin-bottom:0.8rem;">📸 Foto real > arte bonita</h3>
+          <p style="font-size:0.85rem;color:var(--texto-medio);line-height:1.7;">No seu nicho (mentoria, estratégia, campo), uma foto autêntica de trilha ou de rosto performa melhor do que um card perfeito. Autenticidade vende mais do que produção.</p>
+        </div>
+
+        <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:1.8rem;border-left:3px solid var(--areia);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--areia);margin-bottom:0.8rem;">⚡ Consistência > viralização</h3>
+          <p style="font-size:0.85rem;color:rgba(245,240,232,0.6);line-height:1.7;">Um post viral não constrói autoridade. 90 dias de constância constroem. O algoritmo ama consistência. Seu público ama previsibilidade. Post ruim publicado bate post perfeito guardado.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-pc">
+    <div class="container">
+      <p>Plano de Comunicação · 2025 · <a href="/">julianosantana.com.br</a> · <a href="/brandbook/">Ver Brandbook</a> · Uso interno</p>
+    </div>
+  </footer>
+
+</body>
+</html>

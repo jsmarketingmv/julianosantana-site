@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brandbook — Juliano Sant'Ana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --verde-escuro:  #1C3A2A;
+      --verde-medio:   #2D5A3D;
+      --verde-sage:    #4A7C59;
+      --verde-claro:   #7FB069;
+      --areia:         #C49A6C;
+      --terra:         #8B5E3C;
+      --creme:         #F5F0E8;
+      --creme-escuro:  #EDE7D9;
+      --texto-escuro:  #1A2A1F;
+      --texto-medio:   #3D5C47;
+      --branco:        #FFFFFF;
+      --radius:        16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); line-height: 1.7; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ---- Utilitários ---- */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 clamp(1.2rem, 5vw, 3rem); }
+    .tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 20px; margin-bottom: 1rem;
+    }
+    .tag-verde { background: rgba(74,124,89,0.15); color: var(--verde-sage); }
+    .tag-areia { background: rgba(196,154,108,0.2); color: var(--terra); }
+    .section { padding: clamp(4rem, 8vw, 6rem) 0; }
+    .section-alt { background: var(--branco); }
+    h2.titulo-secao {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 0.5rem; color: var(--verde-escuro);
+    }
+    .subtitulo-secao {
+      font-size: 1rem; color: var(--texto-medio); margin-bottom: 3rem; max-width: 560px;
+    }
+    .divider {
+      width: 48px; height: 3px; background: var(--areia);
+      border-radius: 2px; margin: 1rem 0 1.5rem;
+    }
+
+    /* ---- CAPA ---- */
+    .capa {
+      background: linear-gradient(160deg, #0F1E16 0%, #1C3A2A 55%, #122318 100%);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      padding: 4rem 1.5rem;
+    }
+    .capa::before {
+      content: '';
+      position: absolute; top: -30%; left: -20%;
+      width: 80vmax; height: 80vmax; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .capa-inner { position: relative; z-index: 1; }
+    .capa-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--areia); margin-bottom: 2rem;
+      display: block;
+    }
+    .capa-nome {
+      font-size: clamp(3rem, 8vw, 6rem); font-weight: 800;
+      color: var(--creme); letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .capa-nome span { color: var(--areia); font-weight: 300; }
+    .capa-cargo {
+      font-size: clamp(0.75rem, 1.5vw, 0.9rem); font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(245,240,232,0.4); margin-bottom: 2.5rem;
+    }
+    .capa-filosofia {
+      display: inline-flex; align-items: center; gap: 1.5rem;
+      border: 1px solid rgba(196,154,108,0.3);
+      border-radius: 50px; padding: 0.7rem 2rem;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--areia);
+    }
+    .capa-filosofia::before, .capa-filosofia::after {
+      content: '⚡'; font-size: 0.9rem;
+    }
+    .capa-versao {
+      position: absolute; bottom: 2rem; right: 2rem;
+      font-size: 0.72rem; color: rgba(245,240,232,0.2);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ---- ÍNDICE ---- */
+    .indice-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;
+      margin-top: 2rem;
+    }
+    .indice-item {
+      background: var(--branco); border-radius: 12px; padding: 1.2rem 1.4rem;
+      border-left: 3px solid var(--verde-sage);
+      box-shadow: 0 2px 12px rgba(28,58,42,0.07);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .indice-item:hover { border-left-color: var(--areia); transform: translateX(4px); }
+    .indice-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; color: var(--areia); margin-bottom: 0.3rem; }
+    .indice-titulo { font-size: 0.9rem; font-weight: 700; color: var(--verde-escuro); }
+
+    /* ---- POSICIONAMENTO ---- */
+    .pos-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;
+    }
+    .pos-card {
+      background: var(--creme); border-radius: var(--radius); padding: 2rem;
+      border-top: 3px solid var(--verde-sage);
+    }
+    .pos-card.destaque { border-top-color: var(--areia); background: var(--verde-escuro); }
+    .pos-card h3 {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--areia); margin-bottom: 1rem;
+    }
+    .pos-card p { font-size: 0.95rem; color: var(--texto-medio); line-height: 1.75; }
+    .pos-card.destaque p { color: rgba(245,240,232,0.7); }
+    .pos-card.destaque h3 { color: var(--verde-claro); }
+    .pos-card blockquote {
+      font-size: 1.1rem; font-weight: 700; color: var(--creme);
+      line-height: 1.5; font-style: italic; margin-top: 1rem;
+    }
+
+    /* ---- CORES ---- */
+    .cores-grupo { margin-bottom: 3rem; }
+    .cores-grupo h3 {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--texto-medio); margin-bottom: 1.2rem;
+    }
+    .cores-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .cor-card {
+      display: flex; flex-direction: column; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      min-width: 130px; flex: 1;
+    }
+    .cor-amostra { height: 80px; }
+    .cor-info {
+      background: var(--branco); padding: 0.8rem 0.9rem;
+    }
+    .cor-nome { font-size: 0.78rem; font-weight: 700; color: var(--texto-escuro); margin-bottom: 0.2rem; }
+    .cor-hex { font-size: 0.72rem; color: var(--texto-medio); font-family: monospace; letter-spacing: 0.05em; }
+    .cor-uso { font-size: 0.65rem; color: var(--areia); margin-top: 0.3rem; font-style: italic; }
+
+    /* ---- TIPOGRAFIA ---- */
+    .tipo-demo { margin-bottom: 2.5rem; }
+    .tipo-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--areia); margin-bottom: 0.8rem; display: block;
+    }
+    .tipo-amostra-800 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--verde-escuro); letter-spacing: -0.02em; line-height: 1.1; }
+    .tipo-amostra-700 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; color: var(--verde-escuro); letter-spacing: -0.01em; }
+    .tipo-amostra-600 { font-size: 1.2rem; font-weight: 600; color: var(--verde-medio); }
+    .tipo-amostra-400 { font-size: 1rem; font-weight: 400; color: var(--texto-medio); line-height: 1.75; max-width: 520px; }
+    .tipo-amostra-300 { font-size: 1rem; font-weight: 300; font-style: italic; color: var(--texto-medio); }
+    .tipo-meta {
+      margin-top: 0.5rem; font-size: 0.72rem;
+      color: rgba(28,58,42,0.35); letter-spacing: 0.05em;
+    }
+    .tipo-escala {
+      display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem;
+      background: var(--creme); border-radius: var(--radius); padding: 2rem;
+    }
+    .tipo-escala-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .tipo-escala-px { font-size: 0.65rem; color: var(--areia); font-weight: 700; letter-spacing: 0.1em; }
+    .tipo-escala-ex { color: var(--verde-escuro); font-weight: 700; }
+
+    /* ---- VOZ E TOM ---- */
+    .voz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .voz-card { border-radius: var(--radius); padding: 2rem; }
+    .voz-card.sim { background: rgba(74,124,89,0.08); border: 1px solid rgba(74,124,89,0.2); }
+    .voz-card.nao { background: rgba(139,94,60,0.07); border: 1px solid rgba(139,94,60,0.2); }
+    .voz-card h3 {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-bottom: 1.2rem;
+    }
+    .voz-card.sim h3 { color: var(--verde-sage); }
+    .voz-card.nao h3 { color: var(--terra); }
+    .voz-lista { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .voz-lista li {
+      font-size: 0.9rem; color: var(--texto-medio);
+      display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.5;
+    }
+    .voz-lista li::before { flex-shrink: 0; font-size: 0.85rem; }
+    .voz-card.sim .voz-lista li::before { content: '✓'; color: var(--verde-sage); font-weight: 700; }
+    .voz-card.nao .voz-lista li::before { content: '✕'; color: var(--terra); font-weight: 700; }
+
+    .pilares-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .pilar-card {
+      background: var(--branco); border-radius: 12px; padding: 1.4rem 1.2rem;
+      text-align: center; box-shadow: 0 2px 12px rgba(28,58,42,0.07);
+      border-bottom: 3px solid var(--verde-sage);
+    }
+    .pilar-emoji { font-size: 1.8rem; margin-bottom: 0.7rem; display: block; }
+    .pilar-titulo { font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.3rem; }
+    .pilar-sub { font-size: 0.72rem; color: var(--texto-medio); line-height: 1.5; }
+
+    /* ---- FILOSOFIA ---- */
+    .filosofia-box {
+      background: var(--verde-escuro); border-radius: var(--radius);
+      padding: 3rem; text-align: center; margin-top: 2rem; position: relative; overflow: hidden;
+    }
+    .filosofia-box::before {
+      content: '⚡'; position: absolute; font-size: 12rem; opacity: 0.04;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+    }
+    .filosofia-box h3 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: 0.05em;
+      color: var(--creme); margin-bottom: 0.5rem;
+    }
+    .filosofia-box h3 span { color: var(--areia); }
+    .filosofia-box p { font-size: 1rem; color: rgba(245,240,232,0.55); max-width: 500px; margin: 0 auto 2rem; line-height: 1.7; }
+    .filosofia-duo { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .filosofia-bloco {
+      background: rgba(255,255,255,0.05); border-radius: 12px;
+      padding: 1.5rem 2rem; flex: 1; min-width: 180px; max-width: 240px;
+      text-align: left; border-top: 3px solid;
+    }
+    .filosofia-bloco.acao { border-color: var(--verde-claro); }
+    .filosofia-bloco.reacao { border-color: var(--terra); }
+    .filosofia-bloco strong {
+      display: block; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.05em; margin-bottom: 0.6rem;
+    }
+    .filosofia-bloco.acao strong { color: var(--verde-claro); }
+    .filosofia-bloco.reacao strong { color: var(--areia); }
+    .filosofia-bloco ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .filosofia-bloco ul li { font-size: 0.82rem; color: rgba(245,240,232,0.55); }
+    .filosofia-bloco ul li::before { content: '· '; color: var(--areia); }
+
+    /* ---- APLICAÇÕES ---- */
+    .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .app-card {
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 4px 20px rgba(28,58,42,0.12);
+    }
+    .app-header {
+      padding: 0.8rem 1.2rem; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--verde-escuro); color: var(--areia);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .app-body { background: var(--branco); padding: 1.5rem; }
+    .app-body p { font-size: 0.85rem; color: var(--texto-medio); line-height: 1.65; margin-bottom: 1rem; }
+    .app-body ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .app-body ul li { font-size: 0.82rem; color: var(--texto-medio); display: flex; gap: 0.6rem; }
+    .app-body ul li::before { content: '→'; color: var(--verde-sage); flex-shrink: 0; }
+
+    /* Paleta mini inline */
+    .paleta-mini { display: flex; gap: 4px; margin-top: 1rem; }
+    .paleta-mini span { height: 20px; flex: 1; border-radius: 4px; }
+
+    /* ---- NAV TOPO ---- */
+    .nav-bb {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(28,58,42,0.97); backdrop-filter: blur(12px);
+      padding: 0.9rem 0; box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    }
+    .nav-bb-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 clamp(1.2rem,5vw,3rem);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-bb-logo { font-size: 1rem; font-weight: 800; color: var(--creme); }
+    .nav-bb-logo span { font-weight: 300; color: var(--areia); }
+    .nav-bb-back {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(245,240,232,0.5);
+      transition: color 0.2s;
+    }
+    .nav-bb-back:hover { color: var(--areia); }
+    body { padding-top: 56px; }
+
+    /* ---- FOOTER ---- */
+    .footer-bb {
+      background: #0F1E16; padding: 2.5rem 0; text-align: center;
+    }
+    .footer-bb p { font-size: 0.8rem; color: rgba(245,240,232,0.2); }
+    .footer-bb a { color: rgba(196,154,108,0.5); transition: color 0.2s; }
+    .footer-bb a:hover { color: var(--areia); }
+
+    @media (max-width: 640px) {
+      .pos-grid, .voz-grid { grid-template-columns: 1fr; }
+      .filosofia-duo { flex-direction: column; align-items: center; }
+      .capa-nome { font-size: 2.8rem; }
+    }
+
+    @media print {
+      .nav-bb, .footer-bb { display: none; }
+      body { padding-top: 0; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-bb">
+    <div class="nav-bb-inner">
+      <span class="nav-bb-logo">Juliano <span>Sant'Ana</span> — Brandbook</span>
+      <a href="/" class="nav-bb-back">← Voltar ao site</a>
+    </div>
+  </nav>
+
+  <!-- ================================================================
+       CAPA
+  ================================================================ -->
+  <section class="capa">
+    <div class="capa-inner">
+      <span class="capa-label">Identidade de Marca · v1.0 · 2025</span>
+      <h1 class="capa-nome">Juliano<br><span>Sant'Ana</span></h1>
+      <p class="capa-cargo">Mentor · Estrategista · Palestrante</p>
+      <div class="capa-filosofia">AÇÃO &amp; REAÇÃO — Filosofia de Vida e Carreira</div>
+    </div>
+    <span class="capa-versao">Brandbook v1.0</span>
+  </section>
+
+  <!-- ================================================================
+       ÍNDICE
+  ================================================================ -->
+  <section class="section">
+    <div class="container">
+      <span class="tag tag-verde">Conteúdo</span>
+      <h2 class="titulo-secao">Índice</h2>
+      <div class="divider"></div>
+      <div class="indice-grid">
+        <a href="#posicionamento" class="indice-item">
+          <div class="indice-num">01</div>
+          <div class="indice-titulo">Posicionamento &amp; Proposta</div>
+        </a>
+        <a href="#filosofia" class="indice-item">
+          <div class="indice-num">02</div>
+          <div class="indice-titulo">Filosofia de Marca</div>
+        </a>
+        <a href="#cores" class="indice-item">
+          <div class="indice-num">03</div>
+          <div class="indice-titulo">Paleta de Cores</div>
+        </a>
+        <a href="#tipografia" class="indice-item">
+          <div class="indice-num">04</div>
+          <div class="indice-titulo">Tipografia</div>
+        </a>
+        <a href="#voz" class="indice-item">
+          <div class="indice-num">05</div>
+          <div class="indice-titulo">Voz &amp; Tom</div>
+        </a>
+        <a href="#pilares" class="indice-item">
+          <div class="indice-num">06</div>
+          <div class="indice-titulo">Pilares de Conteúdo</div>
+        </a>
+        <a href="#aplicacoes" class="indice-item">
+          <div class="indice-num">07</div>
+          <div class="indice-titulo">Aplicações Digitais</div>
+        </a>
+        <a href="#regras" class="indice-item">
+          <div class="indice-num">08</div>
+          <div class="indice-titulo">Regras de Uso</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       01 — POSICIONAMENTO
+  ================================================================ -->
+  <section class="section section-alt" id="posicionamento">
+    <div class="container">
+      <span class="tag tag-verde">01 — Posicionamento</span>
+      <h2 class="titulo-secao">Quem é essa marca?</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Juliano Sant'Ana não é uma empresa. É uma autoridade. Uma filosofia encarnada em 25 anos de campo real.</p>
+
+      <div class="pos-grid">
+        <div class="pos-card">
+          <h3>Quem somos</h3>
+          <p>Mentor e Estrategista com 25 anos de resultado em campo. Montanhista, empreendedor e palestrante. Criador do Mapa da Verdade. Alguém que vive o que ensina — nas trilhas e nos negócios.</p>
+        </div>
+        <div class="pos-card">
+          <h3>Para quem falamos</h3>
+          <p>Empreendedores que querem sair do "vou fazer" e entrar no "estou fazendo". Líderes que precisam de clareza, não de mais teoria. Pessoas que valorizam verdade mais do que conforto.</p>
+        </div>
+        <div class="pos-card">
+          <h3>O problema que resolvemos</h3>
+          <p>A maioria erra porque não conhece a própria verdade. Confundem movimento com progresso, ocupação com resultado. Nossa marca existe para quebrar esse ciclo com AÇÃO e REAÇÃO.</p>
+        </div>
+        <div class="pos-card destaque">
+          <h3>Nossa promessa</h3>
+          <blockquote>"Faço empreendedores pararem de adivinhar e começarem a construir com resultado real."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       02 — FILOSOFIA
+  ================================================================ -->
+  <section class="section" id="filosofia">
+    <div class="container">
+      <span class="tag tag-areia">02 — Filosofia</span>
+      <h2 class="titulo-secao">AÇÃO &amp; REAÇÃO</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Esta não é uma metodologia. É uma <strong>filosofia de vida e carreira</strong>. O coração de toda a comunicação da marca.</p>
+
+      <div class="filosofia-box">
+        <h3>AÇÃO <span>&amp;</span> REAÇÃO</h3>
+        <p>Uma filosofia de vida e carreira. Não um método, não uma técnica. Uma forma de existir no negócio, nas trilhas e na vida.</p>
+        <div class="filosofia-duo">
+          <div class="filosofia-bloco acao">
+            <strong>⚡ AÇÃO</strong>
+            <ul>
+              <li>Atitude</li>
+              <li>Verdade</li>
+              <li>Resiliência</li>
+            </ul>
+          </div>
+          <div class="filosofia-bloco reacao">
+            <strong>🔄 REAÇÃO</strong>
+            <ul>
+              <li>Empatia</li>
+              <li>Confiança</li>
+              <li>Fidelidade</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem; background:var(--branco); border-radius:var(--radius); padding:2rem; border-left: 4px solid var(--areia);">
+        <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--areia);margin-bottom:1rem;">⚠️ REGRA CRÍTICA DE MARCA</h3>
+        <p style="font-size:0.95rem;color:var(--texto-medio);line-height:1.75;">
+          <strong style="color:var(--verde-escuro);">NUNCA use "método", "técnica" ou "ferramenta" para descrever AÇÃO &amp; REAÇÃO.</strong><br>
+          Sempre: <em>filosofia de vida e carreira</em>, <em>filosofia de negócios</em>, <em>filosofia de campo</em>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       03 — CORES
+  ================================================================ -->
+  <section class="section section-alt" id="cores">
+    <div class="container">
+      <span class="tag tag-verde">03 — Cores</span>
+      <h2 class="titulo-secao">Paleta de Cores</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Inspirada em campo, floresta e terra. Verde-floresta como base de autoridade, areia como calor humano e distinção.</p>
+
+      <div class="cores-grupo">
+        <h3>Cores Primárias — Base da Marca</h3>
+        <div class="cores-grid">
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#1C3A2A;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Verde Escuro</div>
+              <div class="cor-hex">#1C3A2A</div>
+              <div class="cor-uso">Fundo principal, autoridade</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#2D5A3D;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Verde Médio</div>
+              <div class="cor-hex">#2D5A3D</div>
+              <div class="cor-uso">Elementos de suporte</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#C49A6C;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Areia</div>
+              <div class="cor-hex">#C49A6C</div>
+              <div class="cor-uso">Destaques, CTAs, ênfase</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#F5F0E8;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Creme</div>
+              <div class="cor-hex">#F5F0E8</div>
+              <div class="cor-uso">Fundo claro, texto em dark bg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cores-grupo">
+        <h3>Cores Secundárias — Apoio e Profundidade</h3>
+        <div class="cores-grid">
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#4A7C59;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Verde Sage</div>
+              <div class="cor-hex">#4A7C59</div>
+              <div class="cor-uso">Links, ícones, hover</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#7FB069;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Verde Claro</div>
+              <div class="cor-hex">#7FB069</div>
+              <div class="cor-uso">AÇÃO, confirmações</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#8B5E3C;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Terra</div>
+              <div class="cor-hex">#8B5E3C</div>
+              <div class="cor-uso">REAÇÃO, badges, prêmios</div>
+            </div>
+          </div>
+          <div class="cor-card">
+            <div class="cor-amostra" style="background:#1A2A1F;"></div>
+            <div class="cor-info">
+              <div class="cor-nome">Texto Escuro</div>
+              <div class="cor-hex">#1A2A1F</div>
+              <div class="cor-uso">Títulos e corpo principal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:2rem;margin-top:1rem;">
+        <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--areia);margin-bottom:1.2rem;">Combinações Aprovadas para Posts</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.5rem;text-align:center;">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,#1C3A2A,#2D5A3D);border-radius:8px;margin:0 auto 0.5rem;"></div>
+            <div style="font-size:0.72rem;color:rgba(245,240,232,0.5);">Dark · Autoridade</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.5rem;text-align:center;">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,#8B5E3C,#C49A6C);border-radius:8px;margin:0 auto 0.5rem;"></div>
+            <div style="font-size:0.72rem;color:rgba(245,240,232,0.5);">Terra · Provocação</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.5rem;text-align:center;">
+            <div style="width:60px;height:60px;background:#F5F0E8;border-radius:8px;margin:0 auto 0.5rem;"></div>
+            <div style="font-size:0.72rem;color:rgba(245,240,232,0.5);">Creme · Editorial</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.5rem;text-align:center;">
+            <div style="width:60px;height:60px;background:linear-gradient(135deg,#4A7C59,#1C3A2A);border-radius:8px;margin:0 auto 0.5rem;"></div>
+            <div style="font-size:0.72rem;color:rgba(245,240,232,0.5);">Forest · Campo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       04 — TIPOGRAFIA
+  ================================================================ -->
+  <section class="section" id="tipografia">
+    <div class="container">
+      <span class="tag tag-verde">04 — Tipografia</span>
+      <h2 class="titulo-secao">Montserrat — Única e Consistente</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Uma única família tipográfica. Toda a hierarquia e expressão se constroem pelos pesos e tamanhos dentro do Montserrat.</p>
+
+      <div class="tipo-demo">
+        <span class="tipo-label">Peso 800 — Títulos, impacto, chamadas</span>
+        <div class="tipo-amostra-800">AÇÃO &amp; REAÇÃO<br>é uma filosofia.</div>
+        <div class="tipo-meta">Montserrat 800 · uso: H1, headlines de posts, capas</div>
+      </div>
+
+      <div class="tipo-demo">
+        <span class="tipo-label">Peso 700 — Subtítulos e seções</span>
+        <div class="tipo-amostra-700">25 anos em campo geram perspectivas que não cabem em template.</div>
+        <div class="tipo-meta">Montserrat 700 · uso: H2, títulos de cards</div>
+      </div>
+
+      <div class="tipo-demo">
+        <span class="tipo-label">Peso 600 — Destaques e labels</span>
+        <div class="tipo-amostra-600">Mentor · Estrategista · Palestrante</div>
+        <div class="tipo-meta">Montserrat 600 · uso: H3, badges, categorias</div>
+      </div>
+
+      <div class="tipo-demo">
+        <span class="tipo-label">Peso 400 — Corpo de texto</span>
+        <div class="tipo-amostra-400">Meta sem rota é desejo. Desejo sem ação é fantasia. A diferença entre quem realiza e quem fica no "vou fazer" está na constância, não no talento.</div>
+        <div class="tipo-meta">Montserrat 400 · uso: parágrafos, legendas de post, blog</div>
+      </div>
+
+      <div class="tipo-demo">
+        <span class="tipo-label">Peso 300 Itálico — Citações e taglines</span>
+        <div class="tipo-amostra-300">"Se você fizesse exatamente o que fez essa semana pelas próximas 52 semanas, onde estaria?"</div>
+        <div class="tipo-meta">Montserrat 300 italic · uso: citações, hero tagline</div>
+      </div>
+
+      <div class="tipo-escala">
+        <div class="tipo-escala-item">
+          <span class="tipo-escala-px">48–64px</span>
+          <span class="tipo-escala-ex" style="font-size:2.5rem;">H1</span>
+        </div>
+        <div class="tipo-escala-item">
+          <span class="tipo-escala-px">32–40px</span>
+          <span class="tipo-escala-ex" style="font-size:1.8rem;">H2</span>
+        </div>
+        <div class="tipo-escala-item">
+          <span class="tipo-escala-px">20–24px</span>
+          <span class="tipo-escala-ex" style="font-size:1.2rem;">H3</span>
+        </div>
+        <div class="tipo-escala-item">
+          <span class="tipo-escala-px">16–18px</span>
+          <span class="tipo-escala-ex" style="font-size:1rem;">Corpo</span>
+        </div>
+        <div class="tipo-escala-item">
+          <span class="tipo-escala-px">11–13px</span>
+          <span class="tipo-escala-ex" style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;">LABEL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       05 — VOZ E TOM
+  ================================================================ -->
+  <section class="section section-alt" id="voz">
+    <div class="container">
+      <span class="tag tag-areia">05 — Voz &amp; Tom</span>
+      <h2 class="titulo-secao">Como a marca fala</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Direto, honesto, provocativo na medida certa. Sem academicismo, sem bajulação, sem guru de palco.</p>
+
+      <div class="voz-grid">
+        <div class="voz-card sim">
+          <h3>✓ A marca fala assim</h3>
+          <ul class="voz-lista">
+            <li>Direto ao ponto, sem rodeios</li>
+            <li>Com autoridade conquistada em campo</li>
+            <li>Provoca reflexão antes de dar resposta</li>
+            <li>Usa analogias de trilha e natureza</li>
+            <li>Chama pelo nome: empreendedor, líder</li>
+            <li>Valoriza o processo mais que o destino</li>
+            <li>Fala em verdade, não em perfeição</li>
+            <li>Humaniza com histórias reais de erro e recomeço</li>
+            <li>Usa números concretos (25 anos, 2.100km)</li>
+            <li>Tom de mentor, não de professor</li>
+          </ul>
+        </div>
+        <div class="voz-card nao">
+          <h3>✕ A marca NÃO fala assim</h3>
+          <ul class="voz-lista">
+            <li>Clichê motivacional ("acredite em você!")</li>
+            <li>Jargão de coach genérico</li>
+            <li>"Método", "técnica", "ferramenta" para AÇÃO &amp; REAÇÃO</li>
+            <li>Promessas sem embasamento real</li>
+            <li>Linguagem corporativa e fria</li>
+            <li>Excesso de hashtags ou emojis irrelevantes</li>
+            <li>Autoajuda sem substância</li>
+            <li>Humildade excessiva que minimiza a autoridade</li>
+            <li>Urgência falsa ("últimas vagas!")</li>
+            <li>Comparações com concorrentes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;background:var(--creme-escuro,#EDE7D9);border-radius:var(--radius);padding:2rem;">
+        <h3 style="font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--verde-sage);margin-bottom:1.2rem;">Adjetivos que definem a voz</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:0.7rem;">
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Direto</span>
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Autêntico</span>
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Provocativo</span>
+          <span style="background:var(--areia);color:var(--verde-escuro);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:700;">Verdadeiro</span>
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Experiente</span>
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Humano</span>
+          <span style="background:var(--verde-escuro);color:var(--creme);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:600;">Resiliente</span>
+          <span style="background:var(--areia);color:var(--verde-escuro);padding:0.4rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:700;">Campo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       06 — PILARES DE CONTEÚDO
+  ================================================================ -->
+  <section class="section" id="pilares">
+    <div class="container">
+      <span class="tag tag-verde">06 — Pilares</span>
+      <h2 class="titulo-secao">Pilares de Conteúdo</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Todo conteúdo da marca nasce em um destes cinco pilares. Eles guiam o quê falar, para quem e com qual intenção.</p>
+
+      <div class="pilares-grid">
+        <div class="pilar-card" style="border-bottom-color:var(--verde-claro)">
+          <span class="pilar-emoji">⚡</span>
+          <div class="pilar-titulo">AÇÃO</div>
+          <div class="pilar-sub">Proatividade, execução, atitude. O que você está fazendo agora mesmo.</div>
+        </div>
+        <div class="pilar-card" style="border-bottom-color:var(--terra)">
+          <span class="pilar-emoji">🔄</span>
+          <div class="pilar-titulo">REAÇÃO</div>
+          <div class="pilar-sub">Adaptação, empatia, resiliência. Como você responde ao que a vida traz.</div>
+        </div>
+        <div class="pilar-card" style="border-bottom-color:var(--areia)">
+          <span class="pilar-emoji">🏔️</span>
+          <div class="pilar-titulo">CAMPO</div>
+          <div class="pilar-sub">Histórias das trilhas. Analogias que conectam natureza e negócios.</div>
+        </div>
+        <div class="pilar-card" style="border-bottom-color:var(--verde-sage)">
+          <span class="pilar-emoji">📊</span>
+          <div class="pilar-titulo">NEGÓCIOS</div>
+          <div class="pilar-sub">Estratégia, marketing, Os Ps, empreendedorismo com base real.</div>
+        </div>
+        <div class="pilar-card" style="border-bottom-color:var(--verde-medio)">
+          <span class="pilar-emoji">🗺️</span>
+          <div class="pilar-titulo">MAPA DA VERDADE</div>
+          <div class="pilar-sub">Diagnóstico, IA com minha filosofia, clareza de rota para o negócio.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       07 — APLICAÇÕES DIGITAIS
+  ================================================================ -->
+  <section class="section section-alt" id="aplicacoes">
+    <div class="container">
+      <span class="tag tag-areia">07 — Aplicações</span>
+      <h2 class="titulo-secao">Orientações para Criação</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Como aplicar a identidade visual em formatos digitais. Para quando for criar no Canva, CapCut ou com designer.</p>
+
+      <div class="app-grid">
+        <div class="app-card">
+          <div class="app-header">
+            <span>Post Carrossel · Instagram</span>
+            <span>1:1 ou 4:5</span>
+          </div>
+          <div class="app-body">
+            <p>Slide 1 = provocação em bold branco sobre fundo verde-escuro. Slides internos = creme com texto escuro. Último slide = CTA em areia.</p>
+            <ul>
+              <li>Fundo: #1C3A2A ou #F5F0E8</li>
+              <li>Título: Montserrat 800, branco ou verde-escuro</li>
+              <li>Texto: Montserrat 400, tamanho legível no mobile</li>
+              <li>Destaque: cor areia #C49A6C</li>
+              <li>Rodapé: "@julianopsantana" discreto</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#1C3A2A;"></span>
+              <span style="background:#C49A6C;"></span>
+              <span style="background:#F5F0E8;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-header">
+            <span>Story · Instagram</span>
+            <span>9:16</span>
+          </div>
+          <div class="app-body">
+            <p>Fundo degradê verde-escuro (topo) para verde-médio (base). Texto central grande. Sempre com sticker de link ou enquete.</p>
+            <ul>
+              <li>Gradiente: #0F1E16 → #1C3A2A</li>
+              <li>Texto: branco peso 700</li>
+              <li>Detalhe: linha areia ou emoji ⚡</li>
+              <li>Sempre um CTA clicável (link, enquete, pergunta)</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#0F1E16;"></span>
+              <span style="background:#1C3A2A;"></span>
+              <span style="background:#C49A6C;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-header">
+            <span>Reels / Capa de Vídeo</span>
+            <span>9:16</span>
+          </div>
+          <div class="app-body">
+            <p>Capa sempre com o rosto visível. Título em Montserrat 800 na parte inferior, sobre faixa semi-transparente verde-escuro.</p>
+            <ul>
+              <li>Capa: foto real + overlay #1C3A2A a 50%</li>
+              <li>Título: Montserrat 800, creme, máx. 6 palavras</li>
+              <li>Faixa: gradiente do rodapé para cima</li>
+              <li>Sem muito texto na capa — impacto visual primeiro</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#1C3A2A;opacity:0.7;"></span>
+              <span style="background:#F5F0E8;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-header">
+            <span>Post LinkedIn</span>
+            <span>Texto + Imagem</span>
+          </div>
+          <div class="app-body">
+            <p>Texto longo com quebras de linha (sem paredes de texto). Imagem creme/editorial se houver. Tom levemente mais formal que o Instagram.</p>
+            <ul>
+              <li>Primeira linha: gancho forte (provocação ou dado)</li>
+              <li>Sem hashtag no corpo — só no final (máx. 3)</li>
+              <li>Imagem: creme com texto verde-escuro ou foto de campo</li>
+              <li>Sempre com CTA claro no final</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#F5F0E8;"></span>
+              <span style="background:#1A2A1F;"></span>
+              <span style="background:#C49A6C;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-header">
+            <span>Citação / Quote</span>
+            <span>1:1</span>
+          </div>
+          <div class="app-body">
+            <p>Fundo terra (#8B5E3C) ou verde-escuro. Citação centralizada em itálico 300. Aspas grandes decorativas. Assinatura discreta.</p>
+            <ul>
+              <li>Fundo: #8B5E3C ou #1C3A2A</li>
+              <li>Citação: Montserrat 300 italic, creme</li>
+              <li>Aspas: " " grandes, areia, opacidade 20%</li>
+              <li>Assinatura: "— Juliano Sant'Ana" em areia</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#8B5E3C;"></span>
+              <span style="background:#C49A6C;"></span>
+              <span style="background:#F5F0E8;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <div class="app-header">
+            <span>Capa de Blog / Artigo</span>
+            <span>1200×630px</span>
+          </div>
+          <div class="app-body">
+            <p>Foto de trilha ou natureza com overlay verde. Título do artigo em Montserrat 700. Categoria em badge areia no canto.</p>
+            <ul>
+              <li>Overlay: rgba(28,58,42, 0.75)</li>
+              <li>Título: Montserrat 700, creme</li>
+              <li>Badge: areia com texto verde-escuro</li>
+              <li>Resolução mín.: 1200×630px</li>
+            </ul>
+            <div class="paleta-mini">
+              <span style="background:#1C3A2A;opacity:0.75;"></span>
+              <span style="background:#C49A6C;"></span>
+              <span style="background:#F5F0E8;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       08 — REGRAS DE USO
+  ================================================================ -->
+  <section class="section" id="regras">
+    <div class="container">
+      <span class="tag tag-verde">08 — Regras de Uso</span>
+      <h2 class="titulo-secao">O que protege a marca</h2>
+      <div class="divider"></div>
+      <p class="subtitulo-secao">Regras simples que mantêm a identidade forte e consistente em qualquer canal ou formato.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-top:2rem;">
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--verde-sage);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-sage);margin-bottom:1rem;">🎨 Cores</h3>
+          <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.7;">Nunca use o verde com fundo branco puro. Sempre creme (#F5F0E8). Nunca use cores fora da paleta aprovada. Evite mais de 3 cores por peça.</p>
+        </div>
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--areia);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--terra);margin-bottom:1rem;">✍️ Tipografia</h3>
+          <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.7;">Somente Montserrat. Nunca use outra fonte. Pesos permitidos: 300, 400, 600, 700, 800. Sem condensed ou expanded.</p>
+        </div>
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--verde-escuro);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-escuro);margin-bottom:1rem;">📸 Fotografia</h3>
+          <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.7;">Fotos autênticas de campo, trilhas, montanhas e contexto real. Sem banco de imagens genérico. Overlay verde sempre que houver texto sobre foto.</p>
+        </div>
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--terra);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--terra);margin-bottom:1rem;">💬 Linguagem</h3>
+          <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.7;">AÇÃO & REAÇÃO = sempre "filosofia de vida e carreira". Nunca "método". Travessões (—) evitados no texto corrido. Linguagem direta, sem rodeios.</p>
+        </div>
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--verde-claro);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--verde-sage);margin-bottom:1rem;">🔗 Links</h3>
+          <p style="font-size:0.88rem;color:var(--texto-medio);line-height:1.7;">Instagram: julianosantana.com.br/link<br>LinkedIn: linkedin.com/in/julianopsantana<br>Site: julianosantana.com.br<br>IA: mapadaverdade.com.br</p>
+        </div>
+
+        <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:1.8rem;border-top:3px solid var(--areia);box-shadow:0 2px 12px rgba(28,58,42,0.07);">
+          <h3 style="font-size:0.82rem;font-weight:700;color:var(--areia);margin-bottom:1rem;">⚡ Essência</h3>
+          <p style="font-size:0.88rem;color:rgba(245,240,232,0.6);line-height:1.7;">Tudo que sai pela marca deve ser verdadeiro, de campo e capaz de provocar uma ação. Se não faz o empreendedor parar e pensar, não publica.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-bb">
+    <div class="container">
+      <p>Brandbook v1.0 · 2025 · <a href="/">julianosantana.com.br</a> · Uso interno — não compartilhar publicamente</p>
+    </div>
+  </footer>
+
+</body>
+</html>
