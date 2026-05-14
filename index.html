@@ -250,6 +250,18 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
   @media (max-width: 480px) {
     .ps-grid { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* Filosofia: keywords entre parênteses */
+  .filosofia-keys {
+    display: block;
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(245,240,232,0.45);
+    margin-top: 0.35rem;
+  }
+
+  /* Os Ps de Kotler: letra P em destaque areia */
+  .p-card.kotler .p-letra { color: var(--areia); }
   </style>
 </head>
 <body>
@@ -386,13 +398,13 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
           <h2>Guias de montanha não mentem sobre o terreno. Nem eu sobre o seu negócio.</h2>
 
           <p>
-            25 anos percorrendo mercados, montanhas e negócios. Fui premiado, errei, recomeçei.
+            25 anos percorrendo mercados, montanhas e negócios. Fui premiado, errei, cai, levantei, recomeçei, cresci, conquistei.
             Aprendi que resultado real exige <strong>diagnóstico honesto, ação consistente e coragem de encarar a verdade.</strong>
           </p>
           <p>
             Minha mentoria é individual e direta, sem fórmula, com presença e cobrança. É a mesma
-            filosofia que me levou ao topo do Kilimanjaro, ao Aconcagua e a trilhar mais de 2.100km:
-            <em>quem chega lá não é o mais talentoso, é o mais consistente.</em>
+            filosofia que me levou ao topo do Kilimanjaro, ao Aconcagua e a trilhar mais de 2.100km só em 2023. Imagine em 12 anos de caminhada!
+            <em>Quem chega lá não é o mais talentoso, é o mais consistente.</em>
           </p>
           <p>
             Atendo empreendedores de todos os setores, do turismo às MPMEs, com a plataforma
@@ -437,7 +449,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
       <div class="filosofia-grid">
         <!-- AÇÃO -->
         <div class="filosofia-card acao animar animar-delay-1">
-          <div class="filosofia-card-titulo">AÇÃO</div>
+          <div class="filosofia-card-titulo">AÇÃO <span class="filosofia-keys">(Atitude, Verdade e Resiliência)</span></div>
           <div class="filosofia-card-sub">O que você provoca no mundo</div>
           <ul class="filosofia-pilares">
             <li>
@@ -480,7 +492,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
 
         <!-- REAÇÃO -->
         <div class="filosofia-card reacao animar animar-delay-2">
-          <div class="filosofia-card-titulo">REAÇÃO</div>
+          <div class="filosofia-card-titulo">REAÇÃO <span class="filosofia-keys">(Empatia, Confiança e Fidelidade)</span></div>
           <div class="filosofia-card-sub">O que o mundo devolve pra você</div>
           <ul class="filosofia-pilares">
             <li>
@@ -527,7 +539,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <span class="tag">A base que persiste</span>
         <div class="divisor centro"></div>
         <h2>Da teoria clássica<br><em>ao posicionamento real</em></h2>
-        <p class="os-ps-intro">Os 4 Ps de Kotler guiaram décadas. Hoje, numa era de cobertura 360, os Ps se multiplicaram. <strong>Cada um se conecta ao outro</strong> — um ruído em qualquer ponto contamina toda a estratégia.</p>
+        <p class="os-ps-intro">Os 4 Ps de Kotler guiaram décadas. Hoje, numa era de cobertura 360, os Ps se multiplicaram. <strong>Cada um se conecta ao outro,</strong> e um ruído em qualquer ponto contamina toda a estratégia.</p>
       </div>
 
       <div class="ps-grid animar animar-delay-1">
@@ -535,12 +547,12 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <div class="p-card"><span class="p-letra">P</span><strong>Pessoas</strong></div>
         <div class="p-card"><span class="p-letra">P</span><strong>Planejamento</strong></div>
         <div class="p-card"><span class="p-letra">P</span><strong>Processos</strong></div>
-        <div class="p-card"><span class="p-letra">P</span><strong>Produto</strong></div>
-        <div class="p-card"><span class="p-letra">P</span><strong>Promoção</strong></div>
+        <div class="p-card kotler"><span class="p-letra">P</span><strong>Produto</strong></div>
+        <div class="p-card kotler"><span class="p-letra">P</span><strong>Promoção</strong></div>
         <div class="p-card"><span class="p-letra">P</span><strong>Parcerias</strong></div>
         <div class="p-card"><span class="p-letra">P</span><strong>Provas Físicas</strong><span class="p-sub">promessas</span></div>
-        <div class="p-card"><span class="p-letra">P</span><strong>Preço</strong></div>
-        <div class="p-card"><span class="p-letra">P</span><strong>Praça</strong></div>
+        <div class="p-card kotler"><span class="p-letra">P</span><strong>Preço</strong></div>
+        <div class="p-card kotler"><span class="p-letra">P</span><strong>Praça</strong></div>
       </div>
 
       <div class="ps-secundarios animar animar-delay-2">
@@ -548,7 +560,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
       </div>
 
       <div class="os-ps-conclusao animar animar-delay-3">
-        <p>Aplicar <strong>Ação &amp; Reação</strong> é garantir coerência em todos os pontos — construindo o verdadeiro relacionamento entre marcas e consumidores.</p>
+        <p>Aplicar <strong>Ação &amp; Reação</strong> é garantir coerência em todos os pontos, construindo o verdadeiro relacionamento entre marcas e consumidores.</p>
         <a href="#contato" class="btn btn-verde">Quero um diagnóstico</a>
       </div>
     </div>
@@ -661,7 +673,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
           </h2>
           <p class="mapa-descricao">
             Uma plataforma de IA treinada com minha filosofia. Para empreendedores que
-            precisam de clareza, execução e um guia que cobra resultado — todos os dias.
+            precisam de clareza, execução e um guia que cobra resultado, todos os dias.
             Não é mais um app de produtividade. É uma ferramenta de transformação.
           </p>
 
@@ -872,7 +884,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <div class="premio-conteudo">
           <span class="premio-tag-label">PRÊMIO DISRUPTUR · FECOMERCIO SC</span>
           <h3 class="premio-titulo">1º lugar em Inovação no Turismo Catarinense</h3>
-          <p class="premio-descricao">Desenvolveu e apresentou o projeto vencedor representando o Vale Europeu Catarinense — um aplicativo de segurança para turistas com gamification e reputação colaborativa, criado durante a pandemia COVID-19 para reativar o fluxo turístico regional. Premiado entre todas as regiões turísticas de Santa Catarina.</p>
+          <p class="premio-descricao">Desenvolveu e apresentou o projeto vencedor representando o Vale Europeu Catarinense: um aplicativo de segurança para turistas com gamification e reputação colaborativa, criado durante a pandemia COVID-19 para reativar o fluxo turístico regional. Premiado entre todas as regiões turísticas de Santa Catarina.</p>
           <div class="premio-links">
             <a href="https://www.youtube.com/watch?v=tUwZwPb-HSg" target="_blank" rel="noopener" class="premio-link">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
@@ -937,7 +949,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <div class="premio-conteudo">
           <span class="premio-tag-label" style="color:#00AA6C;">TRIPADVISOR · PRÊMIO DE EXCELÊNCIA GLOBAL</span>
           <h3 class="premio-titulo">Top 10% melhores operadoras de turismo do planeta</h3>
-          <p class="premio-descricao">A TARGET Trekking Tours, operadora de turismo de natureza co-criada por Juliano, foi reconhecida pelo TripAdvisor como referência mundial no segmento de trekking. A plataforma com maior base de reputação turística do mundo avaliou milhares de operadoras globalmente, e a TARGET ficou entre as melhores do planeta, consolidando o modelo de operação desenvolvido ao longo de anos no campo.</p>
+          <p class="premio-descricao">A TARGET Trekking Tours (hoje AONIK Turismo de Natureza), operadora de turismo de natureza co-criada por Juliano, foi reconhecida pelo TripAdvisor como referência mundial no segmento de trekking. A plataforma com maior base de reputação turística do mundo avaliou milhares de operadoras globalmente, e a TARGET ficou entre as melhores do planeta, consolidando o modelo de operação desenvolvido ao longo de anos no campo.</p>
           <div class="premio-links">
             <a href="https://aonik.com.br/" target="_blank" rel="noopener" class="premio-link" style="color:#00AA6C;">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
@@ -1051,7 +1063,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
           <div class="footer-logo">Juliano <span>Sant'Ana</span></div>
           <p class="footer-desc">
             Estrategista de campo. Mentor. Montanhista. Criador do Mapa da Verdade.
-            Resultado com verdade na rota — sempre.
+            Resultado com verdade na rota, sempre.
           </p>
           <div class="footer-social">
             <a href="https://instagram.com/julianopsantana" target="_blank" class="social-btn" title="Instagram">
