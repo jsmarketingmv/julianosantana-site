@@ -264,6 +264,12 @@
     .tp-spd:hover { color: var(--creme); border-color: rgba(255,255,255,0.25); }
     .tp-spd.ativo { background: rgba(196,154,108,0.2); border-color: var(--areia); color: var(--areia); }
 
+    /* Mobile speed control (hidden on desktop) */
+    .tp-speed-mobile { display: none; align-items: center; gap: 0.5rem; }
+    .tp-spd-minus, .tp-spd-plus { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: var(--creme); font-size: 1.3rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .tp-spd-minus:active, .tp-spd-plus:active { background: rgba(196,154,108,0.25); border-color: var(--areia); }
+    .tp-spd-nome { font-size: 0.8rem; font-weight: 700; color: var(--areia); min-width: 52px; text-align: center; font-family: 'Montserrat', sans-serif; }
+
     /* Camera toggle */
     .tp-cam-btn { padding: 0.3rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: rgba(245,240,232,0.45); font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.18s; font-family: 'Montserrat', sans-serif; white-space: nowrap; }
     .tp-cam-btn:hover { color: var(--creme); }
@@ -426,7 +432,8 @@
 
       /* Teleprompter */
       .tp-header { flex-wrap: wrap; gap: 0.5rem; padding: 0.7rem 1rem; }
-      .tp-speed-group { order: 3; width: 100%; justify-content: center; }
+      .tp-speed-group { display: none; }
+      .tp-speed-mobile { display: flex; order: 3; }
       .tp-scroll-inner { padding: 50vh 5% 50vh; }
       .tp-bloco-texto { font-size: clamp(1rem, 5vw, 1.4rem); }
       .tp-footer-bar { padding: 0.4rem; }
@@ -806,6 +813,13 @@
         <button class="tp-spd ativo" data-spd="0.85">Normal</button>
         <button class="tp-spd" data-spd="1.8">Rápida</button>
         <button class="tp-spd" data-spd="3.2">Turbo</button>
+      </div>
+
+      <!-- Controle mobile de velocidade (slider) -->
+      <div class="tp-speed-mobile" id="tp-speed-mobile">
+        <button class="tp-spd-minus" id="tp-spd-minus">−</button>
+        <span class="tp-spd-nome" id="tp-spd-nome">Normal</span>
+        <button class="tp-spd-plus" id="tp-spd-plus">+</button>
       </div>
 
       <button class="tp-cam-btn" id="tp-cam-toggle">📷 Câmera</button>
@@ -1707,13 +1721,37 @@ Link na bio. Vagas limitadas por semana.` },
   document.getElementById('tp-close').addEventListener('click', fecharTP);
   document.getElementById('tp-cam-toggle').addEventListener('click', tpToggleCam);
 
+  const TP_SPEEDS = [
+    { spd: 0.14, nome: 'Devagar' },
+    { spd: 0.35, nome: 'Lenta' },
+    { spd: 0.85, nome: 'Normal' },
+    { spd: 1.8,  nome: 'Rápida' },
+    { spd: 3.2,  nome: 'Turbo' },
+  ];
+  let tpSpeedIdx = 2; // Normal
+
+  function setTpSpeed(idx) {
+    tpSpeedIdx = Math.max(0, Math.min(TP_SPEEDS.length - 1, idx));
+    const s = TP_SPEEDS[tpSpeedIdx];
+    tpSpeed = s.spd;
+    // Sync desktop buttons
+    document.querySelectorAll('.tp-spd').forEach(b => {
+      b.classList.toggle('ativo', parseFloat(b.dataset.spd) === s.spd);
+    });
+    // Sync mobile label
+    const nomeEl = document.getElementById('tp-spd-nome');
+    if (nomeEl) nomeEl.textContent = s.nome;
+  }
+
   document.querySelectorAll('.tp-spd').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tp-spd').forEach(b => b.classList.remove('ativo'));
-      btn.classList.add('ativo');
-      tpSpeed = parseFloat(btn.dataset.spd);
+      const idx = TP_SPEEDS.findIndex(s => s.spd === parseFloat(btn.dataset.spd));
+      if (idx !== -1) setTpSpeed(idx);
     });
   });
+
+  document.getElementById('tp-spd-minus').addEventListener('click', () => setTpSpeed(tpSpeedIdx - 1));
+  document.getElementById('tp-spd-plus').addEventListener('click', () => setTpSpeed(tpSpeedIdx + 1));
 
   document.addEventListener('keydown', e => {
     if (!document.getElementById('tp-overlay').classList.contains('aberto')) return;
