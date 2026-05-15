@@ -180,6 +180,30 @@
     .roteiro-steps li:last-child { border-bottom: none; }
     .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
 
+    /* ---- BRIEF DE DESIGN ---- */
+    .btn-brief { padding: 0.4rem 0.9rem; border-radius: 6px; background: rgba(196,154,108,0.1); border: 1px solid rgba(196,154,108,0.28); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; cursor: pointer; color: var(--terra); transition: all 0.2s; }
+    .btn-brief:hover { background: rgba(196,154,108,0.2); border-color: var(--areia); color: var(--areia); }
+    .brief-modal { max-width: 580px; }
+    .brief-modal-sub { font-size: 0.68rem; font-weight: 600; color: rgba(245,240,232,0.55); letter-spacing: 0.04em; margin-top: 0.25rem; }
+    .brief-secao { margin-bottom: 1.3rem; }
+    .brief-secao:last-child { margin-bottom: 0; }
+    .brief-secao-titulo { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(28,58,42,0.38); margin-bottom: 0.5rem; }
+    .brief-formato-badge { display: inline-block; padding: 0.3rem 0.9rem; border-radius: 20px; background: var(--verde-escuro); color: var(--creme); font-size: 0.72rem; font-weight: 700; }
+    .brief-cores { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.2rem; }
+    .brief-swatch { display: flex; align-items: center; gap: 0.45rem; }
+    .brief-swatch-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.6); box-shadow: 0 1px 4px rgba(0,0,0,0.15); flex-shrink: 0; }
+    .brief-swatch-info { display: flex; flex-direction: column; }
+    .brief-swatch-hex { font-size: 0.6rem; font-weight: 700; color: var(--texto-escuro); font-family: monospace; }
+    .brief-swatch-nome { font-size: 0.62rem; color: var(--texto-medio); }
+    .brief-texto { font-size: 0.82rem; color: var(--texto-escuro); line-height: 1.65; }
+    .brief-mood { font-size: 0.82rem; color: var(--texto-medio); line-height: 1.6; font-style: italic; background: var(--creme); border-left: 3px solid var(--areia); padding: 0.6rem 0.9rem; border-radius: 0 6px 6px 0; }
+    .brief-ref-btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .brief-ref-btn { padding: 0.45rem 1rem; border-radius: 7px; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: opacity 0.2s; border: none; }
+    .brief-ref-btn:hover { opacity: 0.85; }
+    .brief-ref-pinterest { background: #E60023; color: #fff; }
+    .brief-ref-unsplash { background: #111; color: #fff; }
+    .brief-ref-canva { background: #00C4CC; color: #fff; }
+
     /* ---- EDIÇÃO DE ROTEIRO ---- */
     .rot-step-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; align-items: flex-start; }
     .rot-step-num { min-width: 24px; height: 24px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; margin-top: 0.55rem; }
@@ -604,6 +628,23 @@
       <div class="modal-footer">
         <button class="btn-modal btn-cancelar" id="btn-cancelar-modal">Cancelar</button>
         <button class="btn-modal btn-salvar" id="btn-salvar-modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== MODAL BRIEF DE DESIGN =================== -->
+  <div class="modal-overlay" id="modal-brief">
+    <div class="modal brief-modal">
+      <div class="modal-header" style="background:var(--verde-escuro);">
+        <div>
+          <span class="modal-titulo" id="brief-titulo" style="color:var(--creme);">Brief de Design</span>
+          <div class="brief-modal-sub" id="brief-sub"></div>
+        </div>
+        <button class="modal-fechar" id="brief-fechar" style="color:rgba(245,240,232,0.5);">✕</button>
+      </div>
+      <div class="modal-body" id="brief-body" style="max-height:75vh;overflow-y:auto;"></div>
+      <div class="modal-footer">
+        <button class="btn-modal btn-cancelar" id="brief-btn-fechar">Fechar</button>
       </div>
     </div>
   </div>
@@ -1171,6 +1212,7 @@ Link na bio. Vagas limitadas por semana.` },
           <div class="copy-texto">${c.texto}</div>
           <div class="copy-acoes">
             <button class="btn-copiar" data-texto="${encodeURIComponent(c.texto)}">📋 Copiar</button>
+            ${DESIGN_BRIEFS[c.titulo] ? '<button class="btn-brief">🎨 Brief</button>' : ''}
           </div>
         </div>
       `;
@@ -1183,6 +1225,9 @@ Link na bio. Vagas limitadas por semana.` },
         });
         salvarCopy(c);
       });
+
+      const btnBrief = card.querySelector('.btn-brief');
+      if (btnBrief) btnBrief.addEventListener('click', () => abrirBriefModal(c));
 
       grid.appendChild(card);
     });
@@ -1750,6 +1795,182 @@ Link na bio. Vagas limitadas por semana.` },
     const btn = document.getElementById('btn-salvar-met');
     btn.textContent = '✅ Salvo!';
     setTimeout(() => { btn.textContent = 'Salvar métricas desta semana'; }, 2000);
+  });
+
+  // ================================================
+  //  BRIEF DE DESIGN
+  // ================================================
+  const DESIGN_BRIEFS = {
+    'Meta sem rota é desejo': {
+      formato: 'Carrossel — 8 slides',
+      cores: [['#1C3A2A','Verde Escuro — fundo'],['#C49A6C','Areia — destaque'],['#F5F0E8','Creme — texto']],
+      tipografia: 'Montserrat 800 para frases-âncora. Slide 1: extra-large (50-60px). Demais slides: 32-40px. Sem serifas. Texto centralizado.',
+      composicao: 'Slide 1: frase "Meta sem rota é desejo." em grande, fundo verde-escuro. Slides 2-6: uma frase por slide, minimalistas. Slide final: pergunta em destaque areia + CTA.',
+      mood: 'Peso. Autoridade. Direto. Sem ornamentos. Fundo escuro dominante. Cada slide respira.',
+      pinterest: 'carrossel instagram tipografia minimalista dark green motivacional autoridade',
+      unsplash: 'mountain path direction goal',
+    },
+    'Você não tem problema de motivação': {
+      formato: 'Post LinkedIn — capa de impacto + texto longo',
+      cores: [['#1C3A2A','Verde Escuro — fundo da capa'],['#C49A6C','Areia — linha editorial'],['#FFFFFF','Branco — texto principal']],
+      tipografia: 'Montserrat 700-800. Frase-âncora em grande. Subtítulo menor. Espaçamento generoso.',
+      composicao: 'Capa: fundo verde-escuro. Borda areia à esquerda (estilo editorial). Frase central: "Você não tem problema de motivação. Você tem problema de sistema." Alinhado à esquerda.',
+      mood: 'Executivo. Confiante. Editorial. Clean. Autoridade de quem já viveu.',
+      pinterest: 'linkedin capa post editorial tipografia verde minimalista negócios',
+      unsplash: 'system process workflow clean business',
+    },
+    'Caí. Errei. Recomeçai.': {
+      formato: 'Carrossel — 7 slides',
+      cores: [['#8B5E3C','Terra — fundo principal'],['#F5F0E8','Creme — texto'],['#C49A6C','Areia — detalhe sutil']],
+      tipografia: 'Montserrat 800. Cada palavra em um slide inteiro. Simples e impactante. Sem mais nada na tela.',
+      composicao: 'Slide 1: "Caí." — só essa palavra, enorme, centralizada. Slides 2-5: idem para Errei / Recomeçai / Cresci / Conquistei. Slide 6: "E repetiria tudo de novo." Slide 7: insight REAÇÃO + pergunta.',
+      mood: 'Drama emocional. Vulnerabilidade e força. Um elemento por tela. Tudo no impacto da palavra.',
+      pinterest: 'instagram carrossel storytelling emocional tipografia word poster drama',
+      unsplash: 'resilience fall rise journey restart',
+    },
+    'O mercado mudou. E você?': {
+      formato: 'Post LinkedIn — capa provocação',
+      cores: [['#4A7C59','Verde Sage — fundo'],['#F5F0E8','Creme — texto'],['#1C3A2A','Verde Escuro — detalhe']],
+      tipografia: 'Montserrat 700. Pergunta "E você?" em destaque grande. Tom jornalístico. Sem floreios.',
+      composicao: 'Capa minimalista: fundo verde-sage, texto "O mercado mudou." em creme, linha fina separadora, "E você?" em destaque maior. Alinhado à esquerda. Assinatura discreta no rodapé.',
+      mood: 'Provocação estratégica. Clean. Profissional. Incomoda de forma elegante.',
+      pinterest: 'linkedin capa post minimalista tipografia verde provocação negócios',
+      unsplash: 'market change disruption business strategy',
+    },
+    '2.100km e uma lição de negócio': {
+      formato: 'Reels — capa de destaque',
+      cores: [['#1C3A2A','Verde Escuro — overlay'],['#C49A6C','Areia — número em destaque'],['#F5F0E8','Creme — texto']],
+      tipografia: 'Número "2.100km" gigante como elemento de design. Montserrat 800. Pode ocupar 60% da tela.',
+      composicao: 'Foto real de trilha (névoa, mata, montanha) como fundo. Overlay escuro 50-60%. Topo: "2.100km em 2023" em areia. Base: frase-âncora em creme. Autêntico e épico.',
+      mood: 'Épico. Real. Campo. Natureza brasileira. Sem filtros excessivos. Autenticidade acima de tudo.',
+      pinterest: 'reels capa trilha montanha overlay texto natureza brasil épico',
+      unsplash: 'trail mountain fog brazil hike nature',
+    },
+    'Na trilha não existe atalho': {
+      formato: 'Foto única + legenda',
+      cores: [['#1C3A2A','Verde Escuro — overlay leve'],['#F5F0E8','Creme — texto sobreposto']],
+      tipografia: 'Mínima. Só a frase-âncora se houver texto na imagem. A natureza é o design principal.',
+      composicao: 'Use foto real de trilha (caminho, mata, pedras, raízes). Nada de muito ornamentado. Frase curta no overlay inferior ou deixa só na legenda. Simplicidade é a escolha.',
+      mood: 'Autêntico. Natural. Simples. Verdade bruta. O campo fala por si.',
+      pinterest: 'trail path nature photography minimal authentic instagram',
+      unsplash: 'trail shortcut path forest nature hiking',
+    },
+    'Kotler tinha 4 Ps': {
+      formato: 'Carrossel educacional — 5 slides',
+      cores: [['#F5F0E8','Creme — fundo'],['#1C3A2A','Verde Escuro — blocos'],['#C49A6C','Areia — Os 4 Ps originais']],
+      tipografia: 'Montserrat 700 para siglas (P). 400 para nomes. Clean e legível. Hierarquia clara.',
+      composicao: 'Slide 1: capa provocação "Kotler tinha 4 Ps." Grade 2x4 com os 8 Ps. Os 4 originais em areia (diferenciados). Os 4 novos em verde. Slide final: reflexão + CTA.',
+      mood: 'Educacional. Estratégico. Clean. Referência acadêmica com estilo de mentor.',
+      pinterest: 'infografico marketing 4ps linkedin design clean creme educacional',
+      unsplash: 'strategy framework grid business planning',
+    },
+    '5 perguntas que revelam a verdade': {
+      formato: 'Carrossel — 7 slides',
+      cores: [['#1C3A2A','Verde Escuro — slides ímpares'],['#F5F0E8','Creme — slides pares'],['#C49A6C','Areia — numeração']],
+      tipografia: 'Número da pergunta enorme (1, 2, 3…) em areia — elemento visual principal. Pergunta em Montserrat 600.',
+      composicao: 'Slide 1: capa com frase. Slides 2-6: alternância fundo escuro/claro. Número gigante no canto + pergunta centralizada. Slide 7: CTA com urgência.',
+      mood: 'Listagem de valor. Dinâmico. Numeração como elemento visual forte. Prático e direto.',
+      pinterest: 'carrossel instagram lista numerada tipografia alternado escuro claro perguntas',
+      unsplash: 'questions truth business checklist decision',
+    },
+    'Criei uma IA com minha filosofia': {
+      formato: 'Post único ou carrossel — 3 slides',
+      cores: [['#1C3A2A','Verde Escuro — fundo'],['#4A7C59','Verde Sage — detalhe tech'],['#C49A6C','Areia — CTA e destaque']],
+      tipografia: 'Montserrat 800. "Mapa da Verdade" em destaque. Mix tech + natureza na composição.',
+      composicao: 'Fundo escuro com textura sutil (grid, topografia ou pontos). Ícone de mapa ou bússola. Texto central claro. CTA em destaque areia. Visual que mistura tecnologia com campo.',
+      mood: 'Tech + natureza. Inovação com raízes. Intrigante. Diferente. Faz querer clicar.',
+      pinterest: 'instagram tech nature dark AI map design inovação minimalista',
+      unsplash: 'map compass technology nature dark innovation',
+    },
+    'Diagnóstico: onde você estaria?': {
+      formato: 'Post único — editorial de sexta-feira',
+      cores: [['#1C3A2A','Verde Escuro — fundo'],['#C49A6C','Areia — pergunta âncora'],['#F5F0E8','Creme — texto corrido']],
+      tipografia: 'Tag "Sexta-feira" pequena no topo. Pergunta central em Montserrat 700 grande. CTA com urgência no rodapé.',
+      composicao: 'Layout editorial: topo com tag da semana/dia em areia. Centro: pergunta provocadora grande em creme. Rodapé: "Vagas limitadas por semana." com linha fina acima. Sóbrio e urgente.',
+      mood: 'Urgência calma. Editorial. Semanal. Autoridade com convite. Senso de oportunidade real.',
+      pinterest: 'instagram editorial tipografia sexta CTA verde escuro provocação agenda',
+      unsplash: 'friday compass reflection direction week',
+    },
+  };
+
+  function abrirBriefModal(c) {
+    const brief = DESIGN_BRIEFS[c.titulo];
+    if (!brief) return;
+
+    const pilarLabel = { acao:'⚡ Ação', reacao:'🔄 Reação', campo:'🏔️ Campo', negocios:'📊 Negócios', mapa:'🗺️ Mapa' }[c.pilar] || c.pilar;
+    document.getElementById('brief-titulo').textContent = c.titulo;
+    document.getElementById('brief-sub').textContent = `${pilarLabel} · ${c.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${c.formato}`;
+
+    const body = document.getElementById('brief-body');
+    body.innerHTML = `
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Formato</div>
+        <span class="brief-formato-badge">${brief.formato}</span>
+      </div>
+
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Paleta de Cores</div>
+        <div class="brief-cores">
+          ${brief.cores.map(([hex, nome]) => `
+            <div class="brief-swatch">
+              <div class="brief-swatch-circle" style="background:${hex};"></div>
+              <div class="brief-swatch-info">
+                <span class="brief-swatch-hex">${hex}</span>
+                <span class="brief-swatch-nome">${nome}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Tipografia</div>
+        <div class="brief-texto">${brief.tipografia}</div>
+      </div>
+
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Composição / Estrutura</div>
+        <div class="brief-texto">${brief.composicao}</div>
+      </div>
+
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Mood / Vibe</div>
+        <div class="brief-mood">${brief.mood}</div>
+      </div>
+
+      <div class="brief-secao">
+        <div class="brief-secao-titulo">Referências Visuais</div>
+        <div class="brief-ref-btns">
+          <a class="brief-ref-btn brief-ref-pinterest"
+             href="https://pinterest.com/search/pins/?q=${encodeURIComponent(brief.pinterest)}"
+             target="_blank" rel="noopener">
+            📌 Pinterest
+          </a>
+          <a class="brief-ref-btn brief-ref-unsplash"
+             href="https://unsplash.com/s/photos/${encodeURIComponent(brief.unsplash)}"
+             target="_blank" rel="noopener">
+            📷 Unsplash
+          </a>
+          <a class="brief-ref-btn brief-ref-canva"
+             href="https://www.canva.com/search/templates?q=${encodeURIComponent(c.titulo)}"
+             target="_blank" rel="noopener">
+            🎨 Canva
+          </a>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('modal-brief').classList.add('aberto');
+  }
+
+  function fecharBriefModal() {
+    document.getElementById('modal-brief').classList.remove('aberto');
+  }
+
+  document.getElementById('brief-fechar').addEventListener('click', fecharBriefModal);
+  document.getElementById('brief-btn-fechar').addEventListener('click', fecharBriefModal);
+  document.getElementById('modal-brief').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-brief')) fecharBriefModal();
   });
 
   // ================================================
