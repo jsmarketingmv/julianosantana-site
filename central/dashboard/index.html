@@ -180,6 +180,21 @@
     .roteiro-steps li:last-child { border-bottom: none; }
     .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
 
+    /* ---- EDIÇÃO DE ROTEIRO ---- */
+    .rot-step-row { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; align-items: flex-start; }
+    .rot-step-num { min-width: 24px; height: 24px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; margin-top: 0.55rem; }
+    .rot-step-ta { flex: 1; padding: 0.65rem 0.8rem; border: 1px solid rgba(28,58,42,0.15); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; color: var(--texto-escuro); resize: vertical; min-height: 58px; outline: none; transition: border-color 0.2s; line-height: 1.5; }
+    .rot-step-ta:focus { border-color: var(--verde-sage); }
+    .rot-step-remover { padding: 0.3rem 0.5rem; background: none; border: none; color: rgba(28,58,42,0.25); cursor: pointer; font-size: 0.95rem; border-radius: 4px; transition: color 0.2s; margin-top: 0.45rem; flex-shrink: 0; }
+    .rot-step-remover:hover { color: var(--terra); }
+    .btn-add-step { width: 100%; padding: 0.65rem; border: 1.5px dashed rgba(28,58,42,0.18); border-radius: 8px; background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--texto-medio); cursor: pointer; transition: all 0.2s; margin-top: 0.4rem; }
+    .btn-add-step:hover { border-color: var(--verde-sage); color: var(--verde-sage); background: rgba(74,124,89,0.04); }
+    .btn-rot-edit { padding: 0.4rem 0.85rem; border-radius: 6px; background: transparent; color: var(--texto-medio); border: 1px solid rgba(28,58,42,0.18); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-rot-edit:hover { background: var(--creme-escuro); color: var(--verde-escuro); border-color: rgba(28,58,42,0.3); }
+    .rot-editado-badge { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(196,154,108,0.12); border: 1px solid rgba(196,154,108,0.28); color: var(--areia); padding: 0.1rem 0.45rem; border-radius: 10px; vertical-align: middle; margin-left: 0.45rem; }
+    .btn-rot-reset { color: var(--terra) !important; border-color: rgba(139,94,60,0.25) !important; }
+    .btn-rot-reset:hover { background: rgba(139,94,60,0.08) !important; }
+
     /* ---- TELEPROMPTER ---- */
     .tp-overlay { position: fixed; inset: 0; background: #06100a; z-index: 1000; display: none; flex-direction: column; }
     .tp-overlay.aberto { display: flex; }
@@ -589,6 +604,38 @@
       <div class="modal-footer">
         <button class="btn-modal btn-cancelar" id="btn-cancelar-modal">Cancelar</button>
         <button class="btn-modal btn-salvar" id="btn-salvar-modal">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== MODAL EDITAR ROTEIRO =================== -->
+  <div class="modal-overlay" id="modal-roteiro">
+    <div class="modal" style="max-width:640px;">
+      <div class="modal-header">
+        <span class="modal-titulo">✏️ Editar Roteiro</span>
+        <button class="modal-fechar" id="rot-modal-fechar">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grupo">
+          <label>Título</label>
+          <input type="text" id="rot-titulo" placeholder="Título do roteiro" />
+        </div>
+        <div class="modal-grupo">
+          <label>Meta / Tags</label>
+          <input type="text" id="rot-meta" placeholder="Ex: Reels 45s · Pilar AÇÃO · câmera direta" />
+        </div>
+        <div class="modal-grupo">
+          <label>Passos do roteiro</label>
+          <div id="rot-steps-lista"></div>
+          <button class="btn-add-step" id="btn-add-step">+ Adicionar passo</button>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:space-between;">
+        <button class="btn-modal btn-cancelar btn-rot-reset" id="rot-btn-reset">↺ Restaurar padrão</button>
+        <div style="display:flex;gap:0.8rem;">
+          <button class="btn-modal btn-cancelar" id="rot-btn-cancelar">Cancelar</button>
+          <button class="btn-modal btn-salvar" id="rot-btn-salvar">Salvar roteiro</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1207,31 +1254,45 @@ Link na bio. Vagas limitadas por semana.` },
   }
 
   // ================================================
-  //  ROTEIROS
+  //  ROTEIROS — com edição por localStorage
   // ================================================
+  function getRoteiroData(id) {
+    const s = localStorage.getItem(`roteiro_edit_${id}`);
+    if (s) { try { return JSON.parse(s); } catch {} }
+    return ROTEIROS.find(r => r.id === id) || null;
+  }
+
   function renderRoteiros() {
     const lista = document.getElementById('roteiros-lista');
     lista.innerHTML = '';
-    const saved = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
+    const gravados = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
 
     ROTEIROS.forEach(r => {
-      const gravado = saved[r.id] || false;
+      const data = getRoteiroData(r.id);
+      const gravado = gravados[r.id] || false;
+      const editado = !!localStorage.getItem(`roteiro_edit_${r.id}`);
+
       const card = document.createElement('div');
       card.className = 'roteiro-card';
       card.innerHTML = `
         <div class="roteiro-header">
           <div>
-            <div class="roteiro-titulo">${r.titulo}</div>
-            <div class="roteiro-meta">${r.meta}</div>
+            <div class="roteiro-titulo">
+              ${data.titulo}
+              ${editado ? '<span class="rot-editado-badge">editado</span>' : ''}
+            </div>
+            <div class="roteiro-meta">${data.meta}</div>
           </div>
           <div class="roteiro-acoes">
+            <button class="btn-rot-edit" data-id="${r.id}">✏️ Editar</button>
             <button class="btn-tp" data-id="${r.id}">▶ Teleprompter</button>
             <input type="checkbox" class="roteiro-check" data-id="${r.id}" title="Marcar como gravado" ${gravado ? 'checked' : ''} />
           </div>
         </div>
-        <ol class="roteiro-steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+        <ol class="roteiro-steps">${data.steps.map(s => `<li>${s}</li>`).join('')}</ol>
       `;
 
+      card.querySelector('.btn-rot-edit').addEventListener('click', () => abrirEditRoteiro(r.id));
       card.querySelector('.btn-tp').addEventListener('click', () => abrirTP(r.id));
       card.querySelector('.roteiro-check').addEventListener('change', function() {
         const sv = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
@@ -1244,6 +1305,92 @@ Link na bio. Vagas limitadas por semana.` },
   }
 
   // ================================================
+  //  MODAL EDITAR ROTEIRO
+  // ================================================
+  let roteiroEditandoId = null;
+
+  function abrirEditRoteiro(id) {
+    roteiroEditandoId = id;
+    const data = getRoteiroData(id);
+    if (!data) return;
+    document.getElementById('rot-titulo').value = data.titulo;
+    document.getElementById('rot-meta').value = data.meta;
+    renderRotSteps(data.steps);
+    document.getElementById('modal-roteiro').classList.add('aberto');
+  }
+
+  function renderRotSteps(steps) {
+    const lista = document.getElementById('rot-steps-lista');
+    lista.innerHTML = '';
+    steps.forEach((step, i) => adicionarRotStep(step, i + 1));
+  }
+
+  function adicionarRotStep(valor, num) {
+    const lista = document.getElementById('rot-steps-lista');
+    const row = document.createElement('div');
+    row.className = 'rot-step-row';
+    row.innerHTML = `
+      <div class="rot-step-num">${num || lista.children.length + 1}</div>
+      <textarea class="rot-step-ta" rows="2">${valor || ''}</textarea>
+      <button class="rot-step-remover" title="Remover passo">✕</button>
+    `;
+    row.querySelector('.rot-step-remover').addEventListener('click', () => {
+      row.remove();
+      atualizarNumsRotSteps();
+    });
+    lista.appendChild(row);
+    return row;
+  }
+
+  function atualizarNumsRotSteps() {
+    document.querySelectorAll('#rot-steps-lista .rot-step-num').forEach((el, i) => {
+      el.textContent = i + 1;
+    });
+  }
+
+  function getStepsFromModal() {
+    return Array.from(document.querySelectorAll('#rot-steps-lista .rot-step-ta'))
+      .map(ta => ta.value.trim()).filter(v => v);
+  }
+
+  function fecharEditRoteiro() {
+    document.getElementById('modal-roteiro').classList.remove('aberto');
+    roteiroEditandoId = null;
+  }
+
+  document.getElementById('btn-add-step').addEventListener('click', () => {
+    const row = adicionarRotStep('');
+    row.querySelector('textarea').focus();
+  });
+
+  document.getElementById('rot-btn-salvar').addEventListener('click', () => {
+    if (!roteiroEditandoId) return;
+    const data = {
+      id: roteiroEditandoId,
+      titulo: document.getElementById('rot-titulo').value.trim(),
+      meta: document.getElementById('rot-meta').value.trim(),
+      steps: getStepsFromModal(),
+    };
+    localStorage.setItem(`roteiro_edit_${roteiroEditandoId}`, JSON.stringify(data));
+    fecharEditRoteiro();
+    renderRoteiros();
+  });
+
+  document.getElementById('rot-btn-reset').addEventListener('click', () => {
+    if (!roteiroEditandoId) return;
+    if (!confirm('Restaurar o roteiro original? Suas edições serão perdidas.')) return;
+    localStorage.removeItem(`roteiro_edit_${roteiroEditandoId}`);
+    fecharEditRoteiro();
+    renderRoteiros();
+  });
+
+  document.getElementById('rot-modal-fechar').addEventListener('click', fecharEditRoteiro);
+  document.getElementById('rot-btn-cancelar').addEventListener('click', fecharEditRoteiro);
+  document.getElementById('modal-roteiro').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-roteiro')) fecharEditRoteiro();
+  });
+
+  // ================================================
   //  TELEPROMPTER — AUTO-SCROLL
   // ================================================
   let tpPlaying = false;
@@ -1253,7 +1400,7 @@ Link na bio. Vagas limitadas por semana.` },
   let tpCamStream = null;
 
   function abrirTP(id) {
-    tpRoteiro = ROTEIROS.find(r => r.id === id);
+    tpRoteiro = getRoteiroData(id);
     if (!tpRoteiro) return;
 
     document.getElementById('tp-titulo').textContent = tpRoteiro.titulo;
