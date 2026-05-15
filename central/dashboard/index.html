@@ -183,6 +183,20 @@
     .roteiro-steps li:last-child { border-bottom: none; }
     .roteiro-steps li::before { content: counter(step); min-width: 22px; height: 22px; background: var(--verde-escuro); color: var(--areia); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; }
 
+    /* ---- CONEXÃO PLANO ↔ BIBLIOTECA ---- */
+    .modal-sug-header { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(28,58,42,0.38); margin-bottom: 0.6rem; }
+    .modal-sug-item { border: 1px solid rgba(28,58,42,0.1); border-radius: 8px; padding: 0.65rem 0.9rem; margin-bottom: 0.5rem; transition: border-color 0.2s, box-shadow 0.2s; }
+    .modal-sug-item:hover { border-color: var(--verde-sage); box-shadow: 0 2px 8px rgba(74,124,89,0.1); }
+    .modal-sug-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.2rem; }
+    .modal-sug-titulo { font-size: 0.75rem; font-weight: 700; color: var(--verde-escuro); }
+    .modal-sug-plat { font-size: 0.6rem; font-weight: 700; color: var(--texto-medio); letter-spacing: 0.06em; text-transform: uppercase; }
+    .modal-sug-preview { font-size: 0.72rem; color: var(--texto-medio); line-height: 1.4; margin-bottom: 0.5rem; }
+    .modal-sug-usar { font-size: 0.68rem; font-weight: 700; color: var(--verde-sage); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Montserrat', sans-serif; letter-spacing: 0.02em; }
+    .modal-sug-usar:hover { text-decoration: underline; }
+    .modal-sug-vazia { font-size: 0.78rem; color: var(--texto-medio); font-style: italic; }
+    .modal-divider { border: none; border-top: 1px solid rgba(28,58,42,0.08); margin: 0.4rem 0 1.2rem; }
+    .modal-design-mood { font-size: 0.8rem; color: var(--texto-medio); line-height: 1.6; font-style: italic; background: var(--creme); border-left: 3px solid var(--areia); padding: 0.55rem 0.9rem; border-radius: 0 6px 6px 0; margin-bottom: 0.7rem; }
+
     /* ---- BRIEF DE DESIGN ---- */
     .btn-brief { padding: 0.4rem 0.9rem; border-radius: 6px; background: rgba(196,154,108,0.1); border: 1px solid rgba(196,154,108,0.28); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 600; cursor: pointer; color: var(--terra); transition: all 0.2s; }
     .btn-brief:hover { background: rgba(196,154,108,0.2); border-color: var(--areia); color: var(--areia); }
@@ -681,6 +695,22 @@
             <button class="status-btn s-publicado" data-status="publicado">🚀 Publicado</button>
           </div>
         </div>
+
+        <!-- Sugestões da Biblioteca -->
+        <hr class="modal-divider" />
+        <div id="modal-sugestoes-section">
+          <div class="modal-sug-header" id="modal-sug-label">📚 Copys da Biblioteca</div>
+          <div id="modal-sugestoes-lista"></div>
+        </div>
+
+        <!-- Referência de Design -->
+        <hr class="modal-divider" />
+        <div id="modal-design-section">
+          <div class="modal-sug-header">🎨 Mood / Referência de Design</div>
+          <div class="modal-design-mood" id="modal-design-mood"></div>
+          <div class="brief-ref-btns" id="modal-design-refs"></div>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button class="btn-modal btn-cancelar" id="btn-cancelar-modal">Cancelar</button>
@@ -1173,6 +1203,47 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('modal-obs').value = saved.obs || '';
     document.getElementById('ai-status').textContent = '';
     atualizarStatusBtns(statusAtual);
+
+    // — Sugestões da Biblioteca —
+    const pilarKey = postInfo.pilar;
+    const plat = postInfo.plat;
+    const sugsEl = document.getElementById('modal-sugestoes-lista');
+    const sugSection = document.getElementById('modal-sugestoes-section');
+    const sugLabel = document.getElementById('modal-sug-label');
+    const copysSugeridas = COPYS.filter(c => c.pilar === pilarKey);
+    if (copysSugeridas.length > 0) {
+      const platLabel = plat === 'ig' ? 'Instagram' : 'LinkedIn';
+      sugLabel.textContent = `📚 Copys da Biblioteca — ${platLabel} · ${post.pilar}`;
+      sugsEl.innerHTML = copysSugeridas.map(c => `
+        <div class="modal-sug-item">
+          <div class="modal-sug-titulo">${c.titulo} <span style="font-weight:400;color:var(--texto-medio);font-size:0.68rem;">${c.formato}</span></div>
+          <div class="modal-sug-preview">${c.texto.substring(0, 120).replace(/\n/g,' ')}…</div>
+          <button class="modal-sug-usar" onclick="document.getElementById('modal-copy').value=${JSON.stringify(c.texto)};this.textContent='✅ Inserida!';">Usar esta copy →</button>
+        </div>
+      `).join('');
+      sugSection.style.display = 'block';
+    } else {
+      sugSection.style.display = 'none';
+    }
+
+    // — Mood / Referência de Design —
+    const briefKey = `${pilarKey}_${plat}`;
+    const brief = PLANO_BRIEFS[briefKey];
+    const designSection = document.getElementById('modal-design-section');
+    const moodEl = document.getElementById('modal-design-mood');
+    const refsEl = document.getElementById('modal-design-refs');
+    if (brief) {
+      moodEl.textContent = brief.mood;
+      refsEl.innerHTML = `
+        <a class="brief-ref-btn brief-ref-pinterest" href="https://pinterest.com/search/pins/?q=${encodeURIComponent(brief.pinterest)}" target="_blank">📌 Pinterest</a>
+        <a class="brief-ref-btn brief-ref-unsplash" href="https://unsplash.com/s/photos/${encodeURIComponent(brief.unsplash)}" target="_blank">🖼 Unsplash</a>
+        <a class="brief-ref-btn brief-ref-canva" href="https://www.canva.com/search/templates?q=${encodeURIComponent(brief.canva)}" target="_blank">🎨 Canva</a>
+      `;
+      designSection.style.display = 'block';
+    } else {
+      designSection.style.display = 'none';
+    }
+
     document.getElementById('modal-post').classList.add('aberto');
   }
 
@@ -1870,6 +1941,20 @@ Link na bio. Vagas limitadas por semana.` },
   // ================================================
   //  BRIEF DE DESIGN
   // ================================================
+  // Brief de design por pilar+plataforma (para o modal do Plano da Semana)
+  const PLANO_BRIEFS = {
+    'acao_ig':     { mood: 'Peso. Autoridade. Direto. Fundo escuro dominante. Cada slide respira.', pinterest: 'carrossel instagram tipografia minimalista dark green motivacional autoridade', unsplash: 'mountain path goal direction', canva: 'carrossel instagram motivacional minimalista' },
+    'acao_li':     { mood: 'Executivo. Confiante. Editorial clean. Autoridade de quem viveu o que diz.', pinterest: 'linkedin capa post editorial tipografia verde minimalista negócios', unsplash: 'system process workflow business clean', canva: 'linkedin post professional editorial green' },
+    'reacao_ig':   { mood: 'Drama emocional. Vulnerabilidade e força. Um elemento por tela, tudo no impacto.', pinterest: 'instagram carrossel storytelling emocional tipografia word poster drama', unsplash: 'resilience fall rise journey restart', canva: 'carrossel instagram emocional storytelling terra' },
+    'reacao_li':   { mood: 'Provocação estratégica. Clean. Profissional. Incomoda de forma elegante.', pinterest: 'linkedin capa post minimalista tipografia verde provocação negócios', unsplash: 'market change disruption business strategy', canva: 'linkedin post estratégia negócios minimalista verde' },
+    'campo_ig':    { mood: 'Épico. Real. Natureza brasileira. Autenticidade acima de tudo. Sem filtros excessivos.', pinterest: 'reels capa trilha montanha overlay texto natureza brasil épico', unsplash: 'trail mountain fog brazil hike nature', canva: 'instagram reels trilha natureza aventura épico' },
+    'campo_li':    { mood: 'Analógico. Profundo. Lição da natureza aplicada ao negócio. Diferente do usual no LinkedIn.', pinterest: 'linkedin post natureza aventura lição negócios editorial trilha', unsplash: 'nature trail lesson business wisdom mountain', canva: 'linkedin post natureza aventura editorial' },
+    'negocios_ig': { mood: 'Listagem de valor. Dinâmico. Numeração como elemento visual forte. Prático e direto.', pinterest: 'carrossel instagram lista numerada tipografia alternado escuro claro perguntas', unsplash: 'questions truth business checklist decision', canva: 'carrossel instagram negócios lista educacional numerado' },
+    'negocios_li': { mood: 'Educacional. Estratégico. Clean. Referência acadêmica com estilo de mentor experiente.', pinterest: 'infografico marketing linkedin design clean creme educacional estratégia', unsplash: 'strategy framework grid business planning', canva: 'linkedin infografico marketing estratégia educacional' },
+    'mapa_ig':     { mood: 'Tech + natureza. Inovação com raízes. Intrigante. Diferente. Faz querer clicar.', pinterest: 'instagram tech nature dark AI map design inovação minimalista', unsplash: 'map compass technology nature dark innovation', canva: 'instagram CTA tech natureza mapa inovação escuro' },
+    'mapa_li':     { mood: 'Urgência calma. Editorial. Semanal. Autoridade com convite real. Senso de oportunidade.', pinterest: 'linkedin editorial tipografia sexta CTA verde escuro provocação agenda', unsplash: 'friday compass reflection direction week', canva: 'linkedin editorial agenda semanal CTA mentoria' },
+  };
+
   const DESIGN_BRIEFS = {
     'Meta sem rota é desejo': {
       formato: 'Carrossel — 8 slides',
