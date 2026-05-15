@@ -232,6 +232,8 @@
     .tp-scroll-inner { padding: 50vh 12% 50vh; }
     .tp-bloco { text-align: center; margin-bottom: 2.5rem; }
     .tp-bloco-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(196,154,108,0.45); margin-bottom: 0.6rem; }
+    /* Rótulo de tempo: Gancho (0-3s), Desenvolvimento (3-25s), etc */
+    .tp-tag { font-size: 0.72rem; font-weight: 500; font-style: italic; color: rgba(196,154,108,0.5); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
     .tp-bloco-texto { font-size: clamp(1.15rem, 2.2vw, 1.65rem); font-weight: 600; color: var(--creme); line-height: 1.75; }
     .tp-separador { border: none; border-top: 1px solid rgba(196,154,108,0.12); margin: 2.5rem auto; width: 60px; }
 
@@ -1255,11 +1257,18 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('tp-titulo').textContent = tpRoteiro.titulo;
 
     // Build continuous scrolling text
+    // Detecta rótulos de tempo: "Gancho (0–3s):", "Desenvolvimento (3–25s):", etc.
+    function parseTpStep(step) {
+      const m = step.match(/^([^:(]+\([^)]+\)):\s*([\s\S]*)/);
+      if (m) return `<div class="tp-tag">${m[1].trim()}</div><div class="tp-bloco-texto">${m[2].trim()}</div>`;
+      return `<div class="tp-bloco-texto">${step}</div>`;
+    }
+
     const inner = document.getElementById('tp-scroll-inner');
     inner.innerHTML = tpRoteiro.steps.map((step, i) => `
       <div class="tp-bloco">
         <div class="tp-bloco-num">Parte ${i + 1} de ${tpRoteiro.steps.length}</div>
-        <div class="tp-bloco-texto">${step}</div>
+        ${parseTpStep(step)}
       </div>
       ${i < tpRoteiro.steps.length - 1 ? '<hr class="tp-separador" />' : ''}
     `).join('');
