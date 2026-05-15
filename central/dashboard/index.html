@@ -233,7 +233,7 @@
     .tp-bloco { text-align: center; margin-bottom: 2.5rem; }
     .tp-bloco-num { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(196,154,108,0.45); margin-bottom: 0.6rem; }
     /* Rótulo de tempo: Gancho (0-3s), Desenvolvimento (3-25s), etc */
-    .tp-tag { font-size: 0.72rem; font-weight: 500; font-style: italic; color: rgba(196,154,108,0.5); letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+    .tp-tag { font-size: 1rem; font-weight: 400; font-style: italic; color: rgba(196,154,108,0.55); letter-spacing: 0.02em; margin-bottom: 0.5rem; }
     .tp-bloco-texto { font-size: clamp(1.15rem, 2.2vw, 1.65rem); font-weight: 600; color: var(--creme); line-height: 1.75; }
     .tp-separador { border: none; border-top: 1px solid rgba(196,154,108,0.12); margin: 2.5rem auto; width: 60px; }
 
@@ -1246,7 +1246,8 @@ Link na bio. Vagas limitadas por semana.` },
   //  TELEPROMPTER — AUTO-SCROLL
   // ================================================
   let tpPlaying = false;
-  let tpSpeed = 0.85;   // px per animation frame
+  let tpSpeed = 0.85;     // px per animation frame
+  let tpScrollAcc = 0;    // acumulador float (scrollTop é inteiro no browser)
   let tpRAF = null;
   let tpCamStream = null;
 
@@ -1276,6 +1277,7 @@ Link na bio. Vagas limitadas por semana.` },
     // Reset scroll
     const wrap = document.getElementById('tp-scroll-wrap');
     wrap.scrollTop = 0;
+    tpScrollAcc = 0;
     tpPlaying = false;
     atualizarPlayBtn();
 
@@ -1304,10 +1306,13 @@ Link na bio. Vagas limitadas por semana.` },
   function tpTick() {
     if (!tpPlaying) return;
     const wrap = document.getElementById('tp-scroll-wrap');
-    wrap.scrollTop += tpSpeed;
+    tpScrollAcc += tpSpeed;                   // acumula em float
+    wrap.scrollTop = Math.floor(tpScrollAcc); // aplica inteiro ao DOM
     // Stop at bottom
-    if (wrap.scrollTop >= wrap.scrollHeight - wrap.clientHeight) {
-      wrap.scrollTop = wrap.scrollHeight - wrap.clientHeight;
+    const maxScroll = wrap.scrollHeight - wrap.clientHeight;
+    if (tpScrollAcc >= maxScroll) {
+      wrap.scrollTop = maxScroll;
+      tpScrollAcc = maxScroll;
       tpPlaying = false;
       atualizarPlayBtn();
       return;
@@ -1319,6 +1324,7 @@ Link na bio. Vagas limitadas por semana.` },
     tpPlaying = false;
     cancelAnimationFrame(tpRAF);
     atualizarPlayBtn();
+    tpScrollAcc = 0;
     document.getElementById('tp-scroll-wrap').scrollTop = 0;
   }
 
