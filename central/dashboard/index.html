@@ -21,7 +21,10 @@
     body { font-family: 'Montserrat', sans-serif; background: var(--creme); color: var(--texto-escuro); display: flex; min-height: 100vh; }
 
     /* ---- SIDEBAR ---- */
-    .sidebar { width: var(--sidebar); background: var(--verde-escuro); min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 50; display: flex; flex-direction: column; padding: 1.5rem 0; box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+    .sidebar { width: var(--sidebar); background: var(--verde-escuro); min-height: 100vh; position: fixed; top: 0; left: 0; z-index: 50; display: flex; flex-direction: column; padding: 1.5rem 0; box-shadow: 4px 0 20px rgba(0,0,0,0.15); transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 45; display: none; opacity: 0; transition: opacity 0.28s; }
+    .sidebar-overlay.visivel { display: block; opacity: 1; }
+    .btn-hamburger { display: none; background: none; border: none; font-size: 1.4rem; color: var(--verde-escuro); cursor: pointer; padding: 0.2rem 0.4rem; border-radius: 6px; line-height: 1; margin-right: 0.4rem; flex-shrink: 0; }
     .sidebar-logo { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
     .sidebar-logo-nome { font-size: 1rem; font-weight: 800; color: var(--creme); line-height: 1.2; }
     .sidebar-logo-nome span { color: var(--areia); font-weight: 300; }
@@ -360,18 +363,69 @@
     .secao-titulo { font-size: 1.2rem; font-weight: 800; color: var(--verde-escuro); letter-spacing: -0.01em; margin-bottom: 0.3rem; }
     .secao-sub { font-size: 0.85rem; color: var(--texto-medio); margin-bottom: 1.5rem; }
 
+    /* ---- LAYOUT FIXO: seção com duas colunas na Visão Geral ---- */
+    .visao-geral-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    /* ---- MOBILE ---- */
     @media (max-width: 900px) {
+      :root { --sidebar: 260px; }
       .sidebar { transform: translateX(-100%); }
+      .sidebar.aberta { transform: translateX(0); box-shadow: 8px 0 30px rgba(0,0,0,0.3); }
+      .btn-hamburger { display: flex; align-items: center; justify-content: center; }
       .main { margin-left: 0; }
-      .dias-grid { grid-template-columns: 1fr; }
-      .resumo-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar { padding: 0.75rem 1rem; gap: 0.4rem; }
+      .topbar-titulo { font-size: 0.88rem; }
+      .topbar-semana { font-size: 0.68rem; padding: 0.25rem 0.6rem; white-space: nowrap; }
+      .topbar-user span { display: none; }
+      .content { padding: 1rem; }
+
+      /* Visão Geral */
+      .resumo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+      .resumo-num { font-size: 1.6rem; }
+      .visao-geral-bottom { grid-template-columns: 1fr; gap: 1rem; }
+
+      /* Plano da semana */
+      .semana-header { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+      .dias-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+
+      /* Biblioteca */
       .copys-grid, .saved-copys-grid { grid-template-columns: 1fr; }
-      .metricas-inputs { grid-template-columns: 1fr 1fr; }
-      .cal-grid, .cal-day-labels { grid-template-columns: repeat(7, 1fr); }
+      .biblioteca-filtros { gap: 0.4rem; }
+      .filtro-pill { font-size: 0.65rem; padding: 0.35rem 0.7rem; }
+
+      /* Métricas */
+      .metricas-inputs { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+      .metricas-form { padding: 1.2rem; }
+
+      /* Modais */
+      .modal { max-height: 92vh; }
+      .modal-overlay { padding: 0.75rem; align-items: flex-end; }
+      .modal { border-radius: var(--radius) var(--radius) 0 0; }
+
+      /* Calendário — scroll horizontal */
+      .cal-nav { flex-wrap: wrap; gap: 0.5rem; }
+      .cal-scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .cal-day-labels, .cal-grid { grid-template-columns: repeat(7, minmax(42px, 1fr)); min-width: 300px; }
+      .cal-cell { min-height: 50px; padding: 0.3rem 0.25rem; }
+      .cal-num { font-size: 0.65rem; }
+      .cal-dot { width: 7px; height: 7px; }
+
+      /* Teleprompter */
+      .tp-header { flex-wrap: wrap; gap: 0.5rem; padding: 0.7rem 1rem; }
+      .tp-speed-group { order: 3; width: 100%; justify-content: center; }
+      .tp-scroll-inner { padding: 50vh 5% 50vh; }
+      .tp-bloco-texto { font-size: clamp(1rem, 5vw, 1.4rem); }
+      .tp-footer-bar { padding: 0.4rem; }
+
+      /* Roteiros */
+      .roteiro-acoes { flex-wrap: wrap; gap: 0.4rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Overlay mobile para fechar sidebar -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- =================== SIDEBAR =================== -->
   <aside class="sidebar">
@@ -422,6 +476,7 @@
   <!-- =================== MAIN =================== -->
   <main class="main">
     <div class="topbar">
+      <button class="btn-hamburger" id="btn-hamburger" aria-label="Menu">☰</button>
       <span class="topbar-titulo" id="topbar-titulo">Visão Geral</span>
       <span class="topbar-semana" id="topbar-semana">Semana —</span>
       <div class="topbar-user">
@@ -452,7 +507,7 @@
             <div class="resumo-label">Publicados</div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <div class="visao-geral-bottom">
           <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:2rem;color:var(--creme);">
             <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--areia);margin-bottom:0.8rem;">⚡ Filosofia de Marca</div>
             <div style="font-size:1.2rem;font-weight:800;margin-bottom:0.5rem;">AÇÃO &amp; REAÇÃO</div>
@@ -491,6 +546,7 @@
           </div>
         </div>
 
+        <div class="cal-scroll-wrap">
         <div class="cal-day-labels">
           <div class="cal-day-label">Seg</div>
           <div class="cal-day-label">Ter</div>
@@ -503,6 +559,7 @@
         <div class="cal-grid" id="cal-grid">
           <!-- preenchido via JS -->
         </div>
+        </div><!-- /cal-scroll-wrap -->
       </div>
 
       <!-- ============ VIEW: PLANO DA SEMANA ============ -->
@@ -990,6 +1047,17 @@ Link na bio. Vagas limitadas por semana.` },
     window.location.href = '/central/';
   });
 
+  // ---- MENU MOBILE ----
+  function fecharSidebar() {
+    document.querySelector('.sidebar').classList.remove('aberta');
+    document.getElementById('sidebar-overlay').classList.remove('visivel');
+  }
+  document.getElementById('btn-hamburger').addEventListener('click', () => {
+    document.querySelector('.sidebar').classList.toggle('aberta');
+    document.getElementById('sidebar-overlay').classList.toggle('visivel');
+  });
+  document.getElementById('sidebar-overlay').addEventListener('click', fecharSidebar);
+
   // ================================================
   //  NAVEGAÇÃO
   // ================================================
@@ -1003,6 +1071,8 @@ Link na bio. Vagas limitadas por semana.` },
       document.getElementById('view-' + view).classList.add('ativa');
       document.getElementById('topbar-titulo').textContent = item.textContent.trim();
       if (view === 'calendario') renderCalendario();
+      // Fecha sidebar no mobile ao navegar
+      if (window.innerWidth <= 900) fecharSidebar();
     });
   });
 
