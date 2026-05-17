@@ -538,9 +538,117 @@
     @media (max-width: 500px) {
       .inicio-acoes-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+/* ---- WELCOME MODAL ---- */
+.welcome-overlay { position: fixed; inset: 0; background: rgba(10,25,15,0.82); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1.5rem; backdrop-filter: blur(4px); }
+.welcome-overlay.oculto { display: none; }
+.welcome-box { background: var(--branco); border-radius: 20px; max-width: 520px; width: 100%; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.35); }
+.welcome-topo { background: var(--verde-escuro); padding: 2.5rem 2rem 2rem; text-align: center; }
+.welcome-logo { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,240,232,0.45); margin-bottom: 0.7rem; }
+.welcome-titulo { font-size: 1.6rem; font-weight: 800; color: var(--creme); line-height: 1.25; margin-bottom: 0.5rem; }
+.welcome-titulo span { color: var(--areia); }
+.welcome-sub { font-size: 0.85rem; color: rgba(245,240,232,0.6); line-height: 1.6; }
+.welcome-corpo { padding: 2rem; }
+.welcome-itens { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.8rem; }
+.welcome-item { display: flex; align-items: flex-start; gap: 0.9rem; }
+.welcome-item-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+.welcome-item-texto strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.15rem; }
+.welcome-item-texto span { font-size: 0.78rem; color: var(--texto-medio); line-height: 1.5; }
+.welcome-cta { width: 100%; background: var(--verde-escuro); color: var(--creme); border: none; border-radius: 12px; padding: 1rem; font-size: 0.9rem; font-weight: 800; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: opacity 0.2s; }
+.welcome-cta:hover { opacity: 0.88; }
+.welcome-pular { display: block; text-align: center; margin-top: 0.8rem; font-size: 0.72rem; color: rgba(28,58,42,0.35); cursor: pointer; background: none; border: none; font-family: 'Montserrat', sans-serif; }
+.welcome-pular:hover { color: var(--texto-medio); }
+
+/* ---- GUIA JS FLUTUANTE ---- */
+.guiajs-float { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 150; display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+.guiajs-float-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--verde-escuro); color: var(--creme); border: none; border-radius: 30px; padding: 0.65rem 1.1rem; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(28,58,42,0.35); transition: all 0.2s; letter-spacing: 0.02em; }
+.guiajs-float-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(28,58,42,0.4); }
+.guiajs-float-btn .gf-icon { color: var(--areia); font-size: 1rem; }
+.guiajs-painel { background: var(--branco); border-radius: 16px; width: 300px; box-shadow: 0 8px 40px rgba(28,58,42,0.18); border: 1px solid rgba(28,58,42,0.08); overflow: hidden; display: none; }
+.guiajs-painel.aberto { display: block; }
+.guiajs-painel-topo { background: var(--verde-escuro); padding: 0.9rem 1.1rem; display: flex; align-items: center; justify-content: space-between; }
+.guiajs-painel-nome { font-size: 0.72rem; font-weight: 800; color: var(--areia); letter-spacing: 0.12em; text-transform: uppercase; }
+.guiajs-painel-fechar { background: none; border: none; color: rgba(245,240,232,0.45); font-size: 1rem; cursor: pointer; padding: 0; }
+.guiajs-painel-corpo { padding: 1.1rem; }
+.guiajs-secao-label { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(28,58,42,0.35); margin-bottom: 0.4rem; }
+.guiajs-texto { font-size: 0.8rem; color: var(--texto-medio); line-height: 1.6; margin-bottom: 1rem; }
+.guiajs-acoes { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.guiajs-btn-audio { display: flex; align-items: center; gap: 0.35rem; background: rgba(28,58,42,0.06); border: 1px solid rgba(28,58,42,0.12); border-radius: 7px; padding: 0.4rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: var(--verde-escuro); cursor: pointer; font-family: 'Montserrat', sans-serif; transition: all 0.15s; }
+.guiajs-btn-audio:hover { background: rgba(28,58,42,0.1); }
+.guiajs-btn-audio.tocando { background: rgba(196,154,108,0.15); border-color: var(--areia); color: var(--terra); }
+.guiajs-btn-prox { display: flex; align-items: center; gap: 0.35rem; background: var(--verde-escuro); border: none; border-radius: 7px; padding: 0.4rem 0.75rem; font-size: 0.7rem; font-weight: 700; color: var(--creme); cursor: pointer; font-family: 'Montserrat', sans-serif; transition: opacity 0.15s; }
+.guiajs-btn-prox:hover { opacity: 0.85; }
+
+/* ---- CARDS DE CONTEXTO ---- */
+.ctx-card { background: linear-gradient(135deg, rgba(28,58,42,0.04) 0%, rgba(196,154,108,0.06) 100%); border: 1px solid rgba(196,154,108,0.2); border-radius: 12px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; }
+.ctx-card-icon { font-size: 1.5rem; flex-shrink: 0; }
+.ctx-card-corpo { flex: 1; }
+.ctx-card-titulo { font-size: 0.78rem; font-weight: 800; color: var(--verde-escuro); margin-bottom: 0.3rem; }
+.ctx-card-texto { font-size: 0.75rem; color: var(--texto-medio); line-height: 1.6; }
+.ctx-card-fechar { background: none; border: none; color: rgba(28,58,42,0.25); font-size: 0.9rem; cursor: pointer; flex-shrink: 0; padding: 0; align-self: flex-start; }
+.ctx-card-fechar:hover { color: var(--texto-medio); }
   </style>
 </head>
 <body>
+
+<!-- =================== WELCOME MODAL =================== -->
+<div class="welcome-overlay" id="welcome-overlay">
+  <div class="welcome-box">
+    <div class="welcome-topo">
+      <div class="welcome-logo">✦ Studio JS</div>
+      <div class="welcome-titulo">Seu time de<br><span>comunicação digital</span><br>está pronto.</div>
+      <div class="welcome-sub">A GU.IA JS vai trabalhar com você — não para você.<br>Juntos, do briefing ao conteúdo publicado.</div>
+    </div>
+    <div class="welcome-corpo">
+      <div class="welcome-itens">
+        <div class="welcome-item">
+          <div class="welcome-item-icon">🎯</div>
+          <div class="welcome-item-texto">
+            <strong>Minha Marca — o coração de tudo</strong>
+            <span>Configure uma vez. A GU.IA JS usa para gerar todo o conteúdo no seu tom, para o seu público.</span>
+          </div>
+        </div>
+        <div class="welcome-item">
+          <div class="welcome-item-icon">📅</div>
+          <div class="welcome-item-texto">
+            <strong>Plano da Semana — sua agenda editorial</strong>
+            <span>Posts sugeridos por pilar de conteúdo. Clique, edite, gere com IA e publique.</span>
+          </div>
+        </div>
+        <div class="welcome-item">
+          <div class="welcome-item-icon">🎬</div>
+          <div class="welcome-item-texto">
+            <strong>Teleprompter — grave sem travar</strong>
+            <span>Roteiros prontos que rolam na tela enquanto você grava. Com ou sem câmera.</span>
+          </div>
+        </div>
+      </div>
+      <button class="welcome-cta" id="welcome-cta">Começar pelo Minha Marca →</button>
+      <button class="welcome-pular" id="welcome-pular">Já conheço, entrar direto →</button>
+    </div>
+  </div>
+</div>
+
+<!-- =================== GU.IA JS FLUTUANTE =================== -->
+<div class="guiajs-float" id="guiajs-float">
+  <div class="guiajs-painel" id="guiajs-painel">
+    <div class="guiajs-painel-topo">
+      <span class="guiajs-painel-nome">✦ GU.IA JS</span>
+      <button class="guiajs-painel-fechar" id="guiajs-fechar">✕</button>
+    </div>
+    <div class="guiajs-painel-corpo">
+      <div class="guiajs-secao-label" id="guiajs-secao-label">Seção atual</div>
+      <div class="guiajs-texto" id="guiajs-texto">Carregando...</div>
+      <div class="guiajs-acoes">
+        <button class="guiajs-btn-audio" id="guiajs-btn-audio">🔊 Ouvir</button>
+        <button class="guiajs-btn-prox" id="guiajs-btn-prox">Próximo passo →</button>
+      </div>
+    </div>
+  </div>
+  <button class="guiajs-float-btn" id="guiajs-toggle">
+    <span class="gf-icon">✦</span> GU.IA JS
+  </button>
+</div>
 
   <!-- Overlay mobile para fechar sidebar -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
@@ -610,6 +718,14 @@
 
       <!-- ============ VIEW: INÍCIO ============ -->
       <div class="view ativa" id="view-inicio">
+        <div class="ctx-card" id="ctx-inicio">
+          <div class="ctx-card-icon">👋</div>
+          <div class="ctx-card-corpo">
+            <div class="ctx-card-titulo">Bem-vindo ao Studio JS — sua central de comunicação</div>
+            <div class="ctx-card-texto">Daqui você gerencia tudo: plano de conteúdo, copys, roteiros para vídeo e métricas. Comece pelo <strong>Minha Marca</strong> para que a GU.IA JS conheça sua marca e gere conteúdo personalizado.</div>
+          </div>
+          <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-inicio')">✕</button>
+        </div>
 
         <!-- Greeting -->
         <div class="inicio-greeting">
@@ -886,6 +1002,14 @@
 
       <!-- ============ VIEW: PLANO DA SEMANA ============ -->
       <div class="view" id="view-plano">
+        <div class="ctx-card" id="ctx-plano">
+          <div class="ctx-card-icon">📅</div>
+          <div class="ctx-card-corpo">
+            <div class="ctx-card-titulo">Como funciona o Plano da Semana?</div>
+            <div class="ctx-card-texto">Cada card é um post sugerido por pilar da sua marca (Ação, Reação, Campo, Negócios, Mapa). <strong>Clique em qualquer card</strong> para editar a copy, usar a GU.IA JS para gerar o texto completo ou escolher uma copy da Biblioteca. Depois mude o status para acompanhar o progresso.</div>
+          </div>
+          <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-plano')">✕</button>
+        </div>
         <div class="secao-titulo">Plano da Semana</div>
         <p class="secao-sub">Clique em qualquer post para editar a copy, gerar com IA e ajustar o status.</p>
 
@@ -909,6 +1033,14 @@
 
       <!-- ============ VIEW: BIBLIOTECA ============ -->
       <div class="view" id="view-biblioteca">
+        <div class="ctx-card" id="ctx-biblioteca">
+          <div class="ctx-card-icon">✍️</div>
+          <div class="ctx-card-corpo">
+            <div class="ctx-card-titulo">O que é a Biblioteca de Copys?</div>
+            <div class="ctx-card-texto">Textos prontos escritos no tom da sua marca. Você pode copiar, salvar como favorito ou <strong>usar diretamente em um post do Plano da Semana</strong> — abrindo o post e clicando em "Usar esta copy →".</div>
+          </div>
+          <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-biblioteca')">✕</button>
+        </div>
         <div class="secao-titulo">Biblioteca de Copys</div>
         <p class="secao-sub">Copys prontas por pilar. Ao clicar em "Copiar", a copy fica salva na seção abaixo.</p>
         <div class="biblioteca-filtros">
@@ -930,6 +1062,14 @@
 
       <!-- ============ VIEW: ROTEIROS ============ -->
       <div class="view" id="view-roteiros">
+        <div class="ctx-card" id="ctx-roteiros">
+          <div class="ctx-card-icon">🎬</div>
+          <div class="ctx-card-corpo">
+            <div class="ctx-card-titulo">Roteiros prontos para você gravar agora</div>
+            <div class="ctx-card-texto">Cada roteiro segue a estrutura: <strong>Gancho → Desenvolvimento → Virada → CTA</strong>. Clique em "Abrir no Teleprompter" e o texto vai rolar enquanto você grava. Você pode editar qualquer roteiro antes de gravar.</div>
+          </div>
+          <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-roteiros')">✕</button>
+        </div>
         <div class="secao-titulo">Roteiros de Vídeo</div>
         <p class="secao-sub">Roteiros prontos. Clique em "Teleprompter" para modo de gravação em tela cheia.</p>
         <div id="roteiros-lista"></div>
@@ -937,6 +1077,14 @@
 
       <!-- ============ VIEW: MÉTRICAS ============ -->
       <div class="view" id="view-metricas">
+        <div class="ctx-card" id="ctx-metricas">
+          <div class="ctx-card-icon">📊</div>
+          <div class="ctx-card-corpo">
+            <div class="ctx-card-titulo">Acompanhe o crescimento da sua marca</div>
+            <div class="ctx-card-texto">Registre manualmente seus números semanais: alcance, novos seguidores e leads gerados. Com o tempo, o Studio JS vai mostrar sua evolução e a GU.IA JS vai sugerir ajustes na estratégia.</div>
+          </div>
+          <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-metricas')">✕</button>
+        </div>
         <div class="secao-titulo">Métricas da Semana</div>
         <p class="secao-sub">Cole os números do Instagram aqui. O histórico fica salvo para acompanhar a evolução.</p>
 
@@ -2855,6 +3003,161 @@ Link na bio. Vagas limitadas por semana.` },
   renderHistorico();
   renderInicio();
   marcaCarregarSalvo();
+
+  // ================================================
+  //  WELCOME MODAL
+  // ================================================
+  (function() {
+    const overlay = document.getElementById('welcome-overlay');
+    const jaViu = localStorage.getItem('studiojs_welcome_visto');
+    if (jaViu) { overlay.classList.add('oculto'); return; }
+
+    document.getElementById('welcome-cta').addEventListener('click', () => {
+      localStorage.setItem('studiojs_welcome_visto', '1');
+      overlay.classList.add('oculto');
+      irParaView('marca', 'Minha Marca');
+    });
+    document.getElementById('welcome-pular').addEventListener('click', () => {
+      localStorage.setItem('studiojs_welcome_visto', '1');
+      overlay.classList.add('oculto');
+    });
+  })();
+
+  // ================================================
+  //  CARDS DE CONTEXTO — dispensar e restaurar
+  // ================================================
+  function dispensarCtx(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+    const dispensados = JSON.parse(localStorage.getItem('ctx_dispensados') || '[]');
+    if (!dispensados.includes(id)) dispensados.push(id);
+    localStorage.setItem('ctx_dispensados', JSON.stringify(dispensados));
+  }
+  (function() {
+    const dispensados = JSON.parse(localStorage.getItem('ctx_dispensados') || '[]');
+    dispensados.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  })();
+
+  // ================================================
+  //  GU.IA JS FLUTUANTE — contexto por seção
+  // ================================================
+  const GUIA_CONTEXTOS = {
+    'inicio': {
+      label: 'Início — Central de Comando',
+      texto: 'Esta é sua central. Daqui você acessa tudo. O primeiro passo é configurar sua Marca — quanto mais completo, mais personalizado é tudo que a GU.IA JS vai gerar para você.',
+      proximo: { label: 'Configurar Minha Marca →', view: 'marca', titulo: 'Minha Marca' }
+    },
+    'marca': {
+      label: 'Minha Marca — O DNA da sua comunicação',
+      texto: 'Aqui você define quem você é, para quem fala e como fala. É o coração do Studio JS. Use a GU.IA JS em cada passo para acelerar — depois edite, ajuste, lapide.',
+      proximo: { label: 'Ver Plano da Semana →', view: 'plano', titulo: 'Plano da Semana' }
+    },
+    'plano': {
+      label: 'Plano da Semana — Sua agenda editorial',
+      texto: 'Cada card é um post sugerido por pilar da sua marca. Clique em qualquer um, edite a copy ou gere com a GU.IA JS. Mude o status para acompanhar: Pendente → Aprovado → Em Produção → Publicado.',
+      proximo: { label: 'Ver Biblioteca de Copys →', view: 'biblioteca', titulo: 'Biblioteca de Copys' }
+    },
+    'calendario': {
+      label: 'Calendário — Visão macro do mês',
+      texto: 'Veja todos os posts do mês em um relance. Pontos coloridos indicam posts agendados. Clique em qualquer dia para ir direto para a semana correspondente.',
+      proximo: { label: 'Ir para o Plano →', view: 'plano', titulo: 'Plano da Semana' }
+    },
+    'biblioteca': {
+      label: 'Biblioteca de Copys — Textos prontos',
+      texto: 'Copys escritas no tom da sua marca, organizadas por pilar. Use diretamente, adapte ou conecte a um post do Plano da Semana pelo botão "Usar esta copy →" dentro de cada post.',
+      proximo: { label: 'Abrir Roteiros →', view: 'roteiros', titulo: 'Roteiros de Vídeo' }
+    },
+    'roteiros': {
+      label: 'Roteiros de Vídeo — Grave sem travar',
+      texto: 'Scripts estruturados: Gancho, Desenvolvimento, Virada e CTA. Clique em Abrir no Teleprompter — o texto rola enquanto você grava. Edite qualquer roteiro antes de gravar.',
+      proximo: { label: 'Ver Métricas →', view: 'metricas', titulo: 'Métricas' }
+    },
+    'metricas': {
+      label: 'Métricas — Acompanhe seu crescimento',
+      texto: 'Registre seus números semanais: alcance, seguidores e leads. Com constância, você vai ver a evolução da sua marca e a GU.IA JS vai sugerir ajustes na estratégia.',
+      proximo: { label: 'Voltar ao Início →', view: 'inicio', titulo: 'Início' }
+    },
+  };
+
+  let guiaViewAtual = 'inicio';
+  let guiaAudioAtivo = false;
+
+  function guiaAtualizarContexto(view) {
+    guiaViewAtual = view;
+    const ctx = GUIA_CONTEXTOS[view] || GUIA_CONTEXTOS['inicio'];
+    document.getElementById('guiajs-secao-label').textContent = ctx.label;
+    document.getElementById('guiajs-texto').textContent = ctx.texto;
+    const btnProx = document.getElementById('guiajs-btn-prox');
+    if (btnProx && ctx.proximo) {
+      btnProx.textContent = ctx.proximo.label;
+      btnProx.onclick = () => {
+        irParaView(ctx.proximo.view, ctx.proximo.titulo);
+        guiaAtualizarContexto(ctx.proximo.view);
+        document.getElementById('guiajs-painel').classList.remove('aberto');
+      };
+    }
+    // Para o áudio se estava tocando
+    if (guiaAudioAtivo) {
+      window.speechSynthesis?.cancel();
+      guiaAudioAtivo = false;
+      document.getElementById('guiajs-btn-audio')?.classList.remove('tocando');
+    }
+  }
+
+  document.getElementById('guiajs-toggle')?.addEventListener('click', () => {
+    const painel = document.getElementById('guiajs-painel');
+    painel.classList.toggle('aberto');
+    if (painel.classList.contains('aberto')) guiaAtualizarContexto(guiaViewAtual);
+  });
+
+  document.getElementById('guiajs-fechar')?.addEventListener('click', () => {
+    document.getElementById('guiajs-painel').classList.remove('aberto');
+    window.speechSynthesis?.cancel();
+    guiaAudioAtivo = false;
+    document.getElementById('guiajs-btn-audio')?.classList.remove('tocando');
+  });
+
+  document.getElementById('guiajs-btn-audio')?.addEventListener('click', () => {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    if (guiaAudioAtivo) {
+      synth.cancel();
+      guiaAudioAtivo = false;
+      document.getElementById('guiajs-btn-audio').classList.remove('tocando');
+      document.getElementById('guiajs-btn-audio').textContent = '🔊 Ouvir';
+      return;
+    }
+    const ctx = GUIA_CONTEXTOS[guiaViewAtual];
+    if (!ctx) return;
+    const texto = ctx.label + '. ' + ctx.texto;
+    const utter = new SpeechSynthesisUtterance(texto);
+    utter.lang = 'pt-BR';
+    utter.rate = 0.88;
+    utter.pitch = 1.05;
+    // Tenta encontrar voz em português
+    const vozes = synth.getVoices();
+    const vozPt = vozes.find(v => v.lang.startsWith('pt')) || vozes[0];
+    if (vozPt) utter.voice = vozPt;
+    utter.onend = () => {
+      guiaAudioAtivo = false;
+      const btn = document.getElementById('guiajs-btn-audio');
+      if (btn) { btn.classList.remove('tocando'); btn.textContent = '🔊 Ouvir'; }
+    };
+    synth.speak(utter);
+    guiaAudioAtivo = true;
+    document.getElementById('guiajs-btn-audio').classList.add('tocando');
+    document.getElementById('guiajs-btn-audio').textContent = '⏹ Parar';
+  });
+
+  // Atualiza contexto da GU.IA JS quando troca de view
+  document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+    item.addEventListener('click', () => {
+      guiaAtualizarContexto(item.dataset.view);
+    });
+  });
   </script>
 </body>
 </html>
