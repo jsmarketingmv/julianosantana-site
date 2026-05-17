@@ -193,6 +193,8 @@
     .modal-sug-preview { font-size: 0.72rem; color: var(--texto-medio); line-height: 1.4; margin-bottom: 0.5rem; }
     .modal-sug-usar { font-size: 0.68rem; font-weight: 700; color: var(--verde-sage); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Montserrat', sans-serif; letter-spacing: 0.02em; }
     .modal-sug-usar:hover { text-decoration: underline; }
+    .modal-sug-ver { font-size: 0.68rem; font-weight: 600; color: var(--areia); background: none; border: none; cursor: pointer; padding: 0; font-family: 'Montserrat', sans-serif; letter-spacing: 0.01em; transition: color 0.2s; }
+    .modal-sug-ver:hover { color: var(--terra); text-decoration: underline; }
     .modal-sug-vazia { font-size: 0.78rem; color: var(--texto-medio); font-style: italic; }
     .modal-divider { border: none; border-top: 1px solid rgba(28,58,42,0.08); margin: 0.4rem 0 1.2rem; }
     .modal-design-mood { font-size: 0.8rem; color: var(--texto-medio); line-height: 1.6; font-style: italic; background: var(--creme); border-left: 3px solid var(--areia); padding: 0.55rem 0.9rem; border-radius: 0 6px 6px 0; margin-bottom: 0.7rem; }
@@ -560,7 +562,8 @@
 .welcome-pular:hover { color: var(--texto-medio); }
 
 /* ---- GUIA JS FLUTUANTE ---- */
-.guiajs-float { position: fixed; bottom: 5rem; right: 1.5rem; z-index: 150; display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; }
+.guiajs-float { position: fixed; bottom: 1.5rem; left: calc(var(--sidebar) + 1.5rem); z-index: 150; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    @media (max-width: 900px) { .guiajs-float { left: 1rem; bottom: 1rem; } }
 .guiajs-float-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--verde-escuro); color: var(--creme); border: none; border-radius: 30px; padding: 0.65rem 1.1rem; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 20px rgba(28,58,42,0.35); transition: all 0.2s; letter-spacing: 0.02em; }
 .guiajs-float-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(28,58,42,0.4); }
 .guiajs-float-btn .gf-icon { color: var(--areia); font-size: 1rem; }
@@ -2053,13 +2056,26 @@ Link na bio. Vagas limitadas por semana.` },
     if (copysSugeridas.length > 0) {
       const platLabel = plat === 'ig' ? 'Instagram' : 'LinkedIn';
       sugLabel.textContent = `📚 Copys da Biblioteca — ${platLabel} · ${post.pilar}`;
-      sugsEl.innerHTML = copysSugeridas.map(c => `
+      sugsEl.innerHTML = copysSugeridas.map((c, idx) => {
+        const idPrev = `sug-prev-${idx}`;
+        const idFull = `sug-full-${idx}`;
+        const idBtn  = `sug-tog-${idx}`;
+        const textoHtml = c.texto.replace(/\n/g, '<br>');
+        return `
         <div class="modal-sug-item">
           <div class="modal-sug-titulo">${c.titulo} <span style="font-weight:400;color:var(--texto-medio);font-size:0.68rem;">${c.formato}</span></div>
-          <div class="modal-sug-preview">${c.texto.substring(0, 120).replace(/\n/g,' ')}…</div>
-          <button class="modal-sug-usar" onclick="document.getElementById('modal-copy').value=${JSON.stringify(c.texto)};this.textContent='✅ Inserida!';">Usar esta copy →</button>
-        </div>
-      `).join('');
+          <div class="modal-sug-preview" id="${idPrev}">${c.texto.substring(0, 140).replace(/\n/g,' ')}…</div>
+          <div class="modal-sug-full" id="${idFull}" style="display:none;font-size:0.75rem;color:var(--texto-medio);line-height:1.6;white-space:pre-line;margin-bottom:0.5rem;">${c.texto}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.4rem;">
+            <button class="modal-sug-ver" id="${idBtn}" onclick="
+              var p=document.getElementById('${idPrev}'),f=document.getElementById('${idFull}'),b=document.getElementById('${idBtn}');
+              if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Ver menos ▲';}
+              else{f.style.display='none';p.style.display='block';b.textContent='Ver completa ▼';}
+            ">Ver completa ▼</button>
+            <button class="modal-sug-usar" onclick="document.getElementById('modal-copy').value=${JSON.stringify(c.texto)};this.textContent='✅ Inserida!';">Usar esta copy →</button>
+          </div>
+        </div>`;
+      }).join('');
       sugSection.style.display = 'block';
     } else {
       sugSection.style.display = 'none';
