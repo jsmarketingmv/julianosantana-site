@@ -503,6 +503,22 @@
 
     .marca-salvo-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(74,124,89,0.1); border: 1px solid rgba(74,124,89,0.2); color: var(--verde-sage); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
 
+/* ---- PÓS-SALVO: Próximo Passo ---- */
+.marca-salvo-proximo { margin-top: 0.5rem; }
+.marca-salvo-proximo-titulo { font-size: 1rem; font-weight: 800; color: var(--verde-escuro); margin-bottom: 1rem; }
+.marca-salvo-proximo-btns { display: flex; flex-direction: column; gap: 0.7rem; }
+.marca-prox-btn { display: flex; align-items: center; gap: 1rem; background: var(--branco); border: 1.5px solid rgba(28,58,42,0.12); border-radius: 12px; padding: 1rem 1.2rem; cursor: pointer; text-align: left; font-family: 'Montserrat', sans-serif; transition: all 0.2s; width: 100%; }
+.marca-prox-btn:hover { border-color: var(--verde-sage); box-shadow: 0 3px 12px rgba(28,58,42,0.09); transform: translateX(3px); }
+.marca-prox-btn.destaque { background: var(--verde-escuro); border-color: var(--verde-escuro); }
+.marca-prox-btn.destaque strong { color: var(--creme); }
+.marca-prox-btn.destaque small { color: rgba(245,240,232,0.55); }
+.marca-prox-btn.destaque > span:last-child { color: var(--areia); }
+.marca-prox-btn-texto { flex: 1; }
+.marca-prox-btn-texto strong { display: block; font-size: 0.85rem; font-weight: 700; color: var(--verde-escuro); }
+.marca-prox-btn-texto small { font-size: 0.7rem; color: var(--texto-medio); }
+.marca-prox-btn > span:first-child { font-size: 1.3rem; }
+.marca-prox-btn > span:last-child { font-size: 1rem; color: rgba(28,58,42,0.3); }
+
 /* ---- GU.IA JS ---- */
 .guia-js-btn { display: flex; align-items: center; gap: 0.7rem; background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%); border: none; border-radius: 12px; padding: 0.9rem 1.3rem; cursor: pointer; margin-bottom: 1.2rem; width: 100%; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--creme); letter-spacing: 0.01em; transition: opacity 0.2s, transform 0.15s; position: relative; overflow: hidden; text-align: left; }
 .guia-js-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(196,154,108,0.15) 0%, transparent 60%); pointer-events: none; }
@@ -1673,10 +1689,9 @@ Link na bio. Vagas limitadas por semana.` },
   function marcaSalvar() {
     const dados = marcaGetDados();
     localStorage.setItem('marca_config', JSON.stringify(dados));
-    localStorage.removeItem('marca_rascunho'); // rascunho vira definitivo
-    const btn = document.getElementById('marca-btn-salvar');
-    if (btn) { btn.textContent = '✅ Salvo!'; setTimeout(() => btn.textContent = '💾 Salvar Marca', 2000); }
-    // Mostrar badge de salvo
+    localStorage.removeItem('marca_rascunho');
+
+    // Badge de salvo
     const titulo = document.querySelector('#view-marca .secao-titulo');
     if (titulo && !document.getElementById('marca-salvo-badge')) {
       const badge = document.createElement('div');
@@ -1685,9 +1700,58 @@ Link na bio. Vagas limitadas por semana.` },
       badge.innerHTML = '✅ Marca configurada — IA ativa';
       titulo.after(badge);
     }
-    // Esconder alerta no início
     const alertaEl = document.getElementById('inicio-alerta-marca');
     if (alertaEl) alertaEl.style.display = 'none';
+
+    // Substituir botão por painel de próximo passo guiado
+    const nav = document.querySelector('#marca-passo-5 .marca-nav');
+    if (nav) {
+      nav.innerHTML = `
+        <div class="marca-salvo-proximo">
+          <div class="marca-salvo-proximo-titulo">✅ Marca salva! O que fazemos agora?</div>
+          <div class="marca-salvo-proximo-btns">
+            <button class="marca-prox-btn destaque" id="marca-ir-plano">
+              <span>📅</span>
+              <span class="marca-prox-btn-texto">
+                <strong>Ir para o Plano da Semana</strong>
+                <small>A GU.IA JS vai gerar posts no seu contexto</small>
+              </span>
+              <span>→</span>
+            </button>
+            <button class="marca-prox-btn" id="marca-ir-biblioteca">
+              <span>✍️</span>
+              <span class="marca-prox-btn-texto">
+                <strong>Ver Biblioteca de Copys</strong>
+                <small>Textos prontos no tom da sua marca</small>
+              </span>
+              <span>→</span>
+            </button>
+            <button class="marca-prox-btn" id="marca-ir-roteiros">
+              <span>🎬</span>
+              <span class="marca-prox-btn-texto">
+                <strong>Abrir Teleprompter</strong>
+                <small>Gravar um vídeo com roteiro da sua marca</small>
+              </span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('marca-ir-plano')?.addEventListener('click', () => irParaView('plano', 'Plano da Semana'));
+      document.getElementById('marca-ir-biblioteca')?.addEventListener('click', () => irParaView('biblioteca', 'Biblioteca de Copys'));
+      document.getElementById('marca-ir-roteiros')?.addEventListener('click', () => irParaView('roteiros', 'Roteiros de Vídeo'));
+    }
+  }
+
+  function irParaView(view, label) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+    document.querySelector(`[data-view="${view}"]`)?.classList.add('ativo');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+    document.getElementById('view-' + view)?.classList.add('ativa');
+    document.getElementById('topbar-titulo').textContent = label;
+    if (view === 'calendario') renderCalendario();
+    window.scrollTo(0, 0);
   }
 
   function marcaCarregarSalvo() {
