@@ -503,6 +503,17 @@
 
     .marca-salvo-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(74,124,89,0.1); border: 1px solid rgba(74,124,89,0.2); color: var(--verde-sage); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
 
+/* ---- GU.IA JS ---- */
+.guia-js-btn { display: flex; align-items: center; gap: 0.7rem; background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%); border: none; border-radius: 12px; padding: 0.9rem 1.3rem; cursor: pointer; margin-bottom: 1.2rem; width: 100%; font-family: 'Montserrat', sans-serif; transition: opacity 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+.guia-js-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(196,154,108,0.15) 0%, transparent 60%); pointer-events: none; }
+.guia-js-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+.guia-js-btn:active { transform: translateY(0); }
+.guia-js-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.guia-js-icon { font-size: 1.2rem; color: var(--areia); flex-shrink: 0; }
+.guia-js-btn > span:not(.guia-js-icon):not(.guia-js-sub) { font-size: 0.88rem; font-weight: 800; color: var(--creme); letter-spacing: 0.01em; }
+.guia-js-sub { font-size: 0.65rem; color: rgba(245,240,232,0.5); font-weight: 500; margin-left: auto; white-space: nowrap; }
+.guia-js-status { font-size: 0.75rem; color: var(--verde-sage); font-weight: 600; margin-bottom: 0.8rem; min-height: 1rem; transition: opacity 0.3s; }
+
     @media (max-width: 900px) {
       .inicio-acoes-grid { grid-template-columns: repeat(2, 1fr); }
       .inicio-greeting { flex-direction: column; }
@@ -705,6 +716,11 @@
         <!-- Passo 2: Seu Público -->
         <div class="marca-passo" id="marca-passo-2">
           <div class="marca-passo-titulo">👥 Seu Público</div>
+          <button class="guia-js-btn" id="guia-btn-2" onclick="gerarComGuiaJS(2)">
+            <span class="guia-js-icon">✦</span> Gerar com GU.IA JS
+            <span class="guia-js-sub">Baseado na sua Marca</span>
+          </button>
+          <div class="guia-js-status" id="guia-status-2"></div>
           <div class="marca-campo">
             <label>Quem é seu cliente ideal (perfil)</label>
             <input type="text" id="marca-publico-perfil" placeholder="Ex: Empreendedor 30-50 anos, já tem negócio, travado na execução" />
@@ -730,6 +746,11 @@
         <!-- Passo 3: Tom & Voz -->
         <div class="marca-passo" id="marca-passo-3">
           <div class="marca-passo-titulo">🗣️ Tom & Voz</div>
+          <button class="guia-js-btn" id="guia-btn-3" onclick="gerarComGuiaJS(3)">
+            <span class="guia-js-icon">✦</span> Gerar com GU.IA JS
+            <span class="guia-js-sub">Baseado na Marca + Público</span>
+          </button>
+          <div class="guia-js-status" id="guia-status-3"></div>
           <div class="marca-campo">
             <label>Tom de comunicação</label>
             <div class="marca-opcoes" id="marca-tom-opts">
@@ -766,6 +787,11 @@
         <!-- Passo 4: Plataformas & Objetivos -->
         <div class="marca-passo" id="marca-passo-4">
           <div class="marca-passo-titulo">📱 Plataformas & Objetivos</div>
+          <button class="guia-js-btn" id="guia-btn-4" onclick="gerarComGuiaJS(4)">
+            <span class="guia-js-icon">✦</span> Gerar com GU.IA JS
+            <span class="guia-js-sub">Baseado em tudo que você preencheu</span>
+          </button>
+          <div class="guia-js-status" id="guia-status-4"></div>
           <div class="marca-campo">
             <label>Plataformas que você usa</label>
             <div class="marca-opcoes" id="marca-plat-opts">
@@ -1543,6 +1569,86 @@ Link na bio. Vagas limitadas por semana.` },
         <div class="marca-revisao-valor">${v}</div>
       </div>
     `).join('');
+  }
+
+  // ================================================
+  //  GU.IA JS — Geração de marca com IA
+  // ================================================
+  async function gerarComGuiaJS(passo) {
+    const token = localStorage.getItem('central_token');
+    if (!token) return;
+
+    const btn = document.getElementById(`guia-btn-${passo}`);
+    const statusEl = document.getElementById(`guia-status-${passo}`);
+    const dados = marcaGetDados();
+
+    // Verifica se tem dados mínimos da marca
+    if (!dados.nome && !dados.segmento) {
+      if (statusEl) { statusEl.textContent = '⚠️ Preencha ao menos o nome e segmento da Marca (Passo 1) antes de gerar.'; statusEl.style.color = 'var(--terra)'; }
+      return;
+    }
+
+    if (btn) { btn.disabled = true; btn.querySelector('.guia-js-icon').textContent = '⏳'; }
+    if (statusEl) { statusEl.textContent = 'GU.IA JS pensando...'; statusEl.style.color = 'var(--verde-sage)'; }
+
+    try {
+      const res = await fetch('/api/central/marca-ia', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ passo, marca: dados }),
+      });
+
+      const result = await res.json();
+      if (!result.ok || !result.dados) throw new Error(result.error || 'Erro desconhecido');
+
+      const d = result.dados;
+
+      if (passo === 2) {
+        const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+        set('marca-publico-perfil', d.publicoPerfil);
+        set('marca-publico-dores', d.publicoDores);
+        set('marca-publico-sonhos', d.publicoSonhos);
+        set('marca-publico-objecoes', d.publicoObjecoes);
+      }
+
+      if (passo === 3) {
+        if (d.tom) {
+          document.getElementById('marca-tom').value = d.tom;
+          // Highlight matching option
+          document.querySelectorAll('#marca-tom-opts .marca-opt').forEach(b => b.classList.remove('selecionado'));
+        }
+        if (d.palavrasUsa) document.getElementById('marca-palavras-usa').value = d.palavrasUsa;
+        if (d.palavrasEvita) document.getElementById('marca-palavras-evita').value = d.palavrasEvita;
+        if (d.emoji) {
+          document.querySelectorAll('#marca-emoji-opts .marca-opt').forEach(b => {
+            b.classList.toggle('selecionado', b.dataset.val === d.emoji);
+          });
+        }
+      }
+
+      if (passo === 4) {
+        if (d.plataformas) {
+          const plats = d.plataformas.toLowerCase();
+          document.querySelectorAll('#marca-plat-opts .marca-opt').forEach(b => {
+            b.classList.toggle('selecionado', plats.includes(b.dataset.val));
+          });
+        }
+        if (d.objetivo) {
+          document.querySelectorAll('#marca-obj-opts .marca-opt').forEach(b => {
+            b.classList.toggle('selecionado', d.objetivo.toLowerCase().includes(b.dataset.val.split(' ')[0].toLowerCase()));
+          });
+        }
+        if (d.frequencia) document.getElementById('marca-frequencia').value = d.frequencia;
+      }
+
+      if (statusEl) { statusEl.textContent = '✅ Gerado! Revise, edite e ajuste o que precisar.'; statusEl.style.color = 'var(--verde-sage)'; }
+      setTimeout(() => { if (statusEl) statusEl.textContent = ''; }, 5000);
+
+    } catch (err) {
+      if (statusEl) { statusEl.textContent = '❌ ' + (err.message || 'Erro. Tente novamente.'); statusEl.style.color = 'var(--terra)'; }
+    } finally {
+      if (btn) { btn.disabled = false; btn.querySelector('.guia-js-icon').textContent = '✦'; }
+    }
   }
 
   function marcaSalvar() {
