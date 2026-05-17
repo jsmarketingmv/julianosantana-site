@@ -1651,9 +1651,24 @@ Link na bio. Vagas limitadas por semana.` },
     }
   }
 
+  // Auto-save: salva rascunho em tempo real enquanto o usuário digita
+  const MARCA_CAMPOS_AUTO = [
+    'marca-nome','marca-segmento','marca-diferencial','marca-proposta',
+    'marca-publico-perfil','marca-publico-dores','marca-publico-sonhos','marca-publico-objecoes',
+    'marca-tom','marca-palavras-usa','marca-palavras-evita','marca-frequencia',
+  ];
+  function marcaAutoSave() {
+    localStorage.setItem('marca_rascunho', JSON.stringify(marcaGetDados()));
+  }
+  MARCA_CAMPOS_AUTO.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', marcaAutoSave);
+  });
+
   function marcaSalvar() {
     const dados = marcaGetDados();
     localStorage.setItem('marca_config', JSON.stringify(dados));
+    localStorage.removeItem('marca_rascunho'); // rascunho vira definitivo
     const btn = document.getElementById('marca-btn-salvar');
     if (btn) { btn.textContent = '✅ Salvo!'; setTimeout(() => btn.textContent = '💾 Salvar Marca', 2000); }
     // Mostrar badge de salvo
@@ -1671,7 +1686,8 @@ Link na bio. Vagas limitadas por semana.` },
   }
 
   function marcaCarregarSalvo() {
-    const s = localStorage.getItem('marca_config');
+    // Carrega: primeiro o salvo definitivo, depois o rascunho (o mais recente vence)
+    const s = localStorage.getItem('marca_config') || localStorage.getItem('marca_rascunho');
     if (!s) return;
     try {
       const d = JSON.parse(s);
