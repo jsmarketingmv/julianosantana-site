@@ -1480,9 +1480,9 @@ Link na bio. Vagas limitadas por semana.` },
   const MARCA_TOTAL_PASSOS = 5;
 
   // Opções de seleção múltipla
-  const marcaMultiOpts = ['marca-plat-opts', 'marca-obj-opts'];
+  const marcaMultiOpts = ['marca-plat-opts', 'marca-obj-opts', 'marca-tom-opts'];
   // Opções de seleção única
-  const marcaSingleOpts = ['marca-tom-opts', 'marca-emoji-opts'];
+  const marcaSingleOpts = ['marca-emoji-opts'];
 
   [...marcaMultiOpts, ...marcaSingleOpts].forEach(id => {
     const container = document.getElementById(id);
@@ -1495,12 +1495,8 @@ Link na bio. Vagas limitadas por semana.` },
         } else {
           container.querySelectorAll('.marca-opt').forEach(b => b.classList.remove('selecionado'));
           btn.classList.add('selecionado');
-          // Sync to input if exists (for tom)
-          if (id === 'marca-tom-opts') {
-            const inp = document.getElementById('marca-tom');
-            if (inp && !inp.value) inp.value = btn.dataset.val;
-          }
         }
+        marcaAutoSave(); // salva rascunho a cada clique em opção
       });
     });
   });
