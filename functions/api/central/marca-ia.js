@@ -65,12 +65,14 @@ Seja específico, realista e estratégico. Evite respostas genéricas.
 
 ${contextoMarca}
 
+IMPORTANTE: todos os valores devem ser STRINGS de texto corrido, NUNCA arrays ou listas JSON.
+
 Responda SOMENTE com este JSON (sem markdown, sem texto fora do JSON):
 {
-  "publicoPerfil": "perfil detalhado do cliente ideal — cargo, faixa etária, contexto de vida e negócio",
-  "publicoDores": "3 a 5 principais dores e frustrações que esse público enfrenta",
-  "publicoSonhos": "3 a 5 sonhos e objetivos que esse público quer conquistar",
-  "publicoObjecoes": "2 a 3 principais objeções que esse público tem antes de contratar"
+  "publicoPerfil": "perfil detalhado do cliente ideal em texto corrido — cargo, faixa etária, contexto de vida e negócio",
+  "publicoDores": "dores separadas por ponto e vírgula — ex: Falta de clareza na rota; Excesso de teoria sem execução; Resultados inconsistentes",
+  "publicoSonhos": "sonhos separados por ponto e vírgula — ex: Negócio lucrativo e previsível; Liberdade de tempo; Reconhecimento no mercado",
+  "publicoObjecoes": "objeções separadas por ponto e vírgula — ex: Já tentou antes e não funcionou; Acha que é problema de motivação"
 }`;
   }
 
@@ -81,11 +83,13 @@ Seja específico ao contexto desta marca. Não seja genérico.
 ${contextoMarca}
 ${contextoPublico}
 
+IMPORTANTE: todos os valores devem ser STRINGS de texto corrido, NUNCA arrays ou listas JSON.
+
 Responda SOMENTE com este JSON (sem markdown, sem texto fora do JSON):
 {
-  "tom": "descrição do tom de voz em 1-2 frases — direto ao ponto",
-  "palavrasUsa": "lista de 6 a 10 palavras e expressões que esta marca DEVE usar, separadas por vírgula",
-  "palavrasEvita": "lista de 5 a 8 palavras e expressões que esta marca NUNCA deve usar, separadas por vírgula",
+  "tom": "descrição do tom de voz em 1-2 frases diretas — ex: Direto, provocador e autêntico. Autoridade conquistada na prática, sem floreios.",
+  "palavrasUsa": "palavra1, palavra2, palavra3, palavra4, palavra5, palavra6",
+  "palavrasEvita": "palavra1, palavra2, palavra3, palavra4, palavra5",
   "emoji": "sim, moderadamente"
 }`;
   }
@@ -98,11 +102,13 @@ ${contextoMarca}
 ${contextoPublico}
 ${tomContexto}
 
+IMPORTANTE: todos os valores devem ser STRINGS de texto corrido, NUNCA arrays ou listas JSON.
+
 Responda SOMENTE com este JSON (sem markdown, sem texto fora do JSON):
 {
   "plataformas": "instagram, linkedin",
-  "objetivo": "objetivo principal do conteúdo em 1 frase — ex: autoridade e posicionamento",
-  "frequencia": "frequência ideal de publicação por plataforma — ex: diário no Instagram, 3x semana no LinkedIn"
+  "objetivo": "autoridade e posicionamento",
+  "frequencia": "diário no Instagram, 3x por semana no LinkedIn"
 }`;
   }
 

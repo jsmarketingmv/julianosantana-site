@@ -504,13 +504,12 @@
     .marca-salvo-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(74,124,89,0.1); border: 1px solid rgba(74,124,89,0.2); color: var(--verde-sage); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
 
 /* ---- GU.IA JS ---- */
-.guia-js-btn { display: flex; align-items: center; gap: 0.7rem; background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%); border: none; border-radius: 12px; padding: 0.9rem 1.3rem; cursor: pointer; margin-bottom: 1.2rem; width: 100%; font-family: 'Montserrat', sans-serif; transition: opacity 0.2s, transform 0.15s; position: relative; overflow: hidden; }
+.guia-js-btn { display: flex; align-items: center; gap: 0.7rem; background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%); border: none; border-radius: 12px; padding: 0.9rem 1.3rem; cursor: pointer; margin-bottom: 1.2rem; width: 100%; font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--creme); letter-spacing: 0.01em; transition: opacity 0.2s, transform 0.15s; position: relative; overflow: hidden; text-align: left; }
 .guia-js-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(196,154,108,0.15) 0%, transparent 60%); pointer-events: none; }
 .guia-js-btn:hover { opacity: 0.92; transform: translateY(-1px); }
 .guia-js-btn:active { transform: translateY(0); }
 .guia-js-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .guia-js-icon { font-size: 1.2rem; color: var(--areia); flex-shrink: 0; }
-.guia-js-btn > span:not(.guia-js-icon):not(.guia-js-sub) { font-size: 0.88rem; font-weight: 800; color: var(--creme); letter-spacing: 0.01em; }
 .guia-js-sub { font-size: 0.65rem; color: rgba(245,240,232,0.5); font-weight: 500; margin-left: auto; white-space: nowrap; }
 .guia-js-status { font-size: 0.75rem; color: var(--verde-sage); font-weight: 600; margin-bottom: 0.8rem; min-height: 1rem; transition: opacity 0.3s; }
 
@@ -1603,42 +1602,52 @@ Link na bio. Vagas limitadas por semana.` },
 
       const d = result.dados;
 
+      // Normaliza: IA pode retornar array ou string — sempre vira string legível
+      const str = (val) => {
+        if (!val) return '';
+        if (Array.isArray(val)) return val.map(v => typeof v === 'object' ? Object.values(v).join(' ') : v).join('\n');
+        if (typeof val === 'object') return Object.values(val).join(', ');
+        return String(val);
+      };
+
       if (passo === 2) {
         const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
-        set('marca-publico-perfil', d.publicoPerfil);
-        set('marca-publico-dores', d.publicoDores);
-        set('marca-publico-sonhos', d.publicoSonhos);
-        set('marca-publico-objecoes', d.publicoObjecoes);
+        set('marca-publico-perfil', str(d.publicoPerfil));
+        set('marca-publico-dores', str(d.publicoDores));
+        set('marca-publico-sonhos', str(d.publicoSonhos));
+        set('marca-publico-objecoes', str(d.publicoObjecoes));
       }
 
       if (passo === 3) {
-        if (d.tom) {
-          document.getElementById('marca-tom').value = d.tom;
-          // Highlight matching option
+        const tom = str(d.tom);
+        if (tom) {
+          document.getElementById('marca-tom').value = tom;
           document.querySelectorAll('#marca-tom-opts .marca-opt').forEach(b => b.classList.remove('selecionado'));
         }
-        if (d.palavrasUsa) document.getElementById('marca-palavras-usa').value = d.palavrasUsa;
-        if (d.palavrasEvita) document.getElementById('marca-palavras-evita').value = d.palavrasEvita;
+        if (d.palavrasUsa) document.getElementById('marca-palavras-usa').value = str(d.palavrasUsa);
+        if (d.palavrasEvita) document.getElementById('marca-palavras-evita').value = str(d.palavrasEvita);
         if (d.emoji) {
+          const emojiVal = str(d.emoji).toLowerCase();
           document.querySelectorAll('#marca-emoji-opts .marca-opt').forEach(b => {
-            b.classList.toggle('selecionado', b.dataset.val === d.emoji);
+            b.classList.toggle('selecionado', emojiVal.includes(b.dataset.val.split(',')[0]));
           });
         }
       }
 
       if (passo === 4) {
-        if (d.plataformas) {
-          const plats = d.plataformas.toLowerCase();
+        const platsStr = str(d.plataformas).toLowerCase();
+        if (platsStr) {
           document.querySelectorAll('#marca-plat-opts .marca-opt').forEach(b => {
-            b.classList.toggle('selecionado', plats.includes(b.dataset.val));
+            b.classList.toggle('selecionado', platsStr.includes(b.dataset.val));
           });
         }
-        if (d.objetivo) {
+        const objStr = str(d.objetivo).toLowerCase();
+        if (objStr) {
           document.querySelectorAll('#marca-obj-opts .marca-opt').forEach(b => {
-            b.classList.toggle('selecionado', d.objetivo.toLowerCase().includes(b.dataset.val.split(' ')[0].toLowerCase()));
+            b.classList.toggle('selecionado', objStr.includes(b.dataset.val.split(' ')[0].toLowerCase()));
           });
         }
-        if (d.frequencia) document.getElementById('marca-frequencia').value = d.frequencia;
+        if (d.frequencia) document.getElementById('marca-frequencia').value = str(d.frequencia);
       }
 
       if (statusEl) { statusEl.textContent = '✅ Gerado! Revise, edite e ajuste o que precisar.'; statusEl.style.color = 'var(--verde-sage)'; }
