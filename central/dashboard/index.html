@@ -2056,11 +2056,12 @@ Link na bio. Vagas limitadas por semana.` },
     if (copysSugeridas.length > 0) {
       const platLabel = plat === 'ig' ? 'Instagram' : 'LinkedIn';
       sugLabel.textContent = `📚 Copys da Biblioteca — ${platLabel} · ${post.pilar}`;
+      // Store texts globally so onclick can reference safely (avoids quote-breaking in HTML attributes)
+      window._modalCopys = copysSugeridas.map(c => c.texto);
       sugsEl.innerHTML = copysSugeridas.map((c, idx) => {
         const idPrev = `sug-prev-${idx}`;
         const idFull = `sug-full-${idx}`;
         const idBtn  = `sug-tog-${idx}`;
-        const textoHtml = c.texto.replace(/\n/g, '<br>');
         return `
         <div class="modal-sug-item">
           <div class="modal-sug-titulo">${c.titulo} <span style="font-weight:400;color:var(--texto-medio);font-size:0.68rem;">${c.formato}</span></div>
@@ -2072,7 +2073,7 @@ Link na bio. Vagas limitadas por semana.` },
               if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Ver menos ▲';}
               else{f.style.display='none';p.style.display='block';b.textContent='Ver completa ▼';}
             ">Ver completa ▼</button>
-            <button class="modal-sug-usar" onclick="document.getElementById('modal-copy').value=${JSON.stringify(c.texto)};this.textContent='✅ Inserida!';">Usar esta copy →</button>
+            <button class="modal-sug-usar" onclick="usarCopyDaBiblioteca(${idx},this)">Usar esta copy →</button>
           </div>
         </div>`;
       }).join('');
@@ -2117,6 +2118,17 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('modal-post').classList.remove('aberto');
     postAtual = null;
   }
+
+  // Safe handler for "Usar esta copy" — avoids quote-breaking in onclick HTML attributes
+  window.usarCopyDaBiblioteca = function(idx, btn) {
+    const texto = (window._modalCopys || [])[idx];
+    if (!texto) return;
+    document.getElementById('modal-copy').value = texto;
+    document.querySelectorAll('.modal-sug-usar').forEach(b => b.textContent = 'Usar esta copy →');
+    btn.textContent = '✅ Inserida!';
+    // Scroll the textarea into view so user sees it was filled
+    document.getElementById('modal-copy').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
   document.getElementById('modal-fechar').addEventListener('click', fecharModal);
   document.getElementById('btn-cancelar-modal').addEventListener('click', fecharModal);
   document.getElementById('modal-post').addEventListener('click', e => {
