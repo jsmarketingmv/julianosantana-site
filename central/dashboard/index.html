@@ -441,6 +441,77 @@
       /* Roteiros */
       .roteiro-acoes { flex-wrap: wrap; gap: 0.4rem; }
     }
+
+    /* ---- INÍCIO / DASHBOARD ---- */
+    .inicio-greeting { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .inicio-ola { font-size: 1.6rem; font-weight: 800; color: var(--verde-escuro); margin: 0 0 0.3rem; }
+    .inicio-sub { font-size: 0.85rem; color: var(--texto-medio); margin: 0; }
+    .inicio-semana-dots { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .inicio-semana-dot { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .inicio-semana-dot-label { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; color: rgba(28,58,42,0.35); letter-spacing: 0.06em; }
+    .inicio-semana-dot-ball { width: 10px; height: 10px; border-radius: 50%; background: rgba(28,58,42,0.1); }
+    .inicio-semana-dot-ball.pendente { background: rgba(28,58,42,0.18); }
+    .inicio-semana-dot-ball.aprovado { background: var(--areia); }
+    .inicio-semana-dot-ball.producao { background: var(--terra); }
+    .inicio-semana-dot-ball.publicado { background: var(--verde-sage); }
+
+    .inicio-alerta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: rgba(196,154,108,0.08); border: 1px solid rgba(196,154,108,0.25); border-radius: 10px; padding: 0.9rem 1.2rem; margin-bottom: 1.5rem; font-size: 0.82rem; color: var(--verde-escuro); flex-wrap: wrap; }
+    .inicio-alerta-btn { background: var(--areia); color: var(--branco); border: none; border-radius: 7px; padding: 0.4rem 1rem; font-size: 0.75rem; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; white-space: nowrap; }
+
+    .inicio-acoes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .inicio-acao-btn { background: var(--branco); border: 1.5px solid rgba(28,58,42,0.1); border-radius: 14px; padding: 1.4rem 1rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.3rem; cursor: pointer; transition: all 0.2s; text-align: left; box-shadow: 0 2px 8px rgba(28,58,42,0.05); }
+    .inicio-acao-btn:hover { border-color: var(--verde-sage); box-shadow: 0 4px 16px rgba(28,58,42,0.1); transform: translateY(-2px); }
+    .inicio-acao-btn.destaque { background: var(--verde-escuro); border-color: var(--verde-escuro); }
+    .inicio-acao-btn.destaque .inicio-acao-label { color: var(--creme); }
+    .inicio-acao-btn.destaque .inicio-acao-sub { color: rgba(245,240,232,0.5); }
+    .inicio-acao-icon { font-size: 1.5rem; }
+    .inicio-acao-label { font-size: 0.88rem; font-weight: 800; color: var(--verde-escuro); font-family: 'Montserrat', sans-serif; }
+    .inicio-acao-sub { font-size: 0.7rem; color: var(--texto-medio); font-family: 'Montserrat', sans-serif; }
+
+    /* ---- MINHA MARCA / WIZARD ---- */
+    .marca-wizard-steps { display: flex; align-items: center; gap: 0; margin-bottom: 0.5rem; margin-top: 0.5rem; }
+    .mws-step { width: 32px; height: 32px; border-radius: 50%; background: rgba(28,58,42,0.08); border: 2px solid rgba(28,58,42,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--texto-medio); flex-shrink: 0; transition: all 0.25s; }
+    .mws-step.ativo { background: var(--verde-escuro); border-color: var(--verde-escuro); color: var(--creme); }
+    .mws-step.completo { background: var(--verde-sage); border-color: var(--verde-sage); color: #fff; }
+    .mws-line { flex: 1; height: 2px; background: rgba(28,58,42,0.1); }
+    .marca-step-labels { display: flex; justify-content: space-between; font-size: 0.6rem; font-weight: 600; color: rgba(28,58,42,0.35); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem; }
+
+    .marca-passo { display: none; }
+    .marca-passo.ativo { display: block; }
+    .marca-passo-titulo { font-size: 1.1rem; font-weight: 800; color: var(--verde-escuro); margin-bottom: 1.2rem; }
+    .marca-campo { margin-bottom: 1.1rem; }
+    .marca-campo label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--verde-escuro); margin-bottom: 0.4rem; letter-spacing: 0.02em; }
+    .marca-campo input, .marca-campo textarea { width: 100%; padding: 0.65rem 0.9rem; border: 1.5px solid rgba(28,58,42,0.15); border-radius: 9px; font-family: 'Montserrat', sans-serif; font-size: 0.82rem; color: var(--verde-escuro); background: var(--branco); resize: vertical; transition: border-color 0.2s; box-sizing: border-box; }
+    .marca-campo input:focus, .marca-campo textarea:focus { outline: none; border-color: var(--verde-sage); }
+
+    .marca-opcoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .marca-opt { padding: 0.4rem 0.9rem; border-radius: 20px; border: 1.5px solid rgba(28,58,42,0.15); background: transparent; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--texto-medio); cursor: pointer; transition: all 0.15s; }
+    .marca-opt:hover { border-color: var(--verde-sage); color: var(--verde-escuro); }
+    .marca-opt.selecionado { background: var(--verde-escuro); border-color: var(--verde-escuro); color: var(--creme); }
+
+    .marca-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(28,58,42,0.07); }
+    .marca-btn-proximo { background: var(--verde-escuro); color: var(--creme); border: none; border-radius: 9px; padding: 0.65rem 1.5rem; font-size: 0.82rem; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: opacity 0.2s; }
+    .marca-btn-proximo:hover { opacity: 0.85; }
+    .marca-btn-voltar { background: transparent; color: var(--texto-medio); border: 1.5px solid rgba(28,58,42,0.15); border-radius: 9px; padding: 0.65rem 1.2rem; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+    .marca-btn-salvar { background: var(--verde-sage); color: var(--creme); border: none; border-radius: 9px; padding: 0.65rem 1.8rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: opacity 0.2s; }
+    .marca-btn-salvar:hover { opacity: 0.88; }
+
+    .marca-revisao { background: var(--creme); border-radius: 12px; padding: 1.2rem 1.4rem; }
+    .marca-revisao-item { margin-bottom: 0.8rem; }
+    .marca-revisao-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(28,58,42,0.4); }
+    .marca-revisao-valor { font-size: 0.82rem; color: var(--verde-escuro); font-weight: 600; margin-top: 0.15rem; line-height: 1.5; }
+
+    .marca-salvo-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(74,124,89,0.1); border: 1px solid rgba(74,124,89,0.2); color: var(--verde-sage); font-size: 0.72rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem; }
+
+    @media (max-width: 900px) {
+      .inicio-acoes-grid { grid-template-columns: repeat(2, 1fr); }
+      .inicio-greeting { flex-direction: column; }
+      .inicio-semana-dots { display: none; }
+      .marca-step-labels { display: none; }
+    }
+    @media (max-width: 500px) {
+      .inicio-acoes-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -452,19 +523,22 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-nome">Juliano <span>Sant'Ana</span></div>
-      <span class="sidebar-logo-tag">Central de Comando</span>
-      <span class="sidebar-logo-badge">⚡ Área Restrita</span>
+      <span class="sidebar-logo-tag">Studio JS</span>
+      <span class="sidebar-logo-badge">✦ Studio JS</span>
     </div>
 
     <span class="nav-section-label">Principal</span>
-    <a class="nav-item ativo" data-view="visao-geral" href="#">
-      <span class="nav-icon">🏠</span> Visão Geral
+    <a class="nav-item ativo" data-view="inicio" href="#">
+      <span class="nav-icon">🏠</span> Início
     </a>
-    <a class="nav-item" data-view="calendario" href="#">
-      <span class="nav-icon">📆</span> Calendário
+    <a class="nav-item" data-view="marca" href="#">
+      <span class="nav-icon">🎯</span> Minha Marca
     </a>
     <a class="nav-item" data-view="plano" href="#">
       <span class="nav-icon">📅</span> Plano da Semana
+    </a>
+    <a class="nav-item" data-view="calendario" href="#">
+      <span class="nav-icon">📆</span> Calendário
     </a>
     <a class="nav-item" data-view="biblioteca" href="#">
       <span class="nav-icon">✍️</span> Biblioteca de Copys
@@ -490,7 +564,7 @@
     </a>
 
     <div class="sidebar-rodape">
-      <button class="btn-sair" id="btn-sair">← Sair da Central</button>
+      <button class="btn-sair" id="btn-sair">← Sair do Studio</button>
     </div>
   </aside>
 
@@ -498,7 +572,7 @@
   <main class="main">
     <div class="topbar">
       <button class="btn-hamburger" id="btn-hamburger" aria-label="Menu">☰</button>
-      <span class="topbar-titulo" id="topbar-titulo">Visão Geral</span>
+      <span class="topbar-titulo" id="topbar-titulo">Início</span>
       <span class="topbar-semana" id="topbar-semana">Semana —</span>
       <div class="topbar-user">
         <div class="topbar-avatar" id="topbar-avatar">J</div>
@@ -508,8 +582,19 @@
 
     <div class="content">
 
-      <!-- ============ VIEW: VISÃO GERAL ============ -->
-      <div class="view ativa" id="view-visao-geral">
+      <!-- ============ VIEW: INÍCIO ============ -->
+      <div class="view ativa" id="view-inicio">
+
+        <!-- Greeting -->
+        <div class="inicio-greeting">
+          <div>
+            <h1 class="inicio-ola">Olá, <span id="inicio-nome-greeting">Juliano</span> 👋</h1>
+            <p class="inicio-sub" id="inicio-sub-texto">Carregando semana...</p>
+          </div>
+          <div class="inicio-semana-dots" id="inicio-semana-dots"></div>
+        </div>
+
+        <!-- Cards de status -->
         <div class="resumo-grid" id="resumo-cards">
           <div class="resumo-card verde">
             <div class="resumo-num" id="res-total">0</div>
@@ -528,22 +613,197 @@
             <div class="resumo-label">Publicados</div>
           </div>
         </div>
-        <div class="visao-geral-bottom">
-          <div style="background:var(--verde-escuro);border-radius:var(--radius);padding:2rem;color:var(--creme);">
-            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--areia);margin-bottom:0.8rem;">⚡ Filosofia de Marca</div>
-            <div style="font-size:1.2rem;font-weight:800;margin-bottom:0.5rem;">AÇÃO &amp; REAÇÃO</div>
-            <div style="font-size:0.82rem;color:rgba(245,240,232,0.55);line-height:1.6;">Uma filosofia de vida e carreira. Nunca um método. Toda comunicação nasce daqui.</div>
+
+        <!-- Alerta marca não configurada -->
+        <div class="inicio-alerta" id="inicio-alerta-marca" style="display:none;">
+          <span>🎯 Configure sua marca para que a IA gere conteúdo personalizado para você</span>
+          <button class="inicio-alerta-btn" id="inicio-ir-marca">Configurar agora →</button>
+        </div>
+
+        <!-- Botões de ação estilo C6 -->
+        <div class="inicio-acoes-grid">
+          <button class="inicio-acao-btn destaque" data-goto="plano">
+            <span class="inicio-acao-icon">📅</span>
+            <span class="inicio-acao-label">Plano da Semana</span>
+            <span class="inicio-acao-sub" id="inicio-acao-plano-sub">Ver posts</span>
+          </button>
+          <button class="inicio-acao-btn" data-goto="marca">
+            <span class="inicio-acao-icon">🎯</span>
+            <span class="inicio-acao-label">Minha Marca</span>
+            <span class="inicio-acao-sub">Briefing & contexto da IA</span>
+          </button>
+          <button class="inicio-acao-btn" data-goto="biblioteca">
+            <span class="inicio-acao-icon">✍️</span>
+            <span class="inicio-acao-label">Copys</span>
+            <span class="inicio-acao-sub">Biblioteca de textos</span>
+          </button>
+          <button class="inicio-acao-btn" id="inicio-btn-teleprompter">
+            <span class="inicio-acao-icon">🎬</span>
+            <span class="inicio-acao-label">Teleprompter</span>
+            <span class="inicio-acao-sub">Gravar agora</span>
+          </button>
+          <button class="inicio-acao-btn" data-goto="calendario">
+            <span class="inicio-acao-icon">📆</span>
+            <span class="inicio-acao-label">Calendário</span>
+            <span class="inicio-acao-sub">Visão do mês</span>
+          </button>
+          <button class="inicio-acao-btn" data-goto="metricas">
+            <span class="inicio-acao-icon">📊</span>
+            <span class="inicio-acao-label">Métricas</span>
+            <span class="inicio-acao-sub">Seus resultados</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ============ VIEW: MINHA MARCA ============ -->
+      <div class="view" id="view-marca">
+        <div class="secao-titulo">Minha Marca</div>
+        <p class="secao-sub">Configure sua marca para que a IA gere conteúdo 100% no seu contexto — sem genérico.</p>
+
+        <!-- Wizard steps -->
+        <div class="marca-wizard-steps" id="marca-steps-bar">
+          <div class="mws-step ativo" data-step="1">1</div>
+          <div class="mws-line"></div>
+          <div class="mws-step" data-step="2">2</div>
+          <div class="mws-line"></div>
+          <div class="mws-step" data-step="3">3</div>
+          <div class="mws-line"></div>
+          <div class="mws-step" data-step="4">4</div>
+          <div class="mws-line"></div>
+          <div class="mws-step" data-step="5">5</div>
+        </div>
+        <div class="marca-step-labels">
+          <span>Marca</span><span>Público</span><span>Tom & Voz</span><span>Plataformas</span><span>Revisão</span>
+        </div>
+
+        <!-- Passo 1: Sua Marca -->
+        <div class="marca-passo ativo" id="marca-passo-1">
+          <div class="marca-passo-titulo">📌 Sua Marca</div>
+          <div class="marca-campo">
+            <label>Como você se apresenta / nome da marca</label>
+            <input type="text" id="marca-nome" placeholder="Ex: Juliano Sant'Ana" />
           </div>
-          <div style="background:var(--branco);border-radius:var(--radius);padding:2rem;box-shadow:0 2px 10px rgba(28,58,42,0.07);">
-            <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--verde-sage);margin-bottom:0.8rem;">📌 Links rápidos</div>
-            <div style="display:flex;flex-direction:column;gap:0.6rem;">
-              <a href="https://instagram.com/julianopsantana" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">📷 @julianopsantana</a>
-              <a href="https://linkedin.com/in/julianopsantana" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">💼 LinkedIn</a>
-              <a href="https://www.julianosantana.com.br/link" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">🔗 Página do Instagram</a>
-              <a href="https://www.mapadaverdade.com.br" target="_blank" style="font-size:0.82rem;color:var(--texto-medio);display:flex;align-items:center;gap:0.5rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--verde-sage)'" onmouseout="this.style.color='var(--texto-medio)'">🗺️ Mapa da Verdade</a>
-            </div>
+          <div class="marca-campo">
+            <label>Segmento / nicho de atuação</label>
+            <input type="text" id="marca-segmento" placeholder="Ex: Mentoria para empreendedores" />
+          </div>
+          <div class="marca-campo">
+            <label>Seu grande diferencial — o que te faz único</label>
+            <textarea id="marca-diferencial" rows="3" placeholder="Ex: Filosofia AÇÃO & REAÇÃO — combino experiência de campo, negócios e execução real..."></textarea>
+          </div>
+          <div class="marca-campo">
+            <label>Proposta de valor — o que o cliente ganha ao te contratar</label>
+            <textarea id="marca-proposta" rows="3" placeholder="Ex: Clareza de rota e execução para empreendedores travados que já sabem o que querem mas não saem do lugar..."></textarea>
+          </div>
+          <div class="marca-nav">
+            <span></span>
+            <button class="marca-btn-proximo" onclick="marcaIrPasso(2)">Próximo →</button>
           </div>
         </div>
+
+        <!-- Passo 2: Seu Público -->
+        <div class="marca-passo" id="marca-passo-2">
+          <div class="marca-passo-titulo">👥 Seu Público</div>
+          <div class="marca-campo">
+            <label>Quem é seu cliente ideal (perfil)</label>
+            <input type="text" id="marca-publico-perfil" placeholder="Ex: Empreendedor 30-50 anos, já tem negócio, travado na execução" />
+          </div>
+          <div class="marca-campo">
+            <label>Principais dores / problemas que ele enfrenta</label>
+            <textarea id="marca-publico-dores" rows="3" placeholder="Ex: Falta de clareza, procrastinação, excesso de teoria, sem resultados concretos..."></textarea>
+          </div>
+          <div class="marca-campo">
+            <label>Sonhos / o que ele quer conquistar</label>
+            <textarea id="marca-publico-sonhos" rows="3" placeholder="Ex: Negócio lucrativo, liberdade, reconhecimento, crescimento consistente..."></textarea>
+          </div>
+          <div class="marca-campo">
+            <label>Objeções — por que ele hesita em contratar</label>
+            <textarea id="marca-publico-objecoes" rows="2" placeholder="Ex: Preço, já tentou antes, não acredita que vai funcionar desta vez..."></textarea>
+          </div>
+          <div class="marca-nav">
+            <button class="marca-btn-voltar" onclick="marcaIrPasso(1)">← Voltar</button>
+            <button class="marca-btn-proximo" onclick="marcaIrPasso(3)">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Passo 3: Tom & Voz -->
+        <div class="marca-passo" id="marca-passo-3">
+          <div class="marca-passo-titulo">🗣️ Tom & Voz</div>
+          <div class="marca-campo">
+            <label>Tom de comunicação</label>
+            <div class="marca-opcoes" id="marca-tom-opts">
+              <button class="marca-opt" data-val="direto e provocador">Direto e provocador</button>
+              <button class="marca-opt" data-val="inspirador e emocional">Inspirador e emocional</button>
+              <button class="marca-opt" data-val="educativo e estratégico">Educativo e estratégico</button>
+              <button class="marca-opt" data-val="informal e próximo">Informal e próximo</button>
+            </div>
+            <input type="text" id="marca-tom" placeholder="Ou descreva com suas palavras..." style="margin-top:0.5rem;" />
+          </div>
+          <div class="marca-campo">
+            <label>Palavras / expressões que você SEMPRE usa</label>
+            <input type="text" id="marca-palavras-usa" placeholder="Ex: execução, rota, campo, ação, constância..." />
+          </div>
+          <div class="marca-campo">
+            <label>Palavras que você NUNCA usa / evita</label>
+            <input type="text" id="marca-palavras-evita" placeholder="Ex: método, técnica, ferramenta, fórmula..." />
+          </div>
+          <div class="marca-campo">
+            <label>Você usa emoji no conteúdo?</label>
+            <div class="marca-opcoes" id="marca-emoji-opts">
+              <button class="marca-opt" data-val="sim, moderadamente">Sim, moderadamente</button>
+              <button class="marca-opt" data-val="sim, bastante">Sim, bastante</button>
+              <button class="marca-opt" data-val="raramente">Raramente</button>
+              <button class="marca-opt" data-val="não uso">Não uso</button>
+            </div>
+          </div>
+          <div class="marca-nav">
+            <button class="marca-btn-voltar" onclick="marcaIrPasso(2)">← Voltar</button>
+            <button class="marca-btn-proximo" onclick="marcaIrPasso(4)">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Passo 4: Plataformas & Objetivos -->
+        <div class="marca-passo" id="marca-passo-4">
+          <div class="marca-passo-titulo">📱 Plataformas & Objetivos</div>
+          <div class="marca-campo">
+            <label>Plataformas que você usa</label>
+            <div class="marca-opcoes" id="marca-plat-opts">
+              <button class="marca-opt" data-val="instagram">📷 Instagram</button>
+              <button class="marca-opt" data-val="linkedin">💼 LinkedIn</button>
+              <button class="marca-opt" data-val="youtube">▶️ YouTube</button>
+              <button class="marca-opt" data-val="tiktok">🎵 TikTok</button>
+            </div>
+          </div>
+          <div class="marca-campo">
+            <label>Objetivo principal do conteúdo</label>
+            <div class="marca-opcoes" id="marca-obj-opts">
+              <button class="marca-opt" data-val="autoridade e posicionamento">🏆 Autoridade</button>
+              <button class="marca-opt" data-val="geração de leads">🎯 Gerar leads</button>
+              <button class="marca-opt" data-val="vendas diretas">💰 Vendas</button>
+              <button class="marca-opt" data-val="construção de comunidade">🤝 Comunidade</button>
+            </div>
+          </div>
+          <div class="marca-campo">
+            <label>Frequência de publicação</label>
+            <input type="text" id="marca-frequencia" placeholder="Ex: diário no Instagram, 3x semana no LinkedIn..." />
+          </div>
+          <div class="marca-nav">
+            <button class="marca-btn-voltar" onclick="marcaIrPasso(3)">← Voltar</button>
+            <button class="marca-btn-proximo" onclick="marcaIrPasso(5)">Próximo →</button>
+          </div>
+        </div>
+
+        <!-- Passo 5: Revisão -->
+        <div class="marca-passo" id="marca-passo-5">
+          <div class="marca-passo-titulo">✅ Revisão & Salvar</div>
+          <div id="marca-revisao-conteudo" class="marca-revisao"></div>
+          <div class="marca-nav" style="justify-content:space-between;margin-top:1.5rem;">
+            <button class="marca-btn-voltar" onclick="marcaIrPasso(4)">← Voltar</button>
+            <button class="marca-btn-salvar" id="marca-btn-salvar" onclick="marcaSalvar()">💾 Salvar Marca</button>
+          </div>
+        </div>
+
       </div>
 
       <!-- ============ VIEW: CALENDÁRIO ============ -->
@@ -1121,6 +1381,232 @@ Link na bio. Vagas limitadas por semana.` },
   });
 
   // ================================================
+  //  INÍCIO — DASHBOARD
+  // ================================================
+  function renderInicio() {
+    // Nome do usuário
+    const nomeEl = document.getElementById('inicio-nome-greeting');
+    if (nomeEl) nomeEl.textContent = localStorage.getItem('central_user') || 'Juliano';
+
+    // Status da semana
+    const postsData = JSON.parse(localStorage.getItem('posts_data') || '{}');
+    const weekKey = getSemanaKey(0);
+    const weekPosts = Object.entries(postsData).filter(([k]) => k.startsWith(weekKey));
+    let total = 0, aprovados = 0, producao = 0, publicados = 0;
+    weekPosts.forEach(([, v]) => {
+      total++;
+      if (v.status === 'aprovado') aprovados++;
+      if (v.status === 'producao') producao++;
+      if (v.status === 'publicado') publicados++;
+    });
+    const pendentes = total - aprovados - producao - publicados;
+    document.getElementById('res-total').textContent = total || 10;
+    document.getElementById('res-aprovados').textContent = aprovados;
+    document.getElementById('res-producao').textContent = producao;
+    document.getElementById('res-publicados').textContent = publicados;
+
+    // Subtexto
+    const subEl = document.getElementById('inicio-sub-texto');
+    if (subEl) {
+      subEl.textContent = `${pendentes} posts pendentes esta semana`;
+    }
+
+    // Plano sub
+    const planSub = document.getElementById('inicio-acao-plano-sub');
+    if (planSub) planSub.textContent = `${pendentes} pendentes`;
+
+    // Alerta marca
+    const marcaConfig = localStorage.getItem('marca_config');
+    const alertaEl = document.getElementById('inicio-alerta-marca');
+    if (alertaEl) alertaEl.style.display = marcaConfig ? 'none' : 'flex';
+  }
+
+  // Botões do dashboard
+  document.querySelectorAll('.inicio-acao-btn[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const goto = btn.dataset.goto;
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+      const navItem = document.querySelector(`[data-view="${goto}"]`);
+      if (navItem) navItem.classList.add('ativo');
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+      document.getElementById('view-' + goto)?.classList.add('ativa');
+      document.getElementById('topbar-titulo').textContent = navItem?.textContent.trim() || goto;
+      if (goto === 'calendario') renderCalendario();
+    });
+  });
+
+  document.getElementById('inicio-btn-teleprompter')?.addEventListener('click', () => {
+    const primeiroRoteiro = ROTEIROS[0];
+    if (primeiroRoteiro) abrirTP(primeiroRoteiro.id);
+  });
+
+  document.getElementById('inicio-ir-marca')?.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
+    document.querySelector('[data-view="marca"]')?.classList.add('ativo');
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
+    document.getElementById('view-marca')?.classList.add('ativa');
+    document.getElementById('topbar-titulo').textContent = 'Minha Marca';
+  });
+
+  // ================================================
+  //  MINHA MARCA — WIZARD
+  // ================================================
+  let marcaPassoAtual = 1;
+  const MARCA_TOTAL_PASSOS = 5;
+
+  // Opções de seleção múltipla
+  const marcaMultiOpts = ['marca-plat-opts'];
+  // Opções de seleção única
+  const marcaSingleOpts = ['marca-tom-opts', 'marca-emoji-opts', 'marca-obj-opts'];
+
+  [...marcaMultiOpts, ...marcaSingleOpts].forEach(id => {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const isMulti = marcaMultiOpts.includes(id);
+    container.querySelectorAll('.marca-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (isMulti) {
+          btn.classList.toggle('selecionado');
+        } else {
+          container.querySelectorAll('.marca-opt').forEach(b => b.classList.remove('selecionado'));
+          btn.classList.add('selecionado');
+          // Sync to input if exists (for tom)
+          if (id === 'marca-tom-opts') {
+            const inp = document.getElementById('marca-tom');
+            if (inp && !inp.value) inp.value = btn.dataset.val;
+          }
+        }
+      });
+    });
+  });
+
+  function marcaIrPasso(passo) {
+    if (passo === 5) marcaMontarRevisao();
+    document.querySelectorAll('.marca-passo').forEach(p => p.classList.remove('ativo'));
+    document.getElementById('marca-passo-' + passo)?.classList.add('ativo');
+    // Update steps bar
+    document.querySelectorAll('.mws-step').forEach(s => {
+      const n = parseInt(s.dataset.step);
+      s.classList.remove('ativo', 'completo');
+      if (n === passo) s.classList.add('ativo');
+      else if (n < passo) s.classList.add('completo');
+    });
+    marcaPassoAtual = passo;
+  }
+
+  function marcaGetValOpts(containerId) {
+    const vals = [];
+    document.querySelectorAll(`#${containerId} .marca-opt.selecionado`).forEach(b => vals.push(b.dataset.val));
+    return vals.join(', ');
+  }
+
+  function marcaGetDados() {
+    return {
+      nome: document.getElementById('marca-nome')?.value || '',
+      segmento: document.getElementById('marca-segmento')?.value || '',
+      diferencial: document.getElementById('marca-diferencial')?.value || '',
+      proposta: document.getElementById('marca-proposta')?.value || '',
+      publicoPerfil: document.getElementById('marca-publico-perfil')?.value || '',
+      publicoDores: document.getElementById('marca-publico-dores')?.value || '',
+      publicoSonhos: document.getElementById('marca-publico-sonhos')?.value || '',
+      publicoObjecoes: document.getElementById('marca-publico-objecoes')?.value || '',
+      tom: document.getElementById('marca-tom')?.value || marcaGetValOpts('marca-tom-opts'),
+      palavrasUsa: document.getElementById('marca-palavras-usa')?.value || '',
+      palavrasEvita: document.getElementById('marca-palavras-evita')?.value || '',
+      emoji: marcaGetValOpts('marca-emoji-opts'),
+      plataformas: marcaGetValOpts('marca-plat-opts'),
+      objetivo: marcaGetValOpts('marca-obj-opts'),
+      frequencia: document.getElementById('marca-frequencia')?.value || '',
+    };
+  }
+
+  function marcaMontarRevisao() {
+    const d = marcaGetDados();
+    const el = document.getElementById('marca-revisao-conteudo');
+    if (!el) return;
+    const items = [
+      ['Marca / Nome', d.nome],
+      ['Segmento', d.segmento],
+      ['Diferencial', d.diferencial],
+      ['Proposta de valor', d.proposta],
+      ['Público-alvo', d.publicoPerfil],
+      ['Dores', d.publicoDores],
+      ['Tom de voz', d.tom],
+      ['Palavras que usa', d.palavrasUsa],
+      ['Palavras que evita', d.palavrasEvita],
+      ['Plataformas', d.plataformas],
+      ['Objetivo', d.objetivo],
+    ];
+    el.innerHTML = items.filter(([,v]) => v).map(([l, v]) => `
+      <div class="marca-revisao-item">
+        <div class="marca-revisao-label">${l}</div>
+        <div class="marca-revisao-valor">${v}</div>
+      </div>
+    `).join('');
+  }
+
+  function marcaSalvar() {
+    const dados = marcaGetDados();
+    localStorage.setItem('marca_config', JSON.stringify(dados));
+    const btn = document.getElementById('marca-btn-salvar');
+    if (btn) { btn.textContent = '✅ Salvo!'; setTimeout(() => btn.textContent = '💾 Salvar Marca', 2000); }
+    // Mostrar badge de salvo
+    const titulo = document.querySelector('#view-marca .secao-titulo');
+    if (titulo && !document.getElementById('marca-salvo-badge')) {
+      const badge = document.createElement('div');
+      badge.id = 'marca-salvo-badge';
+      badge.className = 'marca-salvo-badge';
+      badge.innerHTML = '✅ Marca configurada — IA ativa';
+      titulo.after(badge);
+    }
+    // Esconder alerta no início
+    const alertaEl = document.getElementById('inicio-alerta-marca');
+    if (alertaEl) alertaEl.style.display = 'none';
+  }
+
+  function marcaCarregarSalvo() {
+    const s = localStorage.getItem('marca_config');
+    if (!s) return;
+    try {
+      const d = JSON.parse(s);
+      const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+      set('marca-nome', d.nome);
+      set('marca-segmento', d.segmento);
+      set('marca-diferencial', d.diferencial);
+      set('marca-proposta', d.proposta);
+      set('marca-publico-perfil', d.publicoPerfil);
+      set('marca-publico-dores', d.publicoDores);
+      set('marca-publico-sonhos', d.publicoSonhos);
+      set('marca-publico-objecoes', d.publicoObjecoes);
+      set('marca-tom', d.tom);
+      set('marca-palavras-usa', d.palavrasUsa);
+      set('marca-palavras-evita', d.palavrasEvita);
+      set('marca-frequencia', d.frequencia);
+      // Restore option buttons
+      const restoreOpts = (containerId, savedVal, multi) => {
+        if (!savedVal) return;
+        const vals = savedVal.split(', ');
+        document.querySelectorAll(`#${containerId} .marca-opt`).forEach(b => {
+          if (vals.includes(b.dataset.val)) b.classList.add('selecionado');
+        });
+      };
+      restoreOpts('marca-tom-opts', d.tom, false);
+      restoreOpts('marca-emoji-opts', d.emoji, false);
+      restoreOpts('marca-plat-opts', d.plataformas, true);
+      restoreOpts('marca-obj-opts', d.objetivo, false);
+      // Badge
+      const titulo = document.querySelector('#view-marca .secao-titulo');
+      if (titulo && !document.getElementById('marca-salvo-badge')) {
+        const badge = document.createElement('div');
+        badge.id = 'marca-salvo-badge';
+        badge.className = 'marca-salvo-badge';
+        badge.innerHTML = '✅ Marca configurada — IA ativa';
+        titulo.after(badge);
+      }
+    } catch {}
+  }
+
+  // ================================================
   //  PLANO DA SEMANA
   // ================================================
   function renderPlano() {
@@ -1321,7 +1807,8 @@ Link na bio. Vagas limitadas por semana.` },
           pilar: postInfo.pilar,
           plataforma: postInfo.plat,
           formato: 'Post',
-          contexto: contexto || ''
+          contexto: contexto || '',
+          marca: (() => { try { return JSON.parse(localStorage.getItem('marca_config') || 'null'); } catch { return null; } })()
         })
       });
 
@@ -2175,6 +2662,8 @@ Link na bio. Vagas limitadas por semana.` },
   renderSavedCopys();
   renderRoteiros();
   renderHistorico();
+  renderInicio();
+  marcaCarregarSalvo();
   </script>
 </body>
 </html>
