@@ -33,6 +33,47 @@ export async function onRequest({ request, env }) {
     return Response.json({ ok: false, error: 'Requisição inválida.' }, { status: 400, headers: cors });
   }
 
+  // ── MODO ADAPTAR TOM ──────────────────────────────────────────────
+  if (body.modo === 'adaptar') {
+    const { textoOriginal = '', tom = 'objetivo' } = body;
+    if (!textoOriginal.trim()) {
+      return Response.json({ ok: false, error: 'Texto original não fornecido.' }, { status: 400, headers: cors });
+    }
+    const descTom = {
+      informal: 'tom conversacional e descontraído, como uma conversa entre amigos — linguagem leve, calorosa, sem jargão, com energia de quem está de bom humor',
+      objetivo: 'tom direto e objetivo, sem rodeios — frases curtas e densas, cada palavra tem peso, zero enrolação',
+      tecnico:  'tom técnico e de autoridade — vocabulário preciso, raciocínio estruturado, postura de especialista com dados e exemplos concretos',
+    }[tom] || 'tom direto e objetivo';
+
+    const adaptSystemPrompt = `Você é especialista em comunicação e tom de voz da marca de Juliano Sant'Ana.
+AÇÃO & REAÇÃO é uma FILOSOFIA DE VIDA E CARREIRA — NUNCA um método ou técnica.
+Sua tarefa: adaptar o TOM do texto mantendo 100% das ideias, exemplos e mensagem central.
+Não adicione conteúdo novo. Não remova ideias. Apenas mude como está escrito.`;
+
+    const adaptUserPrompt = `Adapte o texto abaixo para um ${descTom}.
+Mantenha todas as ideias, exemplos e a mensagem central. Apenas mude a forma de comunicar.
+Responda SOMENTE com o texto adaptado, sem títulos, sem aspas, sem explicações:
+
+${textoOriginal}`;
+
+    try {
+      const result = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+        messages: [
+          { role: 'system', content: adaptSystemPrompt },
+          { role: 'user', content: adaptUserPrompt },
+        ],
+        max_tokens: 600,
+        temperature: 0.65,
+      });
+      const copy = (result.response || '').trim();
+      if (!copy) throw new Error('Resposta vazia da IA');
+      return Response.json({ ok: true, copy }, { headers: cors });
+    } catch (err) {
+      return Response.json({ ok: false, error: 'Erro ao adaptar: ' + (err.message || 'tente novamente') }, { status: 500, headers: cors });
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────
+
   const { pilar = 'acao', plataforma = 'ig', formato = 'Post', contexto = '' } = body;
 
   const pilares = {

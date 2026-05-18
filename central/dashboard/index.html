@@ -197,6 +197,20 @@
     .modal-sug-ver:hover { color: var(--terra); text-decoration: underline; }
     .modal-sug-vazia { font-size: 0.78rem; color: var(--texto-medio); font-style: italic; }
     .modal-divider { border: none; border-top: 1px solid rgba(28,58,42,0.08); margin: 0.4rem 0 1.2rem; }
+
+    /* ---- SEÇÃO VÍDEO NO MODAL ---- */
+    .modal-video-section { background: rgba(124,92,191,0.04); border: 1px solid rgba(124,92,191,0.15); border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 1rem; }
+    .modal-video-lbl { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7c5cbf; margin-bottom: 0.55rem; }
+    .modal-video-topicos { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+    .modal-video-topico { background: rgba(124,92,191,0.09); border: 1px solid rgba(124,92,191,0.22); color: #7c5cbf; font-size: 0.69rem; font-weight: 600; padding: 0.28rem 0.65rem; border-radius: 20px; font-family: 'Montserrat',sans-serif; }
+    .modal-adapt-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .modal-adapt-lbl { font-size: 0.62rem; font-weight: 700; color: rgba(28,58,42,0.45); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
+    .modal-adapt-btn { padding: 0.32rem 0.75rem; border: 1px solid rgba(124,92,191,0.3); border-radius: 20px; background: none; color: #7c5cbf; font-family: 'Montserrat',sans-serif; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .modal-adapt-btn:hover { background: rgba(124,92,191,0.1); border-color: rgba(124,92,191,0.5); }
+    .modal-adapt-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .modal-adapt-status { font-size: 0.68rem; color: rgba(28,58,42,0.4); font-style: italic; margin-left: 0.3rem; }
+    .btn-salvar-tp { display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.55rem 0.9rem; background: rgba(124,92,191,0.06); border: 1px solid rgba(124,92,191,0.22); border-radius: 8px; color: #7c5cbf; font-family: 'Montserrat',sans-serif; font-size: 0.72rem; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 0.2rem; }
+    .btn-salvar-tp:hover { background: rgba(124,92,191,0.14); }
     .modal-design-mood { font-size: 0.8rem; color: var(--texto-medio); line-height: 1.6; font-style: italic; background: var(--creme); border-left: 3px solid var(--areia); padding: 0.55rem 0.9rem; border-radius: 0 6px 6px 0; margin-bottom: 0.7rem; }
 
     /* ---- BRIEF DE DESIGN ---- */
@@ -1185,6 +1199,21 @@
         <button class="modal-fechar" id="modal-fechar">✕</button>
       </div>
       <div class="modal-body">
+
+        <!-- SEÇÃO VÍDEO (visível apenas para posts de vídeo) -->
+        <div class="modal-video-section" id="modal-video-section" style="display:none;">
+          <div class="modal-video-lbl">🎙️ Tópicos para falar (fale espontâneo)</div>
+          <div class="modal-video-topicos" id="modal-video-topicos"></div>
+          <div class="modal-adapt-row">
+            <span class="modal-adapt-lbl">Adaptar tom:</span>
+            <button class="modal-adapt-btn" data-tom="informal">💬 Informal</button>
+            <button class="modal-adapt-btn" data-tom="objetivo">🎯 Objetivo</button>
+            <button class="modal-adapt-btn" data-tom="tecnico">🔬 Técnico</button>
+            <span class="modal-adapt-status" id="modal-adapt-status"></span>
+          </div>
+          <button class="btn-salvar-tp" id="btn-salvar-tp">📡 Salvar no Teleprompter</button>
+        </div>
+
         <div class="modal-grupo">
           <label>Copy / Texto do post</label>
           <textarea id="modal-copy" rows="6" placeholder="Escreva ou cole a copy aqui..."></textarea>
@@ -1477,6 +1506,14 @@ Só a verdade do que está funcionando e o que não está.
 
 Link na bio. Vagas limitadas por semana.` },
   ];
+
+  const VIDEO_TOPICOS = {
+    reacao:   ['O que você sentiu', 'Empatia real', 'Bastidor honesto', 'Pergunta ao público', 'Conexão humana', 'Resposta de quem viveu'],
+    campo:    ['Analogia da trilha', 'Lição do campo', 'Quase desistiu?', 'O que a natureza ensina', 'Persistência x motivação', 'O próximo passo na névoa'],
+    acao:     ['Decisão agora', 'Ação imperfeita > espera', 'Consistência > motivação', 'O próximo passo', 'O que separa quem age', 'Verdade que incomoda'],
+    mapa:     ['Você tem rota?', 'Diagnóstico honesto', 'Clareza antes de ação', 'O que te trava', 'Mapa x improviso', 'Onde você está de verdade'],
+    negocios: ['Dado real de campo', 'Erro que cometeu', '25 anos ensinam', 'Estratégia prática', 'O que o mercado ignora', 'Posicionamento com verdade'],
+  };
 
   const ROTEIROS = [
     { id:'r1', titulo:'A pergunta que muda o jogo', meta:'Reels 45s · Pilar AÇÃO · câmera direta',
@@ -2271,6 +2308,24 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('ai-status').textContent = '';
     atualizarStatusBtns(statusAtual);
 
+    // — Seção de Vídeo —
+    const videoSection = document.getElementById('modal-video-section');
+    if (post.tipo === 'video') {
+      videoSection.style.display = '';
+      const topicos = VIDEO_TOPICOS[post.pilarKey] || VIDEO_TOPICOS.acao;
+      document.getElementById('modal-video-topicos').innerHTML =
+        topicos.map(t => `<span class="modal-video-topico">${t}</span>`).join('');
+      document.getElementById('modal-adapt-status').textContent = '';
+      // Tag the teleprompter button with post context
+      const tpBtn = document.getElementById('btn-salvar-tp');
+      tpBtn.dataset.pilarLabel = post.pilar;
+      tpBtn.dataset.diaLabel = post.label || post.dia;
+      tpBtn.textContent = '';
+      tpBtn.innerHTML = '📡 Salvar no Teleprompter';
+    } else {
+      videoSection.style.display = 'none';
+    }
+
     // — Sugestões da Biblioteca —
     const pilarKey = postInfo.pilar;
     const plat = postInfo.plat;
@@ -2351,9 +2406,100 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('modal-copy').value = texto;
     document.querySelectorAll('.modal-sug-usar').forEach(b => b.textContent = 'Usar esta copy →');
     btn.textContent = '✅ Inserida!';
-    // Scroll the textarea into view so user sees it was filled
     document.getElementById('modal-copy').scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
+
+  // ── ADAPTAR TOM COM IA ──────────────────────────────────────────
+  document.querySelectorAll('.modal-adapt-btn').forEach(btn => {
+    btn.addEventListener('click', async function () {
+      const tom = this.dataset.tom;
+      const textoOriginal = document.getElementById('modal-copy').value.trim();
+      const statusEl = document.getElementById('modal-adapt-status');
+      if (!textoOriginal) {
+        statusEl.textContent = 'Escreva ou gere um texto primeiro.';
+        setTimeout(() => { statusEl.textContent = ''; }, 2500);
+        return;
+      }
+      const token = localStorage.getItem('central_token');
+      document.querySelectorAll('.modal-adapt-btn').forEach(b => b.disabled = true);
+      statusEl.textContent = 'Adaptando...';
+      try {
+        const res = await fetch('/api/central/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({ modo: 'adaptar', textoOriginal, tom })
+        });
+        const data = await res.json();
+        if (data.ok && data.copy) {
+          document.getElementById('modal-copy').value = data.copy;
+          statusEl.textContent = '✅ Tom adaptado!';
+          setTimeout(() => { statusEl.textContent = ''; }, 2500);
+        } else {
+          statusEl.textContent = data.error || 'Erro ao adaptar.';
+          setTimeout(() => { statusEl.textContent = ''; }, 3000);
+        }
+      } catch {
+        statusEl.textContent = 'Erro de conexão.';
+        setTimeout(() => { statusEl.textContent = ''; }, 3000);
+      } finally {
+        document.querySelectorAll('.modal-adapt-btn').forEach(b => b.disabled = false);
+      }
+    });
+  });
+
+  // ── SALVAR NO TELEPROMPTER ──────────────────────────────────────
+  document.getElementById('btn-salvar-tp').addEventListener('click', function () {
+    const texto = document.getElementById('modal-copy').value.trim();
+    if (!texto) return;
+
+    const pilarLabel = this.dataset.pilarLabel || 'Vídeo';
+    const diaLabel   = this.dataset.diaLabel   || '';
+
+    // Quebra em parágrafos ou sentenças para virar "steps"
+    let steps = texto.split(/\n\n+/).map(s => s.trim()).filter(Boolean);
+    if (steps.length < 2) {
+      // tentar por frases
+      const frases = texto.match(/[^.!?]+[.!?]+/g) || [];
+      // agrupar em blocos de 2 frases
+      steps = [];
+      for (let i = 0; i < frases.length; i += 2) {
+        steps.push((frases[i] + (frases[i+1] ? ' ' + frases[i+1] : '')).trim());
+      }
+    }
+    if (!steps.length) steps = [texto];
+
+    const id = 'tp_' + Date.now();
+    const novoRoteiro = {
+      id,
+      titulo: `${pilarLabel}${diaLabel ? ' — ' + diaLabel : ''}`,
+      meta: `Reels · Plano de Conteúdo · ${new Date().toLocaleDateString('pt-BR')}`,
+      steps,
+      custom: true,
+    };
+
+    const existentes = JSON.parse(localStorage.getItem('roteiros_custom') || '[]');
+    existentes.unshift(novoRoteiro);
+    localStorage.setItem('roteiros_custom', JSON.stringify(existentes));
+
+    // Feedback no botão
+    this.innerHTML = '✅ Salvo no Teleprompter!';
+    const self = this;
+    setTimeout(() => { self.innerHTML = '📡 Salvar no Teleprompter'; }, 2500);
+
+    // Toast com atalho de navegação
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--verde-escuro);color:var(--creme);padding:0.7rem 1.5rem;border-radius:20px;font-size:0.78rem;font-weight:700;z-index:9999;font-family:Montserrat,sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.25);white-space:nowrap;';
+    toast.innerHTML = '📡 Roteiro salvo! <span style="color:var(--areia);margin-left:0.5rem;text-decoration:underline;">Ir para Roteiros →</span>';
+    document.body.appendChild(toast);
+    toast.addEventListener('click', () => {
+      toast.remove();
+      fecharModal();
+      irParaView('roteiros', 'Roteiros de Vídeo');
+    });
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
+  });
+  // ───────────────────────────────────────────────────────────────
+
   document.getElementById('modal-fechar').addEventListener('click', fecharModal);
   document.getElementById('btn-cancelar-modal').addEventListener('click', fecharModal);
   document.getElementById('modal-post').addEventListener('click', e => {
@@ -2546,6 +2692,51 @@ Link na bio. Vagas limitadas por semana.` },
     lista.innerHTML = '';
     const gravados = JSON.parse(localStorage.getItem('roteiros_gravados') || '{}');
 
+    // ── Roteiros customizados (salvos do Plano de Conteúdo) ──
+    const customRoteiros = JSON.parse(localStorage.getItem('roteiros_custom') || '[]');
+    if (customRoteiros.length > 0) {
+      const sec = document.createElement('div');
+      sec.style.cssText = 'font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#7c5cbf;margin-bottom:0.6rem;margin-top:0.2rem;';
+      sec.textContent = '🎬 Salvos do Plano de Conteúdo';
+      lista.appendChild(sec);
+    }
+    customRoteiros.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'roteiro-card';
+      card.style.borderLeft = '3px solid #7c5cbf';
+      card.innerHTML = `
+        <div class="roteiro-header">
+          <div>
+            <div class="roteiro-titulo">${r.titulo}</div>
+            <div class="roteiro-meta">${r.meta}</div>
+          </div>
+          <div class="roteiro-acoes">
+            <button class="btn-tp-custom">▶ Teleprompter</button>
+            <button class="btn-del-custom" title="Remover" style="background:none;border:none;color:rgba(28,58,42,0.3);cursor:pointer;font-size:1rem;padding:0;">✕</button>
+          </div>
+        </div>
+        <ol class="roteiro-steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      `;
+      card.querySelector('.btn-tp-custom').addEventListener('click', () => {
+        // Abre teleprompter com este roteiro customizado
+        tpRoteiro = r;
+        abrirTP(null, r);
+      });
+      card.querySelector('.btn-del-custom').addEventListener('click', () => {
+        const atual = JSON.parse(localStorage.getItem('roteiros_custom') || '[]');
+        localStorage.setItem('roteiros_custom', JSON.stringify(atual.filter(x => x.id !== r.id)));
+        renderRoteiros();
+      });
+      lista.appendChild(card);
+    });
+
+    if (customRoteiros.length > 0) {
+      const div = document.createElement('hr');
+      div.style.cssText = 'border:none;border-top:1px solid rgba(28,58,42,0.08);margin:1rem 0;';
+      lista.appendChild(div);
+    }
+
+    // ── Roteiros fixos ──────────────────────────────────────────
     ROTEIROS.forEach(r => {
       const data = getRoteiroData(r.id);
       const gravado = gravados[r.id] || false;
@@ -2678,8 +2869,8 @@ Link na bio. Vagas limitadas por semana.` },
   let tpRAF = null;
   let tpCamStream = null;
 
-  function abrirTP(id) {
-    tpRoteiro = getRoteiroData(id);
+  function abrirTP(id, customData) {
+    tpRoteiro = customData || getRoteiroData(id);
     if (!tpRoteiro) return;
 
     document.getElementById('tp-titulo').textContent = tpRoteiro.titulo;
