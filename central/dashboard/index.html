@@ -62,7 +62,7 @@
     .resumo-num { font-size: 2rem; font-weight: 800; color: var(--verde-escuro); line-height: 1; margin-bottom: 0.3rem; }
     .resumo-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-medio); }
 
-    /* ---- PLANO DA SEMANA ---- */
+    /* ---- PLANO DE CONTEÚDO ---- */
     .semana-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
     .semana-nav { display: flex; align-items: center; gap: 0.8rem; }
     .semana-nav button { padding: 0.4rem 0.9rem; border: 1px solid rgba(28,58,42,0.15); background: var(--branco); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--texto-medio); cursor: pointer; transition: all 0.2s; }
@@ -590,6 +590,20 @@
 .ctx-card-texto { font-size: 0.75rem; color: var(--texto-medio); line-height: 1.6; }
 .ctx-card-fechar { background: none; border: none; color: rgba(28,58,42,0.25); font-size: 0.9rem; cursor: pointer; flex-shrink: 0; padding: 0; align-self: flex-start; }
 .ctx-card-fechar:hover { color: var(--texto-medio); }
+
+/* Tabs Plano de Conteúdo */
+.plano-tabs { display: flex; gap: 0; margin-bottom: 1.5rem; background: rgba(28,58,42,0.06); border-radius: 10px; padding: 4px; width: fit-content; }
+.plano-tab { padding: 0.45rem 1.1rem; border: none; border-radius: 7px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; background: none; color: rgba(28,58,42,0.5); transition: all 0.2s; letter-spacing: 0.02em; }
+.plano-tab.ativo { background: var(--branco); color: var(--verde-escuro); box-shadow: 0 1px 6px rgba(28,58,42,0.12); }
+/* Video slot */
+.post-slot.slot-video { border-left: 3px solid #7c5cbf; }
+.plat-video { color: #7c5cbf; }
+/* Filtro vídeo pill */
+.plat-pill[data-plat="video"].ativo { background: #7c5cbf; color: var(--creme); border-color: #7c5cbf; }
+/* Btn gerar semana */
+.btn-gerar-semana { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; background: linear-gradient(135deg, var(--verde-escuro), var(--verde-medio)); border: none; border-radius: 8px; color: var(--creme); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.btn-gerar-semana:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-gerar-semana:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   </style>
 </head>
 <body>
@@ -614,7 +628,7 @@
         <div class="welcome-item">
           <div class="welcome-item-icon">📅</div>
           <div class="welcome-item-texto">
-            <strong>Plano da Semana — sua agenda editorial</strong>
+            <strong>Plano de Conteúdo — sua agenda editorial</strong>
             <span>Posts sugeridos por pilar de conteúdo. Clique, edite, gere com IA e publique.</span>
           </div>
         </div>
@@ -672,10 +686,7 @@
       <span class="nav-icon">🎯</span> Minha Marca
     </a>
     <a class="nav-item" data-view="plano" href="#">
-      <span class="nav-icon">📅</span> Plano da Semana
-    </a>
-    <a class="nav-item" data-view="calendario" href="#">
-      <span class="nav-icon">📆</span> Calendário
+      <span class="nav-icon">📅</span> Plano de Conteúdo
     </a>
     <a class="nav-item" data-view="biblioteca" href="#">
       <span class="nav-icon">✍️</span> Biblioteca de Copys
@@ -769,7 +780,7 @@
         <div class="inicio-acoes-grid">
           <button class="inicio-acao-btn destaque" data-goto="plano">
             <span class="inicio-acao-icon">📅</span>
-            <span class="inicio-acao-label">Plano da Semana</span>
+            <span class="inicio-acao-label">Plano de Conteúdo</span>
             <span class="inicio-acao-sub" id="inicio-acao-plano-sub">Ver posts</span>
           </button>
           <button class="inicio-acao-btn" data-goto="marca">
@@ -966,16 +977,16 @@
 
       </div>
 
-      <!-- ============ VIEW: CALENDÁRIO ============ -->
-      <div class="view" id="view-calendario">
+      <!-- ============ VIEW: CALENDÁRIO (hidden — merged into view-plano tabs) ============ -->
+      <div class="view" id="view-calendario" style="display:none;">
         <div class="secao-titulo">Calendário</div>
         <p class="secao-sub">Visão macro do mês. Pontos coloridos indicam posts agendados. Clique em um dia para abrir a semana.</p>
 
         <div class="cal-header">
           <div class="cal-nav">
-            <button id="btn-cal-ant">← Mês anterior</button>
-            <span class="cal-mes-label" id="cal-mes-label">—</span>
-            <button id="btn-cal-prox">Próximo mês →</button>
+            <button id="btn-cal-ant-old">← Mês anterior</button>
+            <span class="cal-mes-label" id="cal-mes-label-old">—</span>
+            <button id="btn-cal-prox-old">Próximo mês →</button>
           </div>
         </div>
 
@@ -997,40 +1008,80 @@
           <div class="cal-day-label">Sáb</div>
           <div class="cal-day-label">Dom</div>
         </div>
-        <div class="cal-grid" id="cal-grid">
+        <div class="cal-grid" id="cal-grid-old">
           <!-- preenchido via JS -->
         </div>
         </div><!-- /cal-scroll-wrap -->
       </div>
 
-      <!-- ============ VIEW: PLANO DA SEMANA ============ -->
+      <!-- ============ VIEW: PLANO DE CONTEÚDO ============ -->
       <div class="view" id="view-plano">
         <div class="ctx-card" id="ctx-plano">
           <div class="ctx-card-icon">📅</div>
           <div class="ctx-card-corpo">
-            <div class="ctx-card-titulo">Como funciona o Plano da Semana?</div>
-            <div class="ctx-card-texto">Cada card é um post sugerido por pilar da sua marca (Ação, Reação, Campo, Negócios, Mapa). <strong>Clique em qualquer card</strong> para editar a copy, usar a GU.IA JS para gerar o texto completo ou escolher uma copy da Biblioteca. Depois mude o status para acompanhar o progresso.</div>
+            <div class="ctx-card-titulo">Como funciona o Plano de Conteúdo?</div>
+            <div class="ctx-card-texto">Cada card é um post por pilar da sua marca (Ação, Reação, Campo, Negócios, Mapa) — incluindo sugestões de vídeo (Reels, Stories). <strong>Clique em qualquer card</strong> para editar, gerar com IA ou usar uma copy da Biblioteca. Use "Gerar Semana com IA" para popular toda a semana de uma vez.</div>
           </div>
           <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-plano')">✕</button>
         </div>
-        <div class="secao-titulo">Plano da Semana</div>
-        <p class="secao-sub">Clique em qualquer post para editar a copy, gerar com IA e ajustar o status.</p>
+        <div class="secao-titulo">Plano de Conteúdo</div>
+        <p class="secao-sub">Visão semanal e calendário mensal. Clique em qualquer card para editar e acompanhar o status.</p>
 
-        <div class="semana-header">
-          <div class="semana-nav">
-            <button id="btn-semana-ant">← Anterior</button>
-            <span class="semana-label" id="label-semana">—</span>
-            <button id="btn-semana-prox">Próxima →</button>
+        <!-- Tabs -->
+        <div class="plano-tabs" id="plano-tabs">
+          <button class="plano-tab ativo" data-tab="semana">📅 Semana</button>
+          <button class="plano-tab" data-tab="calendario">📆 Calendário</button>
+        </div>
+
+        <!-- === TAB SEMANA === -->
+        <div id="plano-tab-semana">
+          <div class="semana-header">
+            <div class="semana-nav">
+              <button id="btn-semana-ant">← Anterior</button>
+              <span class="semana-label" id="label-semana">—</span>
+              <button id="btn-semana-prox">Próxima →</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+              <button class="btn-gerar-semana" id="btn-gerar-semana">⚡ Gerar Semana com IA</button>
+              <div class="plat-filter">
+                <button class="plat-pill ativo" data-plat="todos">Todos</button>
+                <button class="plat-pill" data-plat="ig">📷 Instagram</button>
+                <button class="plat-pill" data-plat="li">💼 LinkedIn</button>
+                <button class="plat-pill" data-plat="video">🎬 Vídeo</button>
+              </div>
+            </div>
           </div>
-          <div class="plat-filter">
-            <button class="plat-pill ativo" data-plat="todos">Todos</button>
-            <button class="plat-pill" data-plat="ig">📷 Instagram</button>
-            <button class="plat-pill" data-plat="li">💼 LinkedIn</button>
+          <div class="dias-grid" id="dias-grid">
+            <!-- preenchido via JS -->
           </div>
         </div>
 
-        <div class="dias-grid" id="dias-grid">
-          <!-- preenchido via JS -->
+        <!-- === TAB CALENDÁRIO (dentro do Plano de Conteúdo) === -->
+        <div id="plano-tab-calendario" style="display:none;">
+          <div class="cal-header">
+            <div class="cal-nav">
+              <button id="btn-cal-ant">← Mês anterior</button>
+              <span class="cal-mes-label" id="cal-mes-label">—</span>
+              <button id="btn-cal-prox">Próximo mês →</button>
+            </div>
+          </div>
+          <div class="cal-legend">
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--terra)"></div> Instagram</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--verde-sage)"></div> LinkedIn</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:#7c5cbf"></div> Vídeo</div>
+            <div class="cal-leg-item" style="gap:0.6rem;">
+              <span style="font-size:0.65rem;color:rgba(28,58,42,0.4);">Opacidade = status (pendente → publicado)</span>
+            </div>
+          </div>
+          <div class="cal-scroll-wrap">
+            <div class="cal-day-labels">
+              <div class="cal-day-label">Seg</div><div class="cal-day-label">Ter</div>
+              <div class="cal-day-label">Qua</div><div class="cal-day-label">Qui</div>
+              <div class="cal-day-label">Sex</div><div class="cal-day-label">Sáb</div>
+              <div class="cal-day-label">Dom</div>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
         </div>
       </div>
 
@@ -1040,7 +1091,7 @@
           <div class="ctx-card-icon">✍️</div>
           <div class="ctx-card-corpo">
             <div class="ctx-card-titulo">O que é a Biblioteca de Copys?</div>
-            <div class="ctx-card-texto">Textos prontos escritos no tom da sua marca. Você pode copiar, salvar como favorito ou <strong>usar diretamente em um post do Plano da Semana</strong> — abrindo o post e clicando em "Usar esta copy →".</div>
+            <div class="ctx-card-texto">Textos prontos escritos no tom da sua marca. Você pode copiar, salvar como favorito ou <strong>usar diretamente em um post do Plano de Conteúdo</strong> — abrindo o post e clicando em "Usar esta copy →".</div>
           </div>
           <button class="ctx-card-fechar" onclick="dispensarCtx('ctx-biblioteca')">✕</button>
         </div>
@@ -1438,16 +1489,96 @@ Link na bio. Vagas limitadas por semana.` },
   ];
 
   const PLANO_PADRAO = [
-    { dia:'seg', label:'Segunda', plat:'ig', pilar:'⚡ Ação',     pilarKey:'acao',     preview:'Carrossel de reflexão — provocação sobre execução e constância.' },
-    { dia:'seg', label:'Segunda', plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Insight de negócios com analogia de campo. Texto longo.' },
-    { dia:'ter', label:'Terça',   plat:'ig', pilar:'🔄 Reação',   pilarKey:'reacao',   preview:'Stories: bastidores do dia, pergunta ao público, enquete.' },
-    { dia:'qua', label:'Quarta',  plat:'ig', pilar:'🏔️ Campo',    pilarKey:'campo',    preview:'Reels curto (30–45s): história de trilha com lição de negócio.' },
-    { dia:'qua', label:'Quarta',  plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Citação ou dado de mercado com seu ponto de vista direto.' },
-    { dia:'qui', label:'Quinta',  plat:'ig', pilar:'⚡ Ação',     pilarKey:'acao',     preview:'Quote card: frase forte sua. Fundo verde-escuro ou terra.' },
-    { dia:'qui', label:'Quinta',  plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', preview:'Post de estratégia: Os Ps, empreendedorismo com base real.' },
-    { dia:'sex', label:'Sexta',   plat:'ig', pilar:'🗺️ Mapa',    pilarKey:'mapa',     preview:'CTA direto: Mapa da Verdade ou Diagnóstico.' },
-    { dia:'sex', label:'Sexta',   plat:'li', pilar:'🗺️ Mapa',    pilarKey:'mapa',     preview:'Reflexão de semana + convite para mentoria ou diagnóstico.' },
-    { dia:'sab', label:'Sábado',  plat:'ig', pilar:'🏔️ Campo',   pilarKey:'campo',    preview:'Conteúdo leve: foto de trilha, natureza, bastidor real.' },
+    // SEGUNDA
+    { dia:'seg', label:'Segunda', plat:'ig', pilar:'⚡ Ação', pilarKey:'acao', tipo:'post',
+      previews:[
+        'Carrossel de reflexão — provocação sobre execução e constância.',
+        'Post estático: uma verdade que incomoda. Direto ao ponto.',
+        'Carrossel: 5 atitudes que separam quem executa de quem planeja.',
+        'Quote: a frase que você precisava ouvir antes de começar a semana.',
+      ]},
+    { dia:'seg', label:'Segunda', plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', tipo:'post',
+      previews:[
+        'Insight de negócios com analogia de campo. Texto longo.',
+        'Opinião direta: o que a maioria dos empreendedores ignora na gestão.',
+        'Dado de mercado + seu ponto de vista real. Tom direto.',
+        'Reflexão estratégica com caso real dos seus 25 anos de campo.',
+      ]},
+    // TERÇA
+    { dia:'ter', label:'Terça', plat:'ig', pilar:'🔄 Reação', pilarKey:'reacao', tipo:'post',
+      previews:[
+        'Stories: bastidores do dia, pergunta ao público, enquete.',
+        'Stories: o que aconteceu esta semana — bastidor real sem filtro.',
+        'Stories: enquete sobre dor do seu público + sua resposta direta.',
+        'Stories: pergunta que gera resposta e abre conversa com seguidores.',
+      ]},
+    { dia:'ter', label:'Terça', plat:'video', pilar:'🎬 Reels', pilarKey:'reacao', tipo:'video',
+      previews:[
+        'Reels 15–30s: bastidor autêntico do dia. Sem roteiro, só verdade.',
+        'Reels 30s: reação a uma dor do público. Tom empático e direto.',
+        'Reels 15s: uma resposta curta e forte para uma objeção comum.',
+        'Reels 30s: "o que aprendi essa semana" — honesto e com lição.',
+      ]},
+    // QUARTA
+    { dia:'qua', label:'Quarta', plat:'ig', pilar:'🏔️ Campo', pilarKey:'campo', tipo:'post',
+      previews:[
+        'Foto ou carrossel de trilha com analogia direta para negócio.',
+        'Post de natureza: o que a montanha ensina sobre estratégia.',
+        'Reflexão de campo: lição aprendida nas trilhas aplicada a negócios.',
+        'Bastidor de aventura: o que acontece quando você vai além do plano.',
+      ]},
+    { dia:'qua', label:'Quarta', plat:'video', pilar:'🎬 Campo (Reels)', pilarKey:'campo', tipo:'video',
+      previews:[
+        'Reels 30–45s: história de trilha com lição de negócio no final.',
+        'Reels 45s: "o dia que quase desisti na trilha" — e a virada.',
+        'Reels 30s: comparação direta trilha × empreendedorismo. Visual forte.',
+        'Reels 45s: bastidor de montanha + narração com insight de negócio.',
+      ]},
+    { dia:'qua', label:'Quarta', plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', tipo:'post',
+      previews:[
+        'Citação ou dado de mercado com seu ponto de vista direto.',
+        'Post de liderança: o que vi em 25 anos que poucos líderes entendem.',
+        'Análise curta de tendência de mercado com posição clara.',
+        'Storytelling de negócio real: erro, aprendizado, resultado.',
+      ]},
+    // QUINTA
+    { dia:'qui', label:'Quinta', plat:'ig', pilar:'⚡ Ação', pilarKey:'acao', tipo:'post',
+      previews:[
+        'Quote card: frase forte sua. Fundo verde-escuro ou terra.',
+        'Carrossel: passo a passo de uma decisão que transformou o negócio.',
+        'Post estático: provocação sobre execução. Uma frase, um impacto.',
+        'Carrossel: o que eu faria diferente se começasse hoje.',
+      ]},
+    { dia:'qui', label:'Quinta', plat:'li', pilar:'📊 Negócios', pilarKey:'negocios', tipo:'post',
+      previews:[
+        'Post de estratégia: Os Ps, empreendedorismo com base real.',
+        'Texto de autoridade: o que muda quando você para de improvisar.',
+        'Post de posicionamento: por que você precisa de rota, não de sorte.',
+        'Reflexão de gestão: a diferença entre ocupado e produtivo.',
+      ]},
+    // SEXTA
+    { dia:'sex', label:'Sexta', plat:'ig', pilar:'🗺️ Mapa', pilarKey:'mapa', tipo:'post',
+      previews:[
+        'CTA direto: Mapa da Verdade ou Diagnóstico.',
+        'Post de convite: "você tem rota ou tem desejo?" CTA para o Mapa.',
+        'Reflexão + CTA: o que te impede de ter clareza agora?',
+        'Carrossel educativo sobre o Mapa da Verdade + CTA no final.',
+      ]},
+    { dia:'sex', label:'Sexta', plat:'li', pilar:'🗺️ Mapa', pilarKey:'mapa', tipo:'post',
+      previews:[
+        'Reflexão de semana + convite para mentoria ou diagnóstico.',
+        'Post de encerramento: aprendizado da semana + próximo passo.',
+        'Texto de autoridade: por que diagnóstico é antes de qualquer ação.',
+        'Convite direto para conversa ou diagnóstico. Tom pessoal.',
+      ]},
+    // SÁBADO
+    { dia:'sab', label:'Sábado', plat:'ig', pilar:'🏔️ Campo', pilarKey:'campo', tipo:'post',
+      previews:[
+        'Conteúdo leve: foto de trilha, natureza, bastidor real.',
+        'Foto de aventura com legenda curta e reflexão de fim de semana.',
+        'Bastidor de natureza: o que a trilha revelou nessa semana.',
+        'Post humanizado: momento pessoal real. Sem pitch, só presença.',
+      ]},
   ];
 
   // ================================================
@@ -1566,7 +1697,7 @@ Link na bio. Vagas limitadas por semana.` },
       document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
       document.getElementById('view-' + view).classList.add('ativa');
       document.getElementById('topbar-titulo').textContent = item.textContent.trim();
-      if (view === 'calendario') renderCalendario();
+      if (view === 'plano') renderPlano();
       // Fecha sidebar no mobile ao navegar
       if (window.innerWidth <= 900) fecharSidebar();
     });
@@ -1864,7 +1995,7 @@ Link na bio. Vagas limitadas por semana.` },
             <button class="marca-prox-btn destaque" id="marca-ir-plano">
               <span>📅</span>
               <span class="marca-prox-btn-texto">
-                <strong>Ir para o Plano da Semana</strong>
+                <strong>Ir para o Plano de Conteúdo</strong>
                 <small>A GU.IA JS vai gerar posts no seu contexto</small>
               </span>
               <span>→</span>
@@ -1889,7 +2020,7 @@ Link na bio. Vagas limitadas por semana.` },
         </div>
       `;
 
-      document.getElementById('marca-ir-plano')?.addEventListener('click', () => irParaView('plano', 'Plano da Semana'));
+      document.getElementById('marca-ir-plano')?.addEventListener('click', () => irParaView('plano', 'Plano de Conteúdo'));
       document.getElementById('marca-ir-biblioteca')?.addEventListener('click', () => irParaView('biblioteca', 'Biblioteca de Copys'));
       document.getElementById('marca-ir-roteiros')?.addEventListener('click', () => irParaView('roteiros', 'Roteiros de Vídeo'));
     }
@@ -1901,7 +2032,7 @@ Link na bio. Vagas limitadas por semana.` },
     document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
     document.getElementById('view-' + view)?.classList.add('ativa');
     document.getElementById('topbar-titulo').textContent = label;
-    if (view === 'calendario') renderCalendario();
+    if (view === 'plano') renderPlano();
     window.scrollTo(0, 0);
   }
 
@@ -1949,7 +2080,7 @@ Link na bio. Vagas limitadas por semana.` },
   }
 
   // ================================================
-  //  PLANO DA SEMANA
+  //  PLANO DE CONTEÚDO
   // ================================================
   function renderPlano() {
     const semKey = getSemanaKey(semanaOffset);
@@ -1957,6 +2088,10 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('label-semana').textContent = semLabel;
     document.getElementById('topbar-semana').textContent = semLabel;
     document.getElementById('label-semana-met').textContent = semLabel;
+
+    // Variante por semana (rotação de 4)
+    const weekNum = parseInt(semKey.replace(/.*W/, '')) || 0;
+    const vIdx = weekNum % 4;
 
     const grid = document.getElementById('dias-grid');
     const dias = ['seg','ter','qua','qui','sex'];
@@ -1982,13 +2117,17 @@ Link na bio. Vagas limitadas por semana.` },
       posts.forEach((post) => {
         const idx = PLANO_PADRAO.indexOf(post);
         const key = getPostKey(semKey, dia, post.plat, idx);
-        const saved = loadPost(key) || { copy: post.preview, obs: '', status: 'pendente' };
+        const postPreview = Array.isArray(post.previews) ? (post.previews[vIdx] || post.previews[0]) : (post.preview || '');
+        const saved = loadPost(key) || { copy: postPreview, obs: '', status: 'pendente' };
+        const platLabel = post.plat === 'ig' ? '📷 Instagram' : post.plat === 'li' ? '💼 LinkedIn' : '🎬 Vídeo';
+        const platClass = post.plat === 'ig' ? 'plat-ig' : post.plat === 'li' ? 'plat-li' : 'plat-video';
+        const slotClass = `post-slot slot-${post.plat}`;
         const slot = document.createElement('div');
-        slot.className = `post-slot slot-${post.plat}`;
+        slot.className = slotClass;
         slot.dataset.key = key;
         slot.innerHTML = `
-          <div class="post-slot-plat ${post.plat === 'ig' ? 'plat-ig' : 'plat-li'}">
-            ${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'}
+          <div class="post-slot-plat ${platClass}">
+            ${platLabel}
           </div>
           <div class="post-slot-pilar">${post.pilar}</div>
           <div class="post-slot-preview">${saved.copy}</div>
@@ -2033,15 +2172,100 @@ Link na bio. Vagas limitadas por semana.` },
   });
 
   // ================================================
+  //  TAB SWITCHING — PLANO DE CONTEÚDO
+  // ================================================
+  document.querySelectorAll('.plano-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.plano-tab').forEach(t => t.classList.remove('ativo'));
+      tab.classList.add('ativo');
+      const t = tab.dataset.tab;
+      document.getElementById('plano-tab-semana').style.display = t === 'semana' ? '' : 'none';
+      document.getElementById('plano-tab-calendario').style.display = t === 'calendario' ? '' : 'none';
+      if (t === 'calendario') renderCalendario();
+    });
+  });
+
+  // ================================================
+  //  GERAR SEMANA COM IA
+  // ================================================
+  document.getElementById('btn-gerar-semana').addEventListener('click', async function() {
+    const btn = this;
+    const token = localStorage.getItem('central_token');
+    if (!token) return;
+
+    const semKey = getSemanaKey(semanaOffset);
+    const weekNum = parseInt(semKey.replace(/.*W/, '')) || 0;
+    const vIdx = weekNum % 4;
+
+    // Pegar posts que ainda não têm copy editada (pendente sem alteração)
+    const postsParaGerar = PLANO_PADRAO.filter(post => {
+      const idx = PLANO_PADRAO.indexOf(post);
+      const key = getPostKey(semKey, post.dia, post.plat, idx);
+      const saved = loadPost(key);
+      if (!saved) return true;
+      const postPreview = Array.isArray(post.previews) ? (post.previews[vIdx] || post.previews[0]) : (post.preview || '');
+      return !saved.copy || saved.copy === postPreview;
+    });
+
+    if (postsParaGerar.length === 0) {
+      alert('Todos os posts desta semana já têm copy editada! Clique em um post individual para regerar.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = `⏳ Gerando 0/${postsParaGerar.length}...`;
+
+    let gerados = 0;
+    for (const post of postsParaGerar) {
+      try {
+        const marcaDados = (() => { try { return JSON.parse(localStorage.getItem('marca_config') || '{}'); } catch { return {}; } })();
+        const contexto = [marcaDados.nome, marcaDados.diferencial].filter(Boolean).join(' — ');
+
+        const res = await fetch('/api/central/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({
+            pilar: post.pilarKey,
+            plataforma: post.plat === 'li' ? 'li' : 'ig',
+            formato: post.tipo === 'video' ? 'Reels' : 'Post',
+            contexto
+          })
+        });
+        const data = await res.json();
+        if (data.ok && data.copy) {
+          const idx = PLANO_PADRAO.indexOf(post);
+          const key = getPostKey(semKey, post.dia, post.plat, idx);
+          const existing = loadPost(key) || {};
+          savePost(key, { ...existing, copy: data.copy });
+          gerados++;
+        }
+      } catch {}
+      btn.textContent = `⏳ Gerando ${gerados}/${postsParaGerar.length}...`;
+    }
+
+    btn.disabled = false;
+    btn.textContent = `⚡ Gerar Semana com IA`;
+    renderPlano();
+    if (gerados > 0) {
+      const t = document.createElement('div');
+      t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--verde-escuro);color:var(--creme);padding:0.7rem 1.5rem;border-radius:20px;font-size:0.8rem;font-weight:700;z-index:999;font-family:Montserrat,sans-serif;';
+      t.textContent = `✅ ${gerados} posts gerados com IA!`;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+  });
+
+  // ================================================
   //  MODAL
   // ================================================
   function abrirModal(key, post, saved) {
     postAtual = key;
     statusAtual = saved.status || 'pendente';
     postInfo = { pilar: post.pilarKey || 'acao', plat: post.plat };
+    const modalPlatLabel = post.plat === 'ig' ? '📷 Instagram' : post.plat === 'li' ? '💼 LinkedIn' : '🎬 Vídeo';
     document.getElementById('modal-titulo').textContent =
-      `${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'} · ${post.label || post.dia.toUpperCase()} · ${post.pilar}`;
-    document.getElementById('modal-copy').value = saved.copy || post.preview;
+      `${modalPlatLabel} · ${post.label || post.dia.toUpperCase()} · ${post.pilar}`;
+    document.getElementById('modal-copy').value = saved.copy || (Array.isArray(post.previews) ? post.previews[0] : (post.preview || ''));
     document.getElementById('modal-obs').value = saved.obs || '';
     document.getElementById('ai-status').textContent = '';
     atualizarStatusBtns(statusAtual);
@@ -2723,7 +2947,8 @@ Link na bio. Vagas limitadas por semana.` },
       posts.forEach(post => {
         const allIdx = PLANO_PADRAO.indexOf(post);
         const key = getPostKey(weekKey, diaKey, post.plat, allIdx);
-        const saved = loadPost(key) || { copy: post.preview, obs: '', status: 'pendente' };
+        const diaPostPreview = Array.isArray(post.previews) ? post.previews[0] : (post.preview || '');
+        const saved = loadPost(key) || { copy: diaPostPreview, obs: '', status: 'pendente' };
 
         const item = document.createElement('div');
         item.className = `dia-post-item dpi-${post.plat}`;
@@ -2749,7 +2974,7 @@ Link na bio. Vagas limitadas por semana.` },
           document.querySelector('[data-view="plano"]').classList.add('ativo');
           document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
           document.getElementById('view-plano').classList.add('ativa');
-          document.getElementById('topbar-titulo').textContent = 'Plano da Semana';
+          document.getElementById('topbar-titulo').textContent = 'Plano de Conteúdo';
           // Open the post modal after a tiny delay so the view renders
           setTimeout(() => abrirModal(key, post, saved), 80);
         });
@@ -2766,7 +2991,7 @@ Link na bio. Vagas limitadas por semana.` },
       document.querySelector('[data-view="plano"]').classList.add('ativo');
       document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
       document.getElementById('view-plano').classList.add('ativa');
-      document.getElementById('topbar-titulo').textContent = 'Plano da Semana';
+      document.getElementById('topbar-titulo').textContent = 'Plano de Conteúdo';
     };
 
     document.getElementById('dia-modal-overlay').classList.add('aberto');
@@ -2833,7 +3058,7 @@ Link na bio. Vagas limitadas por semana.` },
   // ================================================
   //  BRIEF DE DESIGN
   // ================================================
-  // Brief de design por pilar+plataforma (para o modal do Plano da Semana)
+  // Brief de design por pilar+plataforma (para o modal do Plano de Conteúdo)
   const PLANO_BRIEFS = {
     'acao_ig':     { mood: 'Peso. Autoridade. Direto. Fundo escuro dominante. Cada slide respira.', pinterest: 'carrossel instagram tipografia minimalista dark green motivacional autoridade', unsplash: 'mountain path goal direction', canva: 'carrossel instagram motivacional minimalista' },
     'acao_li':     { mood: 'Executivo. Confiante. Editorial clean. Autoridade de quem viveu o que diz.', pinterest: 'linkedin capa post editorial tipografia verde minimalista negócios', unsplash: 'system process workflow business clean', canva: 'linkedin post professional editorial green' },
@@ -3081,21 +3306,21 @@ Link na bio. Vagas limitadas por semana.` },
     'marca': {
       label: 'Minha Marca — O DNA da sua comunicação',
       texto: 'Aqui você define quem você é, para quem fala e como fala. É o coração do Studio JS. Use a GU.IA JS em cada passo para acelerar — depois edite, ajuste, lapide.',
-      proximo: { label: 'Ver Plano da Semana →', view: 'plano', titulo: 'Plano da Semana' }
+      proximo: { label: 'Ver Plano de Conteúdo →', view: 'plano', titulo: 'Plano de Conteúdo' }
     },
     'plano': {
-      label: 'Plano da Semana — Sua agenda editorial',
+      label: 'Plano de Conteúdo — Sua agenda editorial',
       texto: 'Cada card é um post sugerido por pilar da sua marca. Clique em qualquer um, edite a copy ou gere com a GU.IA JS. Mude o status para acompanhar: Pendente → Aprovado → Em Produção → Publicado.',
       proximo: { label: 'Ver Biblioteca de Copys →', view: 'biblioteca', titulo: 'Biblioteca de Copys' }
     },
     'calendario': {
       label: 'Calendário — Visão macro do mês',
       texto: 'Veja todos os posts do mês em um relance. Pontos coloridos indicam posts agendados. Clique em qualquer dia para ir direto para a semana correspondente.',
-      proximo: { label: 'Ir para o Plano →', view: 'plano', titulo: 'Plano da Semana' }
+      proximo: { label: 'Ir para o Plano →', view: 'plano', titulo: 'Plano de Conteúdo' }
     },
     'biblioteca': {
       label: 'Biblioteca de Copys — Textos prontos',
-      texto: 'Copys escritas no tom da sua marca, organizadas por pilar. Use diretamente, adapte ou conecte a um post do Plano da Semana pelo botão "Usar esta copy →" dentro de cada post.',
+      texto: 'Copys escritas no tom da sua marca, organizadas por pilar. Use diretamente, adapte ou conecte a um post do Plano de Conteúdo pelo botão "Usar esta copy →" dentro de cada post.',
       proximo: { label: 'Abrir Roteiros →', view: 'roteiros', titulo: 'Roteiros de Vídeo' }
     },
     'roteiros': {
