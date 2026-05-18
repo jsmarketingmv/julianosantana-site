@@ -330,6 +330,7 @@
     .cal-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
     .cal-dot-ig { background: var(--terra); }
     .cal-dot-li { background: var(--verde-sage); }
+    .cal-dot-video { background: #7c5cbf; }
     .cal-dot.op-pendente { opacity: 0.3; }
     .cal-dot.op-aprovado { opacity: 0.6; }
     .cal-dot.op-producao { opacity: 0.85; }
@@ -2941,20 +2942,27 @@ Link na bio. Vagas limitadas por semana.` },
     const body = document.getElementById('dia-modal-body');
     body.innerHTML = '';
 
+    // Use the week variant index like renderPlano does
+    const wNum = parseInt(weekKey.replace(/.*W/, '')) || 0;
+    const wIdx = wNum % 4;
+
+    const platLabel = (plat) => plat === 'ig' ? '📷 Instagram' : plat === 'li' ? '💼 LinkedIn' : '🎬 Vídeo';
+    const platCls   = (plat) => plat === 'ig' ? 'plat-ig'    : plat === 'li' ? 'plat-li'    : 'plat-video';
+
     if (posts.length === 0) {
       body.innerHTML = '<p style="font-size:0.82rem;color:var(--texto-medio);padding:1rem;text-align:center;">Nenhum post agendado para este dia.</p>';
     } else {
       posts.forEach(post => {
         const allIdx = PLANO_PADRAO.indexOf(post);
         const key = getPostKey(weekKey, diaKey, post.plat, allIdx);
-        const diaPostPreview = Array.isArray(post.previews) ? post.previews[0] : (post.preview || '');
+        const diaPostPreview = Array.isArray(post.previews) ? (post.previews[wIdx] || post.previews[0]) : (post.preview || '');
         const saved = loadPost(key) || { copy: diaPostPreview, obs: '', status: 'pendente' };
 
         const item = document.createElement('div');
         item.className = `dia-post-item dpi-${post.plat}`;
         item.innerHTML = `
           <div class="dia-post-topo">
-            <span class="dia-post-plat ${post.plat}">${post.plat === 'ig' ? '📷 Instagram' : '💼 LinkedIn'}</span>
+            <span class="dia-post-plat ${platCls(post.plat)}">${platLabel(post.plat)}</span>
             <span class="post-status status-${saved.status}">${labelStatus(saved.status)}</span>
           </div>
           <div class="dia-post-pilar" style="padding:0.2rem 0.9rem 0;">${post.pilar}</div>
@@ -2968,13 +2976,14 @@ Link na bio. Vagas limitadas por semana.` },
           e.stopPropagation();
           fecharDiaModal();
           semanaOffset = offset;
-          renderPlano();
           // Switch to plano view
           document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
           document.querySelector('[data-view="plano"]').classList.add('ativo');
           document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
           document.getElementById('view-plano').classList.add('ativa');
           document.getElementById('topbar-titulo').textContent = 'Plano de Conteúdo';
+          irParaTabSemana();
+          renderPlano();
           // Open the post modal after a tiny delay so the view renders
           setTimeout(() => abrirModal(key, post, saved), 80);
         });
@@ -2986,12 +2995,13 @@ Link na bio. Vagas limitadas por semana.` },
     document.getElementById('dia-modal-ver-semana').onclick = () => {
       fecharDiaModal();
       semanaOffset = offset;
-      renderPlano();
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('ativo'));
       document.querySelector('[data-view="plano"]').classList.add('ativo');
       document.querySelectorAll('.view').forEach(v => v.classList.remove('ativa'));
       document.getElementById('view-plano').classList.add('ativa');
       document.getElementById('topbar-titulo').textContent = 'Plano de Conteúdo';
+      irParaTabSemana();
+      renderPlano();
     };
 
     document.getElementById('dia-modal-overlay').classList.add('aberto');
@@ -3000,6 +3010,16 @@ Link na bio. Vagas limitadas por semana.` },
   function fecharDiaModal() {
     document.getElementById('dia-modal-overlay').classList.remove('aberto');
     diaModalDate = null;
+  }
+
+  function irParaTabSemana() {
+    document.querySelectorAll('.plano-tab').forEach(t => t.classList.remove('ativo'));
+    const tabSemana = document.querySelector('.plano-tab[data-tab="semana"]');
+    if (tabSemana) tabSemana.classList.add('ativo');
+    const s = document.getElementById('plano-tab-semana');
+    const c = document.getElementById('plano-tab-calendario');
+    if (s) s.style.display = '';
+    if (c) c.style.display = 'none';
   }
 
   document.getElementById('dia-modal-fechar').addEventListener('click', fecharDiaModal);
