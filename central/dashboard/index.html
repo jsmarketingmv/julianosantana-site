@@ -2157,6 +2157,7 @@ Link na bio. Vagas limitadas por semana.` },
         const key = getPostKey(semKey, dia, post.plat, idx);
         const postPreview = Array.isArray(post.previews) ? (post.previews[vIdx] || post.previews[0]) : (post.preview || '');
         const saved = loadPost(key) || { copy: postPreview, obs: '', status: 'pendente' };
+        if (!saved.status) saved.status = 'pendente'; // guard against old data without status
         const platLabel = post.plat === 'ig' ? '📷 Instagram' : post.plat === 'li' ? '💼 LinkedIn' : '🎬 Vídeo';
         const platClass = post.plat === 'ig' ? 'plat-ig' : post.plat === 'li' ? 'plat-li' : 'plat-video';
         const slotClass = `post-slot slot-${post.plat}`;
@@ -2274,7 +2275,7 @@ Link na bio. Vagas limitadas por semana.` },
           const idx = PLANO_PADRAO.indexOf(post);
           const key = getPostKey(semKey, post.dia, post.plat, idx);
           const existing = loadPost(key) || {};
-          savePost(key, { ...existing, copy: data.copy });
+          savePost(key, { status: 'pendente', obs: '', ...(existing || {}), copy: data.copy });
           gerados++;
         }
       } catch {}
