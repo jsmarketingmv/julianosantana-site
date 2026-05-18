@@ -3149,7 +3149,10 @@ Link na bio. Vagas limitadas por semana.` },
         const key = getPostKey(weekKey, diaKey, post.plat, allIdx);
         const diaPostPreview = Array.isArray(post.previews) ? (post.previews[wIdx] || post.previews[0]) : (post.preview || '');
         const saved = loadPost(key) || { copy: diaPostPreview, obs: '', status: 'pendente' };
+        if (!saved.status) saved.status = 'pendente'; // guard: dados sem status
 
+        const copyId = `dpc-${allIdx}-${weekKey}`;
+        const isCurta = saved.copy.length <= 180;
         const item = document.createElement('div');
         item.className = `dia-post-item dpi-${post.plat}`;
         item.innerHTML = `
@@ -3158,7 +3161,8 @@ Link na bio. Vagas limitadas por semana.` },
             <span class="post-status status-${saved.status}">${labelStatus(saved.status)}</span>
           </div>
           <div class="dia-post-pilar" style="padding:0.2rem 0.9rem 0;">${post.pilar}</div>
-          <div class="dia-post-preview">${saved.copy}</div>
+          <div class="dia-post-preview" id="${copyId}" style="${isCurta ? '' : '-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;'}">${saved.copy}</div>
+          ${!isCurta ? `<div style="padding:0 0.9rem 0.4rem;"><button class="dia-ver-mais" data-target="${copyId}" data-expandido="0" style="background:none;border:none;font-size:0.68rem;font-weight:700;color:var(--areia);cursor:pointer;font-family:'Montserrat',sans-serif;padding:0;">Ver completa ▼</button></div>` : ''}
           <div class="dia-post-rodape">
             <button class="dia-post-editar">✏️ Editar copy</button>
           </div>
@@ -3213,6 +3217,27 @@ Link na bio. Vagas limitadas por semana.` },
     if (s) s.style.display = '';
     if (c) c.style.display = 'none';
   }
+
+  // Delegated "Ver completa" toggle inside calendar day modal
+  document.getElementById('dia-modal-body').addEventListener('click', e => {
+    const btn = e.target.closest('.dia-ver-mais');
+    if (!btn) return;
+    const el = document.getElementById(btn.dataset.target);
+    if (!el) return;
+    if (btn.dataset.expandido === '0') {
+      el.style.webkitLineClamp = 'unset';
+      el.style.display = 'block';
+      el.style.overflow = 'visible';
+      btn.textContent = 'Ver menos ▲';
+      btn.dataset.expandido = '1';
+    } else {
+      el.style.webkitLineClamp = '3';
+      el.style.display = '-webkit-box';
+      el.style.overflow = 'hidden';
+      btn.textContent = 'Ver completa ▼';
+      btn.dataset.expandido = '0';
+    }
+  });
 
   document.getElementById('dia-modal-fechar').addEventListener('click', fecharDiaModal);
   document.getElementById('dia-modal-overlay').addEventListener('click', e => {
