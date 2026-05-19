@@ -28,13 +28,15 @@
 
     /* Banner volta ao site principal */
     .turismo-banner {
-      background: rgba(28,58,42,0.95);
+      background: #0c1e14;
       text-align: center;
       padding: 0.55rem 1rem;
       font-size: 0.72rem;
       font-weight: 600;
-      color: rgba(245,240,232,0.65);
+      color: rgba(245,240,232,0.55);
       letter-spacing: 0.04em;
+      position: relative;
+      z-index: 1001;
     }
     .turismo-banner a {
       color: var(--areia, #C49A6C);
@@ -43,6 +45,29 @@
       transition: color 0.2s;
     }
     .turismo-banner a:hover { color: #fff; }
+
+    /* Navbar offset para o banner */
+    .navbar { top: 30px !important; }
+    .navbar.scrolled { top: 0 !important; }
+
+    /* ── FOTO HERO TURISMO ─────────────────────────────────── */
+    .hero-foto-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background-size: cover;
+      background-position: center 30%;
+      background-image: url('../assets/hero-turismo.jpg');
+    }
+    .hero-foto-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(10,24,16,0.82) 0%,
+        rgba(18,40,28,0.68) 40%,
+        rgba(10,22,16,0.85) 100%
+      );
+    }
+    .hero-content { z-index: 2; }
 
     /* Palestras grid */
     .palestras-grid {
@@ -112,6 +137,26 @@
       padding: 0.25rem 0.65rem;
       border-radius: 20px;
     }
+    .palestra-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      background: var(--verde-escuro, #1C3A2A);
+      color: var(--creme, #F5F0E8);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.55rem 1.1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .palestra-cta:hover { background: #2d5a3d; transform: translateY(-1px); }
     .palestra-duracao {
       font-size: 0.7rem;
       color: rgba(28,58,42,0.4);
@@ -140,27 +185,15 @@
       align-items: flex-start;
       gap: 0.8rem;
     }
-    .para-quem-icone {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-    .para-quem-nome {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--verde-escuro, #1C3A2A);
-      margin-bottom: 0.2rem;
-    }
-    .para-quem-desc {
-      font-size: 0.73rem;
-      color: var(--texto-medio, #5a6e62);
-      line-height: 1.5;
-    }
+    .para-quem-icone { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .para-quem-nome { font-size: 0.82rem; font-weight: 700; color: var(--verde-escuro, #1C3A2A); margin-bottom: 0.2rem; }
+    .para-quem-desc { font-size: 0.73rem; color: var(--texto-medio, #5a6e62); line-height: 1.5; }
 
-    /* Credenciais rápidas */
+    /* Credenciais rápidas — cor diferenciada do hero */
     .cred-faixa {
-      background: var(--verde-escuro, #1C3A2A);
-      padding: 3rem 0;
+      background: var(--creme, #F5F0E8);
+      border-top: 3px solid rgba(196,154,108,0.35);
+      padding: 2.8rem 0;
     }
     .cred-grid {
       display: grid;
@@ -170,18 +203,17 @@
     }
     @media (max-width: 900px) { .cred-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; } }
     @media (max-width: 480px) { .cred-grid { grid-template-columns: 1fr 1fr; } }
-
     .cred-item-num {
       font-size: 2.4rem;
       font-weight: 900;
-      color: var(--areia, #C49A6C);
+      color: var(--verde-escuro, #1C3A2A);
       line-height: 1;
       font-family: 'Montserrat', sans-serif;
     }
     .cred-item-label {
       font-size: 0.72rem;
       font-weight: 600;
-      color: rgba(245,240,232,0.6);
+      color: var(--texto-medio, #5a6e62);
       letter-spacing: 0.06em;
       margin-top: 0.4rem;
       line-height: 1.4;
@@ -202,192 +234,191 @@
       .cta-palestra { grid-template-columns: 1fr; text-align: center; }
       .cta-palestra-btns { justify-content: center; }
     }
-    .cta-palestra-titulo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--creme, #F5F0E8);
-      line-height: 1.25;
-      margin-bottom: 0.6rem;
-    }
-    .cta-palestra-sub {
-      font-size: 0.88rem;
-      color: rgba(245,240,232,0.65);
-      line-height: 1.6;
-    }
-    .cta-palestra-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      min-width: 200px;
-    }
+    .cta-palestra-titulo { font-size: 1.5rem; font-weight: 800; color: var(--creme, #F5F0E8); line-height: 1.25; margin-bottom: 0.6rem; }
+    .cta-palestra-sub { font-size: 0.88rem; color: rgba(245,240,232,0.65); line-height: 1.6; }
+    .cta-palestra-btns { display: flex; flex-direction: column; gap: 0.7rem; min-width: 200px; }
     .btn-wa {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: #25D366;
-      color: #fff;
-      padding: 0.9rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 0.88rem;
-      text-decoration: none;
-      transition: all 0.2s;
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.02em;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: #25D366; color: #fff; padding: 0.9rem 1.5rem; border-radius: 10px;
+      font-weight: 800; font-size: 0.88rem; text-decoration: none; transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif; letter-spacing: 0.02em;
     }
     .btn-wa:hover { background: #1fb855; transform: translateY(-2px); }
     .btn-mapa {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: rgba(196,154,108,0.15);
-      border: 1px solid rgba(196,154,108,0.4);
-      color: var(--areia, #C49A6C);
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.82rem;
-      text-decoration: none;
-      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: rgba(196,154,108,0.15); border: 1px solid rgba(196,154,108,0.4);
+      color: var(--areia, #C49A6C); padding: 0.8rem 1.5rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.82rem; text-decoration: none; transition: all 0.2s;
       font-family: 'Montserrat', sans-serif;
     }
     .btn-mapa:hover { background: rgba(196,154,108,0.25); }
     .btn-mentoria-turismo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: rgba(245,240,232,0.08);
-      border: 1px solid rgba(245,240,232,0.2);
-      color: rgba(245,240,232,0.8);
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.82rem;
-      text-decoration: none;
-      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: rgba(245,240,232,0.08); border: 1px solid rgba(245,240,232,0.2);
+      color: rgba(245,240,232,0.8); padding: 0.8rem 1.5rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.82rem; text-decoration: none; transition: all 0.2s;
       font-family: 'Montserrat', sans-serif;
     }
     .btn-mentoria-turismo:hover { background: rgba(245,240,232,0.14); }
 
-    /* Filosofia bloco turismo */
+    /* ── AÇÃO & REAÇÃO — versão com peso total ─────────────── */
     .filosofia-turismo {
-      background: linear-gradient(160deg, #122318 0%, #1C3A2A 60%, #2D5A3D 100%);
+      background: linear-gradient(160deg, #0d1f15 0%, #1C3A2A 60%, #243d2f 100%);
       padding: 5rem 0;
       position: relative;
       overflow: hidden;
     }
     .filosofia-turismo::before {
       content: '';
-      position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 60vmax;
-      height: 60vmax;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(74,124,89,0.1) 0%, transparent 65%);
+      position: absolute; top: -20%; right: -10%;
+      width: 60vmax; height: 60vmax; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,0.12) 0%, transparent 65%);
       pointer-events: none;
     }
     .filosofia-turismo .tag { background: rgba(196,154,108,0.15); color: var(--areia, #C49A6C); border: 1px solid rgba(196,154,108,0.3); }
     .filosofia-turismo h2, .filosofia-turismo h2 em { color: var(--creme, #F5F0E8); }
-    .filosofia-turismo p { color: rgba(245,240,232,0.7); }
+    .filosofia-turismo .ft-intro { color: rgba(245,240,232,0.7); max-width: 600px; margin: 1rem auto 0; text-align: center; }
 
-    .ft-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
+    .ft-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
     @media (max-width: 700px) { .ft-grid { grid-template-columns: 1fr; } }
 
     .ft-card {
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      padding: 1.8rem;
+      border-radius: 16px;
+      padding: 2rem;
     }
     .ft-card-titulo {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--areia, #C49A6C);
-      margin-bottom: 0.6rem;
+      font-size: 1.15rem; font-weight: 900;
+      color: var(--areia, #C49A6C); margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+    .ft-card-subtitulo {
+      font-size: 0.78rem; color: rgba(245,240,232,0.45);
+      font-style: italic; margin-bottom: 1.2rem; line-height: 1.5;
+    }
+    .ft-pilares {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+    }
+    .ft-pilar {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(196,154,108,0.15); border: 1px solid rgba(196,154,108,0.3);
+      color: var(--areia, #C49A6C); padding: 0.3rem 0.8rem; border-radius: 20px;
     }
     .ft-card-desc {
-      font-size: 0.82rem;
-      color: rgba(245,240,232,0.65);
-      line-height: 1.65;
+      font-size: 0.83rem; color: rgba(245,240,232,0.65); line-height: 1.7;
     }
 
-    /* Mentoria turismo */
+    /* ── MENTORIA — alinhada com página principal ───────────── */
     .mentoria-turismo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      margin-top: 2rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; align-items: start; margin-top: 2rem;
     }
     @media (max-width: 800px) { .mentoria-turismo-grid { grid-template-columns: 1fr; } }
 
-    .mentoria-turismo-lista {
-      list-style: none;
-      padding: 0;
-      margin: 1.2rem 0;
-    }
+    .mentoria-turismo-lista { list-style: none; padding: 0; margin: 1.2rem 0; }
     .mentoria-turismo-lista li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid rgba(28,58,42,0.06);
-      font-size: 0.82rem;
-      color: var(--texto-medio, #5a6e62);
-      line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 0.7rem;
+      padding: 0.55rem 0; border-bottom: 1px solid rgba(28,58,42,0.06);
+      font-size: 0.82rem; color: var(--texto-medio, #5a6e62); line-height: 1.5;
     }
     .mentoria-turismo-lista li:last-child { border-bottom: none; }
-    .mentoria-turismo-lista li::before {
-      content: '→';
-      color: var(--areia, #C49A6C);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+    .mentoria-turismo-lista li::before { content: '→'; color: var(--areia, #C49A6C); font-weight: 700; flex-shrink: 0; }
+
     .mentoria-card-destaque {
       background: var(--verde-escuro, #1C3A2A);
-      border-radius: 16px;
-      padding: 2rem;
-      color: var(--creme, #F5F0E8);
+      border-radius: 16px; padding: 2rem; color: var(--creme, #F5F0E8);
     }
     .mentoria-card-destaque h3 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-bottom: 0.6rem;
-      color: var(--creme, #F5F0E8);
+      font-size: 1.2rem; font-weight: 800; margin-bottom: 0.6rem; color: var(--creme, #F5F0E8);
     }
     .mentoria-card-destaque p {
-      font-size: 0.82rem;
-      color: rgba(245,240,232,0.7);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+      font-size: 0.82rem; color: rgba(245,240,232,0.7); line-height: 1.6; margin-bottom: 1.5rem;
     }
     .mentoria-badge-turismo {
-      display: inline-block;
-      background: rgba(196,154,108,0.2);
-      border: 1px solid rgba(196,154,108,0.35);
-      color: var(--areia, #C49A6C);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      margin-bottom: 1rem;
+      display: inline-block; background: rgba(196,154,108,0.2);
+      border: 1px solid rgba(196,154,108,0.35); color: var(--areia, #C49A6C);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 20px; margin-bottom: 1rem;
     }
 
-    /* ── FOTO HERO TURISMO ─────────────────────────────────── */
-    .hero-foto-bg {
-      background-image: url('../assets/hero-turismo.jpg');
-      background-position: center 30%;
+    /* ── Faixa Express — classes da página principal ───────── */
+    .express-faixa {
+      margin-top: 2.5rem; background: var(--verde-escuro, #1C3A2A);
+      border-radius: var(--radius, 16px); padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .express-faixa-esq { flex: 1; min-width: 240px; }
+    .express-faixa-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--areia, #C49A6C); display: block; margin-bottom: 0.5rem;
+    }
+    .express-faixa-titulo {
+      font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 700;
+      color: var(--creme, #F5F0E8); margin-bottom: 0.5rem;
+    }
+    .express-faixa-desc { font-size: 0.9rem; color: rgba(245,240,232,0.6); line-height: 1.6; }
+    .express-faixa-dir { display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; flex-shrink: 0; }
+    .express-faixa-preco { font-family: var(--fonte-titulo); font-size: 2rem; font-weight: 700; color: var(--areia, #C49A6C); }
+    .btn-areia {
+      display: inline-block; padding: 0.75rem 1.8rem; border-radius: 50px;
+      background: var(--areia, #C49A6C); color: var(--verde-escuro, #1C3A2A);
+      font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .btn-areia:hover { opacity: 0.85; }
+
+    /* ── Prêmios — classes da página principal ──────────────── */
+    .premio-card {
+      display: flex; gap: 2.5rem; align-items: flex-start;
+      background: #fff; border-radius: var(--radius, 16px);
+      border-left: 4px solid var(--terra, #8B6914);
+      padding: 2.5rem; margin-bottom: 3.5rem;
+      box-shadow: 0 2px 20px rgba(28,58,42,0.07);
+    }
+    .premio-icone-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      background: var(--terra, #8B6914); color: #fff;
+      border-radius: var(--radius, 16px); padding: 1.2rem 1rem;
+      flex-shrink: 0; min-width: 72px; text-align: center;
+    }
+    .premio-ano { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; }
+    .premio-tag-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--terra, #8B6914); margin-bottom: 0.6rem; display: block;
+    }
+    .premio-titulo { font-size: 1.3rem; font-weight: 700; color: var(--texto-escuro, #1a2e22); margin-bottom: 0.8rem; line-height: 1.3; }
+    .premio-descricao { font-size: 0.92rem; color: var(--texto-medio, #5a6e62); line-height: 1.75; margin-bottom: 1.2rem; }
+    .premio-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .premio-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; font-weight: 600; color: var(--verde-sage, #4A7C59); text-decoration: none; transition: color 0.2s;
+    }
+    .premio-link:hover { color: var(--verde-medio, #2D5A3D); }
+
+    /* ── Marcas — classes da página principal ───────────────── */
+    .marcas-secao { margin-bottom: 3rem; }
+    .marcas-subtitulo {
+      text-align: center; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--areia, #C49A6C); margin-bottom: 1.8rem;
+    }
+    .marcas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .marca-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 1.4rem 1rem;
+      background: #fff; border-radius: var(--radius, 16px);
+      border: 1px solid rgba(74,124,89,0.12); text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 1px 10px rgba(28,58,42,0.05);
+    }
+    .marca-card:hover { border-color: var(--verde-sage, #4A7C59); transform: translateY(-3px); box-shadow: 0 4px 20px rgba(28,58,42,0.1); }
+    .marca-nome { font-weight: 700; font-size: 0.92rem; color: var(--texto-escuro, #1a2e22); margin-bottom: 0.3rem; line-height: 1.3; }
+    .marca-local { font-size: 0.75rem; color: var(--areia, #C49A6C); letter-spacing: 0.05em; }
+
+    @media (max-width: 768px) {
+      .premio-card { flex-direction: column; gap: 1.5rem; }
+      .marcas-grid { grid-template-columns: repeat(2, 1fr); }
+      .express-faixa-dir { align-items: flex-start; }
     }
   </style>
 </head>
@@ -564,6 +595,7 @@
             <span class="palestra-tag">Experiência do cliente</span>
             <span class="palestra-tag">Marketing de destino</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -584,6 +616,7 @@
             <span class="palestra-tag">Equipe comercial</span>
             <span class="palestra-tag">Liderança em temporada</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -604,6 +637,7 @@
             <span class="palestra-tag">Estratégia de marca</span>
             <span class="palestra-tag">Mercado atual</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -624,6 +658,7 @@
             <span class="palestra-tag">Destinos turísticos</span>
             <span class="palestra-tag">DMOs · Poder público</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 1h · 1h30 · Workshop meio-dia</div>
         </div>
 
@@ -644,6 +679,7 @@
             <span class="palestra-tag">Sazonalidade</span>
             <span class="palestra-tag">Filosofia de negócio</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -664,6 +700,7 @@
             <span class="palestra-tag">Clareza de rota</span>
             <span class="palestra-tag">IA + Turismo</span>
           </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · com dinâmica ao vivo</div>
         </div>
 
@@ -770,21 +807,35 @@
 
       <div class="ft-grid">
         <div class="ft-card animar animar-delay-1">
-          <div class="ft-card-titulo">⚡ AÇÃO no Turismo</div>
+          <div class="ft-card-titulo">⚡ AÇÃO</div>
+          <div class="ft-card-subtitulo">Atitude · Verdade · Resiliência</div>
+          <div class="ft-pilares">
+            <span class="ft-pilar">Atitude</span>
+            <span class="ft-pilar">Verdade</span>
+            <span class="ft-pilar">Resiliência</span>
+          </div>
           <div class="ft-card-desc">
-            É a atitude de criar um produto antes que o destino precise de crise para se reinventar.
-            É a verdade de dizer ao cliente que sua operação tem um problema de rota.
+            No turismo, AÇÃO é criar o produto antes que a crise force a reinvenção.
+            É ter a verdade de dizer ao cliente que sua operação precisa de rota nova.
             É a resiliência de funcionar bem na baixa temporada porque sua estratégia
-            não depende do verão. AÇÃO é quem define a trilha — não quem espera o mapa pronto.
+            não depende do verão nem do calendário de feiras. Quem age define a trilha —
+            não espera o mapa pronto.
           </div>
         </div>
         <div class="ft-card animar animar-delay-2">
-          <div class="ft-card-titulo">🔄 REAÇÃO no Turismo</div>
+          <div class="ft-card-titulo">🔄 REAÇÃO</div>
+          <div class="ft-card-subtitulo">Empatia · Confiança · Fidelidade</div>
+          <div class="ft-pilares">
+            <span class="ft-pilar">Empatia</span>
+            <span class="ft-pilar">Confiança</span>
+            <span class="ft-pilar">Fidelidade</span>
+          </div>
           <div class="ft-card-desc">
-            É a empatia de entender o que o viajante de 2025 realmente sente — não o de 2015.
-            É a confiança de manter sua proposta de valor quando o mercado entra em pânico.
-            É a fidelidade ao propósito do destino quando a pressão comercial quer te desvirtuar.
-            REAÇÃO é quem responde bem ao que o mercado traz — sem perder a rota.
+            No turismo, REAÇÃO é a empatia de entender o que o viajante de 2025 sente —
+            não o de 2015. É a confiança de manter sua proposta de valor quando o mercado
+            entra em pânico. É a fidelidade ao propósito do destino quando a pressão
+            comercial quer te desvirtuar. Quem reage bem responde ao mercado
+            sem perder a rota.
           </div>
         </div>
       </div>
@@ -799,7 +850,7 @@
       <div class="animar" style="text-align:center;">
         <span class="tag">Mentoria Individual</span>
         <div class="divisor centro"></div>
-        <h2>Não só palestra.<br><em>Acompanhamento de verdade.</em></h2>
+        <h2>Mentoria real.<br><em>Rota, estratégia e campo.</em></h2>
       </div>
 
       <div class="mentoria-turismo-grid">
@@ -1119,8 +1170,20 @@
         const offset = 80;
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
-        // Fecha mobile nav se aberto
         document.getElementById('navMobile')?.classList.remove('aberto');
+      });
+    });
+
+    // Palestra CTAs: pré-selecionar serviço no formulário
+    document.querySelectorAll('.palestra-cta[data-palestra]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const palestra = this.getAttribute('data-palestra');
+        const sel = document.querySelector('select[name="servico"]');
+        if (sel) {
+          for (let opt of sel.options) {
+            if (opt.value.toLowerCase().includes('palestra')) { sel.value = opt.value; break; }
+          }
+        }
       });
     });
   </script>
