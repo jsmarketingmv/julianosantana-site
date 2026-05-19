@@ -194,17 +194,30 @@ chatInput?.addEventListener('keydown', (e) => {
 const form = document.getElementById('formContato');
 const formSucesso = document.getElementById('formSucesso');
 
-form?.addEventListener('submit', (e) => {
+form?.addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = form.querySelector('button[type="submit"]');
   btn.textContent = 'Enviando...';
   btn.disabled = true;
 
-  // Simulação de envio (substituir por Formspree/API real)
-  setTimeout(() => {
-    form.style.display = 'none';
-    formSucesso.style.display = 'block';
-  }, 1500);
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      form.style.display = 'none';
+      formSucesso.style.display = 'block';
+    } else {
+      btn.textContent = 'Erro ao enviar. Tente novamente.';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    btn.textContent = 'Erro ao enviar. Tente novamente.';
+    btn.disabled = false;
+  }
 });
 
 // --- Smooth scroll nos links internos ---
