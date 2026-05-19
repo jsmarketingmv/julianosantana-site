@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juliano Sant'Ana — Estratégia, Mentoria & Filosofia Ação & Reação</title>
+  <title>Juliano Sant'Ana: Estratégia, Mentoria e Filosofia Ação & Reação</title>
   <meta name="description" content="25+ anos de marketing. Consultor estratégico, mentor e criador do Mapa da Verdade. Filosofia Ação & Reação aplicada a negócios e empreendedores." />
   <meta name="keywords" content="consultoria estratégica, mentoria, marketing, turismo, MPMEs, empreendedorismo, palestras, Mapa da Verdade" />
-  <meta property="og:title" content="Juliano Sant'Ana — Estratégia com Verdade" />
+  <meta property="og:title" content="Juliano Sant'Ana: Estratégia com Verdade" />
   <meta property="og:description" content="Consultor estratégico com 25+ anos de experiência. Filosofia Ação & Reação. Criador do Mapa da Verdade." />
   <meta property="og:type" content="website" />
 
@@ -644,7 +644,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
       <div class="express-faixa animar">
         <div class="express-faixa-esq">
           <span class="express-faixa-label">PRIMEIRO PASSO</span>
-          <h3 class="express-faixa-titulo">Sessão Express — Mapa da Verdade</h3>
+          <h3 class="express-faixa-titulo">Sessão Express: Mapa da Verdade</h3>
           <p class="express-faixa-desc">Diagnóstico direto em duas sessões. Sem compromisso de mentoria longa. Ideal para quem quer clareza antes de decidir.</p>
         </div>
         <div class="express-faixa-dir">
@@ -681,7 +681,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
             <li class="mapa-feature">
               <span class="feature-check">✓</span>
               <div class="feature-texto">
-                <strong>Agente JS — IA com minha voz</strong>
+                <strong>Agente JS, a IA com minha voz</strong>
                 <span>Treinado com minha filosofia Ação & Reação. Lê sua rota, provoca clareza, cobra execução.</span>
               </div>
             </li>
@@ -783,7 +783,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
           </a>
 
           <div class="mapa-mentoria-banner" style="margin-top:1rem;">
-            <strong>Feche Mentoria — Acesso Incluído</strong>
+            <strong>Feche Mentoria. Acesso Incluído.</strong>
             Mentorados por Juliano têm o Mapa da Verdade como ambiente de trabalho conjunto.
           </div>
         </div>
@@ -1024,7 +1024,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
                   <option>Marketing para MPME</option>
                   <option>Roteiro Turístico</option>
                   <option>Mapa da Verdade</option>
-                  <option>Não sei ainda — quero o diagnóstico</option>
+                  <option>Não sei ainda, quero o diagnóstico</option>
                 </select>
               </div>
               <div class="form-grupo">
@@ -1160,7 +1160,7 @@ function addBot(t){const m=document.createElement('div');m.className='chat-msg';
 function addUser(t){const m=document.createElement('div');m.className='chat-msg usuario';m.innerHTML=`<div class="chat-bolha">${t}</div>`;chatMsgs.appendChild(m);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function addSugestoes(){const s=document.createElement('div');s.style.cssText='display:flex;flex-wrap:wrap;gap:0.5rem;padding:0 0.2rem;';['Quero uma mentoria','O que é o Mapa da Verdade?','Temas de palestras'].forEach(op=>{const b=document.createElement('button');b.textContent=op;b.style.cssText='background:rgba(127,176,105,0.15);border:1px solid rgba(127,176,105,0.3);color:#7FB069;padding:0.4rem 0.8rem;border-radius:20px;font-size:0.8rem;cursor:pointer;font-family:inherit;';b.addEventListener('click',()=>{s.remove();addUser(op);setTimeout(()=>responder(op),800)});s.appendChild(b)});chatMsgs.appendChild(s);chatMsgs.scrollTop=chatMsgs.scrollHeight}
 function responder(msg){const r={'quero uma mentoria':'A mentoria com Juliano é individual, com vagas limitadas. Você terá acesso ao Mapa da Verdade como ferramenta de acompanhamento. Quer agendar um diagnóstico gratuito? 👇','o que é o mapa da verdade?':'O Mapa da Verdade é a plataforma digital de Juliano — com IA treinada na filosofia Ação & Reação. Serve para acompanhar seus projetos, cobrar execução e apontar próximos passos.','temas de palestras':'Juliano fala sobre: posicionamento estratégico, comportamento do consumidor, marketing para MPMEs, empreendedorismo com verdade e turismo sustentável.'};const chave=msg.toLowerCase();addBot(r[chave]||'Ótima pergunta! Para conversa mais aprofundada, agende um diagnóstico gratuito com Juliano.');if(chave.includes('mentoria')){setTimeout(()=>{const l=document.createElement('div');l.className='chat-msg';l.innerHTML='<div class="chat-bolha"><a href="https://wa.me/5547984079480" target="_blank" style="color:#7FB069;font-weight:600;">📱 Falar no WhatsApp →</a></div>';chatMsgs.appendChild(l);chatMsgs.scrollTop=chatMsgs.scrollHeight},600)}}
-chatBtn?.addEventListener('click',()=>{aberto=!aberto;chatPainel.classList.toggle('aberto',aberto);chatTip?.classList.remove('visivel');if(aberto&&primeira){primeira=false;setTimeout(()=>addBot("Olá! Sou o Agente JS — treinado com a filosofia de Juliano Sant'Ana. Como posso te ajudar?"),600);setTimeout(addSugestoes,1200)}});
+chatBtn?.addEventListener('click',()=>{aberto=!aberto;chatPainel.classList.toggle('aberto',aberto);chatTip?.classList.remove('visivel');if(aberto&&primeira){primeira=false;setTimeout(()=>addBot("Olá! Sou o Agente JS, treinado com a filosofia de Juliano Sant'Ana. Como posso te ajudar?"),600);setTimeout(addSugestoes,1200)}});
 chatClose?.addEventListener('click',()=>{aberto=false;chatPainel.classList.remove('aberto')});
 function enviar(){const t=chatInput.value.trim();if(!t)return;addUser(t);chatInput.value='';setTimeout(()=>responder(t),900)}
 chatSend?.addEventListener('click',enviar);chatInput?.addEventListener('keydown',e=>{if(e.key==='Enter')enviar()});
@@ -1201,11 +1201,11 @@ document.getElementById('popup-saibamais')?.addEventListener('click',e=>{if(e.ta
             Expedições & Trilhas
           </h4>
           <ul class="popup-lista">
-            <li>Cerro Aconcagua (Argentina) — 5.100m</li>
-            <li>Kilimanjaro (Tanzânia) — 2014 e 2017</li>
-            <li>Huayna Potosi (Bolívia) — 2015 e 2016</li>
-            <li>Camino Portugués de Santiago — 615km</li>
-            <li>Tour du Mont Blanc — 340km</li>
+            <li>Cerro Aconcagua (Argentina): 5.100m</li>
+            <li>Kilimanjaro (Tanzânia): 2014 e 2017</li>
+            <li>Huayna Potosi (Bolívia): 2015 e 2016</li>
+            <li>Camino Portugués de Santiago: 615km</li>
+            <li>Tour du Mont Blanc: 340km</li>
             <li>Dolomitas Alta Via 1 (2023)</li>
             <li><strong>2023: 2.180km em 19 países</strong></li>
           </ul>
