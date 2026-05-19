@@ -79,6 +79,7 @@ const chatTooltip = document.getElementById('chatTooltip');
 
 let chatAberto = false;
 let primeiraAbertura = true;
+let chatHistorico = []; // histórico da conversa para contexto
 
 chatBtn?.addEventListener('click', () => {
   chatAberto = !chatAberto;
@@ -150,30 +151,49 @@ function adicionarSugestoes() {
   chatMensagens.scrollTop = chatMensagens.scrollHeight;
 }
 
-function responderChat(msg) {
-  const respostas = {
-    'quero uma mentoria': 'A mentoria com Juliano é individual, com vagas limitadas. Você terá acesso ao Mapa da Verdade como ferramenta de acompanhamento. Quer agendar um diagnóstico gratuito? 👇',
-    'o que é o mapa da verdade?': 'O Mapa da Verdade é a plataforma digital de Juliano — com IA treinada na filosofia Ação & Reação. Serve para acompanhar seus projetos, cobrar execução e apontar próximos passos. Quem fecha mentoria entra na plataforma.',
-    'temas de palestras': 'Juliano fala sobre: posicionamento estratégico, comportamento do consumidor, marketing para MPMEs, empreendedorismo com verdade, e desenvolvimento sustentável em turismo. Quer saber mais sobre algum tema?',
-  };
+function adicionarDigitando() {
+  const el = document.createElement('div');
+  el.className = 'chat-msg chat-digitando';
+  el.innerHTML = `<div class="chat-bolha" style="opacity:0.6;font-style:italic;font-size:0.85rem;">digitando...</div>`;
+  chatMensagens.appendChild(el);
+  chatMensagens.scrollTop = chatMensagens.scrollHeight;
+  return el;
+}
 
-  const chave = msg.toLowerCase();
-  let resposta = respostas[chave];
+function renderMsgComLinks(texto) {
+  // Converte [texto](url) em links clicáveis
+  return texto.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,
+    '<a href="$2" target="_blank" rel="noopener" style="color:#7FB069;font-weight:600;">$1</a>');
+}
 
-  if (!resposta) {
-    resposta = 'Ótima pergunta! Para uma conversa mais aprofundada, o melhor caminho é agendar um diagnóstico estratégico gratuito com Juliano. Posso te direcionar para o WhatsApp dele?';
-  }
+async function responderChat(msg) {
+  const digitando = adicionarDigitando();
 
-  adicionarMsgBot(resposta);
+  // Adiciona ao histórico
+  chatHistorico.push({ role: 'user', content: msg });
 
-  if (chave.includes('mentoria') || chave.includes('diagnóstico')) {
-    setTimeout(() => {
-      const link = document.createElement('div');
-      link.className = 'chat-msg';
-      link.innerHTML = `<div class="chat-bolha"><a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20saber%20mais%20sobre%20mentoria." target="_blank" style="color:#7FB069;font-weight:600;display:flex;align-items:center;gap:0.4rem;">📱 Falar no WhatsApp →</a></div>`;
-      chatMensagens.appendChild(link);
-      chatMensagens.scrollTop = chatMensagens.scrollHeight;
-    }, 600);
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mensagem: msg, historico: chatHistorico.slice(-6) }),
+    });
+
+    const data = await res.json();
+    digitando.remove();
+
+    const resposta = data.reply || 'Para mais informações fale diretamente com o Juliano no WhatsApp. 📱';
+    chatHistorico.push({ role: 'assistant', content: resposta });
+
+    const msgEl = document.createElement('div');
+    msgEl.className = 'chat-msg';
+    msgEl.innerHTML = `<div class="chat-bolha">${renderMsgComLinks(resposta)}</div>`;
+    chatMensagens.appendChild(msgEl);
+    chatMensagens.scrollTop = chatMensagens.scrollHeight;
+
+  } catch (err) {
+    digitando.remove();
+    adicionarMsgBot('Não consegui responder agora. Fale diretamente com o Juliano: <a href="https://wa.me/5547984079480" target="_blank" style="color:#7FB069;font-weight:600;">📱 WhatsApp</a>');
   }
 }
 
@@ -182,7 +202,7 @@ function enviarChat() {
   if (!texto) return;
   adicionarMsgUsuario(texto);
   chatInput.value = '';
-  setTimeout(() => responderChat(texto), 900);
+  responderChat(texto);
 }
 
 chatSend?.addEventListener('click', enviarChat);
