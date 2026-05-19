@@ -54,7 +54,7 @@
     .hero-foto-bg {
       position: absolute; inset: 0; z-index: 0;
       background-size: cover;
-      background-position: center 30%;
+      background-position: center center;
       background-image: url('../assets/hero-turismo.jpg');
     }
     .hero-foto-bg::after {
@@ -62,9 +62,9 @@
       position: absolute; inset: 0;
       background: linear-gradient(
         160deg,
-        rgba(10,24,16,0.82) 0%,
-        rgba(18,40,28,0.68) 40%,
-        rgba(10,22,16,0.85) 100%
+        rgba(6,16,10,0.90) 0%,
+        rgba(12,28,18,0.80) 45%,
+        rgba(6,14,10,0.92) 100%
       );
     }
     .hero-content { z-index: 2; }
@@ -420,6 +420,71 @@
       .marcas-grid { grid-template-columns: repeat(2, 1fr); }
       .express-faixa-dir { align-items: flex-start; }
     }
+
+    /* ── RODAPÉ — estilos completos ─────────────────────────── */
+    .rodape {
+      background: #0F1E16;
+      padding: 3.5rem 0 2rem;
+    }
+    .rodape-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .rodape-logo {
+      font-family: var(--fonte-titulo);
+      font-size: 1.6rem;
+      color: var(--creme, #F5F0E8);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .rodape-logo span { color: var(--areia, #C49A6C); }
+    .rodape-desc {
+      color: rgba(245,240,232,0.4);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+      margin-bottom: 1.5rem;
+    }
+    .rodape-social { display: flex; gap: 0.8rem; }
+    .rodape-social a {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(245,240,232,0.5);
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .rodape-social a:hover { background: rgba(196,154,108,0.2); color: var(--areia, #C49A6C); transform: translateY(-2px); }
+    .rodape-titulo-col {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(245,240,232,0.4); margin-bottom: 1.2rem;
+    }
+    .rodape-links {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .rodape-links a {
+      font-size: 0.9rem; color: rgba(245,240,232,0.55);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .rodape-links a:hover { color: var(--areia, #C49A6C); }
+    .rodape-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .rodape-bottom p {
+      font-size: 0.82rem; color: rgba(245,240,232,0.25);
+    }
+    .rodape-bottom a { color: rgba(245,240,232,0.4); text-decoration: none; }
+    .rodape-bottom a:hover { color: var(--areia, #C49A6C); }
+
+    @media (max-width: 1024px) { .rodape-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+    @media (max-width: 768px) { .rodape-grid { grid-template-columns: 1fr; gap: 2rem; } .rodape-bottom { flex-direction: column; text-align: center; } }
   </style>
 </head>
 <body>
