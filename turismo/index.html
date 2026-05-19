@@ -195,8 +195,10 @@
     .cred-faixa {
       background: var(--creme, #F5F0E8);
       border-top: 3px solid rgba(196,154,108,0.35);
-      padding: 2.8rem 0;
+      padding: 2.8rem 0 0;  /* sem padding inferior — seção de palestras logo abaixo */
     }
+    /* Reduzir gap entre cred-faixa e seção de palestras */
+    section.secao#palestras { padding-top: 2.5rem; }
     .cred-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -662,7 +664,7 @@
             <span class="palestra-tag">Experiência do cliente</span>
             <span class="palestra-tag">Marketing de destino</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="Experiências que Vendem">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -683,7 +685,7 @@
             <span class="palestra-tag">Equipe comercial</span>
             <span class="palestra-tag">Liderança em temporada</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="Meta é Destino">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -704,7 +706,7 @@
             <span class="palestra-tag">Estratégia de marca</span>
             <span class="palestra-tag">Mercado atual</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="A Bússola do Turismo Moderno">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -725,7 +727,7 @@
             <span class="palestra-tag">Destinos turísticos</span>
             <span class="palestra-tag">DMOs · Poder público</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="Roteirizar é um Ato de Coragem">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 1h · 1h30 · Workshop meio-dia</div>
         </div>
 
@@ -746,7 +748,7 @@
             <span class="palestra-tag">Sazonalidade</span>
             <span class="palestra-tag">Filosofia de negócio</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="AÇÃO & REAÇÃO no Turismo">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
         </div>
 
@@ -767,7 +769,7 @@
             <span class="palestra-tag">Clareza de rota</span>
             <span class="palestra-tag">IA + Turismo</span>
           </div>
-          <a href="#contato" class="palestra-cta" data-palestra="Palestra em evento de turismo">Quero esta palestra →</a>
+          <a href="#contato" class="palestra-cta" data-palestra="O Diagnóstico que Seu Destino Precisa Ouvir">Quero esta palestra →</a>
           <div class="palestra-duracao">⏱ 45min · 1h · com dinâmica ao vivo</div>
         </div>
 
@@ -1241,15 +1243,32 @@
       });
     });
 
-    // Palestra CTAs: pré-selecionar serviço no formulário
+    // Palestra CTAs: pré-selecionar serviço + indicar palestra no contexto
     document.querySelectorAll('.palestra-cta[data-palestra]').forEach(btn => {
       btn.addEventListener('click', function() {
         const palestra = this.getAttribute('data-palestra');
+
+        // 1. Selecionar "Palestra em evento de turismo" no dropdown
         const sel = document.querySelector('select[name="servico"]');
         if (sel) {
           for (let opt of sel.options) {
             if (opt.value.toLowerCase().includes('palestra')) { sel.value = opt.value; break; }
           }
+        }
+
+        // 2. Pré-preencher contexto com a palestra escolhida
+        const ctx = document.querySelector('textarea[name="contexto"]');
+        if (ctx && !ctx.value) {
+          ctx.value = 'Tenho interesse na palestra: "' + palestra + '"';
+        }
+
+        // 3. Destacar visualmente o campo de contexto
+        if (ctx) {
+          setTimeout(() => {
+            ctx.focus();
+            ctx.style.borderColor = 'var(--areia, #C49A6C)';
+            setTimeout(() => ctx.style.borderColor = '', 2000);
+          }, 600);
         }
       });
     });
