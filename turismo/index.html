@@ -159,6 +159,8 @@
       transition: background 0.2s, transform 0.2s;
     }
     .palestra-cta:hover { background: #2d5a3d; transform: translateY(-1px); }
+    .palestra-blog-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; color: var(--verde-sage, #4A7C59); text-decoration: none; margin-top: 0.6rem; transition: color 0.2s, gap 0.2s; letter-spacing: 0.01em; }
+    .palestra-blog-link:hover { color: var(--verde-medio, #2D5A3D); gap: 0.7rem; }
     .palestra-duracao {
       font-size: 0.7rem;
       color: rgba(28,58,42,0.4);
@@ -665,6 +667,7 @@
             <span class="palestra-tag">Marketing de destino</span>
           </div>
           <a href="#contato" class="palestra-cta" data-palestra="Experiências que Vendem">Quero esta palestra →</a>
+          <a href="/blog/post.html?slug=2025-05-01-os-5-olhares-estrategicos" target="_blank" class="palestra-blog-link">📖 Confira artigo no blog</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
         </div>
 
@@ -686,6 +689,7 @@
             <span class="palestra-tag">Liderança em temporada</span>
           </div>
           <a href="#contato" class="palestra-cta" data-palestra="Meta é Destino">Quero esta palestra →</a>
+          <a href="/blog/post.html?slug=2025-03-01-como-voce-lida-com-metas" target="_blank" class="palestra-blog-link">📖 Confira artigo no blog</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
         </div>
 
@@ -707,6 +711,7 @@
             <span class="palestra-tag">Mercado atual</span>
           </div>
           <a href="#contato" class="palestra-cta" data-palestra="A Bússola do Turismo Moderno">Quero esta palestra →</a>
+          <a href="/blog/post.html?slug=2025-04-01-o-turismo-mudou" target="_blank" class="palestra-blog-link">📖 Confira artigo no blog</a>
           <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
         </div>
 
@@ -1085,6 +1090,76 @@
 
     </div>
   </section>
+
+  <!-- ============================================================
+       BLOG
+       ============================================================ -->
+  <section class="secao blog" id="blog">
+    <div class="container">
+      <div class="blog-header animar">
+        <div>
+          <span class="tag">Conteúdo & Reflexões</span>
+          <div class="divisor"></div>
+          <h2>Pensamentos de <em>quem caminha</em></h2>
+        </div>
+        <a href="/blog/" class="btn btn-verde">Ver todos os artigos</a>
+      </div>
+
+      <div class="blog-grid">
+        <article class="artigo-card animar animar-delay-1">
+          <div class="artigo-imagem" style="background-image: url('../assets/blog/img_4914.jpeg'); background-size: cover; background-position: center;">
+            <span class="artigo-categoria">Roteirização</span>
+          </div>
+          <div class="artigo-corpo">
+            <div class="artigo-data">Jun 2025</div>
+            <h3 class="artigo-titulo">Roteirizar é um Ato de Coragem</h3>
+            <p class="artigo-resumo">
+              Criar um roteiro com olhar de quem compra, não de quem vende, exige uma coragem que a maioria dos destinos ainda não tem.
+            </p>
+            <a href="/blog/post.html?slug=2025-06-01-roteirizar-e-um-ato-de-coragem" class="artigo-link">
+              Ler artigo
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="artigo-card animar animar-delay-2">
+          <div class="artigo-imagem" style="background-image: url('../assets/blog/img_3167.jpeg'); background-size: cover; background-position: center;">
+            <span class="artigo-categoria">Estratégia</span>
+          </div>
+          <div class="artigo-corpo">
+            <div class="artigo-data">Mai 2025</div>
+            <h3 class="artigo-titulo">Os 5 Olhares Estratégicos para Criar Experiências que Vendem</h3>
+            <p class="artigo-resumo">
+              Experiência de compra não nasce no produto. Nasce na percepção. E percepção se constrói com intenção estratégica.
+            </p>
+            <a href="/blog/post.html?slug=2025-05-01-os-5-olhares-estrategicos" class="artigo-link">
+              Ler artigo
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="artigo-card animar animar-delay-3">
+          <div class="artigo-imagem" style="background-image: url('../assets/blog/img_3565.jpeg'); background-size: cover; background-position: center;">
+            <span class="artigo-categoria">Mercado</span>
+          </div>
+          <div class="artigo-corpo">
+            <div class="artigo-data">Abr 2025</div>
+            <h3 class="artigo-titulo">O Turismo Mudou. Minha Bússola Também!</h3>
+            <p class="artigo-resumo">
+              O viajante de hoje não quer destino. Quer história. Não quer pacote. Quer propósito. E isso muda tudo no marketing de turismo.
+            </p>
+            <a href="/blog/post.html?slug=2025-04-01-o-turismo-mudou" class="artigo-link">
+              Ler artigo
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ============================================================
        CONTATO
