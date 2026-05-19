@@ -262,6 +262,62 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
 
   /* Os Ps de Kotler: letra P em destaque areia */
   .p-card.kotler .p-letra { color: var(--areia); }
+
+  /* ── PALESTRAS (página principal) ─────────────────────────── */
+  .palestras-principal { background: var(--creme); }
+  .palestras-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 900px) { .palestras-grid-3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .palestras-grid-3 { grid-template-columns: 1fr; } }
+
+  .palestra-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 2px 20px rgba(28,58,42,0.07);
+    border-top: 4px solid var(--verde-escuro);
+    transition: box-shadow 0.25s, transform 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .palestra-card:hover { box-shadow: 0 8px 40px rgba(28,58,42,0.14); transform: translateY(-3px); }
+  .palestra-num { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--areia); margin-bottom: 0.5rem; }
+  .palestra-titulo { font-size: 1.1rem; font-weight: 800; color: var(--verde-escuro); line-height: 1.25; margin-bottom: 0.4rem; }
+  .palestra-subtitulo { font-size: 0.78rem; font-style: italic; color: var(--texto-medio); margin-bottom: 1rem; line-height: 1.5; }
+  .palestra-desc { font-size: 0.82rem; color: var(--texto-medio); line-height: 1.65; margin-bottom: 1rem; flex: 1; }
+  .palestra-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .palestra-tag { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(28,58,42,0.06); color: var(--verde-escuro); padding: 0.25rem 0.65rem; border-radius: 20px; }
+  .palestra-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.8rem; margin-bottom: 0.8rem;
+    background: var(--verde-escuro); color: var(--creme);
+    font-size: 0.78rem; font-weight: 700;
+    padding: 0.55rem 1.1rem; border-radius: 50px;
+    text-decoration: none; transition: background 0.2s, transform 0.2s;
+  }
+  .palestra-cta:hover { background: var(--verde-medio); transform: translateY(-1px); }
+  .palestra-blog-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; color: var(--verde-sage); text-decoration: none; margin-top: 0.4rem; transition: color 0.2s, gap 0.2s; }
+  .palestra-blog-link:hover { color: var(--verde-medio); gap: 0.7rem; }
+  .palestra-duracao { font-size: 0.7rem; color: rgba(28,58,42,0.4); font-weight: 600; margin-top: auto; padding-top: 0.8rem; border-top: 1px solid rgba(28,58,42,0.07); }
+
+  .cta-palestra-principal {
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--verde-medio) 100%);
+    border-radius: 20px; padding: 3rem 2.5rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 2rem; align-items: center; margin-top: 3rem;
+  }
+  @media (max-width: 700px) { .cta-palestra-principal { grid-template-columns: 1fr; text-align: center; } }
+  .cta-palestra-titulo { font-size: 1.5rem; font-weight: 800; color: var(--creme); line-height: 1.25; margin-bottom: 0.6rem; }
+  .cta-palestra-sub { font-size: 0.88rem; color: rgba(245,240,232,0.65); line-height: 1.6; }
+  .cta-palestra-btns { display: flex; flex-direction: column; gap: 0.7rem; min-width: 210px; }
+  .btn-wa { display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #25D366; color: #fff; padding: 0.9rem 1.5rem; border-radius: 10px; font-weight: 800; font-size: 0.88rem; text-decoration: none; transition: all 0.2s; }
+  .btn-wa:hover { background: #1fb855; transform: translateY(-2px); }
+  .btn-diagnostico { display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(245,240,232,0.08); border: 1px solid rgba(245,240,232,0.2); color: rgba(245,240,232,0.8); padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 700; font-size: 0.82rem; text-decoration: none; transition: all 0.2s; }
+  .btn-diagnostico:hover { background: rgba(245,240,232,0.14); }
   </style>
 </head>
 <body>
@@ -277,6 +333,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#filosofia">Filosofia</a></li>
         <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#palestras">Palestras</a></li>
         <li><a href="#mapa">Mapa da Verdade</a></li>
         <li><a href="#blog">Blog</a></li>
       </ul>
@@ -297,6 +354,7 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
     <a href="#sobre">Sobre</a>
     <a href="#filosofia">Filosofia</a>
     <a href="#servicos">Serviços</a>
+    <a href="#palestras">Palestras</a>
     <a href="#mapa">Mapa da Verdade</a>
     <a href="#blog">Blog</a>
     <a href="#contato" class="btn btn-primario" style="margin-top:1rem;">Diagnóstico</a>
@@ -650,6 +708,114 @@ h1,h2,h3,h4{font-family:var(--fonte-titulo);line-height:1.2}h1{font-size:clamp(2
         <div class="express-faixa-dir">
           <span class="express-faixa-preco">2× R$95</span>
           <a href="#contato" class="btn btn-areia">Quero uma sessão avulsa</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PALESTRAS
+       ============================================================ -->
+  <section class="secao palestras-principal" id="palestras">
+    <div class="container">
+      <div class="animar" style="text-align:center;">
+        <span class="tag">Palestras</span>
+        <div class="divisor centro"></div>
+        <h2>Conteúdo que move<br><em>quem quer chegar lá</em></h2>
+        <p style="max-width:580px;margin:1rem auto 0;color:var(--texto-medio);">
+          Palestras para quem empreende, vende, lidera ou quer começar. Temas criados em 25 anos
+          de campo real: sem teoria vazia, sem motivação de palco.
+        </p>
+      </div>
+
+      <div class="palestras-grid-3">
+
+        <!-- 1 -->
+        <div class="palestra-card animar animar-delay-1">
+          <div class="palestra-num">Palestra 01</div>
+          <h3 class="palestra-titulo">Meta é Destino</h3>
+          <p class="palestra-subtitulo">Como micro e pequenos empreendedores saem do "vou fazer" e chegam lá de verdade</p>
+          <p class="palestra-desc">
+            Meta sem rota é desejo. Desejo sem ação é fantasia. A maioria das pessoas que não
+            realiza não tem falta de vontade, mas falta de mapa. Nesta palestra, Juliano usa
+            a analogia da trilha para mostrar como definir objetivos reais, montar uma rota
+            executável e manter consistência quando o terreno fica difícil. Com conexão direta
+            ao Mapa da Verdade como ferramenta de acompanhamento.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Metas e execução</span>
+            <span class="palestra-tag">MPMEs</span>
+            <span class="palestra-tag">Mapa da Verdade</span>
+          </div>
+          <a href="#contato" class="palestra-cta" data-palestra="Meta é Destino">Quero esta palestra →</a>
+          <a href="/blog/post.html?slug=2025-03-01-como-voce-lida-com-metas" target="_blank" class="palestra-blog-link">📖 Confira artigo no blog</a>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="palestra-card animar animar-delay-2">
+          <div class="palestra-num">Palestra 02</div>
+          <h3 class="palestra-titulo">O Negócio que Você Precisa Ver de Fora</h3>
+          <p class="palestra-subtitulo">Diagnóstico honesto para micro, pequenos e médios empreendedores que querem crescer de verdade</p>
+          <p class="palestra-desc">
+            Todo empreendedor sabe que algo não está funcionando. Poucos sabem exatamente
+            o quê. Nesta palestra, Juliano apresenta o olhar de diagnóstico que aplica há
+            25 anos: como enxergar seu próprio negócio com os olhos de fora, identificar
+            onde está o gargalo real e traçar uma rota clara para sair do lugar. O Mapa da
+            Verdade entra como ferramenta prática de clareza e execução, acessível para
+            quem está começando ou quer dar o próximo passo.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Diagnóstico estratégico</span>
+            <span class="palestra-tag">Empreendedorismo</span>
+            <span class="palestra-tag">Mapa da Verdade</span>
+          </div>
+          <a href="#contato" class="palestra-cta" data-palestra="O Negócio que Você Precisa Ver de Fora">Quero esta palestra →</a>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="palestra-card animar animar-delay-3">
+          <div class="palestra-num">Palestra 03</div>
+          <h3 class="palestra-titulo">AÇÃO & REAÇÃO nos Negócios</h3>
+          <p class="palestra-subtitulo">Como empreendedores resilientes vendem mais, atendem melhor e crescem sem depender de circunstâncias favoráveis</p>
+          <p class="palestra-desc">
+            Crise, sazonalidade, concorrente novo, plataforma que mudou o algoritmo: o mercado
+            sempre vai reagir contra você em algum momento. O que diferencia quem cresce de quem
+            para é a filosofia com que opera. Nesta palestra, Juliano apresenta a filosofia
+            AÇÃO & REAÇÃO aplicada ao dia a dia do comércio, do atendimento e da liderança:
+            como agir com consistência antes que a pressão force a reinvenção às pressas.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Filosofia de negócio</span>
+            <span class="palestra-tag">Resiliência</span>
+            <span class="palestra-tag">Vendas e atendimento</span>
+          </div>
+          <a href="#contato" class="palestra-cta" data-palestra="AÇÃO & REAÇÃO nos Negócios">Quero esta palestra →</a>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30, adaptável ao evento</div>
+        </div>
+
+      </div>
+
+      <!-- CTA Palestra -->
+      <div class="cta-palestra-principal animar">
+        <div>
+          <h3 class="cta-palestra-titulo">Leve uma dessas palestras<br>para o seu evento</h3>
+          <p class="cta-palestra-sub">
+            Convenções de equipe, eventos de franqueados, feiras setoriais, Sebrae,
+            associações comerciais e encontros de empreendedores.
+            Disponível para todo o Brasil.
+          </p>
+        </div>
+        <div class="cta-palestra-btns">
+          <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20convidar%20você%20para%20uma%20palestra." target="_blank" class="btn-wa">
+            📱 Convidar pelo WhatsApp
+          </a>
+          <a href="#contato" class="btn-diagnostico">
+            ✉️ Enviar convite por e-mail
+          </a>
         </div>
       </div>
 
@@ -1285,5 +1451,30 @@ document.getElementById('popup-saibamais')?.addEventListener('click',e=>{if(e.ta
   .popup-lista li::before { content: '·'; position: absolute; left: 0; color: var(--areia); font-weight: 700; }
   @media (max-width: 600px) { .popup-grid { grid-template-columns: 1fr; } .popup-box { padding: 2rem 1.5rem; } }
   </style>
+  <script>
+  // Palestra CTAs: pré-selecionar serviço + indicar palestra no contexto
+  document.querySelectorAll('.palestra-cta[data-palestra]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const palestra = this.getAttribute('data-palestra');
+      const sel = document.querySelector('select[name="servico"]');
+      if (sel) {
+        for (let opt of sel.options) {
+          if (opt.value.toLowerCase().includes('palestra')) { sel.value = opt.value; break; }
+        }
+      }
+      const ctx = document.querySelector('textarea[name="contexto"]');
+      if (ctx && !ctx.value) {
+        ctx.value = 'Tenho interesse na palestra: "' + palestra + '"';
+      }
+      if (ctx) {
+        setTimeout(() => {
+          ctx.focus();
+          ctx.style.borderColor = 'rgba(196,154,108,0.7)';
+          setTimeout(() => ctx.style.borderColor = '', 2000);
+        }, 600);
+      }
+    });
+  });
+  </script>
 </body>
 </html>
