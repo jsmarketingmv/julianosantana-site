@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO TURISMO -->
+  <title>Juliano Sant'Ana — Palestrante & Estrategista de Turismo</title>
+  <meta name="description" content="37 países visitados. 2.100km trilhados. 25 anos de estratégia no turismo. Palestrante, consultor e mentor para o setor turístico. Palestras para ABAV, feiras, summits e eventos do trade."/>
+  <meta name="keywords" content="palestrante turismo Brasil, palestra setor turístico, mentoria turismo, Juliano Sant'Ana turismo, estratégista turismo, consultoria turismo, palestra trade turístico, ABAV, WTM Brasil"/>
+  <link rel="canonical" href="https://www.julianosantana.com.br/turismo"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Juliano Sant'Ana — Palestrante & Estrategista de Turismo"/>
+  <meta property="og:description" content="37 países. 2.100km de trilha. 1º lugar em Inovação no Turismo SC. Prêmio TripAdvisor Top 10% do Planeta. Leve essa vivência para o seu evento."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.julianosantana.com.br/turismo"/>
+  <meta property="og:image" content="https://www.julianosantana.com.br/assets/hero-bg.jpg"/>
+
+  <!-- Fonts & CSS do site principal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/style.css"/>
+
+  <style>
+    /* ── TURISMO PAGE — EXTRAS ────────────────────────────── */
+
+    /* Banner volta ao site principal */
+    .turismo-banner {
+      background: rgba(28,58,42,0.95);
+      text-align: center;
+      padding: 0.55rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(245,240,232,0.65);
+      letter-spacing: 0.04em;
+    }
+    .turismo-banner a {
+      color: var(--areia, #C49A6C);
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.2s;
+    }
+    .turismo-banner a:hover { color: #fff; }
+
+    /* Palestras grid */
+    .palestras-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 900px) { .palestras-grid { grid-template-columns: 1fr; } }
+
+    .palestra-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 2px 20px rgba(28,58,42,0.07);
+      border-top: 4px solid var(--verde-escuro, #1C3A2A);
+      transition: box-shadow 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .palestra-card:hover {
+      box-shadow: 0 8px 40px rgba(28,58,42,0.14);
+      transform: translateY(-3px);
+    }
+    .palestra-num {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--areia, #C49A6C);
+      margin-bottom: 0.5rem;
+    }
+    .palestra-titulo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--verde-escuro, #1C3A2A);
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
+    }
+    .palestra-subtitulo {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--texto-medio, #5a6e62);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .palestra-desc {
+      font-size: 0.82rem;
+      color: var(--texto-medio, #5a6e62);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+    .palestra-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .palestra-tag {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(28,58,42,0.06);
+      color: var(--verde-escuro, #1C3A2A);
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+    }
+    .palestra-duracao {
+      font-size: 0.7rem;
+      color: rgba(28,58,42,0.4);
+      font-weight: 600;
+      margin-top: auto;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(28,58,42,0.07);
+    }
+
+    /* Para quem é — cards */
+    .para-quem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 900px) { .para-quem-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .para-quem-grid { grid-template-columns: 1fr; } }
+
+    .para-quem-item {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(28,58,42,0.1);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    .para-quem-icone {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .para-quem-nome {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--verde-escuro, #1C3A2A);
+      margin-bottom: 0.2rem;
+    }
+    .para-quem-desc {
+      font-size: 0.73rem;
+      color: var(--texto-medio, #5a6e62);
+      line-height: 1.5;
+    }
+
+    /* Credenciais rápidas */
+    .cred-faixa {
+      background: var(--verde-escuro, #1C3A2A);
+      padding: 3rem 0;
+    }
+    .cred-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      text-align: center;
+    }
+    @media (max-width: 900px) { .cred-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; } }
+    @media (max-width: 480px) { .cred-grid { grid-template-columns: 1fr 1fr; } }
+
+    .cred-item-num {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--areia, #C49A6C);
+      line-height: 1;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .cred-item-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(245,240,232,0.6);
+      letter-spacing: 0.06em;
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
+
+    /* CTA Palestra destaque */
+    .cta-palestra {
+      background: linear-gradient(135deg, #1C3A2A 0%, #2D5A3D 100%);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+    @media (max-width: 700px) {
+      .cta-palestra { grid-template-columns: 1fr; text-align: center; }
+      .cta-palestra-btns { justify-content: center; }
+    }
+    .cta-palestra-titulo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--creme, #F5F0E8);
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+    .cta-palestra-sub {
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.6;
+    }
+    .cta-palestra-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      min-width: 200px;
+    }
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #25D366;
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.02em;
+    }
+    .btn-wa:hover { background: #1fb855; transform: translateY(-2px); }
+    .btn-mapa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(196,154,108,0.15);
+      border: 1px solid rgba(196,154,108,0.4);
+      color: var(--areia, #C49A6C);
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .btn-mapa:hover { background: rgba(196,154,108,0.25); }
+    .btn-mentoria-turismo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(245,240,232,0.08);
+      border: 1px solid rgba(245,240,232,0.2);
+      color: rgba(245,240,232,0.8);
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .btn-mentoria-turismo:hover { background: rgba(245,240,232,0.14); }
+
+    /* Filosofia bloco turismo */
+    .filosofia-turismo {
+      background: linear-gradient(160deg, #122318 0%, #1C3A2A 60%, #2D5A3D 100%);
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .filosofia-turismo::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 60vmax;
+      height: 60vmax;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .filosofia-turismo .tag { background: rgba(196,154,108,0.15); color: var(--areia, #C49A6C); border: 1px solid rgba(196,154,108,0.3); }
+    .filosofia-turismo h2, .filosofia-turismo h2 em { color: var(--creme, #F5F0E8); }
+    .filosofia-turismo p { color: rgba(245,240,232,0.7); }
+
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 700px) { .ft-grid { grid-template-columns: 1fr; } }
+
+    .ft-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 1.8rem;
+    }
+    .ft-card-titulo {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--areia, #C49A6C);
+      margin-bottom: 0.6rem;
+    }
+    .ft-card-desc {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.65;
+    }
+
+    /* Mentoria turismo */
+    .mentoria-turismo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .mentoria-turismo-grid { grid-template-columns: 1fr; } }
+
+    .mentoria-turismo-lista {
+      list-style: none;
+      padding: 0;
+      margin: 1.2rem 0;
+    }
+    .mentoria-turismo-lista li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(28,58,42,0.06);
+      font-size: 0.82rem;
+      color: var(--texto-medio, #5a6e62);
+      line-height: 1.5;
+    }
+    .mentoria-turismo-lista li:last-child { border-bottom: none; }
+    .mentoria-turismo-lista li::before {
+      content: '→';
+      color: var(--areia, #C49A6C);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mentoria-card-destaque {
+      background: var(--verde-escuro, #1C3A2A);
+      border-radius: 16px;
+      padding: 2rem;
+      color: var(--creme, #F5F0E8);
+    }
+    .mentoria-card-destaque h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      color: var(--creme, #F5F0E8);
+    }
+    .mentoria-card-destaque p {
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.7);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .mentoria-badge-turismo {
+      display: inline-block;
+      background: rgba(196,154,108,0.2);
+      border: 1px solid rgba(196,154,108,0.35);
+      color: var(--areia, #C49A6C);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Banner: volta ao site principal -->
+  <div class="turismo-banner">
+    <a href="/">← Voltar ao site principal</a>
+    julianosantana.com.br · Turismo & Palestras
+    <a href="#contato">Agendar agora →</a>
+  </div>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="logo">
+        Juliano <span>Sant'Ana</span>
+        <span class="logo-sub">Turismo</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#palestras">Palestras</a></li>
+        <li><a href="#para-quem">Para Quem</a></li>
+        <li><a href="#mentoria">Mentoria</a></li>
+        <li><a href="#marcas">Marcas</a></li>
+        <li><a href="#contato" class="nav-cta">Convidar para Palestra</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <nav class="nav-mobile" id="navMobile">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Fechar">✕</button>
+    <ul>
+      <li><a href="#palestras">Palestras</a></li>
+      <li><a href="#para-quem">Para Quem</a></li>
+      <li><a href="#mentoria">Mentoria</a></li>
+      <li><a href="#marcas">Marcas</a></li>
+      <li><a href="#contato">Convidar para Palestra</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <!-- 💡 FOTO: substitua assets/hero-bg.jpg pela foto de viagem/trilha
+       quando receber. A imagem deve ser usada no .hero-foto-bg como
+       background-image no style.css. -->
+  <section class="hero" id="inicio">
+    <div class="hero-foto-bg"></div>
+    <div class="hero-bg-folhas">
+      <div class="folha folha-1"></div>
+      <div class="folha folha-2"></div>
+      <div class="folha folha-3"></div>
+      <div class="textura-pontos"></div>
+    </div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="hero-linha"></div>
+          <span class="hero-tag">Palestrante · Estrategista · Especialista em Turismo</span>
+        </div>
+
+        <h1>
+          Juliano<br>
+          <span class="destaque">Sant'Ana</span>
+        </h1>
+
+        <p class="hero-tagline">37 países. 2.100km trilhados. 25 anos construindo negócios que resistem.</p>
+
+        <p class="hero-descricao">
+          Não falo de turismo da plateia — falo de dentro do campo.
+          Co-criador de operadora premiada globalmente. Vencedor do maior prêmio de inovação turística de SC.
+          Levo verdade, estratégia e vivência real para eventos e equipes do setor.
+        </p>
+
+        <div class="hero-botoes">
+          <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20convidar%20você%20para%20uma%20palestra%20no%20setor%20de%20turismo." target="_blank" class="btn btn-primario">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            Convidar para Palestra
+          </a>
+          <a href="https://mapadaverdade.com.br" target="_blank" class="btn btn-secundario">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Mapa da Verdade
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num" data-alvo="37">0</div>
+            <div class="hero-stat-txt">Países Visitados</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-alvo="2100" data-sufixo="km">0km</div>
+            <div class="hero-stat-txt">Trilhados em 2023</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-alvo="25" data-sufixo="+">0+</div>
+            <div class="hero-stat-txt">Anos de Estratégia</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-alvo="1" data-sufixo="º">0º</div>
+            <div class="hero-stat-txt">Lugar Inovação SC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>scroll</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CREDENCIAIS RÁPIDAS
+       ============================================================ -->
+  <div class="cred-faixa">
+    <div class="container">
+      <div class="cred-grid">
+        <div>
+          <div class="cred-item-num">1º</div>
+          <div class="cred-item-label">Prêmio DISRUPTUR<br>Inovação Turismo SC · 2020</div>
+        </div>
+        <div>
+          <div class="cred-item-num">Top 10%</div>
+          <div class="cred-item-label">TripAdvisor · Melhores<br>Operadoras do Planeta · 2025</div>
+        </div>
+        <div>
+          <div class="cred-item-num">37</div>
+          <div class="cred-item-label">Países visitados<br>em 5 continentes</div>
+        </div>
+        <div>
+          <div class="cred-item-num">6</div>
+          <div class="cred-item-label">Temas de palestra<br>para o setor turístico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PALESTRAS
+       ============================================================ -->
+  <section class="secao" id="palestras">
+    <div class="container">
+      <div class="animar" style="text-align:center;">
+        <span class="tag">Temas de Palestra</span>
+        <div class="divisor centro"></div>
+        <h2>Conteúdo que o turismo<br><em>precisa ouvir de verdade</em></h2>
+        <p style="max-width:620px;margin:1rem auto 0;color:var(--texto-medio);">
+          Cada tema nasceu de vivência real — não de sala de aula. São palestras para eventos,
+          convenções de equipes, feiras do trade, secretarias e summits do setor.
+        </p>
+      </div>
+
+      <div class="palestras-grid">
+
+        <!-- 1 -->
+        <div class="palestra-card animar animar-delay-1">
+          <div class="palestra-num">Palestra 01</div>
+          <h3 class="palestra-titulo">Experiências que Vendem</h3>
+          <p class="palestra-subtitulo">Os 5 olhares estratégicos para criar produtos turísticos que as pessoas precisam contar</p>
+          <p class="palestra-desc">
+            O turismo não vende passagens nem diárias — vende memória. Mas a maioria dos produtos turísticos
+            é criada com o olhar de quem vende, não de quem compra. Nesta palestra, Juliano apresenta os
+            5 olhares estratégicos para criar experiências que o cliente não só compra, mas precisa
+            contar para todo mundo. Da imersão no destino à roteirização com marketing: como transformar
+            atrativos em produtos inesquecíveis.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Produtos turísticos</span>
+            <span class="palestra-tag">Experiência do cliente</span>
+            <span class="palestra-tag">Marketing de destino</span>
+          </div>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="palestra-card animar animar-delay-2">
+          <div class="palestra-num">Palestra 02</div>
+          <h3 class="palestra-titulo">Meta é Destino</h3>
+          <p class="palestra-subtitulo">Como construir uma equipe de turismo que realmente chega lá</p>
+          <p class="palestra-desc">
+            Toda equipe de turismo sabe o que é meta. Poucos sabem como chegar até ela. Nesta palestra,
+            Juliano usa a analogia da trilha para falar sobre performance comercial, liderança em
+            temporada e o que diferencia equipes que chegam ao topo das que ficam no base camp.
+            Vendas no turismo não é sobre técnica — é sobre rota, preparo e consistência quando
+            o terreno fica difícil.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Vendas</span>
+            <span class="palestra-tag">Equipe comercial</span>
+            <span class="palestra-tag">Liderança em temporada</span>
+          </div>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="palestra-card animar animar-delay-3">
+          <div class="palestra-num">Palestra 03</div>
+          <h3 class="palestra-titulo">A Bússola do Turismo Moderno</h3>
+          <p class="palestra-subtitulo">Posicionamento, propósito e verdade no mercado que mais cresce no Brasil</p>
+          <p class="palestra-desc">
+            O turismo mudou. O viajante mudou. O consumidor de experiências de 2025 não é o mesmo
+            de 2015 — e quem não atualizou sua bússola estratégica está navegando pelo mapa errado.
+            Nesta palestra, Juliano apresenta como destinos, operadoras e agências constroem
+            posicionamento real em um mercado saturado de promessas e escasso em diferenciação genuína.
+            Posicionamento não é slogan — é a soma de tudo que você entrega.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Posicionamento</span>
+            <span class="palestra-tag">Estratégia de marca</span>
+            <span class="palestra-tag">Mercado atual</span>
+          </div>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="palestra-card animar animar-delay-4">
+          <div class="palestra-num">Palestra 04</div>
+          <h3 class="palestra-titulo">Roteirizar é um Ato de Coragem</h3>
+          <p class="palestra-subtitulo">Como criar destinos, produtos e experiências com olhar de marketing e alma de viajante</p>
+          <p class="palestra-desc">
+            Criar roteiros turísticos com olhar de consumidor — de quem realmente compra — é uma das
+            habilidades mais raras e mais valiosas do setor. Nesta palestra, Juliano compartilha sua
+            metodologia de imersão: conhecer a comunidade, perceber a natureza local, degustar a cultura
+            e construir produtos turísticos que são extremamente desejáveis. Para poder público, DMOs,
+            secretarias e operadoras que querem criar algo inovador e verdadeiro.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Roteirização</span>
+            <span class="palestra-tag">Destinos turísticos</span>
+            <span class="palestra-tag">DMOs · Poder público</span>
+          </div>
+          <div class="palestra-duracao">⏱ 1h · 1h30 · Workshop meio-dia</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="palestra-card animar animar-delay-1">
+          <div class="palestra-num">Palestra 05</div>
+          <h3 class="palestra-titulo">AÇÃO & REAÇÃO no Turismo</h3>
+          <p class="palestra-subtitulo">Como empresas do setor navegam sazonalidade, crises e transformação com filosofia, não com improviso</p>
+          <p class="palestra-desc">
+            O turismo é um dos setores que mais exige REAÇÃO — sazonalidade, crises, pandemias,
+            mudanças de comportamento. Mas também é o setor onde quem age primeiro, com rota definida,
+            colhe mais. Nesta palestra, Juliano apresenta sua filosofia AÇÃO & REAÇÃO aplicada ao
+            turismo: como empresas resilientes do setor constroem resultados consistentes sem depender
+            de circunstâncias favoráveis.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Resiliência</span>
+            <span class="palestra-tag">Sazonalidade</span>
+            <span class="palestra-tag">Filosofia de negócio</span>
+          </div>
+          <div class="palestra-duracao">⏱ 45min · 1h · 1h30 — adaptável ao evento</div>
+        </div>
+
+        <!-- 6 -->
+        <div class="palestra-card animar animar-delay-2">
+          <div class="palestra-num">Palestra 06</div>
+          <h3 class="palestra-titulo">O Diagnóstico que Seu Destino Precisa Ouvir</h3>
+          <p class="palestra-subtitulo">Verdade, rota e estratégia para quem quer sair do lugar de verdade no turismo</p>
+          <p class="palestra-desc">
+            A maioria dos destinos e produtos turísticos não tem falta de potencial — tem falta de
+            diagnóstico honesto. Nesta palestra, Juliano apresenta como fazer uma leitura real do
+            negócio, do destino ou do produto: onde está, por que não chegou onde deveria, e qual é
+            a rota real para chegar lá. Conecta com o Mapa da Verdade — a IA treinada com sua
+            filosofia de 25 anos de campo.
+          </p>
+          <div class="palestra-tags">
+            <span class="palestra-tag">Diagnóstico estratégico</span>
+            <span class="palestra-tag">Clareza de rota</span>
+            <span class="palestra-tag">IA + Turismo</span>
+          </div>
+          <div class="palestra-duracao">⏱ 45min · 1h · com dinâmica ao vivo</div>
+        </div>
+
+      </div>
+
+      <!-- CTA Palestra -->
+      <div class="cta-palestra animar">
+        <div>
+          <h3 class="cta-palestra-titulo">Leve uma dessas palestras<br>para o seu evento</h3>
+          <p class="cta-palestra-sub">
+            Feiras do trade, summits, convenções de equipe, eventos de secretaria,
+            ABAV, WTM Brasil — todos os formatos são adaptáveis.
+            Disponível para todo o Brasil.
+          </p>
+        </div>
+        <div class="cta-palestra-btns">
+          <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20convidar%20você%20para%20uma%20palestra%20no%20setor%20de%20turismo." target="_blank" class="btn-wa">
+            📱 Convidar pelo WhatsApp
+          </a>
+          <a href="mailto:marketing@julianosantana.com.br?subject=Convite%20Palestra%20Turismo" class="btn-mentoria-turismo">
+            ✉️ Enviar convite por e-mail
+          </a>
+          <a href="https://mapadaverdade.com.br" target="_blank" class="btn-mapa">
+            🗺️ Mapa da Verdade
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PARA QUEM É
+       ============================================================ -->
+  <section class="secao" id="para-quem" style="background: var(--creme);">
+    <div class="container">
+      <div class="animar" style="text-align:center;">
+        <span class="tag">Público</span>
+        <div class="divisor centro"></div>
+        <h2>Para quem Juliano<br><em>fala e trabalha</em></h2>
+      </div>
+
+      <div class="para-quem-grid">
+        <div class="para-quem-item animar">
+          <span class="para-quem-icone">🏨</span>
+          <div>
+            <div class="para-quem-nome">Hotéis & Resorts</div>
+            <div class="para-quem-desc">Equipes comerciais, de hospedagem e experiência do hóspede que querem performance acima da sazonalidade.</div>
+          </div>
+        </div>
+        <div class="para-quem-item animar animar-delay-1">
+          <span class="para-quem-icone">✈️</span>
+          <div>
+            <div class="para-quem-nome">Agências & Operadoras</div>
+            <div class="para-quem-desc">Times de vendas, atendimento e operação que precisam de estratégia real para um mercado em transformação constante.</div>
+          </div>
+        </div>
+        <div class="para-quem-item animar animar-delay-2">
+          <span class="para-quem-icone">🏛️</span>
+          <div>
+            <div class="para-quem-nome">Secretarias & DMOs</div>
+            <div class="para-quem-desc">Gestores públicos e privados de destinos que querem criar ou reposicionar produtos turísticos com consistência.</div>
+          </div>
+        </div>
+        <div class="para-quem-item animar animar-delay-3">
+          <span class="para-quem-icone">🎪</span>
+          <div>
+            <div class="para-quem-nome">Feiras & Summits</div>
+            <div class="para-quem-desc">ABAV, WTM Brasil, Festuris, Equipotel e eventos regionais do trade que buscam conteúdo com autoridade e vivência real.</div>
+          </div>
+        </div>
+        <div class="para-quem-item animar animar-delay-1">
+          <span class="para-quem-icone">🏔️</span>
+          <div>
+            <div class="para-quem-nome">Turismo de Natureza & Aventura</div>
+            <div class="para-quem-desc">Operadoras, guias e destinos de ecoturismo e aventura. Aqui Juliano fala de dentro — não da plateia.</div>
+          </div>
+        </div>
+        <div class="para-quem-item animar animar-delay-2">
+          <span class="para-quem-icone">🤝</span>
+          <div>
+            <div class="para-quem-nome">Entidades & Associações</div>
+            <div class="para-quem-desc">ABAV, ABIH, BRAZTOA, Sebrae Turismo, Senac e associações regionais que promovem capacitação e inovação no setor.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FILOSOFIA AÇÃO & REAÇÃO NO TURISMO
+       ============================================================ -->
+  <section class="filosofia-turismo">
+    <div class="container">
+      <div class="animar" style="text-align:center;">
+        <span class="tag">Filosofia</span>
+        <div class="divisor centro" style="background:rgba(196,154,108,0.4);"></div>
+        <h2>AÇÃO & REAÇÃO<br><em>não é método. É filosofia.</em></h2>
+        <p style="max-width:580px;margin:1rem auto 0;">
+          No turismo como nas montanhas: não existe terreno perfeito. O que existe é quem
+          tem rota e quem improvisa. Quem age com estratégia e quem reage com despreparo.
+        </p>
+      </div>
+
+      <div class="ft-grid">
+        <div class="ft-card animar animar-delay-1">
+          <div class="ft-card-titulo">⚡ AÇÃO no Turismo</div>
+          <div class="ft-card-desc">
+            É a atitude de criar um produto antes que o destino precise de crise para se reinventar.
+            É a verdade de dizer ao cliente que sua operação tem um problema de rota.
+            É a resiliência de funcionar bem na baixa temporada porque sua estratégia
+            não depende do verão. AÇÃO é quem define a trilha — não quem espera o mapa pronto.
+          </div>
+        </div>
+        <div class="ft-card animar animar-delay-2">
+          <div class="ft-card-titulo">🔄 REAÇÃO no Turismo</div>
+          <div class="ft-card-desc">
+            É a empatia de entender o que o viajante de 2025 realmente sente — não o de 2015.
+            É a confiança de manter sua proposta de valor quando o mercado entra em pânico.
+            É a fidelidade ao propósito do destino quando a pressão comercial quer te desvirtuar.
+            REAÇÃO é quem responde bem ao que o mercado traz — sem perder a rota.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MENTORIA
+       ============================================================ -->
+  <section class="secao" id="mentoria">
+    <div class="container">
+      <div class="animar" style="text-align:center;">
+        <span class="tag">Mentoria Individual</span>
+        <div class="divisor centro"></div>
+        <h2>Não só palestra.<br><em>Acompanhamento de verdade.</em></h2>
+      </div>
+
+      <div class="mentoria-turismo-grid">
+        <div class="animar">
+          <p style="color:var(--texto-medio);line-height:1.7;margin-bottom:1.2rem;">
+            Para líderes, empreendedores e gestores do setor turístico que precisam de mais do que
+            conteúdo inspiracional — precisam de rota. A mentoria é um processo direto, sem enrolação,
+            com diagnóstico honesto e acompanhamento estratégico real.
+          </p>
+          <ul class="mentoria-turismo-lista">
+            <li>Diagnóstico estratégico do seu negócio ou destino</li>
+            <li>Posicionamento e diferenciação no mercado</li>
+            <li>Criação ou reposicionamento de produtos turísticos</li>
+            <li>Estratégia comercial e de marketing para o setor</li>
+            <li>Liderança de equipes em ambiente de sazonalidade</li>
+            <li>Acesso ao Mapa da Verdade — IA com filosofia Ação & Reação</li>
+          </ul>
+          <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Tenho%20interesse%20em%20mentoria%20para%20meu%20negócio%20de%20turismo." target="_blank" class="btn btn-primario" style="display:inline-flex;margin-top:0.5rem;">
+            Quero ser mentorado →
+          </a>
+        </div>
+
+        <div class="mentoria-card-destaque animar animar-delay-2">
+          <span class="mentoria-badge-turismo">Plataforma IA · Turismo</span>
+          <h3>Mapa da Verdade</h3>
+          <p>
+            IA treinada com 25 anos de estratégia e vivência de campo de Juliano Sant'Ana.
+            Para gestores do turismo que querem acompanhamento estratégico contínuo
+            com diagnóstico honesto, clareza de rota e decisão baseada em verdade — não em achismo.
+          </p>
+          <a href="https://mapadaverdade.com.br" target="_blank" class="btn btn-areia" style="display:inline-flex;">
+            Conhecer o Mapa da Verdade →
+          </a>
+        </div>
+      </div>
+
+      <!-- Sessão Express -->
+      <div class="express-faixa animar" style="margin-top:2.5rem;">
+        <div class="express-faixa-esq">
+          <span class="express-faixa-label">PRIMEIRO PASSO</span>
+          <h3 class="express-faixa-titulo">Sessão Express — Diagnóstico Turismo</h3>
+          <p class="express-faixa-desc">
+            Duas sessões de diagnóstico direto para negócios do setor turístico.
+            Sem compromisso de mentoria longa. Ideal para quem quer clareza antes de decidir a rota.
+          </p>
+        </div>
+        <div class="express-faixa-dir">
+          <span class="express-faixa-preco">2× R$95</span>
+          <a href="https://wa.me/5547984079480?text=Quero%20agendar%20uma%20sessão%20express%20de%20diagnóstico%20turismo." target="_blank" class="btn btn-areia">
+            Agendar sessão avulsa
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRÊMIOS & MARCAS DO TURISMO
+       ============================================================ -->
+  <section class="secao depoimentos" id="marcas" style="background:var(--creme);">
+    <div class="container">
+      <div class="depoimentos-header animar">
+        <span class="tag">Autoridade no Setor</span>
+        <div class="divisor centro"></div>
+        <h2>Prêmios e marcas que<br><em>validam o caminho no turismo</em></h2>
+      </div>
+
+      <!-- PRÊMIO DISRUPTUR -->
+      <div class="premio-card animar">
+        <div class="premio-icone-wrap">
+          <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z"/>
+          </svg>
+          <span class="premio-ano">2020</span>
+        </div>
+        <div class="premio-conteudo">
+          <span class="premio-tag-label">PRÊMIO DISRUPTUR · FECOMERCIO SC</span>
+          <h3 class="premio-titulo">1º lugar em Inovação no Turismo Catarinense</h3>
+          <p class="premio-descricao">
+            Desenvolveu e apresentou o projeto vencedor representando o Vale Europeu Catarinense:
+            um aplicativo de segurança para turistas com gamification e reputação colaborativa,
+            criado durante a pandemia COVID-19 para reativar o fluxo turístico regional.
+            Premiado entre todas as regiões turísticas de Santa Catarina.
+          </p>
+          <div class="premio-links">
+            <a href="https://www.youtube.com/watch?v=tUwZwPb-HSg" target="_blank" rel="noopener" class="premio-link">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+              Ver apresentação premiada
+            </a>
+            <a href="https://www.fecomercio-sc.com.br/noticias/disruptur-premia-melhores-solucoes-para-fomentar-turismo-catarinense" target="_blank" rel="noopener" class="premio-link">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Matéria jornalística
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRÊMIO TRIPADVISOR -->
+      <div class="premio-card animar" style="border-left-color: #00AA6C;">
+        <div class="premio-icone-wrap" style="background: #00AA6C;">
+          <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+          </svg>
+          <span class="premio-ano">2025</span>
+        </div>
+        <div class="premio-conteudo">
+          <span class="premio-tag-label" style="color:#00AA6C;">TRIPADVISOR · PRÊMIO DE EXCELÊNCIA GLOBAL</span>
+          <h3 class="premio-titulo">Top 10% melhores operadoras de turismo do planeta</h3>
+          <p class="premio-descricao">
+            A TARGET Trekking Tours (hoje AONIK Turismo de Natureza), operadora de turismo de
+            natureza co-criada por Juliano, foi reconhecida pelo TripAdvisor como referência mundial
+            no segmento de trekking — consolidando o modelo de operação desenvolvido ao longo de anos
+            no campo entre as melhores do planeta.
+          </p>
+          <div class="premio-links">
+            <a href="https://aonik.com.br/" target="_blank" rel="noopener" class="premio-link" style="color:#00AA6C;">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Conhecer a Aonik
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MARCAS DO TURISMO -->
+      <div class="marcas-secao animar">
+        <p class="marcas-subtitulo">Marcas do turismo que caminharam comigo</p>
+        <div class="marcas-grid">
+          <a href="https://www.turismoblumenau.com.br/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Turismo Blumenau</span>
+            <span class="marca-local">Blumenau, SC</span>
+          </a>
+          <a href="https://oktoberfestblumenau.com.br/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Oktoberfest Blumenau</span>
+            <span class="marca-local">Blumenau, SC</span>
+          </a>
+          <a href="https://valeeuropeucatarinense.com.br/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Vale Europeu Catarinense</span>
+            <span class="marca-local">12 municípios, SC</span>
+          </a>
+          <a href="https://turismo.indaial.sc.gov.br/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Turismo Indaial</span>
+            <span class="marca-local">Indaial, SC</span>
+          </a>
+          <a href="https://aonik.com.br/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Aonik Turismo de Natureza</span>
+            <span class="marca-local">Brasil / Portugal</span>
+          </a>
+          <a href="https://losviajeros.com.br/index.html" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">Los Viajeros</span>
+            <span class="marca-local">São Paulo, SP / Chile</span>
+          </a>
+          <a href="https://portugalntnwalking.com/" target="_blank" rel="noopener" class="marca-card">
+            <span class="marca-nome">PortugalNTN Walking</span>
+            <span class="marca-local">Mirandela, Portugal</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTATO
+       ============================================================ -->
+  <section class="secao contato" id="contato">
+    <div class="contato-bg"></div>
+    <div class="container">
+      <div class="contato-grid">
+        <div class="contato-texto animar">
+          <span class="tag">Vamos Conversar</span>
+          <div class="divisor"></div>
+          <h2>O primeiro passo é uma <em>conversa honesta</em></h2>
+          <p>
+            Seja para uma palestra no seu evento, uma mentoria para o seu negócio de turismo
+            ou um projeto de roteirização — começa sempre com verdade.
+            Nenhuma rota é traçada sem diagnóstico.
+          </p>
+
+          <div class="contato-opcoes">
+            <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20convidar%20você%20para%20uma%20palestra%20no%20setor%20de%20turismo." target="_blank" class="contato-opcao">
+              <span class="contato-icone">📱</span>
+              Convidar para Palestra · WhatsApp
+            </a>
+            <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Tenho%20interesse%20em%20mentoria%20para%20meu%20negócio%20de%20turismo." target="_blank" class="contato-opcao">
+              <span class="contato-icone">🎯</span>
+              Solicitar Mentoria · WhatsApp
+            </a>
+            <a href="mailto:marketing@julianosantana.com.br" class="contato-opcao">
+              <span class="contato-icone">✉️</span>
+              marketing@julianosantana.com.br
+            </a>
+            <a href="https://www.instagram.com/julianopsantana" target="_blank" class="contato-opcao">
+              <span class="contato-icone">📸</span>
+              @julianopsantana
+            </a>
+            <a href="https://www.linkedin.com/in/julianopsantana/" target="_blank" class="contato-opcao">
+              <span class="contato-icone">💼</span>
+              LinkedIn · Juliano Sant'Ana
+            </a>
+          </div>
+        </div>
+
+        <div class="animar animar-delay-2">
+          <div class="contato-form">
+            <h3 class="form-titulo">Convite ou Consulta</h3>
+            <form id="formContato" action="https://formspree.io/f/mrejdrqv" method="POST">
+              <input type="hidden" name="_origem" value="turismo" />
+              <div class="form-grupo">
+                <label>Seu Nome</label>
+                <input type="text" name="nome" placeholder="Como te chamo?" required />
+              </div>
+              <div class="form-grupo">
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="seu@email.com" required />
+              </div>
+              <div class="form-grupo">
+                <label>Empresa / Evento / Destino</label>
+                <input type="text" name="negocio" placeholder="Ex: feira de turismo, operadora, secretaria..." />
+              </div>
+              <div class="form-grupo">
+                <label>O que você precisa?</label>
+                <select name="servico">
+                  <option value="">Selecione...</option>
+                  <option>Palestra em evento de turismo</option>
+                  <option>Treinamento de equipe</option>
+                  <option>Mentoria Individual — Turismo</option>
+                  <option>Consultoria de Produto / Roteiro</option>
+                  <option>Sessão Express de Diagnóstico</option>
+                  <option>Mapa da Verdade</option>
+                  <option>Ainda não sei — quero conversar</option>
+                </select>
+              </div>
+              <div class="form-grupo">
+                <label>Contexto (opcional)</label>
+                <textarea name="contexto" placeholder="Conta um pouco sobre o evento, o negócio ou o desafio que você está enfrentando..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primario" style="width:100%;justify-content:center;font-size:1rem;">
+                Enviar →
+              </button>
+            </form>
+
+            <div class="form-sucesso" id="formSucesso">
+              <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h3>Mensagem enviada!</h3>
+              <p>Juliano vai entrar em contato em breve. Enquanto isso, conheça o Mapa da Verdade.</p>
+              <a href="https://mapadaverdade.com.br" target="_blank" class="btn btn-verde" style="margin-top:1.5rem;">
+                Acessar o Mapa da Verdade
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape-grid">
+        <div class="rodape-marca">
+          <div class="rodape-logo">Juliano <span>Sant'Ana</span></div>
+          <p class="rodape-desc">
+            Palestrante, Estrategista e Mentor especializado no setor turístico.
+            37 países. 2.100km trilhados. 25 anos de campo.
+          </p>
+          <div class="rodape-social">
+            <a href="https://instagram.com/julianopsantana" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/julianopsantana/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="rodape-titulo-col">Palestras</h4>
+          <ul class="rodape-links">
+            <li><a href="#palestras">Experiências que Vendem</a></li>
+            <li><a href="#palestras">Meta é Destino</a></li>
+            <li><a href="#palestras">A Bússola do Turismo Moderno</a></li>
+            <li><a href="#palestras">Roteirizar é um Ato de Coragem</a></li>
+            <li><a href="#palestras">AÇÃO & REAÇÃO no Turismo</a></li>
+            <li><a href="#palestras">O Diagnóstico que Seu Destino Precisa Ouvir</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="rodape-titulo-col">Links</h4>
+          <ul class="rodape-links">
+            <li><a href="/">Site principal</a></li>
+            <li><a href="https://mapadaverdade.com.br" target="_blank">Mapa da Verdade</a></li>
+            <li><a href="#mentoria">Mentoria</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="https://wa.me/5547984079480" target="_blank">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="rodape-bottom">
+        <p>© 2025 Juliano Sant'Ana · <a href="/">julianosantana.com.br</a> · Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Smooth scroll para âncoras com offset do navbar
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        const offset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+        // Fecha mobile nav se aberto
+        document.getElementById('navMobile')?.classList.remove('aberto');
+      });
+    });
+  </script>
+</body>
+</html>
