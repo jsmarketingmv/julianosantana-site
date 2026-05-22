@@ -437,62 +437,101 @@
     .fundador-credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
     .cred-chip { font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); }
 
-    /* Bloco AÇÃO & REAÇÃO no fundador */
+    /* Bloco AÇÃO & REAÇÃO no fundador — expandido */
     .ar-bloco {
-      background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08));
+      background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.07));
       border: 1px solid rgba(168,85,247,0.2);
-      border-radius: 16px;
-      padding: 1.8rem 2rem;
+      border-radius: 20px;
+      padding: 2rem 2.2rem;
       position: relative;
       overflow: hidden;
-      max-width: 560px;
     }
     .ar-bloco::before {
       content: 'AÇÃO & REAÇÃO';
       position: absolute;
-      font-size: 4rem;
-      font-weight: 900;
-      letter-spacing: -0.04em;
+      font-size: 5rem; font-weight: 900; letter-spacing: -0.04em;
       white-space: nowrap;
       background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.06;
-      top: 50%; right: -20px;
-      transform: translateY(-50%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      opacity: 0.04; bottom: -1rem; right: -1rem;
       pointer-events: none;
     }
     .ar-bloco-tag {
       font-size: 0.65rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--grad-b); margin-bottom: 0.8rem;
+      color: var(--grad-b); margin-bottom: 0.7rem;
       display: flex; align-items: center; gap: 0.5rem;
     }
-    .ar-bloco-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--grad-b); }
+    .ar-bloco-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--grad-b); flex-shrink:0; }
     .ar-bloco-titulo {
-      font-size: 1.1rem; font-weight: 900; letter-spacing: -0.02em;
-      margin-bottom: 0.8rem;
+      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
       background: linear-gradient(135deg, #fff, var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .ar-bloco-nao-metodo {
-      font-size: 0.78rem; font-weight: 700;
-      color: rgba(168,85,247,0.8);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
+      font-size: 0.72rem; font-weight: 700; color: rgba(168,85,247,0.75);
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem;
     }
-    .ar-bloco-texto {
-      font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.8;
+    .ar-bloco-intro {
+      font-size: 0.85rem; color: rgba(255,255,255,0.48); line-height: 1.75;
+      margin-bottom: 1.6rem; font-style: italic;
     }
+
+    /* Dois lados: AÇÃO | REAÇÃO */
+    .ar-lados {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-bottom: 1.4rem;
+    }
+    @media (max-width: 600px) { .ar-lados { grid-template-columns: 1fr; } }
+
+    .ar-lado {
+      border-radius: 14px;
+      padding: 1.2rem 1.1rem;
+    }
+    .ar-lado-acao {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+    .ar-lado-reacao {
+      background: rgba(168,85,247,0.08);
+      border: 1px solid rgba(168,85,247,0.2);
+    }
+    .ar-lado-titulo {
+      font-size: 0.92rem; font-weight: 900; letter-spacing: 0.04em;
+      margin-bottom: 0.2rem;
+    }
+    .ar-lado-acao .ar-lado-titulo { color: #818CF8; }
+    .ar-lado-reacao .ar-lado-titulo { color: #C084FC; }
+    .ar-lado-sub {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 0.25rem;
+    }
+    .ar-lado-desc {
+      font-size: 0.68rem; color: rgba(255,255,255,0.35);
+      font-style: italic; margin-bottom: 1rem; line-height: 1.4;
+    }
+    .ar-principios { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .ar-principio-item { display: flex; align-items: flex-start; gap: 0.5rem; }
+    .ar-principio-num {
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em;
+      color: var(--item-cor, rgba(129,140,248,0.6));
+      min-width: 16px; margin-top: 0.1rem; flex-shrink: 0;
+    }
+    .ar-principio-corpo {}
+    .ar-principio-nome {
+      font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.75);
+      line-height: 1.3; margin-bottom: 0.15rem;
+    }
+    .ar-principio-txt {
+      font-size: 0.68rem; color: rgba(255,255,255,0.38); line-height: 1.5;
+    }
+
     .ar-bloco-colhe {
-      margin-top: 0.9rem;
-      font-size: 0.88rem; font-weight: 700;
-      font-style: italic;
+      font-size: 0.9rem; font-weight: 700; font-style: italic;
       background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-align: center; padding-top: 0.4rem;
+      border-top: 1px solid rgba(168,85,247,0.12);
     }
 
     /* ── CTA ──────────────────────────────────────────── */
@@ -891,20 +930,94 @@
             <span class="cred-chip">Blumenau, SC</span>
           </div>
 
-          <!-- Bloco AÇÃO & REAÇÃO -->
+          <!-- Bloco AÇÃO & REAÇÃO expandido -->
           <div class="ar-bloco">
             <div class="ar-bloco-tag">A Filosofia</div>
             <h3 class="ar-bloco-titulo">AÇÃO &amp; REAÇÃO</h3>
             <div class="ar-bloco-nao-metodo">Não é um método. Não é uma técnica.</div>
-            <p class="ar-bloco-texto">
-              No mundo saturado de métodos e frameworks, Juliano se conduz por uma filosofia —
-              recheada de princípios e valores nas relações humanas. Uma forma de enxergar
-              o mundo que atravessa negócios, estratégia e vida.
+            <p class="ar-bloco-intro">
+              É a forma como conduzo minha vida, minha carreira e o caminho de quem
+              escolhe caminhar comigo.
             </p>
-            <p class="ar-bloco-texto" style="margin-top: 0.6rem;">
-              Cada entrega, cada projeto, cada parceria reflete essa verdade:
-              nos negócios e na vida, as relações têm peso e consequência.
-            </p>
+
+            <div class="ar-lados">
+
+              <!-- AÇÃO -->
+              <div class="ar-lado ar-lado-acao">
+                <div class="ar-lado-titulo">AÇÃO</div>
+                <div class="ar-lado-sub">(Atitude, Verdade e Resiliência)</div>
+                <div class="ar-lado-desc">O que você provoca no mundo</div>
+                <ul class="ar-principios">
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">01</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Diagnóstico Honesto</div>
+                      <div class="ar-principio-txt">Sem enrolação. A verdade do cenário — mesmo que doa.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">02</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Atitude Proativa</div>
+                      <div class="ar-principio-txt">Ação imperfeita bate inércia elegante.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">03</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Resiliência na Execução</div>
+                      <div class="ar-principio-txt">Quem vai longe é quem continua.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">04</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Sem Promessas Vazias</div>
+                      <div class="ar-principio-txt">Vendo rotas. Com metas reais e resultados reais.</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- REAÇÃO -->
+              <div class="ar-lado ar-lado-reacao">
+                <div class="ar-lado-titulo">REAÇÃO</div>
+                <div class="ar-lado-sub">(Empatia, Confiança e Fidelidade)</div>
+                <div class="ar-lado-desc">O que o mundo devolve pra você</div>
+                <ul class="ar-principios">
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">01</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Empatia com o Mercado</div>
+                      <div class="ar-principio-txt">Entender quem compra, por que compra. Isso muda tudo.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">02</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Confiança Construída</div>
+                      <div class="ar-principio-txt">Nasce de entrega consistente ao longo do tempo.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">03</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Fidelidade ao Resultado</div>
+                      <div class="ar-principio-txt">O compromisso é com o resultado que o cliente precisa.</div>
+                    </div>
+                  </li>
+                  <li class="ar-principio-item">
+                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">04</span>
+                    <div class="ar-principio-corpo">
+                      <div class="ar-principio-nome">Verdade na Rota</div>
+                      <div class="ar-principio-txt">Resultado vem com ação, constância e verdade. Sempre foi assim.</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+            </div><!-- /ar-lados -->
+
             <p class="ar-bloco-colhe">"Aqui se colhe o que se planta."</p>
           </div>
         </div>
