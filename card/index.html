@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juliano Sant'Ana — Cartão Digital</title>
+  <meta name="description" content="Cartão digital de Juliano Sant'Ana — Estrategista, Palestrante e Mentor. Fundador do CRYIA HUB." />
+  <meta property="og:title" content="Juliano Sant'Ana — Cartão Digital" />
+  <meta property="og:description" content="Salve o contato de Juliano Sant'Ana no seu celular." />
+  <meta property="og:image" content="/assets/foto-juliano.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+  <!-- QR Code library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --bg:      #07090F;
+      --bg2:     #0D1117;
+      --border:  rgba(255,255,255,0.08);
+      --text:    rgba(255,255,255,0.88);
+      --dim:     rgba(255,255,255,0.42);
+      --grad-a:  #6366F1;
+      --grad-b:  #A855F7;
+      --grad-c:  #06B6D4;
+      --green:   #25D366;
+      --t:       0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem 1rem;
+      position: relative; overflow-x: hidden;
+    }
+
+    /* Orbs */
+    .orb { position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 500px; height: 500px; background: var(--grad-a); top: -150px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: var(--grad-b); bottom: -100px; right: -80px; }
+
+    /* ── CARD CONTAINER ─── */
+    .cartao {
+      width: 100%; max-width: 400px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── FRENTE DO CARTÃO ─── */
+    .card-frente {
+      background: linear-gradient(145deg, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.08) 50%, rgba(6,182,212,0.06) 100%);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.1);
+      margin-bottom: 1rem;
+    }
+
+    /* Header com foto e gradiente */
+    .card-header {
+      position: relative;
+      background: linear-gradient(135deg, rgba(99,102,241,0.25) 0%, rgba(168,85,247,0.2) 100%);
+      padding: 2.5rem 2rem 1.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: 'CRYIA';
+      position: absolute; top: -10px; right: -10px;
+      font-size: 5rem; font-weight: 900; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .card-foto-wrap {
+      position: relative; display: inline-block; margin-bottom: 1rem;
+    }
+    .card-foto {
+      width: 110px; height: 110px;
+      border-radius: 50%; object-fit: cover; object-position: center top;
+      display: block;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.5), 0 0 30px rgba(99,102,241,0.25);
+    }
+    .card-foto-ring {
+      position: absolute; inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b), var(--grad-c));
+      z-index: -1;
+      opacity: 0.7;
+    }
+    .card-badge {
+      position: absolute; bottom: 4px; right: 4px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; border: 2px solid var(--bg);
+    }
+
+    .card-nome {
+      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em;
+      color: #fff; margin-bottom: 0.2rem;
+    }
+    .card-nome span {
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 300;
+    }
+    .card-cargo {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--dim); margin-bottom: 0.8rem;
+    }
+
+    /* Tag CRYIA HUB */
+    .card-hub-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);
+      color: #818CF8; padding: 0.3rem 0.8rem; border-radius: 50px;
+    }
+    .card-hub-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--grad-a); }
+
+    /* ── CONTATOS ─── */
+    .card-body {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .contatos { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.8rem; }
+
+    .contato-item {
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all var(--t);
+    }
+    .contato-item:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(99,102,241,0.3);
+      transform: translateX(3px);
+    }
+    .contato-icone {
+      width: 34px; height: 34px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 0.95rem;
+    }
+    .contato-info { flex: 1; }
+    .contato-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); display: block; }
+    .contato-valor { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+
+    .ci-wa   .contato-icone { background: rgba(37,211,102,0.15); }
+    .ci-mail .contato-icone { background: rgba(99,102,241,0.15); }
+    .ci-site .contato-icone { background: rgba(6,182,212,0.15); }
+
+    /* ── BOTÃO SALVAR CONTATO ─── */
+    .btn-salvar {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      color: #fff; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: all var(--t);
+      box-shadow: 0 8px 30px rgba(99,102,241,0.35);
+      margin-bottom: 0.7rem;
+    }
+    .btn-salvar:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(99,102,241,0.5); }
+
+    .btn-wa-card {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      width: 100%;
+      padding: 0.85rem;
+      border-radius: 14px;
+      background: var(--green);
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      text-decoration: none;
+      transition: all var(--t);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.3);
+      margin-bottom: 1.5rem;
+    }
+    .btn-wa-card:hover { background: #1db954; transform: translateY(-2px); }
+
+    /* ── DIVISOR ─── */
+    .divisor {
+      display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
+    }
+    .divisor-linha { flex: 1; height: 1px; background: var(--border); }
+    .divisor-txt { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+
+    /* ── QR CODE ─── */
+    .qr-section { text-align: center; }
+    .qr-titulo {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--dim); margin-bottom: 1rem;
+    }
+    .qr-wrap {
+      display: inline-block;
+      padding: 1rem;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      margin-bottom: 0.8rem;
+    }
+    #qrcode canvas, #qrcode img { display: block; border-radius: 8px; }
+    .qr-hint {
+      font-size: 0.68rem; color: var(--dim); line-height: 1.5;
+      max-width: 220px; margin: 0 auto;
+    }
+
+    /* ── REDES SOCIAIS ─── */
+    .social-row {
+      display: flex; justify-content: center; gap: 0.6rem;
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .soc-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dim); text-decoration: none;
+      transition: all var(--t);
+    }
+    .soc-btn:hover { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.35); color: #818CF8; transform: translateY(-2px); }
+
+    /* ── RODAPÉ ─── */
+    .rodape {
+      text-align: center; margin-top: 1.5rem;
+      font-size: 0.65rem; color: rgba(255,255,255,0.2);
+    }
+    .rodape a { color: rgba(99,102,241,0.5); text-decoration: none; }
+    .rodape a:hover { color: var(--grad-a); }
+
+    /* Pulse no btn salvar */
+    @keyframes pulse-btn {
+      0%, 100% { box-shadow: 0 8px 30px rgba(99,102,241,0.35); }
+      50%       { box-shadow: 0 8px 40px rgba(99,102,241,0.55), 0 0 0 4px rgba(99,102,241,0.1); }
+    }
+    .btn-salvar { animation: pulse-btn 2.5s ease-in-out infinite; }
+    .btn-salvar:hover { animation: none; }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+
+  <div class="cartao">
+
+    <!-- FRENTE DO CARTÃO -->
+    <div class="card-frente">
+
+      <!-- Header -->
+      <div class="card-header">
+        <div class="card-foto-wrap">
+          <div class="card-foto-ring"></div>
+          <img src="/assets/foto-juliano.jpg" alt="Juliano Sant'Ana" class="card-foto" />
+          <div class="card-badge">⚡</div>
+        </div>
+        <h1 class="card-nome">Juliano <span>Sant'Ana</span></h1>
+        <p class="card-cargo">Estrategista · Palestrante · Mentor</p>
+        <div class="card-hub-tag">Fundador · CRYIA HUB</div>
+      </div>
+
+      <!-- Body -->
+      <div class="card-body">
+
+        <!-- Contatos -->
+        <div class="contatos">
+          <a href="https://wa.me/5547984079480" target="_blank" rel="noopener" class="contato-item ci-wa">
+            <div class="contato-icone">
+              <svg width="17" height="17" fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="contato-info">
+              <span class="contato-label">WhatsApp</span>
+              <span class="contato-valor">+55 (47) 98407-9480</span>
+            </div>
+          </a>
+          <a href="mailto:marketing@julianosantana.com.br" class="contato-item ci-mail">
+            <div class="contato-icone">
+              <svg width="17" height="17" fill="#818CF8" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div class="contato-info">
+              <span class="contato-label">E-mail</span>
+              <span class="contato-valor">marketing@julianosantana.com.br</span>
+            </div>
+          </a>
+          <a href="https://www.julianosantana.com.br" target="_blank" rel="noopener" class="contato-item ci-site">
+            <div class="contato-icone">
+              <svg width="17" height="17" fill="#22D3EE" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22D3EE" stroke-width="2" fill="none"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke="#22D3EE" stroke-width="2" fill="none"/></svg>
+            </div>
+            <div class="contato-info">
+              <span class="contato-label">Site</span>
+              <span class="contato-valor">julianosantana.com.br</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Botão Salvar Contato -->
+        <a href="/assets/contact.vcf" download="Juliano_SantAna.vcf" class="btn-salvar">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Salvar Contato no Celular
+        </a>
+
+        <!-- WhatsApp direto -->
+        <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!" target="_blank" rel="noopener" class="btn-wa-card">
+          <svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar pelo WhatsApp
+        </a>
+
+        <!-- QR Code -->
+        <div class="divisor">
+          <div class="divisor-linha"></div>
+          <span class="divisor-txt">QR Code</span>
+          <div class="divisor-linha"></div>
+        </div>
+
+        <div class="qr-section">
+          <p class="qr-titulo">Aponte a câmera para acessar</p>
+          <div class="qr-wrap">
+            <div id="qrcode"></div>
+          </div>
+          <p class="qr-hint">Escaneia para acessar todos os links e salvar o contato</p>
+        </div>
+
+        <!-- Redes sociais -->
+        <div class="social-row">
+          <a href="https://instagram.com/julianopsantana" target="_blank" rel="noopener" class="soc-btn" title="Instagram">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://instagram.com/cryiahub" target="_blank" rel="noopener" class="soc-btn" title="Instagram CRYIA HUB" style="border-color:rgba(168,85,247,0.25);">
+            <span style="font-size:0.6rem;font-weight:900;letter-spacing:-0.02em;background:linear-gradient(135deg,#6366F1,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">CR</span>
+          </a>
+          <a href="https://www.linkedin.com/in/julianopsantana/" target="_blank" rel="noopener" class="soc-btn" title="LinkedIn">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@julianopsantana" target="_blank" rel="noopener" class="soc-btn" title="YouTube">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="/link" class="soc-btn" title="Todos os links">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          </a>
+        </div>
+
+      </div><!-- /card-body -->
+    </div><!-- /card-frente -->
+
+    <!-- Rodapé -->
+    <p class="rodape">
+      <a href="/cryia/">CRYIA HUB</a> · <a href="/link">Ver todos os links</a>
+    </p>
+
+  </div>
+
+  <script>
+    // Gera o QR Code apontando para a página /link
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://www.julianosantana.com.br/link',
+      width: 160,
+      height: 160,
+      colorDark: '#1a0a2e',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+
+</body>
+</html>
