@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRYIA HUB — Ecossistema Criativo e Estratégico</title>
+  <meta name="description" content="CRYIA HUB é o ecossistema criativo e estratégico que une Marketing, Turismo, Tecnologia, Mentorias e Empreendedorismo em uma visão única." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #07090F;
+      --bg-card:   rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.07);
+      --border-glow: rgba(99,102,241,0.35);
+      --text:      rgba(255,255,255,0.88);
+      --text-dim:  rgba(255,255,255,0.45);
+      --grad-a:    #6366F1;   /* indigo */
+      --grad-b:    #A855F7;   /* violet */
+      --grad-c:    #06B6D4;   /* cyan */
+      --gold:      #F59E0B;
+      --green:     #10B981;
+      --radius:    16px;
+      --transicao: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── FUNDO ANIMADO ─────────────────────────────────── */
+    .bg-orbs {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(100px); opacity: 0.12;
+      animation: orb-float 12s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: var(--grad-a); top: -200px; left: -100px; animation-duration: 14s; }
+    .orb-2 { width: 500px; height: 500px; background: var(--grad-b); bottom: -150px; right: -100px; animation-duration: 18s; animation-delay: -6s; }
+    .orb-3 { width: 350px; height: 350px; background: var(--grad-c); top: 40%; left: 50%; transform: translate(-50%,-50%); animation-duration: 10s; animation-delay: -3s; opacity: 0.07; }
+    @keyframes orb-float {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* ── LAYOUT ───────────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,3rem); position: relative; z-index: 1; }
+
+    /* ── NAVBAR ───────────────────────────────────────── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 0;
+      transition: background var(--transicao), backdrop-filter var(--transicao);
+    }
+    .navbar.scrolled {
+      background: rgba(7,9,15,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-cryia {
+      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b), var(--grad-c));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logo-cryia span { -webkit-text-fill-color: rgba(255,255,255,0.5); font-weight: 300; font-size: 0.9em; letter-spacing: 0.12em; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; transition: color var(--transicao); }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      font-size: 0.8rem; font-weight: 700; padding: 0.55rem 1.3rem;
+      border-radius: 50px; letter-spacing: 0.04em;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      color: #fff; transition: opacity var(--transicao), transform var(--transicao);
+    }
+    .btn-nav:hover { opacity: 0.88; transform: translateY(-1px); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: clamp(6rem,12vw,10rem) 0 clamp(4rem,8vw,7rem);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--grad-c);
+      background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);
+      padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 2rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--grad-c); }
+    .hero-titulo {
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 0.2rem;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 40%, var(--grad-b) 70%, var(--grad-a) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub-marca {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 300; color: var(--text-dim);
+      letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .hero-desc {
+      max-width: 620px; margin: 0 auto 2.5rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.85;
+    }
+    .hero-pilares {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    .pilar-chip {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.35rem 0.9rem; border-radius: 50px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      transition: border-color var(--transicao), color var(--transicao);
+    }
+    .pilar-chip:hover { border-color: var(--border-glow); color: var(--text); }
+    .pilar-chip.marketing  { border-color: rgba(99,102,241,0.3); color: #818CF8; }
+    .pilar-chip.turismo    { border-color: rgba(16,185,129,0.3); color: #34D399; }
+    .pilar-chip.tecnologia { border-color: rgba(6,182,212,0.3);  color: #22D3EE; }
+    .pilar-chip.mentoria   { border-color: rgba(245,158,11,0.3);  color: #FCD34D; }
+    .pilar-chip.empreend   { border-color: rgba(168,85,247,0.3);  color: #C084FC; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primario-cryia {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.2rem; border-radius: 50px;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      color: #fff; font-weight: 700; font-size: 0.9rem;
+      transition: all var(--transicao);
+      box-shadow: 0 0 30px rgba(99,102,241,0.3);
+    }
+    .btn-primario-cryia:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(99,102,241,0.5); }
+    .btn-outline-cryia {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2.2rem; border-radius: 50px;
+      border: 1px solid var(--border); color: var(--text-dim);
+      font-weight: 600; font-size: 0.9rem;
+      transition: all var(--transicao);
+    }
+    .btn-outline-cryia:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    /* ── MANIFESTO ─────────────────────────────────────── */
+    .secao { padding: clamp(5rem,10vw,8rem) 0; position: relative; z-index: 1; }
+    .manifesto {
+      background: rgba(255,255,255,0.015);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .manifesto-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    @media (max-width: 768px) { .manifesto-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .manifesto-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--grad-b); margin-bottom: 1.2rem;
+    }
+    .manifesto-titulo {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.02em; line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .manifesto-titulo em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.55); }
+    .manifesto-texto {
+      font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.9;
+    }
+    .manifesto-texto strong { color: var(--text); }
+    .manifesto-texto p + p { margin-top: 1rem; }
+    .manifesto-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      transition: border-color var(--transicao);
+    }
+    .stat-box:hover { border-color: var(--border-glow); }
+    .stat-num {
+      font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 0.4rem;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.06em; line-height: 1.4; }
+
+    /* ── PROJETOS ─────────────────────────────────────── */
+    .secao-titulo {
+      text-align: center; margin-bottom: 1rem;
+    }
+    .secao-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--grad-c); margin-bottom: 1rem;
+    }
+    .secao-h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.02em; line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+    .secao-h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.45); }
+    .secao-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 540px; margin: 0 auto 3rem; line-height: 1.8; }
+
+    .projetos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    @media (max-width: 900px) { .projetos-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .projetos-grid { grid-template-columns: 1fr; } }
+
+    .projeto-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      transition: all var(--transicao);
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      cursor: pointer;
+    }
+    .projeto-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--card-a, #6366F1), var(--card-b, #A855F7));
+      opacity: 0;
+      transition: opacity var(--transicao);
+    }
+    .projeto-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .projeto-card:hover::before { opacity: 0.06; }
+
+    .projeto-card.destaque-1 { --card-a: #6366F1; --card-b: #8B5CF6; }
+    .projeto-card.destaque-2 { --card-a: #10B981; --card-b: #06B6D4; }
+    .projeto-card.destaque-3 { --card-a: #A855F7; --card-b: #EC4899; }
+    .projeto-card.destaque-4 { --card-a: #F59E0B; --card-b: #EF4444; }
+    .projeto-card.destaque-5 { --card-a: #06B6D4; --card-b: #3B82F6; }
+
+    /* Card de destaque (span 2 cols) */
+    .projeto-card.wide { grid-column: span 2; }
+    @media (max-width: 900px) { .projeto-card.wide { grid-column: span 1; } }
+
+    .projeto-icone {
+      font-size: 2rem; margin-bottom: 1rem; position: relative; z-index: 1;
+    }
+    .projeto-categoria {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-dim);
+      margin-bottom: 0.5rem; position: relative; z-index: 1;
+    }
+    .projeto-nome {
+      font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em;
+      color: #fff; margin-bottom: 0.5rem; line-height: 1.25;
+      position: relative; z-index: 1;
+    }
+    .projeto-desc {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7;
+      flex: 1; margin-bottom: 1.2rem; position: relative; z-index: 1;
+    }
+    .projeto-tags {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+      margin-bottom: 1.2rem; position: relative; z-index: 1;
+    }
+    .projeto-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5); padding: 0.2rem 0.55rem; border-radius: 20px;
+    }
+    .projeto-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      transition: color var(--transicao), gap var(--transicao);
+      position: relative; z-index: 1;
+      text-decoration: none;
+    }
+    .projeto-card:hover .projeto-link { color: rgba(255,255,255,0.85); gap: 0.7rem; }
+
+    /* ── PILARES ──────────────────────────────────────── */
+    .pilares { background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pilares-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1rem; margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .pilares-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .pilares-grid { grid-template-columns: 1fr 1fr; } }
+    .pilar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+      transition: all var(--transicao);
+    }
+    .pilar-card:hover { border-color: var(--pilar-cor, var(--border-glow)); transform: translateY(-3px); }
+    .pilar-emoji { font-size: 1.8rem; margin-bottom: 0.7rem; }
+    .pilar-nome {
+      font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--pilar-cor, var(--text-dim)); margin-bottom: 0.4rem;
+    }
+    .pilar-mini { font-size: 0.7rem; color: var(--text-dim); line-height: 1.5; }
+
+    /* ── FUNDADOR ─────────────────────────────────────── */
+    .fundador-grid {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 4rem; align-items: center;
+    }
+    @media (max-width: 768px) { .fundador-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } }
+    .fundador-avatar {
+      width: 200px; height: 200px; border-radius: 24px; overflow: hidden;
+      border: 2px solid var(--border);
+      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; flex-shrink: 0;
+      position: relative;
+    }
+    .fundador-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+    .fundador-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grad-b); margin-bottom: 0.8rem; }
+    .fundador-nome { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .fundador-nome span { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .fundador-bio { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 1.5rem; max-width: 560px; }
+    .fundador-credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .cred-chip { font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); }
+
+    /* ── CTA ──────────────────────────────────────────── */
+    .cta-hub {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.08) 50%, rgba(6,182,212,0.06) 100%);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 28px;
+      padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4rem);
+      position: relative; overflow: hidden;
+    }
+    .cta-hub::before {
+      content: '';
+      position: absolute; inset: -1px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), transparent, rgba(168,85,247,0.15));
+      border-radius: 28px; z-index: 0;
+    }
+    .cta-hub > * { position: relative; z-index: 1; }
+    .cta-hub-titulo { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+    .cta-hub-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8; }
+    .cta-hub-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-wa-cryia {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem; border-radius: 50px;
+      background: #25D366; color: #fff;
+      font-weight: 800; font-size: 0.9rem;
+      transition: all var(--transicao);
+    }
+    .btn-wa-cryia:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.3); }
+    .btn-email-cryia {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem; border-radius: 50px;
+      border: 1px solid var(--border); color: var(--text-dim);
+      font-weight: 600; font-size: 0.9rem;
+      transition: all var(--transicao);
+    }
+    .btn-email-cryia:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    .footer-cryia {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      position: relative; z-index: 1;
+    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-copy { font-size: 0.78rem; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.78rem; color: var(--text-dim); transition: color var(--transicao); }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── ANIMAÇÕES ────────────────────────────────────── */
+    .animar {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .animar.visivel { opacity: 1; transform: translateY(0); }
+    .animar-delay-1 { transition-delay: 0.1s; }
+    .animar-delay-2 { transition-delay: 0.2s; }
+    .animar-delay-3 { transition-delay: 0.3s; }
+    .animar-delay-4 { transition-delay: 0.4s; }
+    .animar-delay-5 { transition-delay: 0.5s; }
+
+    /* Linha divisória estilo gradiente */
+    .linha-grad {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--grad-a), var(--grad-b), transparent);
+      margin: 0; opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fundo animado -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ══ NAVBAR ════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="logo-cryia">CRYIA <span>HUB</span></a>
+      <ul class="nav-links">
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#pilares">Pilares</a></li>
+        <li><a href="#fundador">Fundador</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a href="#contato" class="btn-nav">Entrar no Ecossistema</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════ -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="animar">
+        <div class="hero-eyebrow">Ecossistema Criativo e Estratégico</div>
+      </div>
+      <div class="animar animar-delay-1">
+        <h1 class="hero-titulo">CRYIA</h1>
+        <p class="hero-sub-marca">HUB</p>
+      </div>
+      <div class="animar animar-delay-2">
+        <p class="hero-desc">
+          Um ecossistema onde marketing, turismo, tecnologia, mentorias e empreendedorismo
+          convergem em uma visão estratégica única. Criado para quem não separa
+          negócio de propósito.
+        </p>
+      </div>
+      <div class="animar animar-delay-3">
+        <div class="hero-pilares">
+          <span class="pilar-chip marketing">Marketing</span>
+          <span class="pilar-chip turismo">Turismo</span>
+          <span class="pilar-chip tecnologia">Tecnologia</span>
+          <span class="pilar-chip mentoria">Mentorias</span>
+          <span class="pilar-chip empreend">Empreendedorismo</span>
+        </div>
+      </div>
+      <div class="animar animar-delay-4">
+        <div class="hero-btns">
+          <a href="#projetos" class="btn-primario-cryia">
+            Explorar o Ecossistema
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#fundador" class="btn-outline-cryia">Quem está por trás</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ MANIFESTO ═════════════════════════════════════ -->
+  <section class="secao manifesto" id="sobre">
+    <div class="container">
+      <div class="manifesto-grid">
+        <div class="animar">
+          <div class="manifesto-tag">O que é o CRYIA</div>
+          <h2 class="manifesto-titulo">
+            Não é uma agência.<br>
+            Não é uma plataforma.<br>
+            <em>É um ecossistema vivo.</em>
+          </h2>
+          <div class="manifesto-texto">
+            <p>
+              <strong>CRYIA HUB</strong> nasceu da convergência de projetos reais construídos
+              em 25 anos de campo: estratégia de marketing, turismo sustentável,
+              tecnologia aplicada e mentoria que cobra execução.
+            </p>
+            <p>
+              Aqui, criatividade e inteligência não andam separadas. Cada projeto do
+              ecossistema compartilha uma visão: <strong>estratégia sem rodeios,
+              execução com propósito, resultado com identidade.</strong>
+            </p>
+            <p>
+              CRYIA não é uma sigla. É um estado de operação.
+            </p>
+          </div>
+        </div>
+        <div class="manifesto-stats animar animar-delay-2">
+          <div class="stat-box">
+            <div class="stat-num">25+</div>
+            <div class="stat-label">Anos de experiência em marketing e estratégia</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Projetos ativos no ecossistema</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">37</div>
+            <div class="stat-label">Países visitados, mercados estudados</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">2.1k</div>
+            <div class="stat-label">km trilhados em 2023, analogia de execução</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ PROJETOS ══════════════════════════════════════ -->
+  <section class="secao" id="projetos">
+    <div class="container">
+      <div class="secao-titulo animar">
+        <div class="secao-tag">Os Projetos</div>
+        <h2 class="secao-h2">Cinco iniciativas.<br><em>Uma visão.</em></h2>
+        <p class="secao-desc">Cada projeto do ecossistema é autônomo, mas compartilha a mesma filosofia: entregar valor real, sem enrolação.</p>
+      </div>
+
+      <div class="projetos-grid">
+
+        <!-- 1: Juliano Sant'Ana (wide) -->
+        <div class="projeto-card destaque-1 wide animar animar-delay-1">
+          <div class="projeto-icone">🧭</div>
+          <div class="projeto-categoria">Marketing · Palestras · Mentorias</div>
+          <h3 class="projeto-nome">Juliano Sant'Ana</h3>
+          <p class="projeto-desc">
+            Marca pessoal do estrategista e palestrante. 25 anos de campo real em marketing,
+            empreendedorismo e turismo. Palestras para eventos corporativos, mentorias individuais
+            com diagnóstico honesto e estratégia que cobra execução.
+          </p>
+          <div class="projeto-tags">
+            <span class="projeto-tag">Palestras</span>
+            <span class="projeto-tag">Mentoria individual</span>
+            <span class="projeto-tag">Estratégia</span>
+            <span class="projeto-tag">AÇÃO & REAÇÃO</span>
+          </div>
+          <a href="https://www.julianosantana.com.br" target="_blank" class="projeto-link">
+            julianosantana.com.br →
+          </a>
+        </div>
+
+        <!-- 2: Turismo -->
+        <div class="projeto-card destaque-2 animar animar-delay-2">
+          <div class="projeto-icone">🏔️</div>
+          <div class="projeto-categoria">Turismo · Estratégia</div>
+          <h3 class="projeto-nome">Turismo Estratégico</h3>
+          <p class="projeto-desc">
+            Especialização em turismo sustentável: palestras para o trade, consultoria de
+            produto e roteirização com olhar de quem compra. Para destinos, DMOs, operadoras e secretarias.
+          </p>
+          <div class="projeto-tags">
+            <span class="projeto-tag">Palestras turismo</span>
+            <span class="projeto-tag">Roteirização</span>
+            <span class="projeto-tag">DMOs</span>
+          </div>
+          <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="projeto-link">
+            julianosantana.com.br/turismo →
+          </a>
+        </div>
+
+        <!-- 3: Mapa da Verdade -->
+        <div class="projeto-card destaque-3 animar animar-delay-3">
+          <div class="projeto-icone">🗺️</div>
+          <div class="projeto-categoria">Tecnologia · IA · Estratégia</div>
+          <h3 class="projeto-nome">Mapa da Verdade</h3>
+          <p class="projeto-desc">
+            Plataforma de IA treinada com a filosofia Ação & Reação. Diagnóstico estratégico,
+            acompanhamento de projetos e clareza de rota para micro e pequenos empreendedores.
+          </p>
+          <div class="projeto-tags">
+            <span class="projeto-tag">IA estratégica</span>
+            <span class="projeto-tag">Diagnóstico</span>
+            <span class="projeto-tag">MPMEs</span>
+          </div>
+          <a href="https://www.mapadaverdade.com.br" target="_blank" class="projeto-link">
+            mapadaverdade.com.br →
+          </a>
+        </div>
+
+        <!-- 4: Aonik -->
+        <div class="projeto-card destaque-4 animar animar-delay-2">
+          <div class="projeto-icone">🌿</div>
+          <div class="projeto-categoria">Turismo de Natureza · Experiências</div>
+          <h3 class="projeto-nome">Aonik</h3>
+          <p class="projeto-desc">
+            Turismo de natureza com propósito. Experiências imersivas no Vale Europeu Catarinense
+            que unem trilha, cultura e estratégia de produto turístico real.
+          </p>
+          <div class="projeto-tags">
+            <span class="projeto-tag">Ecoturismo</span>
+            <span class="projeto-tag">Experiências</span>
+            <span class="projeto-tag">Santa Catarina</span>
+          </div>
+          <a href="https://www.aonik.com.br" target="_blank" class="projeto-link">
+            aonik.com.br →
+          </a>
+        </div>
+
+        <!-- 5: TRAKO Circuit -->
+        <div class="projeto-card destaque-5 animar animar-delay-3">
+          <div class="projeto-icone">🚴</div>
+          <div class="projeto-categoria">SaaS · Tecnologia · Cicloturismo</div>
+          <h3 class="projeto-nome">TRAKO Circuit</h3>
+          <p class="projeto-desc">
+            Plataforma SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo.
+            Conectando destinos, trilhas e viajantes com tecnologia de ponta.
+          </p>
+          <div class="projeto-tags">
+            <span class="projeto-tag">SaaS</span>
+            <span class="projeto-tag">Cicloturismo</span>
+            <span class="projeto-tag">Trilhas</span>
+          </div>
+          <a href="https://trako-circuit.vercel.app" target="_blank" class="projeto-link">
+            trako-circuit.vercel.app →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ PILARES ═══════════════════════════════════════ -->
+  <section class="secao pilares" id="pilares">
+    <div class="container">
+      <div class="secao-titulo animar">
+        <div class="secao-tag">Os 5 Pilares</div>
+        <h2 class="secao-h2">Onde o CRYIA HUB<br><em>opera e entrega</em></h2>
+      </div>
+
+      <div class="pilares-grid">
+        <div class="pilar-card animar animar-delay-1" style="--pilar-cor: #818CF8;">
+          <div class="pilar-emoji">📣</div>
+          <div class="pilar-nome" style="color: #818CF8;">Marketing</div>
+          <div class="pilar-mini">Estratégia de marca, conteúdo, posicionamento e comportamento do consumidor.</div>
+        </div>
+        <div class="pilar-card animar animar-delay-2" style="--pilar-cor: #34D399;">
+          <div class="pilar-emoji">🏔️</div>
+          <div class="pilar-nome" style="color: #34D399;">Turismo</div>
+          <div class="pilar-mini">Destinos, roteirização, experiências e desenvolvimento do trade turístico.</div>
+        </div>
+        <div class="pilar-card animar animar-delay-3" style="--pilar-cor: #22D3EE;">
+          <div class="pilar-emoji">⚡</div>
+          <div class="pilar-nome" style="color: #22D3EE;">Tecnologia</div>
+          <div class="pilar-mini">IA aplicada, plataformas SaaS e ferramentas que escalam a estratégia.</div>
+        </div>
+        <div class="pilar-card animar animar-delay-4" style="--pilar-cor: #FCD34D;">
+          <div class="pilar-emoji">🎯</div>
+          <div class="pilar-nome" style="color: #FCD34D;">Mentorias</div>
+          <div class="pilar-mini">Acompanhamento individual com diagnóstico honesto e cobrança de execução.</div>
+        </div>
+        <div class="pilar-card animar animar-delay-5" style="--pilar-cor: #C084FC;">
+          <div class="pilar-emoji">🚀</div>
+          <div class="pilar-nome" style="color: #C084FC;">Empreendedorismo</div>
+          <div class="pilar-mini">Da ideia à rota executável. Para quem quer começar ou crescer de verdade.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ FUNDADOR ═══════════════════════════════════════ -->
+  <section class="secao" id="fundador">
+    <div class="container">
+      <div class="fundador-grid">
+        <div class="animar">
+          <div class="fundador-avatar">
+            <img src="../assets/foto-juliano.jpg" alt="Juliano Sant'Ana" onerror="this.parentElement.innerHTML='🧭'" />
+          </div>
+        </div>
+        <div class="animar animar-delay-2">
+          <div class="fundador-tag">Fundador do Ecossistema</div>
+          <h2 class="fundador-nome">Juliano <span>Sant'Ana</span></h2>
+          <p class="fundador-bio">
+            Estrategista, palestrante e mentor com 25 anos de experiência real. Especialista em
+            marketing, turismo e empreendedorismo. Montanhista que trilhou mais de 2.100km em 2023
+            e visitou 37 países. Criador da filosofia <strong style="color:#C084FC;">AÇÃO & REAÇÃO</strong>,
+            do Mapa da Verdade e do ecossistema CRYIA HUB. Base em Blumenau, SC. Atua em todo o Brasil.
+          </p>
+          <div class="fundador-credenciais">
+            <span class="cred-chip">25 anos de campo</span>
+            <span class="cred-chip">37 países</span>
+            <span class="cred-chip">2.100km trilhados</span>
+            <span class="cred-chip">Blumenau, SC</span>
+            <span class="cred-chip">Filosofia AÇÃO & REAÇÃO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ CTA ════════════════════════════════════════════ -->
+  <section class="secao" id="contato">
+    <div class="container">
+      <div class="cta-hub animar">
+        <h2 class="cta-hub-titulo">Quer fazer parte<br>do ecossistema?</h2>
+        <p class="cta-hub-desc">
+          Parcerias, projetos, palestras, mentorias ou simplesmente uma conversa estratégica.
+          A rota começa com um contato honesto.
+        </p>
+        <div class="cta-hub-btns">
+          <a href="https://wa.me/5547984079480?text=Olá%20Juliano!%20Quero%20saber%20mais%20sobre%20o%20CRYIA%20HUB." target="_blank" class="btn-wa-cryia">
+            📱 Falar pelo WhatsApp
+          </a>
+          <a href="mailto:marketing@julianosantana.com.br?subject=CRYIA%20HUB%20%E2%80%94%20Quero%20conversar" class="btn-email-cryia">
+            ✉️ Enviar e-mail
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════ -->
+  <footer class="footer-cryia">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        © 2025 <span style="background: linear-gradient(135deg, #6366F1, #A855F7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">CRYIA HUB</span> · Todos os direitos reservados · Juliano Sant'Ana
+      </div>
+      <div class="footer-links">
+        <a href="https://www.julianosantana.com.br">julianosantana.com.br</a>
+        <a href="https://www.mapadaverdade.com.br">mapadaverdade.com.br</a>
+        <a href="https://www.instagram.com/julianopsantana" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // Navbar scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visivel'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.animar').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
