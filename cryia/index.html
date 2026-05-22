@@ -437,15 +437,17 @@
     .fundador-credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
     .cred-chip { font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); }
 
-    /* Bloco AÇÃO & REAÇÃO no fundador — expandido */
+    /* Bloco AÇÃO & REAÇÃO — full width abaixo do grid */
     .ar-bloco {
       background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.07));
       border: 1px solid rgba(168,85,247,0.2);
       border-radius: 20px;
-      padding: 2rem 2.2rem;
+      padding: 2.5rem 2.8rem;
       position: relative;
       overflow: hidden;
+      margin-top: 2.5rem;
     }
+    @media (max-width: 768px) { .ar-bloco { padding: 2rem 1.5rem; } }
     .ar-bloco::before {
       content: 'AÇÃO & REAÇÃO';
       position: absolute;
@@ -929,8 +931,10 @@
             <span class="cred-chip">2.100km trilhados</span>
             <span class="cred-chip">Blumenau, SC</span>
           </div>
+        </div>
+      </div><!-- /fundador-grid -->
 
-          <!-- Bloco AÇÃO & REAÇÃO expandido -->
+      <!-- Bloco AÇÃO & REAÇÃO full-width abaixo do grid -->
           <div class="ar-bloco">
             <div class="ar-bloco-tag">A Filosofia</div>
             <h3 class="ar-bloco-titulo">AÇÃO &amp; REAÇÃO</h3>
@@ -1019,9 +1023,8 @@
             </div><!-- /ar-lados -->
 
             <p class="ar-bloco-colhe">"Aqui se colhe o que se planta."</p>
-          </div>
-        </div>
-      </div>
+          </div><!-- /ar-bloco -->
+
     </div>
   </section>
 
