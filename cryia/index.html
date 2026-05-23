@@ -595,6 +595,104 @@
     /* Orb Oxossi — sorte verde, presença de Exu do Mato */
     .orb-4 { width: 260px; height: 260px; background: var(--oxossi); top: 38%; right: -80px; animation-duration: 17s; animation-delay: -9s; opacity: 0.055; }
 
+    /* ── HERO SPLIT ──────────────────────────────────── */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: clamp(6rem,12vw,10rem) 0 clamp(4rem,8vw,7rem); }
+    .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 960px) { .hero-split { grid-template-columns: 1fr; gap: 3rem; text-align: center; } }
+
+    .hero-left { display: flex; flex-direction: column; gap: 0; }
+    .hero-left .hero-eyebrow { align-self: flex-start; }
+    @media (max-width: 960px) { .hero-left .hero-eyebrow { align-self: center; } }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.1;
+      color: #fff; margin: 1.2rem 0 1.2rem;
+    }
+    .hero-headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--oxossi), var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-left .hero-desc { text-align: left; margin: 0 0 1.8rem; }
+    @media (max-width: 960px) { .hero-left .hero-desc { text-align: center; } }
+    .hero-left .hero-pilares { justify-content: flex-start; margin-bottom: 2rem; }
+    @media (max-width: 960px) { .hero-left .hero-pilares { justify-content: center; } }
+    .hero-left .hero-btns { justify-content: flex-start; }
+    @media (max-width: 960px) { .hero-left .hero-btns { justify-content: center; } }
+
+    /* Dashboard visual — right side */
+    .hero-right { position: relative; }
+    @media (max-width: 960px) { .hero-right { max-width: 420px; margin: 0 auto; } }
+
+    .dash-card-main {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 20px; padding: 1.5rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.08), 0 0 80px rgba(99,102,241,0.08);
+      transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      position: relative; z-index: 1;
+    }
+    .dash-card-main:hover { transform: perspective(1200px) rotateY(-1deg) rotateX(0deg); }
+    @media (max-width: 960px) { .dash-card-main { transform: none; } }
+
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .dash-logo { height: 26px; width: auto; }
+    .dash-status { display: flex; align-items: center; gap: 0.4rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--oxossi); }
+    .dash-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi); animation: dot-blink 2s ease-in-out infinite; }
+
+    .dash-proj-list { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; }
+    .dash-proj-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.5rem 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; transition: background var(--transicao); }
+    .dash-proj-item:hover { background: rgba(255,255,255,0.06); }
+    .dash-proj-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--proj-cor, var(--grad-a)); flex-shrink: 0; }
+    .dash-proj-name { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.75); flex: 1; }
+    .dash-proj-badge { font-size: 0.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.12rem 0.4rem; border-radius: 8px; background: rgba(34,197,94,0.12); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.15); }
+    .dash-proj-badge.breve { background: rgba(6,182,212,0.12); color: #22D3EE; border-color: rgba(6,182,212,0.15); }
+
+    .dash-footer-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .dash-stat-mini { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.6rem 0.8rem; }
+    .dash-stat-num { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.2rem; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dash-stat-lbl { font-size: 0.54rem; color: var(--text-dim); font-weight: 500; line-height: 1.3; }
+
+    /* Floating accent cards */
+    .dash-float { position: absolute; background: rgba(10,12,24,0.92); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 0.65rem 1rem; box-shadow: 0 12px 40px rgba(0,0,0,0.5); animation: float-card 6s ease-in-out infinite; z-index: 2; }
+    .dash-float-1 { right: -28px; top: 28px; animation-duration: 7s; }
+    .dash-float-2 { left: -28px; bottom: 48px; animation-duration: 5.5s; animation-delay: -2.5s; }
+    @media (max-width: 960px) { .dash-float { display: none; } }
+    @keyframes float-card { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .float-label { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.2rem; }
+    .float-value { font-size: 0.85rem; font-weight: 800; color: #fff; }
+    .float-value.green { color: var(--oxossi); }
+    .float-value.cyan { color: #22D3EE; }
+
+    /* ── STATS BAR ───────────────────────────────────── */
+    .stats-bar { position: relative; z-index: 1; background: rgba(255,255,255,0.018); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.2rem 0; }
+    .stats-bar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 700px) { .stats-bar-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stats-bar-item { text-align: center; padding: 0.5rem 1rem; position: relative; }
+    .stats-bar-item + .stats-bar-item::before { content: ''; position: absolute; left: 0; top: 15%; bottom: 15%; width: 1px; background: var(--border); }
+    @media (max-width: 700px) { .stats-bar-item:nth-child(2n+1) + .stats-bar-item::before { display: none; } }
+    .stats-bar-num { font-size: clamp(2rem,4vw,3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; }
+    .stats-bar-num.accent { background: none; -webkit-text-fill-color: var(--oxossi); color: var(--oxossi); }
+    .stats-bar-lbl { font-size: 0.7rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.02em; line-height: 1.4; }
+
+    /* ── PROJETO BROWSER MOCKUP ──────────────────────── */
+    .projeto-visual-frame { height: 140px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .proj-browser { width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .proj-browser-bar { background: rgba(0,0,0,0.4); padding: 0.3rem 0.55rem; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
+    .proj-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .proj-dot-r { background: rgba(255,95,87,0.6); }
+    .proj-dot-y { background: rgba(255,189,46,0.6); }
+    .proj-dot-g { background: rgba(40,202,64,0.6); }
+    .proj-url { flex: 1; background: rgba(255,255,255,0.06); border-radius: 20px; padding: 0.12rem 0.45rem; font-size: 0.48rem; color: rgba(255,255,255,0.28); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .proj-browser-content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.25rem; padding: 0.7rem; background: linear-gradient(160deg, var(--proj-bg-a, rgba(99,102,241,0.15)), var(--proj-bg-b, rgba(0,0,0,0.25))); }
+    .proj-bc-title { font-size: 0.78rem; font-weight: 900; color: #fff; letter-spacing: -0.01em; line-height: 1.1; }
+    .proj-bc-sub { font-size: 0.5rem; color: rgba(255,255,255,0.42); letter-spacing: 0.05em; text-transform: uppercase; }
+    .proj-bc-bars { display: flex; gap: 0.3rem; margin-top: 0.35rem; align-items: flex-end; }
+    .proj-bc-bar { border-radius: 2px; background: var(--proj-accent, var(--grad-a)); }
+
     /* ── ECOSSISTEMA MAP ─────────────────────────────── */
     .eco-hub-node {
       background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1));
@@ -719,39 +817,119 @@
   <!-- ══ HERO ══════════════════════════════════════════ -->
   <section class="hero" id="inicio">
     <div class="container">
-      <div class="animar">
-        <div class="hero-eyebrow">Ecossistema Criativo e Estratégico</div>
-      </div>
-      <div class="animar animar-delay-1">
-        <img src="/assets/logo-cryia-hero.svg" alt="CRYIA — Hub Estratégico" class="hero-logo-img" />
-      </div>
-      <div class="animar animar-delay-2">
-        <p class="hero-desc">
-          Onde marketing, turismo, tecnologia, learning, mentorias e empreendedorismo
-          convergem numa visão estratégica única — criado para quem não separa negócio de propósito.
-        </p>
-      </div>
-      <div class="animar animar-delay-3">
-        <div class="hero-pilares">
-          <span class="pilar-chip marketing">Marketing</span>
-          <span class="pilar-chip turismo">Turismo</span>
-          <span class="pilar-chip tecnologia">Tecnologia</span>
-          <span class="pilar-chip learning">Learning</span>
-          <span class="pilar-chip mentoria">Mentorias</span>
-          <span class="pilar-chip empreend">Empreendedorismo</span>
+      <div class="hero-split">
+
+        <!-- ← ESQUERDA: conteúdo -->
+        <div class="hero-left animar">
+          <div class="hero-eyebrow">Ecossistema Criativo e Estratégico</div>
+          <h1 class="hero-headline">
+            Negócios reais.<br>
+            <em>Estratégia com IA.</em>
+          </h1>
+          <p class="hero-desc">
+            Para quem não separa negócio de propósito. Marketing, turismo, tecnologia e mentorias
+            num único ecossistema — com a filosofia que cobra execução.
+          </p>
+          <div class="hero-pilares">
+            <span class="pilar-chip marketing">Marketing</span>
+            <span class="pilar-chip turismo">Turismo</span>
+            <span class="pilar-chip tecnologia">Tecnologia</span>
+            <span class="pilar-chip learning">Learning</span>
+            <span class="pilar-chip mentoria">Mentorias</span>
+            <span class="pilar-chip empreend">Empreendedorismo</span>
+          </div>
+          <div class="hero-btns">
+            <a href="#ecossistema" class="btn-primario-cryia">
+              Explorar o Ecossistema
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#contato" class="btn-outline-cryia">Agendar conversa</a>
+          </div>
         </div>
-      </div>
-      <div class="animar animar-delay-4">
-        <div class="hero-btns">
-          <a href="#projetos" class="btn-primario-cryia">
-            Explorar o Ecossistema
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#fundador" class="btn-outline-cryia">Quem está por trás</a>
+
+        <!-- → DIREITA: dashboard visual -->
+        <div class="hero-right animar animar-delay-2">
+          <div class="dash-card-main">
+            <div class="dash-header">
+              <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="dash-logo" />
+              <span class="dash-status">Ecossistema Ativo</span>
+            </div>
+            <div class="dash-proj-list">
+              <div class="dash-proj-item">
+                <div class="dash-proj-dot" style="--proj-cor:#818CF8;"></div>
+                <span class="dash-proj-name">Juliano Sant'Ana</span>
+                <span class="dash-proj-badge">Ativo</span>
+              </div>
+              <div class="dash-proj-item">
+                <div class="dash-proj-dot" style="--proj-cor:#34D399;"></div>
+                <span class="dash-proj-name">Turismo Estratégico</span>
+                <span class="dash-proj-badge">Ativo</span>
+              </div>
+              <div class="dash-proj-item">
+                <div class="dash-proj-dot" style="--proj-cor:#F59E0B;"></div>
+                <span class="dash-proj-name">Aonik</span>
+                <span class="dash-proj-badge">Ativo</span>
+              </div>
+              <div class="dash-proj-item">
+                <div class="dash-proj-dot" style="--proj-cor:#C084FC;"></div>
+                <span class="dash-proj-name">Mapa da Verdade</span>
+                <span class="dash-proj-badge">Ativo</span>
+              </div>
+              <div class="dash-proj-item">
+                <div class="dash-proj-dot" style="--proj-cor:#22D3EE;"></div>
+                <span class="dash-proj-name">TRAKO Circuit</span>
+                <span class="dash-proj-badge breve">Em expansão</span>
+              </div>
+            </div>
+            <div class="dash-footer-stats">
+              <div class="dash-stat-mini">
+                <div class="dash-stat-num">25+</div>
+                <div class="dash-stat-lbl">Anos de campo real</div>
+              </div>
+              <div class="dash-stat-mini">
+                <div class="dash-stat-num">37</div>
+                <div class="dash-stat-lbl">Países estudados</div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating accent cards -->
+          <div class="dash-float dash-float-1">
+            <div class="float-label">IA em produção</div>
+            <div class="float-value green">Los Viajeros ✓</div>
+          </div>
+          <div class="dash-float dash-float-2">
+            <div class="float-label">Próximo lançamento</div>
+            <div class="float-value cyan">TRAKO SaaS 🚴</div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
+
+  <!-- ══ STATS BAR ════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-bar-grid">
+        <div class="stats-bar-item animar">
+          <div class="stats-bar-num">25+</div>
+          <div class="stats-bar-lbl">Anos de experiência em marketing e estratégia</div>
+        </div>
+        <div class="stats-bar-item animar animar-delay-1">
+          <div class="stats-bar-num">5</div>
+          <div class="stats-bar-lbl">Projetos ativos no ecossistema</div>
+        </div>
+        <div class="stats-bar-item animar animar-delay-2">
+          <div class="stats-bar-num">37</div>
+          <div class="stats-bar-lbl">Países visitados e mercados estudados</div>
+        </div>
+        <div class="stats-bar-item animar animar-delay-3">
+          <div class="stats-bar-num accent">1</div>
+          <div class="stats-bar-lbl">Cliente com IA em produção agora</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="linha-grad"></div>
 
@@ -909,9 +1087,22 @@
 
         <!-- 1: Juliano Sant'Ana (wide) -->
         <div class="projeto-card destaque-1 wide animar animar-delay-1">
-          <div class="projeto-visual">
-            <div class="projeto-visual-bg"></div>
-            <span class="projeto-visual-emoji">🧭</span>
+          <div class="projeto-visual-frame">
+            <div class="proj-browser">
+              <div class="proj-browser-bar">
+                <div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div>
+                <div class="proj-url">julianosantana.com.br</div>
+              </div>
+              <div class="proj-browser-content" style="--proj-bg-a:rgba(99,102,241,0.2);--proj-bg-b:rgba(0,0,0,0.3);--proj-accent:#818CF8;">
+                <div class="proj-bc-title">🧭 Juliano Sant'Ana</div>
+                <div class="proj-bc-sub">Marketing · Mentorias · Estratégia</div>
+                <div class="proj-bc-bars">
+                  <div class="proj-bc-bar" style="width:55px;height:5px;opacity:0.8;"></div>
+                  <div class="proj-bc-bar" style="width:35px;height:5px;opacity:0.45;"></div>
+                  <div class="proj-bc-bar" style="width:45px;height:5px;opacity:0.3;"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="projeto-body">
             <div class="projeto-categoria">Marketing · Palestras · Mentorias</div>
@@ -935,9 +1126,22 @@
 
         <!-- 2: Turismo -->
         <div class="projeto-card destaque-2 animar animar-delay-2">
-          <div class="projeto-visual">
-            <div class="projeto-visual-bg"></div>
-            <span class="projeto-visual-emoji">🏔️</span>
+          <div class="projeto-visual-frame">
+            <div class="proj-browser">
+              <div class="proj-browser-bar">
+                <div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div>
+                <div class="proj-url">julianosantana.com.br/turismo</div>
+              </div>
+              <div class="proj-browser-content" style="--proj-bg-a:rgba(16,185,129,0.2);--proj-bg-b:rgba(0,0,0,0.25);--proj-accent:#34D399;">
+                <div class="proj-bc-title">🏔️ Turismo Estratégico</div>
+                <div class="proj-bc-sub">Destinos · Roteirização · Trade</div>
+                <div class="proj-bc-bars">
+                  <div class="proj-bc-bar" style="width:40px;height:5px;opacity:0.8;"></div>
+                  <div class="proj-bc-bar" style="width:60px;height:5px;opacity:0.4;"></div>
+                  <div class="proj-bc-bar" style="width:30px;height:5px;opacity:0.25;"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="projeto-body">
             <div class="projeto-categoria">Turismo · Estratégia</div>
@@ -959,9 +1163,22 @@
 
         <!-- 3: Mapa da Verdade -->
         <div class="projeto-card destaque-3 animar animar-delay-3">
-          <div class="projeto-visual">
-            <div class="projeto-visual-bg"></div>
-            <span class="projeto-visual-emoji">🗺️</span>
+          <div class="projeto-visual-frame">
+            <div class="proj-browser">
+              <div class="proj-browser-bar">
+                <div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div>
+                <div class="proj-url">mapadaverdade.com.br</div>
+              </div>
+              <div class="proj-browser-content" style="--proj-bg-a:rgba(168,85,247,0.2);--proj-bg-b:rgba(0,0,0,0.3);--proj-accent:#C084FC;">
+                <div class="proj-bc-title">🗺️ Mapa da Verdade</div>
+                <div class="proj-bc-sub">IA · Diagnóstico · MPMEs</div>
+                <div class="proj-bc-bars">
+                  <div class="proj-bc-bar" style="width:50px;height:5px;opacity:0.8;"></div>
+                  <div class="proj-bc-bar" style="width:30px;height:5px;opacity:0.5;"></div>
+                  <div class="proj-bc-bar" style="width:65px;height:5px;opacity:0.3;"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="projeto-body">
             <div class="projeto-categoria">Tecnologia · IA · Estratégia</div>
@@ -983,9 +1200,22 @@
 
         <!-- 4: Aonik -->
         <div class="projeto-card destaque-4 animar animar-delay-2">
-          <div class="projeto-visual">
-            <div class="projeto-visual-bg"></div>
-            <span class="projeto-visual-emoji">🌿</span>
+          <div class="projeto-visual-frame">
+            <div class="proj-browser">
+              <div class="proj-browser-bar">
+                <div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div>
+                <div class="proj-url">aonik.com.br</div>
+              </div>
+              <div class="proj-browser-content" style="--proj-bg-a:rgba(245,158,11,0.18);--proj-bg-b:rgba(0,0,0,0.3);--proj-accent:#F59E0B;">
+                <div class="proj-bc-title">🌿 Aonik</div>
+                <div class="proj-bc-sub">Ecoturismo · Vale Europeu SC</div>
+                <div class="proj-bc-bars">
+                  <div class="proj-bc-bar" style="width:45px;height:5px;opacity:0.8;"></div>
+                  <div class="proj-bc-bar" style="width:55px;height:5px;opacity:0.4;"></div>
+                  <div class="proj-bc-bar" style="width:35px;height:5px;opacity:0.25;"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="projeto-body">
             <div class="projeto-categoria">Turismo de Natureza · Experiências</div>
@@ -1007,9 +1237,22 @@
 
         <!-- 5: TRAKO Circuit -->
         <div class="projeto-card destaque-5 animar animar-delay-3">
-          <div class="projeto-visual">
-            <div class="projeto-visual-bg"></div>
-            <span class="projeto-visual-emoji">🚴</span>
+          <div class="projeto-visual-frame">
+            <div class="proj-browser">
+              <div class="proj-browser-bar">
+                <div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div>
+                <div class="proj-url">trako-circuit.vercel.app</div>
+              </div>
+              <div class="proj-browser-content" style="--proj-bg-a:rgba(6,182,212,0.2);--proj-bg-b:rgba(0,0,0,0.3);--proj-accent:#22D3EE;">
+                <div class="proj-bc-title">🚴 TRAKO Circuit</div>
+                <div class="proj-bc-sub">SaaS · Cicloturismo · Trilhas</div>
+                <div class="proj-bc-bars">
+                  <div class="proj-bc-bar" style="width:65px;height:5px;opacity:0.9;"></div>
+                  <div class="proj-bc-bar" style="width:40px;height:5px;opacity:0.5;"></div>
+                  <div class="proj-bc-bar" style="width:50px;height:5px;opacity:0.3;"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="projeto-body">
             <div class="projeto-categoria">SaaS · Tecnologia · Cicloturismo</div>
