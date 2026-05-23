@@ -521,8 +521,11 @@
     .case-featured { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; margin-top: 2.5rem; transition: border-color var(--t); }
     .case-featured:hover { border-color: rgba(6,182,212,0.22); }
     @media (max-width: 768px) { .case-featured { grid-template-columns: 1fr; } }
-    .case-mockup { background: linear-gradient(135deg, rgba(6,182,212,0.06), rgba(16,185,129,0.06)); padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); min-height: 260px; }
+    .case-mockup { background: linear-gradient(135deg, rgba(6,182,212,0.06), rgba(16,185,129,0.06)); padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); min-height: 260px; overflow: hidden; }
     @media (max-width: 768px) { .case-mockup { border-right: none; border-bottom: 1px solid var(--border); min-height: 200px; } }
+    .case-mockup-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 0.6s ease; }
+    .case-featured:hover .case-mockup-img { transform: scale(1.03); }
+    .case-mockup:has(.case-mockup-img) { padding: 0; }
     .browser-frame { width: 100%; max-width: 320px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
     .browser-bar { background: rgba(255,255,255,0.04); padding: 0.5rem 0.7rem; display: flex; align-items: center; gap: 0.4rem; }
     .browser-dot { width: 8px; height: 8px; border-radius: 50%; }
@@ -996,14 +999,7 @@
     </div>
     <div class="case-featured animar delay-1">
       <div class="case-mockup">
-        <div class="browser-frame">
-          <div class="browser-bar"><div class="browser-dot bdr"></div><div class="browser-dot bdy"></div><div class="browser-dot bdg"></div><div class="browser-url">losviajeros.lovable.app</div></div>
-          <div class="browser-content">
-            <div class="bc-title">Los Viajeros</div>
-            <div class="bc-sub">Wines with history · Hospitality with soul</div>
-            <div class="bc-tags"><span class="bc-tag">Turismo Premium</span><span class="bc-tag">IA</span><span class="bc-tag">B2B</span></div>
-          </div>
-        </div>
+        <img src="/assets/mockups/losviajeros-mockup.png" alt="Los Viajeros — plataforma multi-device" class="case-mockup-img" />
       </div>
       <div class="case-info">
         <div class="case-cat">✈️ Turismo · Representação Premium · IA</div>
