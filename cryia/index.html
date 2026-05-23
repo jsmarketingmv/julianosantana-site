@@ -594,6 +594,101 @@
 
     /* Orb Oxossi — sorte verde, presença de Exu do Mato */
     .orb-4 { width: 260px; height: 260px; background: var(--oxossi); top: 38%; right: -80px; animation-duration: 17s; animation-delay: -9s; opacity: 0.055; }
+
+    /* ── ECOSSISTEMA MAP ─────────────────────────────── */
+    .eco-hub-node {
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1));
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 24px;
+      padding: 2.2rem 3rem 2rem;
+      max-width: 520px;
+      margin: 2.5rem auto 0;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 0 60px rgba(99,102,241,0.12);
+      z-index: 1;
+    }
+    .eco-hub-node::before {
+      content: ''; position: absolute; inset: -8px; border-radius: 30px;
+      border: 1px solid rgba(99,102,241,0.12);
+      animation: eco-pulse 3s ease-in-out infinite;
+      pointer-events: none; z-index: 0;
+    }
+    .eco-hub-node::after {
+      content: ''; position: absolute; inset: -18px; border-radius: 36px;
+      border: 1px solid rgba(99,102,241,0.06);
+      animation: eco-pulse 3s ease-in-out infinite 1s;
+      pointer-events: none; z-index: 0;
+    }
+    @keyframes eco-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .eco-hub-logo { height: 56px; width: auto; margin: 0 auto 0.8rem; filter: drop-shadow(0 4px 16px rgba(99,102,241,0.35)); position: relative; z-index: 1; }
+    .eco-hub-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.38); letter-spacing: 0.04em; line-height: 1.5; margin-bottom: 1rem; position: relative; z-index: 1; }
+    .eco-hub-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; position: relative; z-index: 1; }
+    .eco-hub-pill { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.45); }
+
+    .eco-conector { display: flex; flex-direction: column; align-items: center; padding: 0.8rem 0 0.4rem; }
+    .eco-conector-line { width: 2px; height: 32px; background: linear-gradient(to bottom, rgba(99,102,241,0.5), rgba(168,85,247,0.2)); }
+    .eco-conector-arrow { font-size: 0.65rem; color: rgba(168,85,247,0.4); margin-top: -1px; }
+
+    .eco-branches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+    @media (max-width: 1100px) { .eco-branches { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 620px)  { .eco-branches { grid-template-columns: 1fr 1fr; } }
+
+    .eco-branch {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-top: 3px solid var(--branch-cor, var(--grad-a));
+      border-radius: var(--radius);
+      padding: 1.3rem 1.1rem 1.1rem;
+      transition: all var(--transicao); display: flex; flex-direction: column;
+      text-decoration: none; color: inherit; cursor: pointer;
+    }
+    .eco-branch:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); border-color: var(--branch-cor, var(--grad-a)); border-top-color: var(--branch-cor, var(--grad-a)); }
+    .eco-branch-emoji { font-size: 1.7rem; margin-bottom: 0.6rem; }
+    .eco-branch-cat { font-size: 0.56rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--branch-cor, var(--grad-a)); opacity: 0.9; margin-bottom: 0.3rem; }
+    .eco-branch-nome { font-size: 0.88rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; line-height: 1.2; }
+    .eco-branch-desc { font-size: 0.68rem; color: var(--text-dim); line-height: 1.6; flex: 1; margin-bottom: 0.7rem; }
+    .eco-branch-link { font-size: 0.62rem; font-weight: 700; color: var(--branch-cor, var(--grad-a)); opacity: 0.7; margin-bottom: 0.5rem; transition: opacity var(--transicao); }
+    .eco-branch:hover .eco-branch-link { opacity: 1; }
+    .eco-status { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.5rem; border-radius: 20px; width: fit-content; }
+    .eco-status-ativo { background: rgba(34,197,94,0.1); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.2); }
+    .eco-status-ativo::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--oxossi); animation: dot-blink 2s ease-in-out infinite; }
+    .eco-status-expand { background: rgba(6,182,212,0.1); color: #22D3EE; border: 1px solid rgba(6,182,212,0.2); }
+    .eco-status-expand::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #22D3EE; animation: dot-blink 2s ease-in-out infinite; }
+    @keyframes dot-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* ── CASOS EM PRODUÇÃO ─────────────────────────── */
+    .cases-tag-vivo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #F87171; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); padding: 0.3rem 0.8rem; border-radius: 50px; margin-bottom: 1rem; }
+    .cases-tag-vivo::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #EF4444; animation: dot-blink 1.5s ease-in-out infinite; }
+
+    .case-featured-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; margin-top: 2.5rem; transition: border-color var(--transicao); }
+    .case-featured-card:hover { border-color: rgba(6,182,212,0.25); }
+    @media (max-width: 768px) { .case-featured-card { grid-template-columns: 1fr; } }
+
+    .case-mockup { background: linear-gradient(135deg, rgba(6,182,212,0.07), rgba(16,185,129,0.07)); padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); min-height: 260px; }
+    @media (max-width: 768px) { .case-mockup { border-right: none; border-bottom: 1px solid var(--border); min-height: 200px; } }
+
+    .browser-frame { width: 100%; max-width: 320px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .browser-bar { background: rgba(255,255,255,0.04); padding: 0.5rem 0.7rem; display: flex; align-items: center; gap: 0.4rem; }
+    .browser-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .browser-dot-r { background: #FF5F57; }
+    .browser-dot-y { background: #FFBD2E; }
+    .browser-dot-g { background: #28CA40; }
+    .browser-url-bar { flex: 1; background: rgba(255,255,255,0.05); border-radius: 20px; padding: 0.2rem 0.6rem; font-size: 0.55rem; color: rgba(255,255,255,0.3); font-family: monospace; }
+    .browser-content { padding: 1.5rem 1rem; background: linear-gradient(160deg, rgba(6,182,212,0.18) 0%, rgba(16,185,129,0.08) 60%, rgba(0,0,0,0.2) 100%); min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.4rem; }
+    .bc-title { font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: -0.01em; }
+    .bc-sub { font-size: 0.58rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+    .bc-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; justify-content: center; margin-top: 0.4rem; }
+    .bc-tag { font-size: 0.52rem; padding: 0.18rem 0.45rem; background: rgba(6,182,212,0.18); border: 1px solid rgba(6,182,212,0.25); border-radius: 8px; color: #67E8F9; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .case-info { padding: 2.2rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    @media (max-width: 768px) { .case-info { padding: 1.5rem; } }
+    .case-info-cat { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #22D3EE; margin-bottom: 0.5rem; }
+    .case-info-nome { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: -0.02em; margin-bottom: 0.7rem; line-height: 1.1; }
+    .case-info-desc { font-size: 0.84rem; color: var(--text-dim); line-height: 1.78; margin-bottom: 1.2rem; }
+    .case-info-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .case-info-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: var(--text-dim); }
+    .case-info-link { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; font-weight: 800; color: #22D3EE; transition: gap var(--transicao), opacity var(--transicao); opacity: 0.85; text-decoration: none; }
+    .case-info-link:hover { gap: 0.75rem; opacity: 1; }
   </style>
 </head>
 <body>
@@ -611,8 +706,9 @@
     <div class="container navbar-inner">
       <a href="#" class="logo-cryia"><img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" /></a>
       <ul class="nav-links">
+        <li><a href="#ecossistema">Ecossistema</a></li>
         <li><a href="#projetos">Projetos</a></li>
-        <li><a href="#pilares">Pilares</a></li>
+        <li><a href="#cases">Cases</a></li>
         <li><a href="#fundador">Fundador</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
@@ -654,6 +750,91 @@
           <a href="#fundador" class="btn-outline-cryia">Quem está por trás</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
+  <!-- ══ ECOSSISTEMA MAP ══════════════════════════════ -->
+  <section class="secao" id="ecossistema">
+    <div class="container">
+
+      <div class="secao-titulo animar">
+        <div class="secao-tag">Arquitetura do Ecossistema</div>
+        <h2 class="secao-h2">Uma marca matriz.<br><em>Cinco braços ativos.</em></h2>
+        <p class="secao-desc">CRYIA não é uma empresa — é o ecossistema que conecta negócios reais à inteligência artificial e à estratégia que cobra execução.</p>
+      </div>
+
+      <!-- Hub Central -->
+      <div class="eco-hub-node animar animar-delay-1">
+        <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="eco-hub-logo" />
+        <p class="eco-hub-tagline">Hub Estratégico · Marca Matriz · Ecossistema de IA e Estratégia</p>
+        <div class="eco-hub-pills">
+          <span class="eco-hub-pill">Marketing</span>
+          <span class="eco-hub-pill">Turismo</span>
+          <span class="eco-hub-pill">Tecnologia</span>
+          <span class="eco-hub-pill">Learning</span>
+          <span class="eco-hub-pill">Mentorias</span>
+          <span class="eco-hub-pill">IA Aplicada</span>
+        </div>
+      </div>
+
+      <!-- Conector visual hub → braços -->
+      <div class="eco-conector animar animar-delay-2">
+        <div class="eco-conector-line"></div>
+        <div class="eco-conector-arrow">▼</div>
+      </div>
+
+      <!-- Cinco braços do ecossistema -->
+      <div class="eco-branches">
+
+        <a href="https://www.julianosantana.com.br" target="_blank" class="eco-branch animar animar-delay-1" style="--branch-cor: #818CF8;">
+          <div class="eco-branch-emoji">🧭</div>
+          <div class="eco-branch-cat">Marketing · Mentorias</div>
+          <div class="eco-branch-nome">Juliano Sant'Ana</div>
+          <div class="eco-branch-desc">Estratégia, palestras e mentoria com 25 anos de campo real em marketing e negócios.</div>
+          <div class="eco-branch-link">julianosantana.com.br →</div>
+          <div class="eco-status eco-status-ativo">Ativo</div>
+        </a>
+
+        <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="eco-branch animar animar-delay-2" style="--branch-cor: #34D399;">
+          <div class="eco-branch-emoji">🏔️</div>
+          <div class="eco-branch-cat">Turismo · Estratégia</div>
+          <div class="eco-branch-nome">Turismo Estratégico</div>
+          <div class="eco-branch-desc">Consultoria, roteirização e palestras para destinos e o trade turístico.</div>
+          <div class="eco-branch-link">julianosantana.com.br/turismo →</div>
+          <div class="eco-status eco-status-ativo">Ativo</div>
+        </a>
+
+        <a href="https://www.aonik.com.br" target="_blank" class="eco-branch animar animar-delay-3" style="--branch-cor: #F59E0B;">
+          <div class="eco-branch-emoji">🌿</div>
+          <div class="eco-branch-cat">Turismo de Natureza</div>
+          <div class="eco-branch-nome">Aonik</div>
+          <div class="eco-branch-desc">Ecoturismo e experiências imersivas no Vale Europeu Catarinense.</div>
+          <div class="eco-branch-link">aonik.com.br →</div>
+          <div class="eco-status eco-status-ativo">Ativo</div>
+        </a>
+
+        <a href="https://www.mapadaverdade.com.br" target="_blank" class="eco-branch animar animar-delay-4" style="--branch-cor: #C084FC;">
+          <div class="eco-branch-emoji">🗺️</div>
+          <div class="eco-branch-cat">IA · Empreendedorismo</div>
+          <div class="eco-branch-nome">Mapa da Verdade</div>
+          <div class="eco-branch-desc">Plataforma de IA com diagnóstico estratégico treinada na filosofia AÇÃO & REAÇÃO.</div>
+          <div class="eco-branch-link">mapadaverdade.com.br →</div>
+          <div class="eco-status eco-status-ativo">Ativo</div>
+        </a>
+
+        <a href="https://trako-circuit.vercel.app" target="_blank" class="eco-branch animar animar-delay-5" style="--branch-cor: #22D3EE;">
+          <div class="eco-branch-emoji">🚴</div>
+          <div class="eco-branch-cat">SaaS · Cicloturismo</div>
+          <div class="eco-branch-nome">TRAKO Circuit</div>
+          <div class="eco-branch-desc">SaaS multi-tenant para circuitos de bike e trilhas. Tecnologia revolucionária para o turismo ativo.</div>
+          <div class="eco-branch-link">trako-circuit.vercel.app →</div>
+          <div class="eco-status eco-status-expand">Em expansão</div>
+        </a>
+
+      </div><!-- /eco-branches -->
+
     </div>
   </section>
 
@@ -854,6 +1035,67 @@
 
   <div class="linha-grad"></div>
 
+  <!-- ══ CASOS EM PRODUÇÃO ════════════════════════════ -->
+  <section class="secao" id="cases">
+    <div class="container">
+
+      <div class="secao-titulo animar">
+        <div class="cases-tag-vivo">Ao Vivo · Em Produção</div>
+        <h2 class="secao-h2">Tecnologia que já<br><em>opera no mercado.</em></h2>
+        <p class="secao-desc">Clientes que confiaram à CRYIA a missão de conectar seus negócios à IA e ao mercado digital.</p>
+      </div>
+
+      <!-- Los Viajeros — case em destaque -->
+      <div class="case-featured-card animar animar-delay-1">
+
+        <div class="case-mockup">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dot browser-dot-r"></div>
+              <div class="browser-dot browser-dot-y"></div>
+              <div class="browser-dot browser-dot-g"></div>
+              <div class="browser-url-bar">losviajeros.lovable.app</div>
+            </div>
+            <div class="browser-content">
+              <div class="bc-title">Los Viajeros</div>
+              <div class="bc-sub">Wines with history · Hospitality with soul</div>
+              <div class="bc-tags">
+                <span class="bc-tag">Turismo Premium</span>
+                <span class="bc-tag">IA</span>
+                <span class="bc-tag">B2B</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-info">
+          <div class="case-info-cat">✈️ Turismo · Representação Premium · IA</div>
+          <h3 class="case-info-nome">Los Viajeros</h3>
+          <p class="case-info-desc">
+            Plataforma digital para representação turística premium. Conecta destinos internacionais
+            de vinhos e hospitalidade ao mercado brasileiro — construída com IA, design estratégico
+            e foco em resultado real. CRYIA na prática: estratégia + tecnologia + entrega.
+          </p>
+          <div class="case-info-tags">
+            <span class="case-info-tag">Plataforma Digital</span>
+            <span class="case-info-tag">IA Aplicada</span>
+            <span class="case-info-tag">Turismo Premium</span>
+            <span class="case-info-tag">B2B Portal</span>
+            <span class="case-info-tag">Internacionalização</span>
+          </div>
+          <a href="https://losviajeros.lovable.app" target="_blank" class="case-info-link">
+            Ver projeto ao vivo
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div><!-- /case-featured-card -->
+
+    </div>
+  </section>
+
+  <div class="linha-grad"></div>
+
   <!-- ══ PILARES ═══════════════════════════════════════ -->
   <section class="secao pilares" id="pilares">
     <div class="container">
@@ -1047,11 +1289,11 @@
   <footer class="footer-cryia">
     <div class="container footer-inner">
       <div class="footer-copy">
-        © 2025 <span style="background: linear-gradient(135deg, #6366F1, #A855F7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">CRYIA HUB</span> · Todos os direitos reservados · Juliano Sant'Ana
+        © 2026 <span style="background: linear-gradient(135deg, #6366F1, #A855F7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">CRYIA HUB</span> · Todos os direitos reservados · Juliano Sant'Ana
       </div>
       <div class="footer-links">
+        <a href="https://cryia.com.br">cryia.com.br</a>
         <a href="https://www.julianosantana.com.br">julianosantana.com.br</a>
-        <a href="https://www.mapadaverdade.com.br">mapadaverdade.com.br</a>
         <a href="https://www.instagram.com/julianopsantana" target="_blank">Instagram</a>
       </div>
     </div>
