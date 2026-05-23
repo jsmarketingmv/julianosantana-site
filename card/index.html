@@ -24,6 +24,7 @@
       --grad-b:  #A855F7;
       --grad-c:  #06B6D4;
       --green:   #25D366;
+      --oxossi:  #22C55E;
       --t:       0.3s cubic-bezier(0.4,0,0.2,1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,6 +43,7 @@
     .orb { position: fixed; border-radius: 50%; filter: blur(90px); opacity: 0.1; pointer-events: none; }
     .orb-1 { width: 500px; height: 500px; background: var(--grad-a); top: -150px; left: -100px; }
     .orb-2 { width: 400px; height: 400px; background: var(--grad-b); bottom: -100px; right: -80px; }
+    .orb-3 { width: 200px; height: 200px; background: var(--oxossi); top: 50%; left: -60px; opacity: 0.055; }/* 🌿 Oxossi */
 
     /* ── CARD CONTAINER ─── */
     .cartao {
@@ -71,9 +73,9 @@
       content: 'CRYIA';
       position: absolute; top: -10px; right: -10px;
       font-size: 5rem; font-weight: 900; letter-spacing: -0.04em;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      background: linear-gradient(90deg, #86EFAC, #22C55E, #059669, #0891B2, #4F46E5);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; opacity: 0.07;
+      background-clip: text; opacity: 0.1;
       pointer-events: none;
     }
 
@@ -89,14 +91,14 @@
     .card-foto-ring {
       position: absolute; inset: -4px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b), var(--grad-c));
+      background: linear-gradient(135deg, #22C55E, var(--grad-a), var(--grad-b));/* 🌿 Oxossi no anel */
       z-index: -1;
-      opacity: 0.7;
+      opacity: 0.75;
     }
     .card-badge {
       position: absolute; bottom: 4px; right: 4px;
       width: 28px; height: 28px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      background: linear-gradient(135deg, #22C55E, #059669);/* 🌿 Oxossi */
       display: flex; align-items: center; justify-content: center;
       font-size: 0.7rem; border: 2px solid var(--bg);
     }
@@ -123,7 +125,7 @@
       background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);
       color: #818CF8; padding: 0.3rem 0.8rem; border-radius: 50px;
     }
-    .card-hub-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--grad-a); }
+    .card-hub-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--oxossi); }/* 🌿 ponto Oxossi */
 
     /* ── CONTATOS ─── */
     .card-body {
@@ -252,6 +254,7 @@
 
   <div class="orb orb-1" aria-hidden="true"></div>
   <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div><!-- 🌿 Oxossi -->
 
   <div class="cartao">
 

@@ -21,6 +21,7 @@
       --grad-c:    #06B6D4;
       --gold:      #F59E0B;
       --green:     #10B981;
+      --oxossi:    #22C55E;
       --radius:    16px;
       --transicao: 0.3s cubic-bezier(0.4,0,0.2,1);
     }
@@ -72,7 +73,7 @@
     }
     .logo-cryia {
       font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b), var(--grad-c));
+      background: linear-gradient(90deg, #86EFAC, #22C55E, #059669, #0891B2, #4F46E5);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
     }
@@ -99,11 +100,11 @@
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--grad-c);
-      background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);
+      color: var(--oxossi);
+      background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.28);
       padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 2rem;
     }
-    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--grad-c); }
+    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi); }
     .hero-titulo {
       font-size: clamp(3.5rem, 9vw, 7.5rem);
       font-weight: 900; letter-spacing: -0.04em; line-height: 1;
@@ -596,12 +597,15 @@
     .animar-delay-4 { transition-delay: 0.4s; }
     .animar-delay-5 { transition-delay: 0.5s; }
 
-    /* Linha divisória estilo gradiente */
+    /* Linha divisória estilo gradiente — toque Oxossi */
     .linha-grad {
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--grad-a), var(--grad-b), transparent);
-      margin: 0; opacity: 0.3;
+      background: linear-gradient(90deg, transparent, var(--oxossi), var(--grad-a), var(--grad-b), transparent);
+      margin: 0; opacity: 0.35;
     }
+
+    /* Orb Oxossi — sorte verde, presença de Exu do Mato */
+    .orb-4 { width: 260px; height: 260px; background: var(--oxossi); top: 38%; right: -80px; animation-duration: 17s; animation-delay: -9s; opacity: 0.055; }
   </style>
 </head>
 <body>
@@ -611,6 +615,7 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div><!-- 🌿 Oxossi — sorte verde -->
   </div>
 
   <!-- ══ NAVBAR ════════════════════════════════════════ -->

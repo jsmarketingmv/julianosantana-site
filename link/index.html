@@ -21,6 +21,7 @@
       --grad-a:    #6366F1;
       --grad-b:    #A855F7;
       --grad-c:    #06B6D4;
+      --oxossi:    #22C55E;
       --transicao: 0.3s cubic-bezier(0.4,0,0.2,1);
     }
 
@@ -48,6 +49,7 @@
     }
     .orb-1 { width: 500px; height: 500px; background: var(--grad-a); top: -150px; left: -100px; }
     .orb-2 { width: 400px; height: 400px; background: var(--grad-b); bottom: -120px; right: -80px; animation-delay: -7s; animation-duration: 18s; }
+    .orb-3 { width: 220px; height: 220px; background: var(--oxossi); top: 45%; left: -70px; animation-delay: -11s; animation-duration: 15s; opacity: 0.06; }<!-- 🌿 Oxossi -->
     @keyframes orb-float {
       0%   { transform: translate(0,0) scale(1); }
       100% { transform: translate(30px, 20px) scale(1.07); }
@@ -68,7 +70,7 @@
     }
     .cryia-logo {
       font-size: 2rem; font-weight: 900; letter-spacing: -0.04em;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b), var(--grad-c));
+      background: linear-gradient(90deg, #86EFAC, #22C55E, #059669, #0891B2, #4F46E5);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 0.1rem;
@@ -107,7 +109,7 @@
       position: absolute;
       bottom: 2px; right: 2px;
       width: 24px; height: 24px;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      background: linear-gradient(135deg, #22C55E, #059669);/* 🌿 Oxossi */
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       border: 2px solid var(--bg);
@@ -334,6 +336,7 @@
   <!-- Orbs de fundo -->
   <div class="orb orb-1" aria-hidden="true"></div>
   <div class="orb orb-2" aria-hidden="true"></div>
+  <div class="orb orb-3" aria-hidden="true"></div><!-- 🌿 Oxossi -->
 
   <div class="card">
 
