@@ -71,13 +71,8 @@
     .navbar-inner {
       display: flex; align-items: center; justify-content: space-between;
     }
-    .logo-cryia {
-      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #86EFAC, #22C55E, #059669, #0891B2, #4F46E5);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .logo-cryia span { -webkit-text-fill-color: rgba(255,255,255,0.5); font-weight: 300; font-size: 0.9em; letter-spacing: 0.12em; }
+    .logo-cryia { display: flex; align-items: center; }
+    .logo-cryia img { height: 30px; width: auto; }
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; transition: color var(--transicao); }
     .nav-links a:hover { color: var(--text); }
@@ -105,19 +100,12 @@
       padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 2rem;
     }
     .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi); }
-    .hero-titulo {
-      font-size: clamp(3.5rem, 9vw, 7.5rem);
-      font-weight: 900; letter-spacing: -0.04em; line-height: 1;
-      margin-bottom: 0.2rem;
-      background: linear-gradient(90deg, #86EFAC 0%, #22C55E 28%, #059669 52%, #0891B2 75%, #4F46E5 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-sub-marca {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      font-weight: 300; color: var(--text-dim);
-      letter-spacing: 0.25em; text-transform: uppercase;
-      margin-bottom: 2rem;
+    .hero-logo-img {
+      max-width: min(480px, 78vw);
+      height: auto;
+      display: block;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 8px 40px rgba(34,197,94,0.2));
     }
     .hero-desc {
       max-width: 640px; margin: 0 auto 2.5rem;
@@ -621,7 +609,7 @@
   <!-- ══ NAVBAR ════════════════════════════════════════ -->
   <nav class="navbar" id="navbar">
     <div class="container navbar-inner">
-      <a href="#" class="logo-cryia">CRYIA <span>HUB</span></a>
+      <a href="#" class="logo-cryia"><img src="/assets/logo-cryia-hub.png" alt="CRYIA HUB" /></a>
       <ul class="nav-links">
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#pilares">Pilares</a></li>
@@ -639,8 +627,7 @@
         <div class="hero-eyebrow">Ecossistema Criativo e Estratégico</div>
       </div>
       <div class="animar animar-delay-1">
-        <h1 class="hero-titulo">CRYIA</h1>
-        <p class="hero-sub-marca">HUB</p>
+        <img src="/assets/logo-cryia-full.png" alt="CRYIA — Hub Estratégico" class="hero-logo-img" />
       </div>
       <div class="animar animar-delay-2">
         <p class="hero-desc">
