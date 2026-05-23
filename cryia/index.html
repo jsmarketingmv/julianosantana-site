@@ -458,25 +458,32 @@
       box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.12);
     }
 
-    /* Browser mockup frame (top ~55% of card) */
-    .proj-browser-wrap { height: 200px; position: relative; overflow: hidden; flex-shrink: 0; }
-    .proj-browser { height: 100%; display: flex; flex-direction: column; }
-    .proj-bar { background: rgba(0,0,0,0.45); padding: 0.32rem 0.6rem; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
-    .proj-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .proj-dot-r { background: rgba(255,95,87,0.65); }
-    .proj-dot-y { background: rgba(255,189,46,0.65); }
-    .proj-dot-g { background: rgba(40,202,64,0.65); }
-    .proj-url-bar { flex: 1; background: rgba(255,255,255,0.06); border-radius: 20px; padding: 0.1rem 0.45rem; font-size: 0.45rem; color: rgba(255,255,255,0.28); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .proj-screen {
-      flex: 1;
-      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.3rem; padding: 0.8rem;
-      background: linear-gradient(160deg, var(--sc-a, rgba(99,102,241,0.18)), var(--sc-b, rgba(0,0,0,0.25)));
+    /* Real mockup image — top of card */
+    .card-mockup {
+      width: 100%; aspect-ratio: 16/10; overflow: hidden;
+      position: relative; flex-shrink: 0;
     }
-    .proj-sc-icon { font-size: 2rem; margin-bottom: 0.2rem; }
-    .proj-sc-title { font-size: 0.88rem; font-weight: 900; color: #fff; letter-spacing: -0.01em; line-height: 1.1; }
-    .proj-sc-sub { font-size: 0.5rem; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
-    .proj-sc-bars { display: flex; gap: 0.3rem; margin-top: 0.4rem; align-items: flex-end; }
-    .proj-sc-bar { border-radius: 2px; }
+    .card-mockup img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .proj-card:hover .card-mockup img { transform: scale(1.04); }
+    .card-mockup::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+      background: linear-gradient(to bottom, transparent, rgba(13,13,26,0.95));
+      pointer-events: none;
+    }
+    /* CSS placeholder for projects without real photo */
+    .card-mockup.ph-purple { background: linear-gradient(135deg, #1a0a2e 0%, #0d0618 100%); }
+    .card-mockup.ph-green  { background: linear-gradient(135deg, #0a1a0d 0%, #050f07 100%); }
+    .card-mockup .ph-inner {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .card-mockup .ph-icon { font-size: 2.6rem; opacity: 0.35; }
+    .card-mockup .ph-label { font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.2); font-weight: 700; }
 
     /* Card body (bottom ~45%) */
     .proj-body { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
@@ -611,7 +618,6 @@
     @media (max-width: 768px) {
       .carousel-track { animation-duration: 50s; }
       .proj-card { width: 300px; }
-      .proj-browser-wrap { height: 165px; }
     }
   </style>
 </head>
@@ -843,16 +849,8 @@
 
       <!-- ─── CARD 1: Juliano Sant'Ana ─── -->
       <a href="https://www.julianosantana.com.br" target="_blank" class="proj-card" style="--card-accent:#818CF8;">
-        <div class="proj-browser-wrap">
-          <div class="proj-browser">
-            <div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">julianosantana.com.br</div></div>
-            <div class="proj-screen" style="--sc-a:rgba(99,102,241,0.22);--sc-b:rgba(0,0,0,0.3);">
-              <div class="proj-sc-icon">🧭</div>
-              <div class="proj-sc-title">Juliano Sant'Ana</div>
-              <div class="proj-sc-sub">Marketing · Mentorias · Estratégia</div>
-              <div class="proj-sc-bars"><div class="proj-sc-bar" style="width:50px;height:4px;background:#818CF8;opacity:0.8;"></div><div class="proj-sc-bar" style="width:30px;height:4px;background:#818CF8;opacity:0.4;"></div><div class="proj-sc-bar" style="width:40px;height:4px;background:#818CF8;opacity:0.25;"></div></div>
-            </div>
-          </div>
+        <div class="card-mockup">
+          <img src="/assets/mockups/juliano-site.png" alt="Juliano Sant'Ana — site" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Marketing · Palestras · Mentorias</div>
@@ -865,18 +863,26 @@
         </div>
       </a>
 
-      <!-- ─── CARD 2: Turismo Estratégico ─── -->
-      <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="proj-card" style="--card-accent:#34D399;">
-        <div class="proj-browser-wrap">
-          <div class="proj-browser">
-            <div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">julianosantana.com.br/turismo</div></div>
-            <div class="proj-screen" style="--sc-a:rgba(16,185,129,0.22);--sc-b:rgba(0,0,0,0.28);">
-              <div class="proj-sc-icon">🏔️</div>
-              <div class="proj-sc-title">Turismo Estratégico</div>
-              <div class="proj-sc-sub">Destinos · Roteirização · Trade</div>
-              <div class="proj-sc-bars"><div class="proj-sc-bar" style="width:40px;height:4px;background:#34D399;opacity:0.8;"></div><div class="proj-sc-bar" style="width:55px;height:4px;background:#34D399;opacity:0.4;"></div><div class="proj-sc-bar" style="width:30px;height:4px;background:#34D399;opacity:0.2;"></div></div>
-            </div>
+      <!-- ─── CARD 2: TRAKO Circuit ─── -->
+      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" style="--card-accent:#22D3EE;">
+        <div class="card-mockup">
+          <img src="/assets/mockups/trako-celular.png" alt="TRAKO Circuit — app" loading="lazy" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div>
+          <div class="proj-nome">TRAKO Circuit</div>
+          <div class="proj-desc">Plataforma SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Conectando destinos, trilhas e viajantes com tecnologia de ponta.</div>
+          <div class="proj-footer">
+            <span class="proj-status exp">Em expansão</span>
+            <span class="proj-link-btn">trako-circuit.vercel.app →</span>
           </div>
+        </div>
+      </a>
+
+      <!-- ─── CARD 3: Turismo Estratégico ─── -->
+      <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="proj-card" style="--card-accent:#34D399;">
+        <div class="card-mockup">
+          <img src="/assets/mockups/turismo-site.png" alt="Turismo Estratégico — site" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Turismo · Estratégia</div>
@@ -889,17 +895,12 @@
         </div>
       </a>
 
-      <!-- ─── CARD 3: Mapa da Verdade ─── -->
+      <!-- ─── CARD 4: Mapa da Verdade ─── -->
       <a href="https://www.mapadaverdade.com.br" target="_blank" class="proj-card" style="--card-accent:#C084FC;">
-        <div class="proj-browser-wrap">
-          <div class="proj-browser">
-            <div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">mapadaverdade.com.br</div></div>
-            <div class="proj-screen" style="--sc-a:rgba(168,85,247,0.22);--sc-b:rgba(0,0,0,0.3);">
-              <div class="proj-sc-icon">🗺️</div>
-              <div class="proj-sc-title">Mapa da Verdade</div>
-              <div class="proj-sc-sub">IA · Diagnóstico · MPMEs</div>
-              <div class="proj-sc-bars"><div class="proj-sc-bar" style="width:50px;height:4px;background:#C084FC;opacity:0.8;"></div><div class="proj-sc-bar" style="width:30px;height:4px;background:#C084FC;opacity:0.45;"></div><div class="proj-sc-bar" style="width:60px;height:4px;background:#C084FC;opacity:0.25;"></div></div>
-            </div>
+        <div class="card-mockup ph-purple">
+          <div class="ph-inner">
+            <div class="ph-icon">🗺️</div>
+            <div class="ph-label">mapadaverdade.com.br</div>
           </div>
         </div>
         <div class="proj-body">
@@ -913,17 +914,12 @@
         </div>
       </a>
 
-      <!-- ─── CARD 4: Aonik ─── -->
+      <!-- ─── CARD 5: Aonik ─── -->
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" style="--card-accent:#F59E0B;">
-        <div class="proj-browser-wrap">
-          <div class="proj-browser">
-            <div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">aonik.com.br</div></div>
-            <div class="proj-screen" style="--sc-a:rgba(245,158,11,0.2);--sc-b:rgba(0,0,0,0.3);">
-              <div class="proj-sc-icon">🌿</div>
-              <div class="proj-sc-title">Aonik</div>
-              <div class="proj-sc-sub">Ecoturismo · Vale Europeu SC</div>
-              <div class="proj-sc-bars"><div class="proj-sc-bar" style="width:45px;height:4px;background:#F59E0B;opacity:0.8;"></div><div class="proj-sc-bar" style="width:55px;height:4px;background:#F59E0B;opacity:0.4;"></div><div class="proj-sc-bar" style="width:35px;height:4px;background:#F59E0B;opacity:0.2;"></div></div>
-            </div>
+        <div class="card-mockup ph-green">
+          <div class="ph-inner">
+            <div class="ph-icon">🌿</div>
+            <div class="ph-label">aonik.com.br</div>
           </div>
         </div>
         <div class="proj-body">
@@ -937,50 +933,26 @@
         </div>
       </a>
 
-      <!-- ─── CARD 5: TRAKO Circuit ─── -->
-      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" style="--card-accent:#22D3EE;">
-        <div class="proj-browser-wrap">
-          <div class="proj-browser">
-            <div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">trako-circuit.vercel.app</div></div>
-            <div class="proj-screen" style="--sc-a:rgba(6,182,212,0.22);--sc-b:rgba(0,0,0,0.3);">
-              <div class="proj-sc-icon">🚴</div>
-              <div class="proj-sc-title">TRAKO Circuit</div>
-              <div class="proj-sc-sub">SaaS · Cicloturismo · Trilhas</div>
-              <div class="proj-sc-bars"><div class="proj-sc-bar" style="width:60px;height:4px;background:#22D3EE;opacity:0.9;"></div><div class="proj-sc-bar" style="width:38px;height:4px;background:#22D3EE;opacity:0.45;"></div><div class="proj-sc-bar" style="width:48px;height:4px;background:#22D3EE;opacity:0.25;"></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div>
-          <div class="proj-nome">TRAKO Circuit</div>
-          <div class="proj-desc">Plataforma SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Conectando destinos, trilhas e viajantes com tecnologia de ponta.</div>
-          <div class="proj-footer">
-            <span class="proj-status exp">Em expansão</span>
-            <span class="proj-link-btn">trako-circuit.vercel.app →</span>
-          </div>
-        </div>
-      </a>
-
       <!-- ─── CÓPIAS para loop infinito (cards 6-10) ─── -->
       <a href="https://www.julianosantana.com.br" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#818CF8;">
-        <div class="proj-browser-wrap"><div class="proj-browser"><div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">julianosantana.com.br</div></div><div class="proj-screen" style="--sc-a:rgba(99,102,241,0.22);--sc-b:rgba(0,0,0,0.3);"><div class="proj-sc-icon">🧭</div><div class="proj-sc-title">Juliano Sant'Ana</div><div class="proj-sc-sub">Marketing · Mentorias · Estratégia</div></div></div></div>
+        <div class="card-mockup"><img src="/assets/mockups/juliano-site.png" alt="" loading="lazy" /></div>
         <div class="proj-body"><div class="proj-cat">Marketing · Palestras · Mentorias</div><div class="proj-nome">Juliano Sant'Ana</div><div class="proj-desc">Estrategista e palestrante com 25 anos de campo real. Diagnóstico honesto, estratégia que cobra execução.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">julianosantana.com.br →</span></div></div>
       </a>
+      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#22D3EE;">
+        <div class="card-mockup"><img src="/assets/mockups/trako-celular.png" alt="" loading="lazy" /></div>
+        <div class="proj-body"><div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div><div class="proj-nome">TRAKO Circuit</div><div class="proj-desc">SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Tecnologia que revoluciona o turismo ativo.</div><div class="proj-footer"><span class="proj-status exp">Em expansão</span><span class="proj-link-btn">ver projeto →</span></div></div>
+      </a>
       <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#34D399;">
-        <div class="proj-browser-wrap"><div class="proj-browser"><div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">julianosantana.com.br/turismo</div></div><div class="proj-screen" style="--sc-a:rgba(16,185,129,0.22);--sc-b:rgba(0,0,0,0.28);"><div class="proj-sc-icon">🏔️</div><div class="proj-sc-title">Turismo Estratégico</div><div class="proj-sc-sub">Destinos · Roteirização · Trade</div></div></div></div>
+        <div class="card-mockup"><img src="/assets/mockups/turismo-site.png" alt="" loading="lazy" /></div>
         <div class="proj-body"><div class="proj-cat">Turismo · Estratégia</div><div class="proj-nome">Turismo Estratégico</div><div class="proj-desc">Palestras para o trade, consultoria de produto e roteirização com olhar de quem compra.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">ver projeto →</span></div></div>
       </a>
       <a href="https://www.mapadaverdade.com.br" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#C084FC;">
-        <div class="proj-browser-wrap"><div class="proj-browser"><div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">mapadaverdade.com.br</div></div><div class="proj-screen" style="--sc-a:rgba(168,85,247,0.22);--sc-b:rgba(0,0,0,0.3);"><div class="proj-sc-icon">🗺️</div><div class="proj-sc-title">Mapa da Verdade</div><div class="proj-sc-sub">IA · Diagnóstico · MPMEs</div></div></div></div>
+        <div class="card-mockup ph-purple"><div class="ph-inner"><div class="ph-icon">🗺️</div><div class="ph-label">mapadaverdade.com.br</div></div></div>
         <div class="proj-body"><div class="proj-cat">Tecnologia · IA · Estratégia</div><div class="proj-nome">Mapa da Verdade</div><div class="proj-desc">Plataforma de IA com diagnóstico estratégico e clareza de rota para micro e pequenos empreendedores.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">mapadaverdade.com.br →</span></div></div>
       </a>
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#F59E0B;">
-        <div class="proj-browser-wrap"><div class="proj-browser"><div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">aonik.com.br</div></div><div class="proj-screen" style="--sc-a:rgba(245,158,11,0.2);--sc-b:rgba(0,0,0,0.3);"><div class="proj-sc-icon">🌿</div><div class="proj-sc-title">Aonik</div><div class="proj-sc-sub">Ecoturismo · Vale Europeu SC</div></div></div></div>
+        <div class="card-mockup ph-green"><div class="ph-inner"><div class="ph-icon">🌿</div><div class="ph-label">aonik.com.br</div></div></div>
         <div class="proj-body"><div class="proj-cat">Turismo de Natureza · Experiências</div><div class="proj-nome">Aonik</div><div class="proj-desc">Experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">aonik.com.br →</span></div></div>
-      </a>
-      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#22D3EE;">
-        <div class="proj-browser-wrap"><div class="proj-browser"><div class="proj-bar"><div class="proj-dot proj-dot-r"></div><div class="proj-dot proj-dot-y"></div><div class="proj-dot proj-dot-g"></div><div class="proj-url-bar">trako-circuit.vercel.app</div></div><div class="proj-screen" style="--sc-a:rgba(6,182,212,0.22);--sc-b:rgba(0,0,0,0.3);"><div class="proj-sc-icon">🚴</div><div class="proj-sc-title">TRAKO Circuit</div><div class="proj-sc-sub">SaaS · Cicloturismo · Trilhas</div></div></div></div>
-        <div class="proj-body"><div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div><div class="proj-nome">TRAKO Circuit</div><div class="proj-desc">SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Tecnologia que revoluciona o turismo ativo.</div><div class="proj-footer"><span class="proj-status exp">Em expansão</span><span class="proj-link-btn">ver projeto →</span></div></div>
       </a>
 
     </div><!-- /carousel-track -->
