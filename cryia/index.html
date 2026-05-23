@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRYIA HUB — Ecossistema Criativo e Estratégico</title>
-  <meta name="description" content="CRYIA HUB é o ecossistema criativo e estratégico que une Marketing, Turismo, Tecnologia, Learning, Mentorias e Empreendedorismo em uma visão única." />
+  <title>CRYIA HUB — Ecossistema de IA, Estratégia e Negócios Reais</title>
+  <meta name="description" content="CRYIA HUB é o ecossistema que conecta seu negócio à inteligência artificial de forma humana, estratégica e com resultado real. Marketing, Turismo, Tecnologia, Learning, Mentorias e Empreendedorismo." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet" />
@@ -37,18 +37,21 @@
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
+    /* ── GRAIN TEXTURE ─────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 999;
+      pointer-events: none; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
     /* ── FUNDO ANIMADO ─────────────────────────────────── */
-    .bg-orbs {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(100px); opacity: 0.12;
-      animation: orb-float 12s ease-in-out infinite alternate;
-    }
+    .bg-orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.12; animation: orb-float 12s ease-in-out infinite alternate; }
     .orb-1 { width: 600px; height: 600px; background: var(--grad-a); top: -200px; left: -100px; animation-duration: 14s; }
     .orb-2 { width: 500px; height: 500px; background: var(--grad-b); bottom: -150px; right: -100px; animation-duration: 18s; animation-delay: -6s; }
     .orb-3 { width: 350px; height: 350px; background: var(--grad-c); top: 40%; left: 50%; transform: translate(-50%,-50%); animation-duration: 10s; animation-delay: -3s; opacity: 0.07; }
+    .orb-4 { width: 260px; height: 260px; background: var(--oxossi); top: 38%; right: -80px; animation-duration: 17s; animation-delay: -9s; opacity: 0.055; }
     @keyframes orb-float {
       0% { transform: translate(0,0) scale(1); }
       100% { transform: translate(40px, 30px) scale(1.08); }
@@ -56,6 +59,7 @@
 
     /* ── LAYOUT ───────────────────────────────────────── */
     .container { max-width: 1140px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,3rem); position: relative; z-index: 1; }
+    .secao { padding: clamp(5rem,10vw,8rem) 0; position: relative; z-index: 1; }
 
     /* ── NAVBAR ───────────────────────────────────────── */
     .navbar {
@@ -68,9 +72,7 @@
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    .navbar-inner {
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .navbar-inner { display: flex; align-items: center; justify-content: space-between; }
     .logo-cryia { display: flex; align-items: center; line-height: 0; }
     .logo-cryia img { height: 76px; width: auto; display: block; transform: translateY(-6px); }
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
@@ -90,8 +92,14 @@
       min-height: 100vh;
       display: flex; align-items: center;
       padding: clamp(6rem,12vw,10rem) 0 clamp(4rem,8vw,7rem);
-      text-align: center;
     }
+    .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    @media (max-width: 960px) { .hero-split { grid-template-columns: 1fr; gap: 3rem; text-align: center; } }
+
+    .hero-left { display: flex; flex-direction: column; gap: 0; }
+    .hero-left .hero-eyebrow { align-self: flex-start; }
+    @media (max-width: 960px) { .hero-left .hero-eyebrow { align-self: center; } }
+
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
@@ -99,39 +107,44 @@
       background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.28);
       padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 2rem;
     }
-    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi); }
-    .hero-logo-img {
-      max-width: min(480px, 78vw);
-      height: auto;
-      display: block;
-      margin: 0 auto 2rem;
-      filter: drop-shadow(0 8px 40px rgba(34,197,94,0.2));
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi);
+      animation: dot-blink 2s ease-in-out infinite;
+    }
+    .hero-headline {
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 1.08;
+      color: #fff; margin: 0 0 1.4rem;
+    }
+    .hero-headline em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--oxossi), var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .hero-desc {
-      max-width: 640px; margin: 0 auto 2.5rem;
-      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-      color: rgba(255,255,255,0.6);
-      line-height: 1.85;
+      max-width: 540px; margin: 0 0 2rem;
+      font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+      color: rgba(255,255,255,0.6); line-height: 1.85;
     }
-    .hero-pilares {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
-      margin-bottom: 3rem;
-    }
+    @media (max-width: 960px) { .hero-desc { text-align: center; margin: 0 auto 2rem; } }
+
+    .hero-pilares { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; justify-content: flex-start; }
+    @media (max-width: 960px) { .hero-pilares { justify-content: center; } }
     .pilar-chip {
       font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.35rem 0.9rem; border-radius: 50px;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
+      padding: 0.35rem 0.9rem; border-radius: 50px; border: 1px solid var(--border); color: var(--text-dim);
       transition: border-color var(--transicao), color var(--transicao);
     }
-    .pilar-chip:hover { border-color: var(--border-glow); color: var(--text); }
     .pilar-chip.marketing  { border-color: rgba(99,102,241,0.3); color: #818CF8; }
     .pilar-chip.turismo    { border-color: rgba(16,185,129,0.3); color: #34D399; }
     .pilar-chip.tecnologia { border-color: rgba(6,182,212,0.3);  color: #22D3EE; }
     .pilar-chip.learning   { border-color: rgba(249,115,22,0.3); color: #FB923C; }
     .pilar-chip.mentoria   { border-color: rgba(245,158,11,0.3);  color: #FCD34D; }
     .pilar-chip.empreend   { border-color: rgba(168,85,247,0.3);  color: #C084FC; }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+    @media (max-width: 960px) { .hero-btns { justify-content: center; } }
+
     .btn-primario-cryia {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.9rem 2.2rem; border-radius: 50px;
@@ -150,516 +163,61 @@
     }
     .btn-outline-cryia:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
 
-    /* ── MANIFESTO ─────────────────────────────────────── */
-    .secao { padding: clamp(5rem,10vw,8rem) 0; position: relative; z-index: 1; }
-    .manifesto {
-      background: rgba(255,255,255,0.015);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    /* Marca d'água AÇÃO & REAÇÃO */
-    .ar-watermark {
-      position: absolute;
-      font-size: clamp(5rem, 14vw, 11rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0.05;
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-8deg);
-      width: max-content;
-    }
-
-    .manifesto-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center;
-      position: relative; z-index: 1;
-    }
-    @media (max-width: 768px) { .manifesto-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-
-    /* "CRYIA não é uma sigla" como título principal */
-    .manifesto-slogan {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 0.6rem;
-      background: linear-gradient(135deg, #fff 30%, var(--grad-b) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .manifesto-subtitulo {
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      font-weight: 300;
-      color: rgba(255,255,255,0.45);
-      font-style: italic;
-      letter-spacing: 0.02em;
-      margin-bottom: 1.8rem;
-    }
-
-    .manifesto-tag {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--grad-b); margin-bottom: 1.2rem;
-    }
-    .manifesto-texto {
-      font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.9;
-    }
-    .manifesto-texto strong { color: var(--text); }
-    .manifesto-texto p + p { margin-top: 1rem; }
-
-    /* Destaque AÇÃO & REAÇÃO inline */
-    .ar-destaque {
-      display: inline;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 800;
-    }
-
-    .manifesto-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      position: relative; z-index: 1;
-    }
-    .stat-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      text-align: center;
-      transition: border-color var(--transicao);
-    }
-    .stat-box:hover { border-color: var(--border-glow); }
-    .stat-num {
-      font-size: 2.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; margin-bottom: 0.4rem;
-    }
-    .stat-label { font-size: 0.75rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.06em; line-height: 1.4; }
-
-    /* ── PROJETOS ─────────────────────────────────────── */
-    .secao-titulo {
-      text-align: center; margin-bottom: 1rem;
-    }
-    .secao-tag {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--grad-c); margin-bottom: 1rem;
-    }
-    .secao-h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800; letter-spacing: -0.02em; line-height: 1.2;
-      margin-bottom: 0.8rem;
-    }
-    .secao-h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.45); }
-    .secao-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 0.6rem; line-height: 1.8; }
-    .secao-desc-ar {
-      font-size: 0.82rem;
-      color: rgba(168,85,247,0.7);
-      max-width: 540px;
-      margin: 0 auto 3rem;
-      font-style: italic;
-      letter-spacing: 0.02em;
-    }
-
-    .projetos-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-    }
-    @media (max-width: 900px) { .projetos-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 600px) { .projetos-grid { grid-template-columns: 1fr; } }
-
-    .projeto-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all var(--transicao);
-      position: relative;
-      display: flex; flex-direction: column;
-      cursor: pointer;
-    }
-    .projeto-card::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--card-a, #6366F1), var(--card-b, #A855F7));
-      opacity: 0;
-      transition: opacity var(--transicao);
-      pointer-events: none;
-    }
-    .projeto-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-    .projeto-card:hover::after { opacity: 0.06; }
-
-    .projeto-card.destaque-1 { --card-a: #6366F1; --card-b: #8B5CF6; }
-    .projeto-card.destaque-2 { --card-a: #10B981; --card-b: #06B6D4; }
-    .projeto-card.destaque-3 { --card-a: #A855F7; --card-b: #EC4899; }
-    .projeto-card.destaque-4 { --card-a: #F59E0B; --card-b: #EF4444; }
-    .projeto-card.destaque-5 { --card-a: #06B6D4; --card-b: #3B82F6; }
-
-    /* Card visual header */
-    .projeto-visual {
-      height: 90px;
-      background: linear-gradient(135deg, var(--card-a, #6366F1), var(--card-b, #A855F7));
-      opacity: 0.18;
-      flex-shrink: 0;
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .projeto-visual-emoji {
-      font-size: 2.8rem;
-      opacity: 1;
-      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.4));
-    }
-    .projeto-visual-bg {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--card-a, #6366F1), var(--card-b, #A855F7));
-      opacity: 1;
-    }
-
-    /* Card de destaque (span 2 cols) */
-    .projeto-card.wide { grid-column: span 2; }
-    @media (max-width: 900px) { .projeto-card.wide { grid-column: span 1; } }
-
-    .projeto-body {
-      padding: 1.6rem 1.8rem 1.8rem;
-      display: flex; flex-direction: column; flex: 1;
-      position: relative; z-index: 1;
-    }
-
-    .projeto-categoria {
-      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--text-dim);
-      margin-bottom: 0.5rem;
-    }
-    .projeto-nome {
-      font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em;
-      color: #fff; margin-bottom: 0.5rem; line-height: 1.25;
-    }
-    .projeto-desc {
-      font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7;
-      flex: 1; margin-bottom: 1.2rem;
-    }
-    .projeto-tags {
-      display: flex; flex-wrap: wrap; gap: 0.35rem;
-      margin-bottom: 1.2rem;
-    }
-    .projeto-tag {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.5); padding: 0.2rem 0.55rem; border-radius: 20px;
-    }
-    .projeto-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.78rem; font-weight: 700;
-      color: var(--card-a, var(--grad-a));
-      transition: color var(--transicao), gap var(--transicao);
-      opacity: 0.85;
-      text-decoration: none;
-      filter: brightness(1.2);
-    }
-    .projeto-link:hover { gap: 0.7rem; opacity: 1; filter: brightness(1.5); }
-
-    /* ── PILARES ──────────────────────────────────────── */
-    .pilares { background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .pilares-grid {
-      display: grid; grid-template-columns: repeat(6, 1fr);
-      gap: 1rem; margin-top: 3rem;
-    }
-    @media (max-width: 1100px) { .pilares-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 600px) { .pilares-grid { grid-template-columns: 1fr 1fr; } }
-    .pilar-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem 1rem;
-      text-align: center;
-      transition: all var(--transicao);
-    }
-    .pilar-card:hover { border-color: var(--pilar-cor, var(--border-glow)); transform: translateY(-3px); }
-    .pilar-emoji { font-size: 1.8rem; margin-bottom: 0.7rem; }
-    .pilar-nome {
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--pilar-cor, var(--text-dim)); margin-bottom: 0.4rem;
-    }
-    .pilar-mini { font-size: 0.68rem; color: var(--text-dim); line-height: 1.5; }
-
-    /* ── FUNDADOR ─────────────────────────────────────── */
-    .fundador-grid {
-      display: grid; grid-template-columns: auto 1fr;
-      gap: 4rem; align-items: start;
-    }
-    @media (max-width: 768px) { .fundador-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } }
-
-    .fundador-avatar {
-      width: 280px; height: 320px; border-radius: 24px; overflow: hidden;
-      border: 2px solid rgba(168,85,247,0.3);
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2));
-      flex-shrink: 0;
-      position: relative;
-      box-shadow: 0 24px 80px rgba(99,102,241,0.2), 0 0 0 1px rgba(99,102,241,0.1);
-    }
-    .fundador-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
-    @media (max-width: 768px) { .fundador-avatar { width: 200px; height: 240px; margin: 0 auto; } }
-
-    .fundador-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grad-b); margin-bottom: 0.8rem; }
-    .fundador-nome { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    .fundador-nome span { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .fundador-bio { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 1.5rem; max-width: 560px; }
-    .fundador-credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
-    .cred-chip { font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); }
-
-    /* Bloco AÇÃO & REAÇÃO — full width abaixo do grid */
-    .ar-bloco {
-      background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.07));
-      border: 1px solid rgba(168,85,247,0.2);
-      border-radius: 20px;
-      padding: 2.5rem 2.8rem;
-      position: relative;
-      overflow: hidden;
-      margin-top: 2.5rem;
-    }
-    @media (max-width: 768px) { .ar-bloco { padding: 2rem 1.5rem; } }
-    .ar-bloco::before {
-      content: 'AÇÃO & REAÇÃO';
-      position: absolute;
-      font-size: 5rem; font-weight: 900; letter-spacing: -0.04em;
-      white-space: nowrap;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      opacity: 0.04; bottom: -1rem; right: -1rem;
-      pointer-events: none;
-    }
-    .ar-bloco-tag {
-      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--grad-b); margin-bottom: 0.7rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .ar-bloco-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--grad-b); flex-shrink:0; }
-    .ar-bloco-titulo {
-      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
-      background: linear-gradient(135deg, #fff, var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .ar-bloco-nao-metodo {
-      font-size: 0.72rem; font-weight: 700; color: rgba(168,85,247,0.75);
-      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem;
-    }
-    .ar-bloco-intro {
-      font-size: 0.85rem; color: rgba(255,255,255,0.48); line-height: 1.75;
-      margin-bottom: 1.6rem; font-style: italic;
-    }
-
-    /* Dois lados: AÇÃO | REAÇÃO */
-    .ar-lados {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem; margin-bottom: 1.4rem;
-    }
-    @media (max-width: 600px) { .ar-lados { grid-template-columns: 1fr; } }
-
-    .ar-lado {
-      border-radius: 14px;
-      padding: 1.2rem 1.1rem;
-    }
-    .ar-lado-acao {
-      background: rgba(99,102,241,0.08);
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-    .ar-lado-reacao {
-      background: rgba(168,85,247,0.08);
-      border: 1px solid rgba(168,85,247,0.2);
-    }
-    .ar-lado-titulo {
-      font-size: 0.92rem; font-weight: 900; letter-spacing: 0.04em;
-      margin-bottom: 0.2rem;
-    }
-    .ar-lado-acao .ar-lado-titulo { color: #818CF8; }
-    .ar-lado-reacao .ar-lado-titulo { color: #C084FC; }
-    .ar-lado-sub {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-dim); margin-bottom: 0.25rem;
-    }
-    .ar-lado-desc {
-      font-size: 0.68rem; color: rgba(255,255,255,0.35);
-      font-style: italic; margin-bottom: 1rem; line-height: 1.4;
-    }
-    .ar-principios { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-    .ar-principio-item { display: flex; align-items: flex-start; gap: 0.5rem; }
-    .ar-principio-num {
-      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em;
-      color: var(--item-cor, rgba(129,140,248,0.6));
-      min-width: 16px; margin-top: 0.1rem; flex-shrink: 0;
-    }
-    .ar-principio-corpo {}
-    .ar-principio-nome {
-      font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.75);
-      line-height: 1.3; margin-bottom: 0.15rem;
-    }
-    .ar-principio-txt {
-      font-size: 0.68rem; color: rgba(255,255,255,0.38); line-height: 1.5;
-    }
-
-    .ar-bloco-colhe {
-      font-size: 0.9rem; font-weight: 700; font-style: italic;
-      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      text-align: center; padding-top: 0.4rem;
-      border-top: 1px solid rgba(168,85,247,0.12);
-    }
-
-    /* ── CTA ──────────────────────────────────────────── */
-    .cta-hub {
-      text-align: center;
-      background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.08) 50%, rgba(6,182,212,0.06) 100%);
-      border: 1px solid rgba(99,102,241,0.2);
-      border-radius: 28px;
-      padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4rem);
-      position: relative; overflow: hidden;
-    }
-    .cta-hub::before {
-      content: '';
-      position: absolute; inset: -1px;
-      background: linear-gradient(135deg, rgba(99,102,241,0.15), transparent, rgba(168,85,247,0.15));
-      border-radius: 28px; z-index: 0;
-    }
-    .cta-hub > * { position: relative; z-index: 1; }
-    .cta-hub-titulo { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
-    .cta-hub-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8; }
-    .cta-hub-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-wa-cryia {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.9rem 2rem; border-radius: 50px;
-      background: #25D366; color: #fff;
-      font-weight: 800; font-size: 0.9rem;
-      transition: all var(--transicao);
-    }
-    .btn-wa-cryia:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.3); }
-    .btn-email-cryia {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.9rem 2rem; border-radius: 50px;
-      border: 1px solid var(--border); color: var(--text-dim);
-      font-weight: 600; font-size: 0.9rem;
-      transition: all var(--transicao);
-    }
-    .btn-email-cryia:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
-
-    /* ── FOOTER ───────────────────────────────────────── */
-    .footer-cryia {
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 0;
-      position: relative; z-index: 1;
-    }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-copy { font-size: 0.78rem; color: var(--text-dim); }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { font-size: 0.78rem; color: var(--text-dim); transition: color var(--transicao); }
-    .footer-links a:hover { color: var(--text); }
-
-    /* ── ANIMAÇÕES ────────────────────────────────────── */
-    .animar {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
-    }
-    .animar.visivel { opacity: 1; transform: translateY(0); }
-    .animar-delay-1 { transition-delay: 0.1s; }
-    .animar-delay-2 { transition-delay: 0.2s; }
-    .animar-delay-3 { transition-delay: 0.3s; }
-    .animar-delay-4 { transition-delay: 0.4s; }
-    .animar-delay-5 { transition-delay: 0.5s; }
-
-    /* Linha divisória estilo gradiente — toque Oxossi */
-    .linha-grad {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--oxossi), var(--grad-a), var(--grad-b), transparent);
-      margin: 0; opacity: 0.35;
-    }
-
-    /* Orb Oxossi — sorte verde, presença de Exu do Mato */
-    .orb-4 { width: 260px; height: 260px; background: var(--oxossi); top: 38%; right: -80px; animation-duration: 17s; animation-delay: -9s; opacity: 0.055; }
-
-    /* ── HERO SPLIT ──────────────────────────────────── */
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: clamp(6rem,12vw,10rem) 0 clamp(4rem,8vw,7rem); }
-    .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    @media (max-width: 960px) { .hero-split { grid-template-columns: 1fr; gap: 3rem; text-align: center; } }
-
-    .hero-left { display: flex; flex-direction: column; gap: 0; }
-    .hero-left .hero-eyebrow { align-self: flex-start; }
-    @media (max-width: 960px) { .hero-left .hero-eyebrow { align-self: center; } }
-
-    .hero-headline {
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
-      font-weight: 900; letter-spacing: -0.04em; line-height: 1.1;
-      color: #fff; margin: 1.2rem 0 1.2rem;
-    }
-    .hero-headline em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--oxossi), var(--grad-a), var(--grad-b));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-left .hero-desc { text-align: left; margin: 0 0 1.8rem; }
-    @media (max-width: 960px) { .hero-left .hero-desc { text-align: center; } }
-    .hero-left .hero-pilares { justify-content: flex-start; margin-bottom: 2rem; }
-    @media (max-width: 960px) { .hero-left .hero-pilares { justify-content: center; } }
-    .hero-left .hero-btns { justify-content: flex-start; }
-    @media (max-width: 960px) { .hero-left .hero-btns { justify-content: center; } }
-
-    /* Dashboard visual — right side */
+    /* ── DASHBOARD VISUAL ─────────────────────────────── */
     .hero-right { position: relative; }
-    @media (max-width: 960px) { .hero-right { max-width: 420px; margin: 0 auto; } }
+    @media (max-width: 960px) { .hero-right { max-width: 440px; margin: 0 auto; } }
 
     .dash-card-main {
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(99,102,241,0.25);
-      border-radius: 20px; padding: 1.5rem;
+      border: 1px solid rgba(99,102,241,0.28);
+      border-radius: 24px; padding: 1.8rem;
       backdrop-filter: blur(20px);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.08), 0 0 80px rgba(99,102,241,0.08);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.08), 0 0 80px rgba(99,102,241,0.1);
       transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
       transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
       position: relative; z-index: 1;
+      animation: dashFloat 4s ease-in-out infinite;
     }
-    .dash-card-main:hover { transform: perspective(1200px) rotateY(-1deg) rotateX(0deg); }
-    @media (max-width: 960px) { .dash-card-main { transform: none; } }
+    .dash-card-main:hover { transform: perspective(1200px) rotateY(-1deg) rotateX(0deg); animation-play-state: paused; }
+    @media (max-width: 960px) { .dash-card-main { transform: none; animation: dashFloat-mobile 4s ease-in-out infinite; } }
 
-    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
-    .dash-logo { height: 26px; width: auto; }
+    @keyframes dashFloat {
+      0%, 100% {
+        transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(0);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 80px rgba(99,102,241,0.12);
+      }
+      50% {
+        transform: perspective(1200px) rotateY(-5deg) rotateX(2deg) translateY(-14px);
+        box-shadow: 0 38px 100px rgba(0,0,0,0.6), 0 0 100px rgba(34,197,94,0.18);
+      }
+    }
+    @keyframes dashFloat-mobile {
+      0%, 100% { transform: translateY(0); box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 60px rgba(99,102,241,0.1); }
+      50% { transform: translateY(-10px); box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 80px rgba(34,197,94,0.15); }
+    }
+
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .dash-logo { height: 28px; width: auto; }
     .dash-status { display: flex; align-items: center; gap: 0.4rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--oxossi); }
     .dash-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--oxossi); animation: dot-blink 2s ease-in-out infinite; }
 
-    .dash-proj-list { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; }
-    .dash-proj-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.5rem 0.65rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; transition: background var(--transicao); }
+    .dash-proj-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.1rem; }
+    .dash-proj-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0.7rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; transition: background var(--transicao); }
     .dash-proj-item:hover { background: rgba(255,255,255,0.06); }
     .dash-proj-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--proj-cor, var(--grad-a)); flex-shrink: 0; }
-    .dash-proj-name { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.75); flex: 1; }
+    .dash-proj-name { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.75); flex: 1; }
     .dash-proj-badge { font-size: 0.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.12rem 0.4rem; border-radius: 8px; background: rgba(34,197,94,0.12); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.15); }
     .dash-proj-badge.breve { background: rgba(6,182,212,0.12); color: #22D3EE; border-color: rgba(6,182,212,0.15); }
 
     .dash-footer-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .dash-stat-mini { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.6rem 0.8rem; }
-    .dash-stat-num { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.2rem; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .dash-stat-mini { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.7rem 0.9rem; }
+    .dash-stat-num { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.2rem; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .dash-stat-lbl { font-size: 0.54rem; color: var(--text-dim); font-weight: 500; line-height: 1.3; }
 
     /* Floating accent cards */
     .dash-float { position: absolute; background: rgba(10,12,24,0.92); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 0.65rem 1rem; box-shadow: 0 12px 40px rgba(0,0,0,0.5); animation: float-card 6s ease-in-out infinite; z-index: 2; }
-    .dash-float-1 { right: -28px; top: 28px; animation-duration: 7s; }
-    .dash-float-2 { left: -28px; bottom: 48px; animation-duration: 5.5s; animation-delay: -2.5s; }
+    .dash-float-1 { right: -32px; top: 24px; animation-duration: 7s; }
+    .dash-float-2 { left: -32px; bottom: 52px; animation-duration: 5.5s; animation-delay: -2.5s; }
     @media (max-width: 960px) { .dash-float { display: none; } }
     @keyframes float-card { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     .float-label { font-size: 0.52rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.2rem; }
@@ -667,18 +225,141 @@
     .float-value.green { color: var(--oxossi); }
     .float-value.cyan { color: #22D3EE; }
 
-    /* ── STATS BAR ───────────────────────────────────── */
-    .stats-bar { position: relative; z-index: 1; background: rgba(255,255,255,0.018); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.2rem 0; }
-    .stats-bar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    @media (max-width: 700px) { .stats-bar-grid { grid-template-columns: repeat(2, 1fr); } }
-    .stats-bar-item { text-align: center; padding: 0.5rem 1rem; position: relative; }
-    .stats-bar-item + .stats-bar-item::before { content: ''; position: absolute; left: 0; top: 15%; bottom: 15%; width: 1px; background: var(--border); }
-    @media (max-width: 700px) { .stats-bar-item:nth-child(2n+1) + .stats-bar-item::before { display: none; } }
-    .stats-bar-num { font-size: clamp(2rem,4vw,3rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.3rem; }
-    .stats-bar-num.accent { background: none; -webkit-text-fill-color: var(--oxossi); color: var(--oxossi); }
-    .stats-bar-lbl { font-size: 0.7rem; font-weight: 500; color: var(--text-dim); letter-spacing: 0.02em; line-height: 1.4; }
+    /* ── SOCIAL PROOF BAR ─────────────────────────────── */
+    .social-proof-bar {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.018);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 0;
+    }
+    .spb-inner {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      text-transform: uppercase; text-align: center;
+    }
+    .spb-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--oxossi);
+      flex-shrink: 0;
+      animation: dot-blink 2s ease-in-out infinite;
+    }
+    .spb-sep { color: rgba(255,255,255,0.2); }
 
-    /* ── PROJETO BROWSER MOCKUP ──────────────────────── */
+    /* ── SEÇÃO GENÉRICA ───────────────────────────────── */
+    .secao-titulo { text-align: center; margin-bottom: 1rem; }
+    .secao-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grad-c); margin-bottom: 1rem; }
+    .secao-h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.8rem; }
+    .secao-h2 em { font-style: italic; font-weight: 300; color: rgba(255,255,255,0.45); }
+    .secao-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 0.6rem; line-height: 1.8; }
+
+    /* ── O QUE É O CRYIA HUB ─────────────────────────── */
+    .oqe-secao {
+      background: rgba(255,255,255,0.012);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .oqe-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    @media (max-width: 900px) { .oqe-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+    .oqe-copy .secao-tag { display: block; text-align: left; }
+    .oqe-h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .oqe-h2 em { font-style: normal; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .oqe-texto { font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.9; margin-bottom: 1rem; }
+    .oqe-texto strong { color: var(--text); }
+    .oqe-eixos { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.5rem; }
+    .oqe-eixo {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 0.8rem; border-radius: 50px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.55);
+      transition: all var(--transicao);
+    }
+    .oqe-eixo:hover { border-color: rgba(99,102,241,0.35); color: var(--text); }
+
+    /* Hub visual card */
+    .oqe-hub-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.07));
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 24px; padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 80px rgba(99,102,241,0.08);
+    }
+    .oqe-hub-card::before {
+      content: ''; position: absolute; inset: -8px; border-radius: 28px;
+      border: 1px solid rgba(99,102,241,0.1);
+      animation: eco-pulse 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .oqe-hub-logo { height: 52px; width: auto; margin: 0 auto 1.5rem; filter: drop-shadow(0 4px 16px rgba(99,102,241,0.4)); position: relative; z-index: 1; }
+    .oqe-hub-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent); margin-bottom: 1.2rem; }
+    .oqe-proj-list { display: flex; flex-direction: column; gap: 0.5rem; position: relative; z-index: 1; }
+    .oqe-proj-item {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.55rem 0.8rem;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+    }
+    .oqe-proj-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .oqe-proj-name { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.7); flex: 1; }
+    .oqe-proj-badge {
+      font-size: 0.48rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.1rem 0.4rem; border-radius: 8px;
+      background: rgba(34,197,94,0.1); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.15);
+    }
+    .oqe-proj-badge.expand { background: rgba(6,182,212,0.1); color: #22D3EE; border-color: rgba(6,182,212,0.15); }
+    @keyframes eco-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* ── PROJETOS ─────────────────────────────────────── */
+    .projetos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .projetos-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .projetos-grid { grid-template-columns: 1fr; } }
+
+    .projeto-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; transition: all var(--transicao);
+      position: relative; display: flex; flex-direction: column; cursor: pointer;
+    }
+    .projeto-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--card-a, #6366F1), var(--card-b, #A855F7));
+      opacity: 0; transition: opacity var(--transicao); pointer-events: none;
+    }
+    .projeto-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .projeto-card:hover::after { opacity: 0.06; }
+    .projeto-card.destaque-1 { --card-a: #6366F1; --card-b: #8B5CF6; }
+    .projeto-card.destaque-2 { --card-a: #10B981; --card-b: #06B6D4; }
+    .projeto-card.destaque-3 { --card-a: #A855F7; --card-b: #EC4899; }
+    .projeto-card.destaque-4 { --card-a: #F59E0B; --card-b: #EF4444; }
+    .projeto-card.destaque-5 { --card-a: #06B6D4; --card-b: #3B82F6; }
+    .projeto-card.wide { grid-column: span 2; }
+    @media (max-width: 900px) { .projeto-card.wide { grid-column: span 1; } }
+
+    /* Status badge on card */
+    .projeto-status {
+      position: absolute; top: 0.7rem; right: 0.7rem; z-index: 3;
+      font-size: 0.48rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.18rem 0.5rem; border-radius: 20px;
+      background: rgba(34,197,94,0.15); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.25);
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .projeto-status::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--oxossi); animation: dot-blink 2s ease-in-out infinite; }
+    .projeto-status.expand { background: rgba(6,182,212,0.12); color: #22D3EE; border-color: rgba(6,182,212,0.2); }
+    .projeto-status.expand::before { background: #22D3EE; }
+
+    /* Browser mockup */
     .projeto-visual-frame { height: 140px; position: relative; overflow: hidden; flex-shrink: 0; }
     .proj-browser { width: 100%; height: 100%; display: flex; flex-direction: column; }
     .proj-browser-bar { background: rgba(0,0,0,0.4); padding: 0.3rem 0.55rem; display: flex; align-items: center; gap: 0.3rem; flex-shrink: 0; }
@@ -693,66 +374,30 @@
     .proj-bc-bars { display: flex; gap: 0.3rem; margin-top: 0.35rem; align-items: flex-end; }
     .proj-bc-bar { border-radius: 2px; background: var(--proj-accent, var(--grad-a)); }
 
-    /* ── ECOSSISTEMA MAP ─────────────────────────────── */
-    .eco-hub-node {
-      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(168,85,247,0.1));
-      border: 1px solid rgba(99,102,241,0.25);
-      border-radius: 24px;
-      padding: 2.2rem 3rem 2rem;
-      max-width: 520px;
-      margin: 2.5rem auto 0;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 0 60px rgba(99,102,241,0.12);
-      z-index: 1;
-    }
-    .eco-hub-node::before {
-      content: ''; position: absolute; inset: -8px; border-radius: 30px;
-      border: 1px solid rgba(99,102,241,0.12);
-      animation: eco-pulse 3s ease-in-out infinite;
-      pointer-events: none; z-index: 0;
-    }
-    .eco-hub-node::after {
-      content: ''; position: absolute; inset: -18px; border-radius: 36px;
-      border: 1px solid rgba(99,102,241,0.06);
-      animation: eco-pulse 3s ease-in-out infinite 1s;
-      pointer-events: none; z-index: 0;
-    }
-    @keyframes eco-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .eco-hub-logo { height: 56px; width: auto; margin: 0 auto 0.8rem; filter: drop-shadow(0 4px 16px rgba(99,102,241,0.35)); position: relative; z-index: 1; }
-    .eco-hub-tagline { font-size: 0.72rem; color: rgba(255,255,255,0.38); letter-spacing: 0.04em; line-height: 1.5; margin-bottom: 1rem; position: relative; z-index: 1; }
-    .eco-hub-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; position: relative; z-index: 1; }
-    .eco-hub-pill { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.45); }
+    .projeto-body { padding: 1.6rem 1.8rem 1.8rem; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
+    .projeto-categoria { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem; }
+    .projeto-nome { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; color: #fff; margin-bottom: 0.5rem; line-height: 1.25; }
+    .projeto-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.7; flex: 1; margin-bottom: 1.2rem; }
+    .projeto-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.2rem; }
+    .projeto-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); padding: 0.2rem 0.55rem; border-radius: 20px; }
+    .projeto-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 700; color: var(--card-a, var(--grad-a)); transition: color var(--transicao), gap var(--transicao); opacity: 0.85; filter: brightness(1.2); }
+    .projeto-link:hover { gap: 0.7rem; opacity: 1; filter: brightness(1.5); }
 
-    .eco-conector { display: flex; flex-direction: column; align-items: center; padding: 0.8rem 0 0.4rem; }
-    .eco-conector-line { width: 2px; height: 32px; background: linear-gradient(to bottom, rgba(99,102,241,0.5), rgba(168,85,247,0.2)); }
-    .eco-conector-arrow { font-size: 0.65rem; color: rgba(168,85,247,0.4); margin-top: -1px; }
-
-    .eco-branches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
-    @media (max-width: 1100px) { .eco-branches { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 620px)  { .eco-branches { grid-template-columns: 1fr 1fr; } }
-
-    .eco-branch {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-top: 3px solid var(--branch-cor, var(--grad-a));
-      border-radius: var(--radius);
-      padding: 1.3rem 1.1rem 1.1rem;
-      transition: all var(--transicao); display: flex; flex-direction: column;
-      text-decoration: none; color: inherit; cursor: pointer;
+    /* ── CTA INTERMEDIÁRIO ────────────────────────────── */
+    .cta-incub { position: relative; z-index: 1; }
+    .cta-incub-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(168,85,247,0.06));
+      border: 1px solid rgba(99,102,241,0.18);
+      border-radius: 24px; padding: clamp(2.5rem,5vw,4rem);
+      text-align: center; position: relative; overflow: hidden;
     }
-    .eco-branch:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.35); border-color: var(--branch-cor, var(--grad-a)); border-top-color: var(--branch-cor, var(--grad-a)); }
-    .eco-branch-emoji { font-size: 1.7rem; margin-bottom: 0.6rem; }
-    .eco-branch-cat { font-size: 0.56rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--branch-cor, var(--grad-a)); opacity: 0.9; margin-bottom: 0.3rem; }
-    .eco-branch-nome { font-size: 0.88rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem; line-height: 1.2; }
-    .eco-branch-desc { font-size: 0.68rem; color: var(--text-dim); line-height: 1.6; flex: 1; margin-bottom: 0.7rem; }
-    .eco-branch-link { font-size: 0.62rem; font-weight: 700; color: var(--branch-cor, var(--grad-a)); opacity: 0.7; margin-bottom: 0.5rem; transition: opacity var(--transicao); }
-    .eco-branch:hover .eco-branch-link { opacity: 1; }
-    .eco-status { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.18rem 0.5rem; border-radius: 20px; width: fit-content; }
-    .eco-status-ativo { background: rgba(34,197,94,0.1); color: var(--oxossi); border: 1px solid rgba(34,197,94,0.2); }
-    .eco-status-ativo::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--oxossi); animation: dot-blink 2s ease-in-out infinite; }
-    .eco-status-expand { background: rgba(6,182,212,0.1); color: #22D3EE; border: 1px solid rgba(6,182,212,0.2); }
-    .eco-status-expand::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #22D3EE; animation: dot-blink 2s ease-in-out infinite; }
-    @keyframes dot-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .cta-incub-card::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+    }
+    .cta-incub-card h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+    .cta-incub-card p { font-size: 0.95rem; color: var(--text-dim); max-width: 400px; margin: 0 auto 2rem; line-height: 1.75; }
 
     /* ── CASOS EM PRODUÇÃO ─────────────────────────── */
     .cases-tag-vivo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #F87171; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); padding: 0.3rem 0.8rem; border-radius: 50px; margin-bottom: 1rem; }
@@ -764,7 +409,6 @@
 
     .case-mockup { background: linear-gradient(135deg, rgba(6,182,212,0.07), rgba(16,185,129,0.07)); padding: 2rem 1.5rem; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--border); min-height: 260px; }
     @media (max-width: 768px) { .case-mockup { border-right: none; border-bottom: 1px solid var(--border); min-height: 200px; } }
-
     .browser-frame { width: 100%; max-width: 320px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.09); border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
     .browser-bar { background: rgba(255,255,255,0.04); padding: 0.5rem 0.7rem; display: flex; align-items: center; gap: 0.4rem; }
     .browser-dot { width: 8px; height: 8px; border-radius: 50%; }
@@ -777,7 +421,6 @@
     .bc-sub { font-size: 0.58rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
     .bc-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; justify-content: center; margin-top: 0.4rem; }
     .bc-tag { font-size: 0.52rem; padding: 0.18rem 0.45rem; background: rgba(6,182,212,0.18); border: 1px solid rgba(6,182,212,0.25); border-radius: 8px; color: #67E8F9; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
-
     .case-info { padding: 2.2rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
     @media (max-width: 768px) { .case-info { padding: 1.5rem; } }
     .case-info-cat { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: #22D3EE; margin-bottom: 0.5rem; }
@@ -787,6 +430,158 @@
     .case-info-tag { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: var(--text-dim); }
     .case-info-link { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; font-weight: 800; color: #22D3EE; transition: gap var(--transicao), opacity var(--transicao); opacity: 0.85; text-decoration: none; }
     .case-info-link:hover { gap: 0.75rem; opacity: 1; }
+
+    /* ── CTA INTERMEDIÁRIO 2 ─────────────────────────── */
+    .cta-mid2 { position: relative; z-index: 1; }
+    .cta-mid2-inner {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.2rem 2.8rem;
+    }
+    .cta-mid2-copy { }
+    .cta-mid2-eyebrow { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grad-b); margin-bottom: 0.5rem; }
+    .cta-mid2-titulo { font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+    @media (max-width: 680px) { .cta-mid2-inner { flex-direction: column; text-align: center; } }
+
+    /* ── FUNDADOR ─────────────────────────────────────── */
+    .fundador-grid { display: grid; grid-template-columns: auto 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) { .fundador-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } }
+    .fundador-avatar { width: 280px; height: 320px; border-radius: 24px; overflow: hidden; border: 2px solid rgba(168,85,247,0.3); background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(168,85,247,0.2)); flex-shrink: 0; position: relative; box-shadow: 0 24px 80px rgba(99,102,241,0.2), 0 0 0 1px rgba(99,102,241,0.1); }
+    .fundador-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+    @media (max-width: 768px) { .fundador-avatar { width: 200px; height: 240px; margin: 0 auto; } }
+    .fundador-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--grad-b); margin-bottom: 0.8rem; }
+    .fundador-nome { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .fundador-nome span { background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .fundador-bio { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 1.5rem; max-width: 560px; }
+    .fundador-credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .cred-chip { font-size: 0.7rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text-dim); }
+
+    /* ── AÇÃO & REAÇÃO — GRAND SECTION ───────────────── */
+    .ar-grand-secao {
+      background: rgba(255,255,255,0.012);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .ar-grand-display {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 1rem 2rem;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    .ar-grand-word {
+      font-size: clamp(4rem, 10vw, 9rem);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 0.95;
+      display: inline-block;
+    }
+    .ar-grand-word.acao {
+      background: linear-gradient(135deg, var(--grad-a), var(--oxossi));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ar-grand-word.reacao {
+      background: linear-gradient(135deg, var(--grad-c), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ar-grand-word.e {
+      color: rgba(255,255,255,0.25);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+    }
+
+    /* Split animation states */
+    .ar-esquerda { opacity: 0; transform: translateX(-80px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.4,0,0.2,1); }
+    .ar-direita  { opacity: 0; transform: translateX(80px);  transition: opacity 0.9s ease 0.2s, transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s; }
+    .ar-centro   { opacity: 0; transform: scale(0.4);         transition: opacity 0.7s ease 0.5s, transform 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.5s; }
+    .ar-esquerda.visivel { opacity: 1; transform: translateX(0); }
+    .ar-direita.visivel  { opacity: 1; transform: translateX(0); }
+    .ar-centro.visivel   { opacity: 1; transform: scale(1); }
+
+    .ar-grand-nao-metodo {
+      text-align: center; margin-bottom: 3rem;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(168,85,247,0.6);
+    }
+
+    .ar-grand-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), rgba(168,85,247,0.3), transparent);
+      margin: 2.5rem 0;
+    }
+
+    .ar-grand-lados { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 640px) { .ar-grand-lados { grid-template-columns: 1fr; } }
+
+    .ar-grand-lado {
+      border-radius: 18px; padding: 2rem 1.8rem;
+    }
+    .ar-grand-lado-acao { background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.18); }
+    .ar-grand-lado-reacao { background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.18); }
+
+    .ar-grand-lado-titulo {
+      font-size: 1.1rem; font-weight: 900; letter-spacing: 0.04em; margin-bottom: 0.25rem;
+    }
+    .ar-grand-lado-acao .ar-grand-lado-titulo { color: #818CF8; }
+    .ar-grand-lado-reacao .ar-grand-lado-titulo { color: #C084FC; }
+    .ar-grand-lado-sub { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.2rem; }
+    .ar-grand-lado-desc { font-size: 0.72rem; color: rgba(255,255,255,0.35); font-style: italic; margin-bottom: 1.5rem; line-height: 1.4; }
+    .ar-principios { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .ar-principio-item { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .ar-principio-num { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.06em; color: var(--item-cor, rgba(129,140,248,0.6)); min-width: 18px; margin-top: 0.12rem; flex-shrink: 0; }
+    .ar-principio-nome { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.78); line-height: 1.3; margin-bottom: 0.18rem; }
+    .ar-principio-txt { font-size: 0.68rem; color: rgba(255,255,255,0.38); line-height: 1.5; }
+
+    .ar-grand-colhe {
+      margin-top: 2.5rem; text-align: center;
+      font-size: 1.15rem; font-weight: 700; font-style: italic;
+      background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      padding-top: 2rem; border-top: 1px solid rgba(168,85,247,0.1);
+    }
+
+    /* ── CTA FINAL ────────────────────────────────────── */
+    .cta-final-secao { position: relative; z-index: 1; }
+    .cta-hub {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.08) 50%, rgba(6,182,212,0.06) 100%);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 28px; padding: clamp(3rem,6vw,5rem) clamp(2rem,5vw,4rem);
+      position: relative; overflow: hidden;
+    }
+    .cta-hub::before {
+      content: ''; position: absolute; inset: -1px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), transparent, rgba(168,85,247,0.15));
+      border-radius: 28px; z-index: 0; pointer-events: none;
+    }
+    .cta-hub > * { position: relative; z-index: 1; }
+    .cta-hub-titulo { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem; }
+    .cta-hub-desc { font-size: 0.95rem; color: var(--text-dim); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8; }
+    .cta-hub-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-wa-cryia { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 50px; background: #25D366; color: #fff; font-weight: 800; font-size: 0.9rem; transition: all var(--transicao); }
+    .btn-wa-cryia:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.3); }
+    .btn-email-cryia { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 50px; border: 1px solid var(--border); color: var(--text-dim); font-weight: 600; font-size: 0.9rem; transition: all var(--transicao); }
+    .btn-email-cryia:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    .footer-cryia { border-top: 1px solid var(--border); padding: 2.5rem 0; position: relative; z-index: 1; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-copy { font-size: 0.78rem; color: var(--text-dim); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.78rem; color: var(--text-dim); transition: color var(--transicao); }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ── ANIMAÇÕES ────────────────────────────────────── */
+    .animar { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .animar.visivel { opacity: 1; transform: translateY(0); }
+    .animar-delay-1 { transition-delay: 0.1s; }
+    .animar-delay-2 { transition-delay: 0.2s; }
+    .animar-delay-3 { transition-delay: 0.3s; }
+    .animar-delay-4 { transition-delay: 0.4s; }
+    .animar-delay-5 { transition-delay: 0.5s; }
+
+    .linha-grad { height: 1px; background: linear-gradient(90deg, transparent, var(--oxossi), var(--grad-a), var(--grad-b), transparent); margin: 0; opacity: 0.35; }
+
+    @keyframes dot-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
   </style>
 </head>
 <body>
@@ -796,7 +591,7 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
-    <div class="orb orb-4"></div><!-- 🌿 Oxossi — sorte verde -->
+    <div class="orb orb-4"></div>
   </div>
 
   <!-- ══ NAVBAR ════════════════════════════════════════ -->
@@ -804,10 +599,10 @@
     <div class="container navbar-inner">
       <a href="#" class="logo-cryia"><img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" /></a>
       <ul class="nav-links">
-        <li><a href="#ecossistema">Ecossistema</a></li>
+        <li><a href="#o-que-e">Ecossistema</a></li>
         <li><a href="#projetos">Projetos</a></li>
         <li><a href="#cases">Cases</a></li>
-        <li><a href="#fundador">Fundador</a></li>
+        <li><a href="#filosofia">Filosofia</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a href="#contato" class="btn-nav">Entrar no Ecossistema</a>
@@ -824,11 +619,12 @@
           <div class="hero-eyebrow">Ecossistema Criativo e Estratégico</div>
           <h1 class="hero-headline">
             Negócios reais.<br>
-            <em>Estratégia com IA.</em>
+            <em>Estratégia com&nbsp;IA.</em>
           </h1>
           <p class="hero-desc">
-            Para quem não separa negócio de propósito. Marketing, turismo, tecnologia e mentorias
-            num único ecossistema — com a filosofia que cobra execução.
+            Para quem quer crescer de verdade, sem precisar entender tudo sobre tecnologia.
+            A CRYIA conecta seu negócio à inteligência artificial de forma humana,
+            estratégica e com resultado real.
           </p>
           <div class="hero-pilares">
             <span class="pilar-chip marketing">Marketing</span>
@@ -839,7 +635,7 @@
             <span class="pilar-chip empreend">Empreendedorismo</span>
           </div>
           <div class="hero-btns">
-            <a href="#ecossistema" class="btn-primario-cryia">
+            <a href="#o-que-e" class="btn-primario-cryia">
               Explorar o Ecossistema
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -883,12 +679,12 @@
             </div>
             <div class="dash-footer-stats">
               <div class="dash-stat-mini">
-                <div class="dash-stat-num">25+</div>
-                <div class="dash-stat-lbl">Anos de campo real</div>
+                <div class="dash-stat-num">5</div>
+                <div class="dash-stat-lbl">Projetos incubados</div>
               </div>
               <div class="dash-stat-mini">
-                <div class="dash-stat-num">37</div>
-                <div class="dash-stat-lbl">Países estudados</div>
+                <div class="dash-stat-num" style="background:linear-gradient(135deg,#22C55E,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">IA</div>
+                <div class="dash-stat-lbl">Em produção agora</div>
               </div>
             </div>
           </div>
@@ -907,186 +703,108 @@
     </div>
   </section>
 
-  <!-- ══ STATS BAR ════════════════════════════════════ -->
-  <div class="stats-bar">
+  <!-- ══ SOCIAL PROOF BAR ══════════════════════════════ -->
+  <div class="social-proof-bar">
     <div class="container">
-      <div class="stats-bar-grid">
-        <div class="stats-bar-item animar">
-          <div class="stats-bar-num">25+</div>
-          <div class="stats-bar-lbl">Anos de experiência em marketing e estratégia</div>
-        </div>
-        <div class="stats-bar-item animar animar-delay-1">
-          <div class="stats-bar-num">5</div>
-          <div class="stats-bar-lbl">Projetos ativos no ecossistema</div>
-        </div>
-        <div class="stats-bar-item animar animar-delay-2">
-          <div class="stats-bar-num">37</div>
-          <div class="stats-bar-lbl">Países visitados e mercados estudados</div>
-        </div>
-        <div class="stats-bar-item animar animar-delay-3">
-          <div class="stats-bar-num accent">1</div>
-          <div class="stats-bar-lbl">Cliente com IA em produção agora</div>
-        </div>
+      <div class="spb-inner">
+        <span class="spb-dot"></span>
+        Ecossistema ativo desde 2024
+        <span class="spb-sep">·</span>
+        5 projetos incubados
+        <span class="spb-sep">·</span>
+        IA aplicada em produção
+        <span class="spb-sep">·</span>
+        Blumenau · SC · Brasil
       </div>
     </div>
   </div>
 
   <div class="linha-grad"></div>
 
-  <!-- ══ ECOSSISTEMA MAP ══════════════════════════════ -->
-  <section class="secao" id="ecossistema">
+  <!-- ══ O QUE É O CRYIA HUB ══════════════════════════ -->
+  <section class="secao oqe-secao" id="o-que-e">
     <div class="container">
+      <div class="oqe-grid">
 
-      <div class="secao-titulo animar">
-        <div class="secao-tag">Arquitetura do Ecossistema</div>
-        <h2 class="secao-h2">Uma marca matriz.<br><em>Cinco braços ativos.</em></h2>
-        <p class="secao-desc">CRYIA não é uma empresa — é o ecossistema que conecta negócios reais à inteligência artificial e à estratégia que cobra execução.</p>
-      </div>
-
-      <!-- Hub Central -->
-      <div class="eco-hub-node animar animar-delay-1">
-        <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="eco-hub-logo" />
-        <p class="eco-hub-tagline">Hub Estratégico · Marca Matriz · Ecossistema de IA e Estratégia</p>
-        <div class="eco-hub-pills">
-          <span class="eco-hub-pill">Marketing</span>
-          <span class="eco-hub-pill">Turismo</span>
-          <span class="eco-hub-pill">Tecnologia</span>
-          <span class="eco-hub-pill">Learning</span>
-          <span class="eco-hub-pill">Mentorias</span>
-          <span class="eco-hub-pill">IA Aplicada</span>
-        </div>
-      </div>
-
-      <!-- Conector visual hub → braços -->
-      <div class="eco-conector animar animar-delay-2">
-        <div class="eco-conector-line"></div>
-        <div class="eco-conector-arrow">▼</div>
-      </div>
-
-      <!-- Cinco braços do ecossistema -->
-      <div class="eco-branches">
-
-        <a href="https://www.julianosantana.com.br" target="_blank" class="eco-branch animar animar-delay-1" style="--branch-cor: #818CF8;">
-          <div class="eco-branch-emoji">🧭</div>
-          <div class="eco-branch-cat">Marketing · Mentorias</div>
-          <div class="eco-branch-nome">Juliano Sant'Ana</div>
-          <div class="eco-branch-desc">Estratégia, palestras e mentoria com 25 anos de campo real em marketing e negócios.</div>
-          <div class="eco-branch-link">julianosantana.com.br →</div>
-          <div class="eco-status eco-status-ativo">Ativo</div>
-        </a>
-
-        <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="eco-branch animar animar-delay-2" style="--branch-cor: #34D399;">
-          <div class="eco-branch-emoji">🏔️</div>
-          <div class="eco-branch-cat">Turismo · Estratégia</div>
-          <div class="eco-branch-nome">Turismo Estratégico</div>
-          <div class="eco-branch-desc">Consultoria, roteirização e palestras para destinos e o trade turístico.</div>
-          <div class="eco-branch-link">julianosantana.com.br/turismo →</div>
-          <div class="eco-status eco-status-ativo">Ativo</div>
-        </a>
-
-        <a href="https://www.aonik.com.br" target="_blank" class="eco-branch animar animar-delay-3" style="--branch-cor: #F59E0B;">
-          <div class="eco-branch-emoji">🌿</div>
-          <div class="eco-branch-cat">Turismo de Natureza</div>
-          <div class="eco-branch-nome">Aonik</div>
-          <div class="eco-branch-desc">Ecoturismo e experiências imersivas no Vale Europeu Catarinense.</div>
-          <div class="eco-branch-link">aonik.com.br →</div>
-          <div class="eco-status eco-status-ativo">Ativo</div>
-        </a>
-
-        <a href="https://www.mapadaverdade.com.br" target="_blank" class="eco-branch animar animar-delay-4" style="--branch-cor: #C084FC;">
-          <div class="eco-branch-emoji">🗺️</div>
-          <div class="eco-branch-cat">IA · Empreendedorismo</div>
-          <div class="eco-branch-nome">Mapa da Verdade</div>
-          <div class="eco-branch-desc">Plataforma de IA com diagnóstico estratégico treinada na filosofia AÇÃO & REAÇÃO.</div>
-          <div class="eco-branch-link">mapadaverdade.com.br →</div>
-          <div class="eco-status eco-status-ativo">Ativo</div>
-        </a>
-
-        <a href="https://trako-circuit.vercel.app" target="_blank" class="eco-branch animar animar-delay-5" style="--branch-cor: #22D3EE;">
-          <div class="eco-branch-emoji">🚴</div>
-          <div class="eco-branch-cat">SaaS · Cicloturismo</div>
-          <div class="eco-branch-nome">TRAKO Circuit</div>
-          <div class="eco-branch-desc">SaaS multi-tenant para circuitos de bike e trilhas. Tecnologia revolucionária para o turismo ativo.</div>
-          <div class="eco-branch-link">trako-circuit.vercel.app →</div>
-          <div class="eco-status eco-status-expand">Em expansão</div>
-        </a>
-
-      </div><!-- /eco-branches -->
-
-    </div>
-  </section>
-
-  <div class="linha-grad"></div>
-
-  <!-- ══ MANIFESTO ═════════════════════════════════════ -->
-  <section class="secao manifesto" id="sobre">
-    <!-- Marca d'água AÇÃO & REAÇÃO -->
-    <div class="ar-watermark" aria-hidden="true">AÇÃO &amp; REAÇÃO</div>
-
-    <div class="container">
-      <div class="manifesto-grid">
-        <div class="animar">
-          <div class="manifesto-tag">O Manifesto</div>
-
-          <h2 class="manifesto-slogan">CRYIA não é uma sigla.<br>É um estado de operação.</h2>
-          <p class="manifesto-subtitulo">É um ecossistema vivo.</p>
-
-          <div class="manifesto-texto">
-            <p>
-              <strong>CRYIA HUB</strong> nasceu da convergência de projetos reais construídos
-              em 25 anos de campo: estratégia de marketing, turismo sustentável,
-              tecnologia aplicada e mentoria que cobra execução.
-            </p>
-            <p>
-              Aqui, criatividade e inteligência não andam separadas. Cada projeto do
-              ecossistema compartilha uma visão: <strong>estratégia sem rodeios,
-              execução com propósito, resultado com identidade.</strong>
-            </p>
-            <p>
-              A filosofia que atravessa tudo isso é <span class="ar-destaque">AÇÃO &amp; REAÇÃO</span> —
-              não um método, não uma técnica. Uma forma de ver o mundo: aqui se colhe
-              o que se planta, nas relações, nos negócios e na vida.
-            </p>
+        <!-- Esquerda: copy -->
+        <div class="oqe-copy animar">
+          <div class="secao-tag">Para quem é isso?</div>
+          <h2 class="oqe-h2">Uma marca matriz.<br><em>Cinco iniciativas conectadas.</em></h2>
+          <p class="oqe-texto">
+            O CRYIA não é uma agência. Não é um curso.
+            É o ecossistema que conecta sua ideia, seu negócio ou seu projeto
+            à <strong>inteligência artificial, ao marketing estratégico e à execução real.</strong>
+          </p>
+          <p class="oqe-texto">
+            Aqui você encontra desde a estratégia até a tecnologia rodando.
+            Tudo conectado. Tudo com propósito.
+            Cada braço do ecossistema compartilha a mesma filosofia: <strong>entregar resultado real, sem enrolação.</strong>
+          </p>
+          <div class="oqe-eixos">
+            <span class="oqe-eixo">📣 Marketing</span>
+            <span class="oqe-eixo">🏔️ Turismo</span>
+            <span class="oqe-eixo">⚡ Tecnologia</span>
+            <span class="oqe-eixo">📚 Learning</span>
+            <span class="oqe-eixo">🎯 Mentorias</span>
+            <span class="oqe-eixo">🚀 Empreendedorismo</span>
           </div>
         </div>
-        <div class="manifesto-stats animar animar-delay-2">
-          <div class="stat-box">
-            <div class="stat-num">25+</div>
-            <div class="stat-label">Anos de experiência em marketing e estratégia</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">5</div>
-            <div class="stat-label">Projetos ativos no ecossistema</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">37</div>
-            <div class="stat-label">Países visitados, mercados estudados</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">2.1k</div>
-            <div class="stat-label">km trilhados em 2023, analogia de execução</div>
+
+        <!-- Direita: hub visual -->
+        <div class="animar animar-delay-2">
+          <div class="oqe-hub-card">
+            <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="oqe-hub-logo" />
+            <div class="oqe-hub-divider"></div>
+            <div class="oqe-proj-list">
+              <div class="oqe-proj-item">
+                <div class="oqe-proj-dot" style="background:#818CF8;"></div>
+                <span class="oqe-proj-name">🧭 Juliano Sant'Ana</span>
+                <span class="oqe-proj-badge">Ativo</span>
+              </div>
+              <div class="oqe-proj-item">
+                <div class="oqe-proj-dot" style="background:#34D399;"></div>
+                <span class="oqe-proj-name">🏔️ Turismo Estratégico</span>
+                <span class="oqe-proj-badge">Ativo</span>
+              </div>
+              <div class="oqe-proj-item">
+                <div class="oqe-proj-dot" style="background:#F59E0B;"></div>
+                <span class="oqe-proj-name">🌿 Aonik</span>
+                <span class="oqe-proj-badge">Ativo</span>
+              </div>
+              <div class="oqe-proj-item">
+                <div class="oqe-proj-dot" style="background:#C084FC;"></div>
+                <span class="oqe-proj-name">🗺️ Mapa da Verdade</span>
+                <span class="oqe-proj-badge">Ativo</span>
+              </div>
+              <div class="oqe-proj-item">
+                <div class="oqe-proj-dot" style="background:#22D3EE;"></div>
+                <span class="oqe-proj-name">🚴 TRAKO Circuit</span>
+                <span class="oqe-proj-badge expand">Em expansão</span>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
   <div class="linha-grad"></div>
 
-  <!-- ══ PROJETOS ══════════════════════════════════════ -->
+  <!-- ══ OS PROJETOS ════════════════════════════════════ -->
   <section class="secao" id="projetos">
     <div class="container">
       <div class="secao-titulo animar">
         <div class="secao-tag">Os Projetos</div>
         <h2 class="secao-h2">Cinco iniciativas.<br><em>Uma visão.</em></h2>
         <p class="secao-desc">Cada projeto do ecossistema é autônomo, mas compartilha a mesma filosofia: entregar valor real, sem enrolação.</p>
-        <p class="secao-desc-ar">AÇÃO &amp; REAÇÃO — a filosofia que une e atravessa cada iniciativa do ecossistema.</p>
       </div>
 
       <div class="projetos-grid">
 
         <!-- 1: Juliano Sant'Ana (wide) -->
         <div class="projeto-card destaque-1 wide animar animar-delay-1">
+          <span class="projeto-status">Ativo</span>
           <div class="projeto-visual-frame">
             <div class="proj-browser">
               <div class="proj-browser-bar">
@@ -1114,18 +832,17 @@
             </p>
             <div class="projeto-tags">
               <span class="projeto-tag">Palestras</span>
-              <span class="projeto-tag">Mentoria individual</span>
+              <span class="projeto-tag">Mentoria</span>
               <span class="projeto-tag">Estratégia</span>
               <span class="projeto-tag">AÇÃO & REAÇÃO</span>
             </div>
-            <a href="https://www.julianosantana.com.br" target="_blank" class="projeto-link">
-              julianosantana.com.br →
-            </a>
+            <a href="https://www.julianosantana.com.br" target="_blank" class="projeto-link">julianosantana.com.br →</a>
           </div>
         </div>
 
         <!-- 2: Turismo -->
         <div class="projeto-card destaque-2 animar animar-delay-2">
+          <span class="projeto-status">Ativo</span>
           <div class="projeto-visual-frame">
             <div class="proj-browser">
               <div class="proj-browser-bar">
@@ -1148,21 +865,20 @@
             <h3 class="projeto-nome">Turismo Estratégico</h3>
             <p class="projeto-desc">
               Especialização em turismo sustentável: palestras para o trade, consultoria de
-              produto e roteirização com olhar de quem compra. Para destinos, DMOs, operadoras e secretarias.
+              produto e roteirização com olhar de quem compra. Para destinos, DMOs e operadoras.
             </p>
             <div class="projeto-tags">
               <span class="projeto-tag">Palestras turismo</span>
               <span class="projeto-tag">Roteirização</span>
               <span class="projeto-tag">DMOs</span>
             </div>
-            <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="projeto-link">
-              julianosantana.com.br/turismo →
-            </a>
+            <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="projeto-link">julianosantana.com.br/turismo →</a>
           </div>
         </div>
 
         <!-- 3: Mapa da Verdade -->
         <div class="projeto-card destaque-3 animar animar-delay-3">
+          <span class="projeto-status">Ativo</span>
           <div class="projeto-visual-frame">
             <div class="proj-browser">
               <div class="proj-browser-bar">
@@ -1184,22 +900,21 @@
             <div class="projeto-categoria">Tecnologia · IA · Estratégia</div>
             <h3 class="projeto-nome">Mapa da Verdade</h3>
             <p class="projeto-desc">
-              Plataforma de IA treinada com a filosofia AÇÃO &amp; REAÇÃO. Diagnóstico estratégico,
-              acompanhamento de projetos e clareza de rota para micro e pequenos empreendedores.
+              Plataforma de IA treinada com a filosofia AÇÃO &amp; REAÇÃO. Diagnóstico estratégico
+              e clareza de rota para micro e pequenos empreendedores.
             </p>
             <div class="projeto-tags">
               <span class="projeto-tag">IA estratégica</span>
               <span class="projeto-tag">Diagnóstico</span>
               <span class="projeto-tag">MPMEs</span>
             </div>
-            <a href="https://www.mapadaverdade.com.br" target="_blank" class="projeto-link">
-              mapadaverdade.com.br →
-            </a>
+            <a href="https://www.mapadaverdade.com.br" target="_blank" class="projeto-link">mapadaverdade.com.br →</a>
           </div>
         </div>
 
         <!-- 4: Aonik -->
         <div class="projeto-card destaque-4 animar animar-delay-2">
+          <span class="projeto-status">Ativo</span>
           <div class="projeto-visual-frame">
             <div class="proj-browser">
               <div class="proj-browser-bar">
@@ -1229,14 +944,13 @@
               <span class="projeto-tag">Experiências</span>
               <span class="projeto-tag">Santa Catarina</span>
             </div>
-            <a href="https://www.aonik.com.br" target="_blank" class="projeto-link">
-              aonik.com.br →
-            </a>
+            <a href="https://www.aonik.com.br" target="_blank" class="projeto-link">aonik.com.br →</a>
           </div>
         </div>
 
         <!-- 5: TRAKO Circuit -->
         <div class="projeto-card destaque-5 animar animar-delay-3">
+          <span class="projeto-status expand">Em expansão</span>
           <div class="projeto-visual-frame">
             <div class="proj-browser">
               <div class="proj-browser-bar">
@@ -1266,9 +980,7 @@
               <span class="projeto-tag">Cicloturismo</span>
               <span class="projeto-tag">Trilhas</span>
             </div>
-            <a href="https://trako-circuit.vercel.app" target="_blank" class="projeto-link">
-              trako-circuit.vercel.app →
-            </a>
+            <a href="https://trako-circuit.vercel.app" target="_blank" class="projeto-link">trako-circuit.vercel.app →</a>
           </div>
         </div>
 
@@ -1276,9 +988,20 @@
     </div>
   </section>
 
+  <!-- ══ CTA INTERMEDIÁRIO 1 ════════════════════════════ -->
+  <section class="cta-incub secao" style="padding-top:0;">
+    <div class="container">
+      <div class="cta-incub-card animar">
+        <h3>Seu projeto pode ser o próximo.</h3>
+        <p>Conheça como funciona a incubação no ecossistema CRYIA. Estratégia, IA e execução real — do zero ao mercado.</p>
+        <a href="#contato" class="btn-primario-cryia">Quero fazer parte →</a>
+      </div>
+    </div>
+  </section>
+
   <div class="linha-grad"></div>
 
-  <!-- ══ CASOS EM PRODUÇÃO ════════════════════════════ -->
+  <!-- ══ TECNOLOGIA EM PRODUÇÃO ════════════════════════ -->
   <section class="secao" id="cases">
     <div class="container">
 
@@ -1290,7 +1013,6 @@
 
       <!-- Los Viajeros — case em destaque -->
       <div class="case-featured-card animar animar-delay-1">
-
         <div class="case-mockup">
           <div class="browser-frame">
             <div class="browser-bar">
@@ -1310,7 +1032,6 @@
             </div>
           </div>
         </div>
-
         <div class="case-info">
           <div class="case-info-cat">✈️ Turismo · Representação Premium · IA</div>
           <h3 class="case-info-nome">Los Viajeros</h3>
@@ -1331,56 +1052,25 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
-
-      </div><!-- /case-featured-card -->
+      </div>
 
     </div>
   </section>
 
-  <div class="linha-grad"></div>
-
-  <!-- ══ PILARES ═══════════════════════════════════════ -->
-  <section class="secao pilares" id="pilares">
+  <!-- ══ CTA INTERMEDIÁRIO 2 ════════════════════════════ -->
+  <div class="cta-mid2" style="position:relative;z-index:1;padding:0 0 clamp(5rem,10vw,8rem);">
     <div class="container">
-      <div class="secao-titulo animar">
-        <div class="secao-tag">Os 6 Pilares</div>
-        <h2 class="secao-h2">Onde o CRYIA HUB<br><em>opera e entrega</em></h2>
-      </div>
-
-      <div class="pilares-grid">
-        <div class="pilar-card animar animar-delay-1" style="--pilar-cor: #818CF8;">
-          <div class="pilar-emoji">📣</div>
-          <div class="pilar-nome" style="color: #818CF8;">Marketing</div>
-          <div class="pilar-mini">Estratégia de marca, conteúdo, posicionamento e comportamento do consumidor.</div>
+      <div class="cta-mid2-inner animar">
+        <div class="cta-mid2-copy">
+          <div class="cta-mid2-eyebrow">Quer IA no seu negócio?</div>
+          <div class="cta-mid2-titulo">Vamos conversar sobre o seu projeto.</div>
         </div>
-        <div class="pilar-card animar animar-delay-2" style="--pilar-cor: #34D399;">
-          <div class="pilar-emoji">🏔️</div>
-          <div class="pilar-nome" style="color: #34D399;">Turismo</div>
-          <div class="pilar-mini">Destinos, roteirização, experiências e desenvolvimento do trade turístico.</div>
-        </div>
-        <div class="pilar-card animar animar-delay-3" style="--pilar-cor: #22D3EE;">
-          <div class="pilar-emoji">⚡</div>
-          <div class="pilar-nome" style="color: #22D3EE;">Tecnologia</div>
-          <div class="pilar-mini">IA aplicada, plataformas SaaS e ferramentas que escalam a estratégia.</div>
-        </div>
-        <div class="pilar-card animar animar-delay-4" style="--pilar-cor: #FB923C;">
-          <div class="pilar-emoji">📚</div>
-          <div class="pilar-nome" style="color: #FB923C;">Learning</div>
-          <div class="pilar-mini">Conhecimento aplicado, formação contínua e conteúdo que gera transformação.</div>
-        </div>
-        <div class="pilar-card animar animar-delay-5" style="--pilar-cor: #FCD34D;">
-          <div class="pilar-emoji">🎯</div>
-          <div class="pilar-nome" style="color: #FCD34D;">Mentorias</div>
-          <div class="pilar-mini">Acompanhamento individual com diagnóstico honesto e cobrança de execução.</div>
-        </div>
-        <div class="pilar-card animar animar-delay-5" style="--pilar-cor: #C084FC;">
-          <div class="pilar-emoji">🚀</div>
-          <div class="pilar-nome" style="color: #C084FC;">Empreendedorismo</div>
-          <div class="pilar-mini">Da ideia à rota executável. Para quem quer começar ou crescer de verdade.</div>
-        </div>
+        <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Vi%20o%20CRYIA%20HUB%20e%20quero%20conversar%20sobre%20IA%20no%20meu%20neg%C3%B3cio." target="_blank" class="btn-primario-cryia">
+          📱 Falar agora →
+        </a>
       </div>
     </div>
-  </section>
+  </div>
 
   <div class="linha-grad"></div>
 
@@ -1408,120 +1098,132 @@
             <span class="cred-chip">2.100km trilhados</span>
             <span class="cred-chip">Blumenau, SC</span>
           </div>
+          <a href="https://www.julianosantana.com.br" target="_blank" class="btn-outline-cryia" style="width:fit-content;">
+            Ver meu site completo →
+          </a>
         </div>
-      </div><!-- /fundador-grid -->
+      </div>
+    </div>
+  </section>
 
-      <!-- Bloco AÇÃO & REAÇÃO full-width abaixo do grid -->
-          <div class="ar-bloco">
-            <div class="ar-bloco-tag">A Filosofia</div>
-            <h3 class="ar-bloco-titulo">AÇÃO &amp; REAÇÃO</h3>
-            <div class="ar-bloco-nao-metodo">Não é um método. Não é uma técnica.</div>
-            <p class="ar-bloco-intro">
-              É a forma como conduzo minha vida, minha carreira e o caminho de quem
-              escolhe caminhar comigo.
-            </p>
+  <div class="linha-grad"></div>
 
-            <div class="ar-lados">
+  <!-- ══ AÇÃO & REAÇÃO — MANIFESTO GRAND ═══════════════ -->
+  <section class="secao ar-grand-secao" id="filosofia">
+    <div class="container">
 
-              <!-- AÇÃO -->
-              <div class="ar-lado ar-lado-acao">
-                <div class="ar-lado-titulo">AÇÃO</div>
-                <div class="ar-lado-sub">(Atitude, Verdade e Resiliência)</div>
-                <div class="ar-lado-desc">O que você provoca no mundo</div>
-                <ul class="ar-principios">
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">01</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Diagnóstico Honesto</div>
-                      <div class="ar-principio-txt">Sem enrolação. A verdade do cenário — mesmo que doa.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">02</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Atitude Proativa</div>
-                      <div class="ar-principio-txt">Ação imperfeita bate inércia elegante.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">03</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Resiliência na Execução</div>
-                      <div class="ar-principio-txt">Quem vai longe é quem continua.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">04</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Sem Promessas Vazias</div>
-                      <div class="ar-principio-txt">Vendo rotas. Com metas reais e resultados reais.</div>
-                    </div>
-                  </li>
-                </ul>
+      <div class="ar-grand-display">
+        <span class="ar-grand-word acao ar-esquerda">AÇÃO</span>
+        <span class="ar-grand-word e ar-centro">&amp;</span>
+        <span class="ar-grand-word reacao ar-direita">REAÇÃO</span>
+      </div>
+
+      <p class="ar-grand-nao-metodo animar">
+        Filosofia de vida e carreira · Não é um método. Não é uma técnica.
+      </p>
+
+      <div class="ar-grand-divider"></div>
+
+      <div class="ar-grand-lados animar animar-delay-1">
+
+        <!-- AÇÃO -->
+        <div class="ar-grand-lado ar-grand-lado-acao">
+          <div class="ar-grand-lado-titulo">AÇÃO</div>
+          <div class="ar-grand-lado-sub">(Atitude, Verdade e Resiliência)</div>
+          <div class="ar-grand-lado-desc">O que você provoca no mundo</div>
+          <ul class="ar-principios">
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">01</span>
+              <div>
+                <div class="ar-principio-nome">Diagnóstico Honesto</div>
+                <div class="ar-principio-txt">Sem enrolação. A verdade do cenário — mesmo que doa.</div>
               </div>
-
-              <!-- REAÇÃO -->
-              <div class="ar-lado ar-lado-reacao">
-                <div class="ar-lado-titulo">REAÇÃO</div>
-                <div class="ar-lado-sub">(Empatia, Confiança e Fidelidade)</div>
-                <div class="ar-lado-desc">O que o mundo devolve pra você</div>
-                <ul class="ar-principios">
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">01</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Empatia com o Mercado</div>
-                      <div class="ar-principio-txt">Entender quem compra, por que compra. Isso muda tudo.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">02</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Confiança Construída</div>
-                      <div class="ar-principio-txt">Nasce de entrega consistente ao longo do tempo.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">03</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Fidelidade ao Resultado</div>
-                      <div class="ar-principio-txt">O compromisso é com o resultado que o cliente precisa.</div>
-                    </div>
-                  </li>
-                  <li class="ar-principio-item">
-                    <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">04</span>
-                    <div class="ar-principio-corpo">
-                      <div class="ar-principio-nome">Verdade na Rota</div>
-                      <div class="ar-principio-txt">Resultado vem com ação, constância e verdade. Sempre foi assim.</div>
-                    </div>
-                  </li>
-                </ul>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">02</span>
+              <div>
+                <div class="ar-principio-nome">Atitude Proativa</div>
+                <div class="ar-principio-txt">Ação imperfeita bate inércia elegante.</div>
               </div>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">03</span>
+              <div>
+                <div class="ar-principio-nome">Resiliência na Execução</div>
+                <div class="ar-principio-txt">Quem vai longe é quem continua.</div>
+              </div>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(129,140,248,0.7);">04</span>
+              <div>
+                <div class="ar-principio-nome">Sem Promessas Vazias</div>
+                <div class="ar-principio-txt">Vendo rotas. Com metas reais e resultados reais.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
 
-            </div><!-- /ar-lados -->
+        <!-- REAÇÃO -->
+        <div class="ar-grand-lado ar-grand-lado-reacao">
+          <div class="ar-grand-lado-titulo">REAÇÃO</div>
+          <div class="ar-grand-lado-sub">(Empatia, Confiança e Fidelidade)</div>
+          <div class="ar-grand-lado-desc">O que o mundo devolve pra você</div>
+          <ul class="ar-principios">
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">01</span>
+              <div>
+                <div class="ar-principio-nome">Empatia com o Mercado</div>
+                <div class="ar-principio-txt">Entender quem compra, por que compra. Isso muda tudo.</div>
+              </div>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">02</span>
+              <div>
+                <div class="ar-principio-nome">Confiança Construída</div>
+                <div class="ar-principio-txt">Nasce de entrega consistente ao longo do tempo.</div>
+              </div>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">03</span>
+              <div>
+                <div class="ar-principio-nome">Fidelidade ao Resultado</div>
+                <div class="ar-principio-txt">O compromisso é com o resultado que o cliente precisa.</div>
+              </div>
+            </li>
+            <li class="ar-principio-item">
+              <span class="ar-principio-num" style="--item-cor: rgba(192,132,252,0.7);">04</span>
+              <div>
+                <div class="ar-principio-nome">Verdade na Rota</div>
+                <div class="ar-principio-txt">Resultado vem com ação, constância e verdade. Sempre foi assim.</div>
+              </div>
+            </li>
+          </ul>
+        </div>
 
-            <p class="ar-bloco-colhe">"Aqui se colhe o que se planta."</p>
-          </div><!-- /ar-bloco -->
+      </div><!-- /ar-grand-lados -->
+
+      <p class="ar-grand-colhe animar animar-delay-2">"Aqui se colhe o que se planta."</p>
 
     </div>
   </section>
 
   <div class="linha-grad"></div>
 
-  <!-- ══ CTA ════════════════════════════════════════════ -->
-  <section class="secao" id="contato">
+  <!-- ══ CTA FINAL ══════════════════════════════════════ -->
+  <section class="secao cta-final-secao" id="contato">
     <div class="container">
       <div class="cta-hub animar">
-        <h2 class="cta-hub-titulo">Quer fazer parte<br>do ecossistema?</h2>
+        <h2 class="cta-hub-titulo">Pronto para crescer<br>com estratégia e&nbsp;IA?</h2>
         <p class="cta-hub-desc">
-          Parcerias, projetos, palestras, mentorias ou simplesmente uma conversa estratégica.
-          A rota começa com um contato honesto.
+          Agende uma conversa com o ecossistema CRYIA. Parcerias, projetos,
+          palestras, mentorias ou simplesmente uma rota honesta.
         </p>
         <div class="cta-hub-btns">
           <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20fazer%20parte%20do%20CRYIA%20HUB.%0A%0AGostaria%20de%3A%0A%E2%97%BB%20Ser%20cliente%0A%E2%97%BB%20Ser%20parceiro%0A%E2%97%BB%20Conhecer%20melhor%20o%20projeto%0A%E2%97%BB%20Uma%20conversa%20estrat%C3%A9gica" target="_blank" class="btn-wa-cryia">
             📱 Falar pelo WhatsApp
           </a>
-          <a href="mailto:marketing@julianosantana.com.br?subject=CRYIA%20HUB%20%E2%80%94%20Quero%20conversar" class="btn-email-cryia">
-            ✉️ Enviar e-mail
+          <a href="mailto:juliano@cryia.com.br?subject=CRYIA%20HUB%20%E2%80%94%20Quero%20conversar" class="btn-email-cryia">
+            ✉️ Entrar no Ecossistema
           </a>
         </div>
       </div>
@@ -1549,11 +1251,17 @@
     nav.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
 
-  // Scroll animations
+  // Scroll animations — incluindo split AÇÃO & REAÇÃO
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visivel'); observer.unobserve(e.target); } });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visivel');
+        observer.unobserve(e.target);
+      }
+    });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.animar').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.animar, .ar-esquerda, .ar-direita, .ar-centro').forEach(el => observer.observe(el));
   </script>
 
 </body>
