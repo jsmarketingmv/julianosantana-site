@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07090F"/>
+      <stop offset="100%" stop-color="#0D0F1A"/>
+    </linearGradient>
+    <!-- Purple orb -->
+    <radialGradient id="orb1" cx="20%" cy="20%" r="50%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#6366F1" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Cyan orb -->
+    <radialGradient id="orb2" cx="85%" cy="80%" r="45%">
+      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Green orb -->
+    <radialGradient id="orb3" cx="70%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#22C55E" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Text gradients -->
+    <linearGradient id="grad-brand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="grad-headline" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22C55E"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="grad-ar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+    <linearGradient id="grad-ar2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <!-- Card border gradient -->
+    <linearGradient id="card-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#A855F7" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow-green">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Orbs -->
+  <ellipse cx="180" cy="160" rx="380" ry="320" fill="url(#orb1)"/>
+  <ellipse cx="980" cy="480" rx="360" ry="300" fill="url(#orb2)"/>
+  <ellipse cx="820" cy="180" rx="280" ry="240" fill="url(#orb3)"/>
+
+  <!-- Border frame -->
+  <rect x="1" y="1" width="1198" height="628" rx="0" fill="none" stroke="url(#card-border)" stroke-width="1.5"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#grad-brand)"/>
+
+  <!-- LEFT SIDE: Main content -->
+  <!-- Eyebrow badge -->
+  <rect x="72" y="88" width="232" height="30" rx="15" fill="rgba(34,197,94,0.1)" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <circle cx="92" cy="103" r="4" fill="#22C55E"/>
+  <text x="106" y="108" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#22C55E" letter-spacing="2">ECOSSISTEMA ATIVO</text>
+
+  <!-- Logo text CRYIA HUB -->
+  <text x="72" y="200" font-family="Arial Black, Arial, sans-serif" font-size="80" font-weight="900" fill="url(#grad-brand)" letter-spacing="-3">CRYIA</text>
+  <text x="72" y="264" font-family="Arial, sans-serif" font-size="36" font-weight="300" fill="rgba(255,255,255,0.4)" letter-spacing="8">HUB</text>
+
+  <!-- Divider -->
+  <rect x="72" y="288" width="80" height="2" fill="url(#grad-brand)" opacity="0.6"/>
+
+  <!-- Headline -->
+  <text x="72" y="345" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="white">Negócios reais.</text>
+  <text x="72" y="383" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="url(#grad-headline)">Estratégia com IA.</text>
+
+  <!-- Description -->
+  <text x="72" y="425" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.5)" font-weight="400">Conectamos seu negócio à inteligência artificial</text>
+  <text x="72" y="447" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.5)" font-weight="400">de forma humana, estratégica e com resultado real.</text>
+
+  <!-- Pilares chips -->
+  <rect x="72" y="476" width="90" height="24" rx="12" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.35)" stroke-width="1"/>
+  <text x="117" y="492" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#818CF8" text-anchor="middle" letter-spacing="1">MARKETING</text>
+
+  <rect x="172" y="476" width="74" height="24" rx="12" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="209" y="492" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#34D399" text-anchor="middle" letter-spacing="1">TURISMO</text>
+
+  <rect x="256" y="476" width="94" height="24" rx="12" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.3)" stroke-width="1"/>
+  <text x="303" y="492" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#22D3EE" text-anchor="middle" letter-spacing="1">TECNOLOGIA</text>
+
+  <rect x="360" y="476" width="74" height="24" rx="12" fill="rgba(249,115,22,0.1)" stroke="rgba(249,115,22,0.25)" stroke-width="1"/>
+  <text x="397" y="492" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#FB923C" text-anchor="middle" letter-spacing="1">LEARNING</text>
+
+  <rect x="444" y="476" width="82" height="24" rx="12" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+  <text x="485" y="492" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#C084FC" text-anchor="middle" letter-spacing="1">MENTORIAS</text>
+
+  <!-- Domain -->
+  <text x="72" y="568" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.3)" font-weight="500" letter-spacing="1">cryia.com.br</text>
+
+  <!-- AÇÃO & REAÇÃO big watermark -->
+  <text x="1128" y="580" font-family="Arial Black, Arial, sans-serif" font-size="15" font-weight="900" fill="url(#grad-ar)" text-anchor="end" opacity="0.5" letter-spacing="1">AÇÃO &amp; REAÇÃO</text>
+
+  <!-- RIGHT SIDE: Dashboard card -->
+  <rect x="680" y="64" width="448" height="502" rx="20" fill="rgba(255,255,255,0.03)" stroke="rgba(99,102,241,0.25)" stroke-width="1.5"/>
+
+  <!-- Card inner glow -->
+  <rect x="680" y="64" width="448" height="4" rx="2" fill="url(#grad-brand)" opacity="0.5"/>
+
+  <!-- Card header -->
+  <text x="712" y="112" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="rgba(255,255,255,0.5)" letter-spacing="2">CRYIA HUB · ECOSSISTEMA</text>
+
+  <!-- Status dot + text -->
+  <circle cx="840" cy="142" r="5" fill="#22C55E" filter="url(#glow-green)"/>
+  <text x="854" y="147" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#22C55E" letter-spacing="1.5">ATIVO</text>
+
+  <!-- Divider line in card -->
+  <rect x="712" y="158" width="384" height="1" fill="rgba(255,255,255,0.07)"/>
+
+  <!-- Project items -->
+  <!-- Item 1 -->
+  <rect x="712" y="175" width="384" height="50" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="738" cy="200" r="6" fill="#818CF8"/>
+  <text x="758" y="196" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">🧭 Juliano Sant'Ana</text>
+  <text x="758" y="213" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Marketing · Mentorias · Estratégia</text>
+  <rect x="1020" y="189" width="52" height="18" rx="9" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+  <text x="1046" y="202" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#22C55E" text-anchor="middle" letter-spacing="0.5">ATIVO</text>
+
+  <!-- Item 2 -->
+  <rect x="712" y="234" width="384" height="50" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="738" cy="259" r="6" fill="#34D399"/>
+  <text x="758" y="255" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">🏔️ Turismo Estratégico</text>
+  <text x="758" y="272" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Destinos · Roteirização · Trade</text>
+  <rect x="1020" y="248" width="52" height="18" rx="9" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+  <text x="1046" y="261" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#22C55E" text-anchor="middle" letter-spacing="0.5">ATIVO</text>
+
+  <!-- Item 3 -->
+  <rect x="712" y="293" width="384" height="50" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="738" cy="318" r="6" fill="#F59E0B"/>
+  <text x="758" y="314" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">🌿 Aonik</text>
+  <text x="758" y="331" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Ecoturismo · Vale Europeu Catarinense</text>
+  <rect x="1020" y="307" width="52" height="18" rx="9" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+  <text x="1046" y="320" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#22C55E" text-anchor="middle" letter-spacing="0.5">ATIVO</text>
+
+  <!-- Item 4 -->
+  <rect x="712" y="352" width="384" height="50" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="738" cy="377" r="6" fill="#C084FC"/>
+  <text x="758" y="373" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">🗺️ Mapa da Verdade</text>
+  <text x="758" y="390" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">IA Estratégica · Diagnóstico · MPMEs</text>
+  <rect x="1020" y="366" width="52" height="18" rx="9" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+  <text x="1046" y="379" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#22C55E" text-anchor="middle" letter-spacing="0.5">ATIVO</text>
+
+  <!-- Item 5 -->
+  <rect x="712" y="411" width="384" height="50" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="738" cy="436" r="6" fill="#22D3EE"/>
+  <text x="758" y="432" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">🚴 TRAKO Circuit</text>
+  <text x="758" y="449" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">SaaS · Cicloturismo · Trilhas</text>
+  <rect x="1004" y="425" width="70" height="18" rx="9" fill="rgba(6,182,212,0.12)" stroke="rgba(6,182,212,0.2)" stroke-width="1"/>
+  <text x="1039" y="438" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#22D3EE" text-anchor="middle" letter-spacing="0.5">EM EXPANSÃO</text>
+
+  <!-- Bottom stats in card -->
+  <rect x="712" y="476" width="186" height="68" rx="12" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="805" y="508" font-family="Arial Black, Arial, sans-serif" font-size="26" font-weight="900" fill="#6366F1" text-anchor="middle">5</text>
+  <text x="805" y="530" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle" letter-spacing="0.5">PROJETOS INCUBADOS</text>
+
+  <rect x="910" y="476" width="186" height="68" rx="12" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="1003" y="508" font-family="Arial Black, Arial, sans-serif" font-size="26" font-weight="900" fill="#22C55E" text-anchor="middle">IA</text>
+  <text x="1003" y="530" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle" letter-spacing="0.5">EM PRODUÇÃO</text>
+
+</svg>
