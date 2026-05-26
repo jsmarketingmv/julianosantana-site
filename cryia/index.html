@@ -619,9 +619,57 @@
 
     /* ── MOBILE CAROUSEL ─────────────────────────────────── */
     @media (max-width: 768px) {
-      .carousel-track { animation-duration: 50s; }
       .proj-card { width: 300px; }
     }
+
+    /* ── CAROUSEL DRAG ───────────────────────────────────── */
+    .carousel-track { cursor: grab; user-select: none; }
+    .carousel-track.dragging { cursor: grabbing; }
+
+    /* ── TRAKO MODAL ─────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+    }
+    .modal-overlay.ativo { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: #0A0B14;
+      border: 1px solid rgba(34,211,238,0.3);
+      border-radius: var(--radius);
+      max-width: 600px; width: 100%;
+      overflow: hidden;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 60px rgba(34,211,238,0.08);
+    }
+    .modal-overlay.ativo .modal-box { transform: translateY(0) scale(1); }
+    .modal-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; }
+    .modal-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .modal-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to bottom, transparent, #0A0B14); pointer-events: none; }
+    .modal-body { padding: 1.6rem 2rem 2rem; }
+    .modal-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.52rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #22D3EE; background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.22);
+      padding: 0.22rem 0.65rem; border-radius: 4px; margin-bottom: 1rem;
+    }
+    .modal-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #22D3EE; animation: dot-blink 2s ease-in-out infinite; }
+    .modal-nome { font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: -0.025em; margin-bottom: 0.7rem; }
+    .modal-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 1.6rem; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-bottom: 1.5rem; }
+    .modal-tag { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.18rem 0.5rem; border-radius: 4px; background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.15); color: rgba(34,211,238,0.7); }
+    .modal-close {
+      display: block; width: 100%; padding: 0.75rem;
+      background: transparent; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm); color: rgba(255,255,255,0.45);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; letter-spacing: 0.04em;
+      transition: all 0.2s; font-family: 'Montserrat', sans-serif; text-align: center;
+    }
+    .modal-close:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); }
   </style>
 </head>
 <body>
@@ -867,7 +915,7 @@
       </a>
 
       <!-- ─── CARD 2: TRAKO Circuit ─── -->
-      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" style="--card-accent:#22D3EE;">
+      <div class="proj-card" onclick="abrirTrako()" style="--card-accent:#22D3EE;">
         <div class="card-mockup">
           <img src="/assets/mockups/trako-celular.png" alt="TRAKO Circuit — app" loading="lazy" />
         </div>
@@ -876,21 +924,21 @@
           <div class="proj-nome">TRAKO Circuit</div>
           <div class="proj-desc">Plataforma SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Conectando destinos, trilhas e viajantes com tecnologia de ponta.</div>
           <div class="proj-footer">
-            <span class="proj-status exp">Em expansão</span>
-            <span class="proj-link-btn">trako-circuit.vercel.app →</span>
+            <span class="proj-status exp">Em desenvolvimento</span>
+            <span class="proj-link-btn">Ver apresentação →</span>
           </div>
         </div>
-      </a>
+      </div>
 
-      <!-- ─── CARD 3: Aonik — site/experiências ─── -->
+      <!-- ─── CARD 3: Aonik Operadora ─── -->
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" style="--card-accent:#F59E0B;">
         <div class="card-mockup">
-          <img src="/assets/mockups/aonik-site.png" alt="Aonik — grupos pelo mundo" loading="lazy" />
+          <img src="/assets/mockups/aonik-site.png" alt="Aonik Operadora — turismo de natureza" loading="lazy" />
         </div>
         <div class="proj-body">
-          <div class="proj-cat">Turismo de Natureza · Experiências</div>
-          <div class="proj-nome">Aonik</div>
-          <div class="proj-desc">Turismo de natureza com propósito. Experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div>
+          <div class="proj-cat">Turismo de Natureza · Experiências · IA</div>
+          <div class="proj-nome">Aonik Operadora</div>
+          <div class="proj-desc">Site desenvolvido com IA. Turismo de natureza com propósito — experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div>
           <div class="proj-footer">
             <span class="proj-status">Ativo</span>
             <span class="proj-link-btn">aonik.com.br →</span>
@@ -951,13 +999,13 @@
         <div class="card-mockup"><img src="/assets/mockups/juliano-site.png" alt="" loading="lazy" /></div>
         <div class="proj-body"><div class="proj-cat">Marketing · Palestras · Mentorias</div><div class="proj-nome">Juliano Sant'Ana</div><div class="proj-desc">Estrategista e palestrante com 25 anos de campo real. Diagnóstico honesto, estratégia que cobra execução.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">julianosantana.com.br →</span></div></div>
       </a>
-      <a href="https://trako-circuit.vercel.app" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#22D3EE;">
+      <div class="proj-card" onclick="abrirTrako()" aria-hidden="true" style="--card-accent:#22D3EE;">
         <div class="card-mockup"><img src="/assets/mockups/trako-celular.png" alt="" loading="lazy" /></div>
-        <div class="proj-body"><div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div><div class="proj-nome">TRAKO Circuit</div><div class="proj-desc">SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Tecnologia que revoluciona o turismo ativo.</div><div class="proj-footer"><span class="proj-status exp">Em expansão</span><span class="proj-link-btn">ver projeto →</span></div></div>
-      </a>
+        <div class="proj-body"><div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div><div class="proj-nome">TRAKO Circuit</div><div class="proj-desc">SaaS multi-tenant para gestão de circuitos de caminhada e cicloturismo. Tecnologia que revoluciona o turismo ativo.</div><div class="proj-footer"><span class="proj-status exp">Em desenvolvimento</span><span class="proj-link-btn">Ver apresentação →</span></div></div>
+      </div>
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#F59E0B;">
         <div class="card-mockup"><img src="/assets/mockups/aonik-site.png" alt="" loading="lazy" /></div>
-        <div class="proj-body"><div class="proj-cat">Turismo de Natureza · Experiências</div><div class="proj-nome">Aonik</div><div class="proj-desc">Experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">aonik.com.br →</span></div></div>
+        <div class="proj-body"><div class="proj-cat">Turismo de Natureza · Experiências · IA</div><div class="proj-nome">Aonik Operadora</div><div class="proj-desc">Site desenvolvido com IA. Experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div><div class="proj-footer"><span class="proj-status">Ativo</span><span class="proj-link-btn">aonik.com.br →</span></div></div>
       </a>
       <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="proj-card" aria-hidden="true" style="--card-accent:#34D399;">
         <div class="card-mockup"><img src="/assets/mockups/turismo-site.png" alt="" loading="lazy" /></div>
@@ -1116,6 +1164,28 @@
   </div>
 </section>
 
+<!-- ══ TRAKO MODAL ════════════════════════════════════════ -->
+<div class="modal-overlay" id="trakoModal" onclick="fecharTrako(event)">
+  <div class="modal-box">
+    <div class="modal-img">
+      <img src="/assets/mockups/trako-celular.png" alt="TRAKO Circuit" />
+    </div>
+    <div class="modal-body">
+      <div class="modal-badge">Em desenvolvimento</div>
+      <div class="modal-nome">TRAKO Circuit</div>
+      <div class="modal-desc">A plataforma completa para planejar, operar e viver circuitos de caminhada e cicloturismo. Com inteligência artificial integrada em cada etapa, do planejamento ao certificado.</div>
+      <div class="modal-tags">
+        <span class="modal-tag">SaaS Multi-tenant</span>
+        <span class="modal-tag">Cicloturismo</span>
+        <span class="modal-tag">IA Integrada</span>
+        <span class="modal-tag">Certificados</span>
+        <span class="modal-tag">Em breve</span>
+      </div>
+      <button class="modal-close" onclick="fecharTrako()">Fechar ✕</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ 13. FOOTER ════════════════════════════════════════ -->
 <footer class="footer">
   <div class="container footer-inner">
@@ -1232,6 +1302,111 @@ if (playBtn && placeholder) {
     if (video && video.src) { placeholder.style.display = 'none'; video.play(); }
   });
 }
+
+/* ── TRAKO MODAL ─────────────────────────────────────── */
+function abrirTrako() {
+  document.getElementById('trakoModal').classList.add('ativo');
+  document.body.style.overflow = 'hidden';
+}
+function fecharTrako(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('trakoModal').classList.remove('ativo');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') fecharTrako();
+});
+
+/* ── CAROUSEL DRAG ───────────────────────────────────── */
+(function() {
+  const track = document.querySelector('.carousel-track');
+  if (!track) return;
+
+  // Disable CSS animation, drive via JS
+  track.style.animation = 'none';
+
+  let pos = 0;
+  let isDragging = false;
+  let startX = 0;
+  let startPos = 0;
+  let velocity = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let raf;
+  const SPEED = 0.9; // px per frame (≈ 35s animation)
+
+  function halfWidth() {
+    return track.scrollWidth / 2;
+  }
+
+  function clamp(p) {
+    const hw = halfWidth();
+    if (p > 0) p -= hw;
+    if (p <= -hw) p += hw;
+    return p;
+  }
+
+  function animate(ts) {
+    if (!isDragging) {
+      pos = clamp(pos - SPEED);
+      track.style.transform = `translateX(${pos}px)`;
+    }
+    raf = requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+
+  // Mouse
+  track.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    isDragging = true;
+    startX = e.clientX;
+    startPos = pos;
+    velocity = 0;
+    lastX = e.clientX;
+    lastTime = performance.now();
+    track.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const now = performance.now();
+    velocity = (e.clientX - lastX) / Math.max(1, now - lastTime) * 16;
+    lastX = e.clientX;
+    lastTime = now;
+    pos = clamp(startPos + (e.clientX - startX));
+    track.style.transform = `translateX(${pos}px)`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('dragging');
+  });
+
+  // Touch
+  track.addEventListener('touchstart', e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startPos = pos;
+    velocity = 0;
+    lastX = startX;
+    lastTime = performance.now();
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const now = performance.now();
+    velocity = (e.touches[0].clientX - lastX) / Math.max(1, now - lastTime) * 16;
+    lastX = e.touches[0].clientX;
+    lastTime = now;
+    pos = clamp(startPos + (e.touches[0].clientX - startX));
+    track.style.transform = `translateX(${pos}px)`;
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => { isDragging = false; });
+})();
 </script>
 
 </body>
