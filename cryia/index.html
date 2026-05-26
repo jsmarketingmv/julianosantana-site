@@ -671,14 +671,13 @@
     }
     .modal-close:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); }
 
-    /* ── COMMUNITY TEASER ───────────────────────────────── */
+    /* ── COMMUNITY TEASER — EM BREVE ────────────────────── */
     .community-secao { position: relative; z-index: 1; padding: clamp(5rem,10vw,8rem) 0; overflow: hidden; }
 
-    /* Glow de fundo dedicado à seção */
     .community-secao::before {
       content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 900px; height: 600px; border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.05) 40%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(99,102,241,0.09) 0%, rgba(168,85,247,0.06) 40%, transparent 70%);
       pointer-events: none; z-index: 0;
     }
 
@@ -689,7 +688,7 @@
     }
     @media (max-width: 960px) { .community-grid { grid-template-columns: 1fr; gap: 3.5rem; } }
 
-    /* Badge "em lançamento" */
+    /* Badge */
     .community-badge {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
@@ -698,7 +697,11 @@
     }
     .community-dot {
       width: 6px; height: 6px; border-radius: 50%; background: #A855F7;
-      animation: dot-blink 2s ease-in-out infinite; flex-shrink: 0;
+      animation: dot-blink 1.8s ease-in-out infinite; flex-shrink: 0;
+    }
+    @keyframes dot-blink {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.7); }
     }
 
     .community-h2 {
@@ -712,46 +715,88 @@
 
     .community-desc {
       font-size: 0.92rem; color: rgba(255,255,255,0.48); line-height: 1.85;
-      max-width: 460px; margin-bottom: 2.2rem;
+      max-width: 460px; margin-bottom: 2rem;
     }
 
-    /* 3 perfis */
-    .community-perfis { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
-    .community-perfil {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 0.85rem 1.1rem; border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-      transition: border-color var(--t), background var(--t);
+    /* Contador de espera */
+    .comm-contador {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      padding: 0.6rem 1rem; border-radius: 8px; margin-bottom: 1.8rem;
+      background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.2);
     }
-    .community-perfil:hover { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.05); }
-    .cp-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .cp-nome { font-size: 0.85rem; font-weight: 800; color: #fff; margin-bottom: 0.15rem; }
-    .cp-desc { font-size: 0.75rem; color: rgba(255,255,255,0.38); }
-
-    /* Pills */
-    .community-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2rem; }
-    .community-pills span {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
-      padding: 0.28rem 0.7rem; border-radius: 4px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
-      color: rgba(255,255,255,0.45);
+    .comm-contador-num {
+      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #A855F7, #6366F1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    .comm-contador-txt { font-size: 0.72rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
+    .comm-contador-txt strong { color: rgba(255,255,255,0.7); display: block; }
 
-    /* CTA */
-    .btn-community-primario {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.92rem 2rem; border-radius: var(--radius-sm);
+    /* Seleção de perfil */
+    .comm-perfil-label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 0.8rem;
+    }
+    .comm-perfis-sel {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.6rem; margin-bottom: 1.4rem;
+    }
+    .comm-perfil-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 10px; cursor: pointer;
+      background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08);
+      transition: all 0.2s; text-align: center;
+    }
+    .comm-perfil-btn:hover { border-color: rgba(168,85,247,0.35); background: rgba(168,85,247,0.06); }
+    .comm-perfil-btn.selecionado {
+      border-color: #A855F7; background: rgba(168,85,247,0.12);
+      box-shadow: 0 0 18px rgba(168,85,247,0.2);
+    }
+    .comm-perfil-btn .cpb-icon { font-size: 1.3rem; }
+    .comm-perfil-btn .cpb-nome { font-size: 0.65rem; font-weight: 800; color: rgba(255,255,255,0.75); }
+    .comm-perfil-btn .cpb-sub  { font-size: 0.55rem; color: rgba(255,255,255,0.3); line-height: 1.3; }
+
+    /* Form pré-lista */
+    .comm-form { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 0.8rem; }
+    .comm-form input {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; outline: none; transition: border-color 0.2s; box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .comm-form input::placeholder { color: rgba(255,255,255,0.22); }
+    .comm-form input:focus { border-color: rgba(168,85,247,0.5); background: rgba(255,255,255,0.07); }
+
+    .btn-prelista {
+      display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+      padding: 0.92rem 2rem; border-radius: 10px; width: 100%; border: none; cursor: pointer;
       background: linear-gradient(135deg, #6366F1, #A855F7);
-      color: #fff; font-weight: 800; font-size: 0.9rem;
-      transition: all var(--t); box-shadow: 0 8px 32px rgba(99,102,241,0.28);
+      color: #fff; font-weight: 800; font-size: 0.9rem; font-family: 'Montserrat', sans-serif;
+      transition: all 0.2s; box-shadow: 0 8px 32px rgba(99,102,241,0.3); letter-spacing: 0.01em;
     }
-    .btn-community-primario:hover {
-      transform: translateY(-2px); box-shadow: 0 14px 45px rgba(99,102,241,0.42);
+    .btn-prelista:hover { transform: translateY(-2px); box-shadow: 0 14px 45px rgba(99,102,241,0.45); }
+    .btn-prelista:active { transform: translateY(0); }
+
+    .comm-hint { font-size: 0.68rem; color: rgba(255,255,255,0.25); text-align: center; margin-top: 0.4rem; }
+
+    /* Estado de sucesso */
+    .comm-sucesso {
+      display: none; flex-direction: column; align-items: center; text-align: center;
+      padding: 2rem 1rem; gap: 0.8rem;
     }
-    .community-cta-hint { font-size: 0.7rem; color: rgba(255,255,255,0.28); margin-top: 0.7rem; }
+    .comm-sucesso.ativo { display: flex; }
+    .comm-sucesso-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; box-shadow: 0 8px 28px rgba(99,102,241,0.35);
+    }
+    .comm-sucesso h3 { font-size: 1.1rem; font-weight: 900; color: #fff; }
+    .comm-sucesso p { font-size: 0.8rem; color: rgba(255,255,255,0.45); max-width: 300px; line-height: 1.65; }
 
     /* Mockup side */
     .community-right { position: relative; }
+    .comm-mockup-wrap { position: relative; }
     .comm-mockup {
       background: rgba(10,11,20,0.92);
       border: 1px solid rgba(99,102,241,0.25);
@@ -762,6 +807,36 @@
     @keyframes comm-float {
       0%   { transform: translateY(0); }
       100% { transform: translateY(-12px); }
+    }
+
+    /* Overlay blur "em breve" */
+    .comm-mockup-overlay {
+      position: absolute; inset: 0; border-radius: var(--radius); z-index: 2;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      background: rgba(7,9,15,0.55);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem;
+    }
+    .comm-overlay-lock {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(168,85,247,0.15); border: 1.5px solid rgba(168,85,247,0.35);
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+      animation: lock-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes lock-pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(168,85,247,0.3); }
+      50%      { box-shadow: 0 0 0 10px rgba(168,85,247,0); }
+    }
+    .comm-overlay-txt {
+      font-size: 0.85rem; font-weight: 900; color: rgba(255,255,255,0.85); letter-spacing: 0.05em;
+    }
+    .comm-overlay-sub {
+      font-size: 0.65rem; color: rgba(255,255,255,0.4);
+    }
+    .comm-overlay-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
+    .comm-overlay-chips span {
+      font-size: 0.55rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.4);
     }
 
     .comm-browser-bar {
@@ -779,7 +854,6 @@
 
     .comm-screen { display: flex; min-height: 340px; }
 
-    /* Mini sidebar */
     .comm-sidebar {
       width: 120px; flex-shrink: 0;
       background: rgba(10,11,20,0.95);
@@ -814,14 +888,10 @@
     .cs-nav-item {
       font-size: 0.45rem; font-weight: 600; color: rgba(255,255,255,0.38);
       padding: 0.35rem 0.4rem; border-radius: 4px;
-      border-left: 2px solid transparent; transition: all 0.2s;
+      border-left: 2px solid transparent;
     }
-    .cs-nav-item.active {
-      color: #818CF8; background: rgba(99,102,241,0.12);
-      border-left-color: #6366F1;
-    }
+    .cs-nav-item.active { color: #818CF8; background: rgba(99,102,241,0.12); border-left-color: #6366F1; }
 
-    /* Mini main */
     .comm-main {
       flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;
       background: linear-gradient(160deg, rgba(99,102,241,0.04) 0%, transparent 50%);
@@ -842,18 +912,18 @@
       border-radius: 4px; text-align: center; margin-top: auto;
     }
 
-    /* Floating "Já no ar" tag */
+    /* Floating tag "Em breve" */
     .comm-float-tag {
-      position: absolute; top: -12px; right: 24px;
+      position: absolute; top: -12px; right: 24px; z-index: 3;
       font-size: 0.62rem; font-weight: 800;
-      background: linear-gradient(135deg, #22C55E, #16A34A);
+      background: linear-gradient(135deg, #6366F1, #A855F7);
       color: #fff; padding: 0.3rem 0.75rem; border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+      box-shadow: 0 4px 16px rgba(99,102,241,0.45);
       animation: tag-pulse 3s ease-in-out infinite;
     }
     @keyframes tag-pulse {
-      0%, 100% { box-shadow: 0 4px 16px rgba(34,197,94,0.4); }
-      50%       { box-shadow: 0 4px 28px rgba(34,197,94,0.65); }
+      0%, 100% { box-shadow: 0 4px 16px rgba(99,102,241,0.45); }
+      50%       { box-shadow: 0 4px 28px rgba(99,102,241,0.7); }
     }
 
     @media (max-width: 960px) {
@@ -864,6 +934,7 @@
       .comm-sidebar { width: 88px; }
       .comm-screen { min-height: 260px; }
       .cm-eixos { grid-template-columns: 1fr 1fr; }
+      .comm-perfis-sel { grid-template-columns: 1fr 1fr 1fr; }
     }
   </style>
 </head>
@@ -888,7 +959,7 @@
       <li><a href="#fundador">Fundador</a></li>
       <li><a href="#community" style="color:var(--purple);font-weight:700;">Community ✦</a></li>
     </ul>
-    <a href="https://cryia-community.vercel.app" target="_blank" class="btn-nav">Entrar no Community</a>
+    <a href="#community" class="btn-nav" style="background:linear-gradient(135deg,#6366F1,#A855F7);border-color:transparent;">Quero entrar na lista ✦</a>
   </div>
 </nav>
 
@@ -1346,112 +1417,134 @@
 
 <div class="linha-grad"></div>
 
-<!-- ══ 12. CRYIA COMMUNITY — TEASER ══════════════════════ -->
+<!-- ══ 12. CRYIA COMMUNITY — EM BREVE ═════════════════════ -->
 <section class="community-secao" id="community">
   <div class="container">
     <div class="community-grid">
 
-      <!-- Esquerda: texto + CTA -->
+      <!-- Esquerda: texto + pré-lista -->
       <div class="community-left">
         <div class="community-badge animar">
           <span class="community-dot"></span>
-          CRYIA COMMUNITY · EM LANÇAMENTO
+          CRYIA COMMUNITY · EM BREVE
         </div>
 
         <h2 class="community-h2 animar">
-          O conhecimento<br>do ecossistema CRYIA,<br>
-          <span>agora em plataforma.</span>
+          Uma plataforma<br>que ainda não existe.<br>
+          <span>Mas está chegando.</span>
         </h2>
 
         <p class="community-desc animar">
-          Cursos, mentorias e ferramentas criadas por quem opera negócios reais —
-          com IA integrada em cada etapa. Para quem quer aprender, ensinar ou crescer dentro do ecossistema.
+          Cursos, mentorias e IA integrada — criados por quem opera negócios reais.
+          Estamos construindo algo diferente. Entre na lista e seja um dos primeiros a acessar.
         </p>
 
-        <!-- 3 perfis -->
-        <div class="community-perfis animar">
-          <div class="community-perfil">
-            <div class="cp-icon">🎓</div>
-            <div>
-              <div class="cp-nome">Mentor</div>
-              <div class="cp-desc">Crie cursos, compartilhe expertise e monetize seu conhecimento</div>
-            </div>
-          </div>
-          <div class="community-perfil">
-            <div class="cp-icon">📚</div>
-            <div>
-              <div class="cp-nome">Aluno</div>
-              <div class="cp-desc">Aprenda com quem executa no mercado — não só quem teoriza</div>
-            </div>
-          </div>
-          <div class="community-perfil">
-            <div class="cp-icon">🚀</div>
-            <div>
-              <div class="cp-nome">Empreendedor</div>
-              <div class="cp-desc">Aplique estratégia real com IA ao lado — do diagnóstico à execução</div>
-            </div>
+        <!-- Contador -->
+        <div class="comm-contador animar">
+          <div class="comm-contador-num" id="comm-count">47</div>
+          <div class="comm-contador-txt">
+            <strong>pessoas já na lista</strong>
+            de acesso antecipado
           </div>
         </div>
 
-        <!-- Chips -->
-        <div class="community-pills animar">
-          <span>6 Eixos de Conhecimento</span>
-          <span>Cursos Gratuitos e Pagos</span>
-          <span>IA Integrada</span>
-          <span>Portal do Mentor</span>
-          <span>Central de Conteúdo</span>
+        <!-- Formulário pré-lista -->
+        <div id="comm-form-wrap" class="animar">
+
+          <p class="comm-perfil-label">Quero entrar como:</p>
+          <div class="comm-perfis-sel">
+            <div class="comm-perfil-btn selecionado" data-perfil="Aluno" onclick="selecionarPerfil(this)">
+              <span class="cpb-icon">📚</span>
+              <span class="cpb-nome">Aluno</span>
+              <span class="cpb-sub">Quero aprender e crescer</span>
+            </div>
+            <div class="comm-perfil-btn" data-perfil="Mentor" onclick="selecionarPerfil(this)">
+              <span class="cpb-icon">🎓</span>
+              <span class="cpb-nome">Mentor</span>
+              <span class="cpb-sub">Quero ensinar e monetizar</span>
+            </div>
+            <div class="comm-perfil-btn" data-perfil="Empreendedor" onclick="selecionarPerfil(this)">
+              <span class="cpb-icon">🚀</span>
+              <span class="cpb-nome">Empreend.</span>
+              <span class="cpb-sub">Quero aplicar estratégia</span>
+            </div>
+          </div>
+
+          <div class="comm-form">
+            <input type="text" id="comm-nome" placeholder="Seu nome" autocomplete="off" />
+            <input type="email" id="comm-email" placeholder="Seu melhor e-mail" autocomplete="off" />
+          </div>
+
+          <button class="btn-prelista" onclick="entrarNaLista()">
+            ✦ Quero entrar na lista
+          </button>
+          <p class="comm-hint">Gratuito · Sem spam · Acesso antecipado garantido</p>
         </div>
 
-        <!-- CTA -->
-        <div class="animar">
-          <a href="https://cryia-community.vercel.app" target="_blank" class="btn-community-primario">
-            Entrar no CRYIA Community →
-          </a>
-          <p class="community-cta-hint">Acesso antecipado disponível agora · Gratuito para começar</p>
+        <!-- Estado de sucesso -->
+        <div class="comm-sucesso" id="comm-sucesso">
+          <div class="comm-sucesso-icon">✓</div>
+          <h3 id="comm-sucesso-nome">Você está na lista!</h3>
+          <p>Ótimo! Vou te avisar pessoalmente quando o CRYIA Community abrir.<br>Fique de olho no seu e-mail. 🚀</p>
         </div>
+
       </div>
 
-      <!-- Direita: mockup animado -->
+      <!-- Direita: mockup com overlay "em breve" -->
       <div class="community-right animar">
-        <div class="comm-float-tag">Já no ar 🟢</div>
-        <div class="comm-mockup">
-          <!-- Browser bar -->
-          <div class="comm-browser-bar">
-            <span class="browser-dot bdr"></span>
-            <span class="browser-dot bdy"></span>
-            <span class="browser-dot bdg"></span>
-            <span class="comm-url">cryia-community.vercel.app/dashboard</span>
-          </div>
-          <!-- Screen: sidebar + main -->
-          <div class="comm-screen">
-            <div class="comm-sidebar">
-              <div class="cs-logo">CRYIA <span>Community</span></div>
-              <div class="cs-user">
-                <div class="cs-avatar">JS</div>
-                <div class="cs-user-info">
-                  <div class="cs-user-name">Juliano</div>
-                  <div class="cs-user-role">Admin</div>
+        <div class="comm-float-tag">Em breve 🔒</div>
+        <div class="comm-mockup-wrap">
+          <div class="comm-mockup">
+            <!-- Browser bar -->
+            <div class="comm-browser-bar">
+              <span class="browser-dot bdr"></span>
+              <span class="browser-dot bdy"></span>
+              <span class="browser-dot bdg"></span>
+              <span class="comm-url">cryia-community.vercel.app/dashboard</span>
+            </div>
+            <!-- Screen -->
+            <div class="comm-screen">
+              <div class="comm-sidebar">
+                <div class="cs-logo">CRYIA <span>Community</span></div>
+                <div class="cs-user">
+                  <div class="cs-avatar">JS</div>
+                  <div class="cs-user-info">
+                    <div class="cs-user-name">Você</div>
+                    <div class="cs-user-role">Em breve</div>
+                  </div>
+                </div>
+                <div class="cs-nav">
+                  <div class="cs-nav-item active">⚡ Dashboard</div>
+                  <div class="cs-nav-item">🧭 Eixos</div>
+                  <div class="cs-nav-item">🎓 Portal Mentor</div>
+                  <div class="cs-nav-item">✦ Central</div>
+                  <div class="cs-nav-item">🛡️ Admin</div>
                 </div>
               </div>
-              <div class="cs-nav">
-                <div class="cs-nav-item active">⚡ Dashboard</div>
-                <div class="cs-nav-item">🧭 Eixos</div>
-                <div class="cs-nav-item">🎓 Portal Mentor</div>
-                <div class="cs-nav-item">✦ Central</div>
-                <div class="cs-nav-item">🛡️ Admin</div>
+              <div class="comm-main">
+                <div class="cm-greeting">Olá, Você. 👋</div>
+                <div class="cm-eixos">
+                  <div class="cm-eixo" style="--c:#818CF8">🎯<br>Marketing</div>
+                  <div class="cm-eixo" style="--c:#34D399">🏔️<br>Turismo</div>
+                  <div class="cm-eixo" style="--c:#22D3EE">💻<br>Tecnologia</div>
+                  <div class="cm-eixo" style="--c:#A855F7">🤖<br>IA</div>
+                  <div class="cm-eixo" style="--c:#FCD34D">🧭<br>Mentorias</div>
+                  <div class="cm-eixo" style="--c:#FB923C">🚀<br>Empreend.</div>
+                </div>
+                <div class="cm-badge">✦ Central de Conteúdo · IA · Métricas · Design</div>
               </div>
             </div>
-            <div class="comm-main">
-              <div class="cm-greeting">Olá, Juliano. 🛡️</div>
-              <div class="cm-eixos">
-                <div class="cm-eixo" style="--c:#818CF8">🎯<br>Marketing</div>
-                <div class="cm-eixo" style="--c:#34D399">🏔️<br>Turismo</div>
-                <div class="cm-eixo" style="--c:#22D3EE">💻<br>Tecnologia</div>
-                <div class="cm-eixo" style="--c:#A855F7">🤖<br>IA</div>
-                <div class="cm-eixo" style="--c:#FCD34D">🧭<br>Mentorias</div>
-                <div class="cm-eixo" style="--c:#FB923C">🚀<br>Empreend.</div>
-              </div>
-              <div class="cm-badge">✦ Central de Conteúdo · Plano · Copys · Teleprompter</div>
+          </div>
+          <!-- Overlay blur -->
+          <div class="comm-mockup-overlay">
+            <div class="comm-overlay-lock">🔒</div>
+            <div class="comm-overlay-txt">Preview exclusivo</div>
+            <div class="comm-overlay-sub">Entre na lista para ter acesso antecipado</div>
+            <div class="comm-overlay-chips">
+              <span>6 Eixos</span>
+              <span>Cursos + Mentorias</span>
+              <span>IA Integrada</span>
+              <span>Portal do Mentor</span>
             </div>
           </div>
         </div>
@@ -1718,6 +1811,82 @@ document.addEventListener('keydown', e => {
 
   document.addEventListener('touchend', () => { isDragging = false; });
 })();
+</script>
+
+<!-- ══ COMMUNITY PRÉ-LISTA ═══════════════════════════════ -->
+<script>
+(function() {
+  // Inicializa contador com localStorage para persistir
+  var BASE = 47;
+  var stored = parseInt(localStorage.getItem('comm_count') || '0');
+  if (stored > 0) {
+    var el = document.getElementById('comm-count');
+    if (el) el.textContent = BASE + stored;
+  }
+
+  // Checa se já cadastrou
+  if (localStorage.getItem('comm_inscrito') === '1') {
+    mostrarSucesso(localStorage.getItem('comm_nome_salvo') || '');
+  }
+})();
+
+function selecionarPerfil(btn) {
+  document.querySelectorAll('.comm-perfil-btn').forEach(function(b) {
+    b.classList.remove('selecionado');
+  });
+  btn.classList.add('selecionado');
+}
+
+function entrarNaLista() {
+  var nome  = (document.getElementById('comm-nome')  || {}).value || '';
+  var email = (document.getElementById('comm-email') || {}).value || '';
+  var perfil = '';
+  var sel = document.querySelector('.comm-perfil-btn.selecionado');
+  if (sel) perfil = sel.getAttribute('data-perfil') || '';
+
+  if (!nome.trim()) {
+    document.getElementById('comm-nome').focus();
+    document.getElementById('comm-nome').style.borderColor = 'rgba(168,85,247,0.6)';
+    return;
+  }
+  if (!email.trim() || !email.includes('@')) {
+    document.getElementById('comm-email').focus();
+    document.getElementById('comm-email').style.borderColor = 'rgba(168,85,247,0.6)';
+    return;
+  }
+
+  // Salva localmente
+  var count = parseInt(localStorage.getItem('comm_count') || '0') + 1;
+  localStorage.setItem('comm_count', count);
+  localStorage.setItem('comm_inscrito', '1');
+  localStorage.setItem('comm_nome_salvo', nome.trim().split(' ')[0]);
+
+  // Atualiza contador na tela
+  var BASE = 47;
+  var el = document.getElementById('comm-count');
+  if (el) el.textContent = BASE + count;
+
+  // Abre WhatsApp com lead info (captura real sem backend)
+  var msg = encodeURIComponent(
+    '🔔 *Novo lead — CRYIA Community*\n\n' +
+    '👤 Nome: ' + nome.trim() + '\n' +
+    '📧 Email: ' + email.trim() + '\n' +
+    '🎯 Perfil: ' + (perfil || 'Não informado') + '\n\n' +
+    'Via: cryia.com.br/cryia'
+  );
+  window.open('https://wa.me/5547984079480?text=' + msg, '_blank');
+
+  mostrarSucesso(nome.trim().split(' ')[0]);
+}
+
+function mostrarSucesso(primeiroNome) {
+  var wrap = document.getElementById('comm-form-wrap');
+  var suc  = document.getElementById('comm-sucesso');
+  var titulo = document.getElementById('comm-sucesso-nome');
+  if (wrap) wrap.style.display = 'none';
+  if (suc)  { suc.classList.add('ativo'); }
+  if (titulo && primeiroNome) titulo.textContent = primeiroNome + ', você está na lista! 🎉';
+}
 </script>
 
 </body>
