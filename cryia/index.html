@@ -670,6 +670,201 @@
       transition: all 0.2s; font-family: 'Montserrat', sans-serif; text-align: center;
     }
     .modal-close:hover { border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.75); }
+
+    /* ── COMMUNITY TEASER ───────────────────────────────── */
+    .community-secao { position: relative; z-index: 1; padding: clamp(5rem,10vw,8rem) 0; overflow: hidden; }
+
+    /* Glow de fundo dedicado à seção */
+    .community-secao::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 900px; height: 600px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.05) 40%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .community-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem,6vw,6rem); align-items: center;
+      position: relative; z-index: 1;
+    }
+    @media (max-width: 960px) { .community-grid { grid-template-columns: 1fr; gap: 3.5rem; } }
+
+    /* Badge "em lançamento" */
+    .community-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #A855F7; background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.25);
+      padding: 0.3rem 0.85rem; border-radius: 4px; margin-bottom: 1.4rem;
+    }
+    .community-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #A855F7;
+      animation: dot-blink 2s ease-in-out infinite; flex-shrink: 0;
+    }
+
+    .community-h2 {
+      font-size: clamp(2rem,4.5vw,3.2rem); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 1.2rem;
+    }
+    .community-h2 span {
+      background: linear-gradient(135deg, #6366F1, #A855F7, #06B6D4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .community-desc {
+      font-size: 0.92rem; color: rgba(255,255,255,0.48); line-height: 1.85;
+      max-width: 460px; margin-bottom: 2.2rem;
+    }
+
+    /* 3 perfis */
+    .community-perfis { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .community-perfil {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.85rem 1.1rem; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      transition: border-color var(--t), background var(--t);
+    }
+    .community-perfil:hover { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.05); }
+    .cp-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .cp-nome { font-size: 0.85rem; font-weight: 800; color: #fff; margin-bottom: 0.15rem; }
+    .cp-desc { font-size: 0.75rem; color: rgba(255,255,255,0.38); }
+
+    /* Pills */
+    .community-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2rem; }
+    .community-pills span {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em;
+      padding: 0.28rem 0.7rem; border-radius: 4px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* CTA */
+    .btn-community-primario {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.92rem 2rem; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      color: #fff; font-weight: 800; font-size: 0.9rem;
+      transition: all var(--t); box-shadow: 0 8px 32px rgba(99,102,241,0.28);
+    }
+    .btn-community-primario:hover {
+      transform: translateY(-2px); box-shadow: 0 14px 45px rgba(99,102,241,0.42);
+    }
+    .community-cta-hint { font-size: 0.7rem; color: rgba(255,255,255,0.28); margin-top: 0.7rem; }
+
+    /* Mockup side */
+    .community-right { position: relative; }
+    .comm-mockup {
+      background: rgba(10,11,20,0.92);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(99,102,241,0.1);
+      animation: comm-float 6s ease-in-out infinite alternate;
+    }
+    @keyframes comm-float {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-12px); }
+    }
+
+    .comm-browser-bar {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .browser-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .comm-url {
+      flex: 1; background: rgba(255,255,255,0.05); border-radius: 20px;
+      padding: 0.2rem 0.6rem; font-size: 0.5rem; color: rgba(255,255,255,0.28);
+      font-family: monospace; margin-left: 0.3rem;
+    }
+
+    .comm-screen { display: flex; min-height: 340px; }
+
+    /* Mini sidebar */
+    .comm-sidebar {
+      width: 120px; flex-shrink: 0;
+      background: rgba(10,11,20,0.95);
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 0.9rem 0.6rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .cs-logo {
+      font-size: 0.55rem; font-weight: 900; letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      padding: 0 0.2rem; margin-bottom: 0.4rem;
+    }
+    .cs-logo span { font-weight: 400; opacity: 0.5; -webkit-text-fill-color: rgba(255,255,255,0.35); }
+    .cs-user {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.35rem; background: rgba(255,255,255,0.04);
+      border-radius: 5px; margin-bottom: 0.5rem;
+    }
+    .cs-avatar {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.38rem; font-weight: 900; color: #fff; flex-shrink: 0;
+    }
+    .cs-user-name { font-size: 0.45rem; font-weight: 700; color: #fff; }
+    .cs-user-role {
+      font-size: 0.38rem; font-weight: 700; color: #F59E0B;
+      background: rgba(245,158,11,0.15); padding: 0.05rem 0.25rem; border-radius: 2px;
+    }
+    .cs-nav { display: flex; flex-direction: column; gap: 0.15rem; }
+    .cs-nav-item {
+      font-size: 0.45rem; font-weight: 600; color: rgba(255,255,255,0.38);
+      padding: 0.35rem 0.4rem; border-radius: 4px;
+      border-left: 2px solid transparent; transition: all 0.2s;
+    }
+    .cs-nav-item.active {
+      color: #818CF8; background: rgba(99,102,241,0.12);
+      border-left-color: #6366F1;
+    }
+
+    /* Mini main */
+    .comm-main {
+      flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;
+      background: linear-gradient(160deg, rgba(99,102,241,0.04) 0%, transparent 50%);
+    }
+    .cm-greeting { font-size: 0.65rem; font-weight: 900; color: #fff; }
+    .cm-eixos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; }
+    .cm-eixo {
+      font-size: 0.42rem; font-weight: 700; color: rgba(255,255,255,0.5);
+      padding: 0.45rem 0.35rem; border-radius: 4px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      text-align: center; line-height: 1.4;
+      border-bottom: 2px solid var(--c, rgba(255,255,255,0.15));
+    }
+    .cm-badge {
+      font-size: 0.4rem; font-weight: 700; letter-spacing: 0.04em;
+      color: #818CF8; background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2); padding: 0.35rem 0.5rem;
+      border-radius: 4px; text-align: center; margin-top: auto;
+    }
+
+    /* Floating "Já no ar" tag */
+    .comm-float-tag {
+      position: absolute; top: -12px; right: 24px;
+      font-size: 0.62rem; font-weight: 800;
+      background: linear-gradient(135deg, #22C55E, #16A34A);
+      color: #fff; padding: 0.3rem 0.75rem; border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+      animation: tag-pulse 3s ease-in-out infinite;
+    }
+    @keyframes tag-pulse {
+      0%, 100% { box-shadow: 0 4px 16px rgba(34,197,94,0.4); }
+      50%       { box-shadow: 0 4px 28px rgba(34,197,94,0.65); }
+    }
+
+    @media (max-width: 960px) {
+      .community-right { max-width: 480px; margin: 0 auto; }
+      .comm-float-tag { right: 12px; }
+    }
+    @media (max-width: 480px) {
+      .comm-sidebar { width: 88px; }
+      .comm-screen { min-height: 260px; }
+      .cm-eixos { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -691,8 +886,9 @@
       <li><a href="#projetos">Projetos</a></li>
       <li><a href="#ia">IA</a></li>
       <li><a href="#fundador">Fundador</a></li>
+      <li><a href="#community" style="color:var(--purple);font-weight:700;">Community ✦</a></li>
     </ul>
-    <a href="#contato" class="btn-nav">Entrar no Ecossistema</a>
+    <a href="https://cryia-community.vercel.app" target="_blank" class="btn-nav">Entrar no Community</a>
   </div>
 </nav>
 
@@ -1150,7 +1346,122 @@
 
 <div class="linha-grad"></div>
 
-<!-- ══ 12. CTA FINAL ════════════════════════════════════ -->
+<!-- ══ 12. CRYIA COMMUNITY — TEASER ══════════════════════ -->
+<section class="community-secao" id="community">
+  <div class="container">
+    <div class="community-grid">
+
+      <!-- Esquerda: texto + CTA -->
+      <div class="community-left">
+        <div class="community-badge animar">
+          <span class="community-dot"></span>
+          CRYIA COMMUNITY · EM LANÇAMENTO
+        </div>
+
+        <h2 class="community-h2 animar">
+          O conhecimento<br>do ecossistema CRYIA,<br>
+          <span>agora em plataforma.</span>
+        </h2>
+
+        <p class="community-desc animar">
+          Cursos, mentorias e ferramentas criadas por quem opera negócios reais —
+          com IA integrada em cada etapa. Para quem quer aprender, ensinar ou crescer dentro do ecossistema.
+        </p>
+
+        <!-- 3 perfis -->
+        <div class="community-perfis animar">
+          <div class="community-perfil">
+            <div class="cp-icon">🎓</div>
+            <div>
+              <div class="cp-nome">Mentor</div>
+              <div class="cp-desc">Crie cursos, compartilhe expertise e monetize seu conhecimento</div>
+            </div>
+          </div>
+          <div class="community-perfil">
+            <div class="cp-icon">📚</div>
+            <div>
+              <div class="cp-nome">Aluno</div>
+              <div class="cp-desc">Aprenda com quem executa no mercado — não só quem teoriza</div>
+            </div>
+          </div>
+          <div class="community-perfil">
+            <div class="cp-icon">🚀</div>
+            <div>
+              <div class="cp-nome">Empreendedor</div>
+              <div class="cp-desc">Aplique estratégia real com IA ao lado — do diagnóstico à execução</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chips -->
+        <div class="community-pills animar">
+          <span>6 Eixos de Conhecimento</span>
+          <span>Cursos Gratuitos e Pagos</span>
+          <span>IA Integrada</span>
+          <span>Portal do Mentor</span>
+          <span>Central de Conteúdo</span>
+        </div>
+
+        <!-- CTA -->
+        <div class="animar">
+          <a href="https://cryia-community.vercel.app" target="_blank" class="btn-community-primario">
+            Entrar no CRYIA Community →
+          </a>
+          <p class="community-cta-hint">Acesso antecipado disponível agora · Gratuito para começar</p>
+        </div>
+      </div>
+
+      <!-- Direita: mockup animado -->
+      <div class="community-right animar">
+        <div class="comm-float-tag">Já no ar 🟢</div>
+        <div class="comm-mockup">
+          <!-- Browser bar -->
+          <div class="comm-browser-bar">
+            <span class="browser-dot bdr"></span>
+            <span class="browser-dot bdy"></span>
+            <span class="browser-dot bdg"></span>
+            <span class="comm-url">cryia-community.vercel.app/dashboard</span>
+          </div>
+          <!-- Screen: sidebar + main -->
+          <div class="comm-screen">
+            <div class="comm-sidebar">
+              <div class="cs-logo">CRYIA <span>Community</span></div>
+              <div class="cs-user">
+                <div class="cs-avatar">JS</div>
+                <div class="cs-user-info">
+                  <div class="cs-user-name">Juliano</div>
+                  <div class="cs-user-role">Admin</div>
+                </div>
+              </div>
+              <div class="cs-nav">
+                <div class="cs-nav-item active">⚡ Dashboard</div>
+                <div class="cs-nav-item">🧭 Eixos</div>
+                <div class="cs-nav-item">🎓 Portal Mentor</div>
+                <div class="cs-nav-item">✦ Central</div>
+                <div class="cs-nav-item">🛡️ Admin</div>
+              </div>
+            </div>
+            <div class="comm-main">
+              <div class="cm-greeting">Olá, Juliano. 🛡️</div>
+              <div class="cm-eixos">
+                <div class="cm-eixo" style="--c:#818CF8">🎯<br>Marketing</div>
+                <div class="cm-eixo" style="--c:#34D399">🏔️<br>Turismo</div>
+                <div class="cm-eixo" style="--c:#22D3EE">💻<br>Tecnologia</div>
+                <div class="cm-eixo" style="--c:#A855F7">🤖<br>IA</div>
+                <div class="cm-eixo" style="--c:#FCD34D">🧭<br>Mentorias</div>
+                <div class="cm-eixo" style="--c:#FB923C">🚀<br>Empreend.</div>
+              </div>
+              <div class="cm-badge">✦ Central de Conteúdo · Plano · Copys · Teleprompter</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 13. CTA FINAL ════════════════════════════════════ -->
 <section class="secao" id="contato">
   <div class="container">
     <div class="cta-hub animar">
