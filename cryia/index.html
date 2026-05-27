@@ -110,147 +110,214 @@
     .btn-nav:hover { opacity: 0.85; transform: translateY(-1px); }
     @media (max-width: 768px) { .nav-links { display: none; } }
 
-    /* ── HERO — FULL BLEED FOTO ─────────────────────────── */
+    /* ══════════════════════════════════════════════════════
+       HERO — DUAS COLUNAS COM FOTO DOMINANTE
+    ══════════════════════════════════════════════════════ */
+
+    /* Seção hero */
     .hero-bleed {
       position: relative;
-      min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: stretch;
+      min-height: 100vh;
+      background: #0a0a0f;
       overflow: hidden;
       z-index: 1;
     }
 
-    /* Foto cobre 100% do banner */
-    .hero-bg-foto {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: 70% center; /* foca Juliano + elementos IA */
-      display: block;
-      z-index: 0;
+    /* Grain texture sutil sobre tudo */
+    .hero-bleed::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 5; pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* Camadas de gradiente para legibilidade do texto */
-    .hero-bg-overlay {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background:
-        linear-gradient(to right,
-          rgba(5,6,14,0.96) 0%,
-          rgba(5,6,14,0.82) 35%,
-          rgba(5,6,14,0.40) 60%,
-          rgba(5,6,14,0.08) 80%,
-          transparent 100%
-        ),
-        linear-gradient(to top,
-          rgba(5,6,14,0.7) 0%,
-          transparent 30%
-        );
-    }
-
-    /* Conteúdo texto — fica sobre os overlays */
+    /* ── COLUNA ESQUERDA (texto) ─── */
     .hero-left {
-      position: relative; z-index: 2;
-      max-width: 620px;
-      padding: clamp(8rem,13vw,12rem) clamp(1.5rem,8vw,8rem) clamp(5rem,8vw,8rem);
-      display: flex; flex-direction: column;
-    }
-    @media (max-width: 700px) {
-      .hero-left { max-width: 100%; padding: 8rem 1.5rem 4rem; }
+      position: relative; z-index: 3;
+      flex: 0 0 52%;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(7rem,10vw,10rem) clamp(1.5rem,5vw,5rem) clamp(4rem,6vw,6rem) clamp(1.5rem,7vw,7rem);
     }
 
-    /* Esconde o antigo hero-right (já não existe na nova estrutura) */
-    .hero-right { display: none; }
-
+    /* Badge eyebrow */
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--green); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-      padding: 0.32rem 1rem; border-radius: 50px; margin-bottom: 1.8rem; align-self: flex-start;
+      font-size: 0.69rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #22c55e;
+      background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.4);
+      padding: 0.35rem 1rem; border-radius: 50px;
+      margin-bottom: 1.8rem; align-self: flex-start;
     }
-    .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: dot-blink 2s ease-in-out infinite; }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0;
+      animation: dot-blink 2s ease-in-out infinite;
+    }
 
+    /* Headline */
     .hero-headline {
-      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
-      font-weight: 900; letter-spacing: -0.045em; line-height: 0.93;
-      color: #fff; margin-bottom: 1.5rem;
+      font-size: clamp(3rem, 5.8vw, 5.5rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+      margin-bottom: 1.6rem;
     }
-    .hero-headline em {
-      font-style: normal; display: block; margin-top: 0.08em;
-      background: linear-gradient(135deg, var(--green), var(--indigo), var(--purple));
+    .hero-headline .hl-white   { color: #ffffff; display: block; }
+    .hero-headline .hl-grad    {
+      display: block;
+      background: linear-gradient(90deg, #22c55e 0%, #7c3aed 55%, #a855f7 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    .hero-headline .hl-cyan    { color: #06b6d4; display: inline; }
 
+    /* Body */
     .hero-desc {
-      font-size: clamp(0.9rem, 1.3vw, 1.02rem); color: rgba(255,255,255,0.58);
-      line-height: 1.85; margin-bottom: 2rem; max-width: 480px;
+      font-size: 1.06rem; color: rgba(255,255,255,0.65);
+      line-height: 1.7; margin-bottom: 1.8rem; max-width: 480px;
     }
 
-    .hero-pilares { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.4rem; }
+    /* Tags pills */
+    .hero-pilares {
+      display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.2rem;
+    }
     .pilar-chip {
-      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.28rem 0.75rem; border-radius: 50px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55);
+      font-size: 0.69rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7); background: transparent;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .pilar-chip.marketing      { border-color: rgba(244,114,182,0.45); color: #F472B6; background: rgba(244,114,182,0.07); }
-    .pilar-chip.comunicacao    { border-color: rgba(52,211,153,0.4);   color: #34D399; background: rgba(52,211,153,0.07); }
-    .pilar-chip.tecnologia-ia  { border-color: rgba(6,182,212,0.4);    color: #22D3EE; background: rgba(6,182,212,0.07); }
-    .pilar-chip.educacao       { border-color: rgba(129,140,248,0.4);  color: #818CF8; background: rgba(129,140,248,0.07); }
-    .pilar-chip.mentoria       { border-color: rgba(252,211,77,0.4);   color: #FCD34D; background: rgba(252,211,77,0.07); }
-    .pilar-chip.empreend       { border-color: rgba(251,146,60,0.4);   color: #FB923C; background: rgba(251,146,60,0.07); }
-    .pilar-chip.comportamento  { border-color: rgba(167,139,250,0.45); color: #A78BFA; background: rgba(167,139,250,0.07); }
+    .pilar-chip:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+    /* Cores individuais dos eixos */
+    .pilar-chip.marketing      { border-color: rgba(244,114,182,0.35); color: #F472B6; }
+    .pilar-chip.comunicacao    { border-color: rgba(52,211,153,0.35);  color: #34D399; }
+    .pilar-chip.tecnologia-ia  { border-color: rgba(6,182,212,0.35);   color: #22D3EE; }
+    .pilar-chip.educacao       { border-color: rgba(129,140,248,0.35); color: #818CF8; }
+    .pilar-chip.mentoria       { border-color: rgba(252,211,77,0.35);  color: #FCD34D; }
+    .pilar-chip.empreend       { border-color: rgba(251,146,60,0.35);  color: #FB923C; }
+    .pilar-chip.comportamento  { border-color: rgba(167,139,250,0.4);  color: #A78BFA; }
 
+    /* CTAs */
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     .btn-primario {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.92rem 2.4rem; border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, var(--indigo), var(--purple));
-      color: #fff; font-weight: 700; font-size: 0.92rem;
-      transition: all var(--t); box-shadow: 0 0 35px rgba(99,102,241,0.35);
+      padding: 14px 28px; border-radius: 50px;
+      background: #7c3aed; color: #fff; font-weight: 600; font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 32px rgba(124,58,237,0.4);
     }
-    .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 0 55px rgba(99,102,241,0.55); }
+    .btn-primario:hover { background: #6d28d9; transform: translateY(-2px); box-shadow: 0 0 48px rgba(124,58,237,0.55); }
+
     .btn-outline {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.92rem 2.4rem; border-radius: var(--radius-sm);
-      border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.7);
-      font-weight: 600; font-size: 0.92rem; transition: all var(--t);
-      background: rgba(255,255,255,0.04); backdrop-filter: blur(8px);
+      padding: 14px 28px; border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75);
+      font-weight: 600; font-size: 0.9rem;
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+    .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.35); color: #fff; }
 
-    /* Badges flutuantes no canto direito do hero */
-    .hero-badge-wrap {
-      position: absolute; right: clamp(1.5rem,4vw,4rem); bottom: clamp(2rem,5vh,5rem);
-      z-index: 2; display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end;
+    /* ── COLUNA DIREITA (foto) ─── */
+    .hero-right {
+      position: relative; z-index: 2;
+      flex: 0 0 48%;
+      display: flex; align-items: flex-end; justify-content: flex-end;
+      overflow: visible;
     }
-    @media (max-width: 700px) { .hero-badge-wrap { display: none; } }
-    .hero-badge {
-      background: rgba(5,6,14,0.82); backdrop-filter: blur(20px);
-      border-radius: var(--radius-sm); padding: 0.6rem 1.1rem;
-    }
-    .hero-badge.b-green  { border: 1px solid rgba(34,197,94,0.35); animation: float-card 6s ease-in-out infinite; }
-    .hero-badge.b-indigo { border: 1px solid rgba(99,102,241,0.35); animation: float-card 7.5s ease-in-out infinite; animation-delay: -3s; }
-    .hero-badge .float-label { font-size: 0.48rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.18rem; }
-    .hero-badge.b-green  .float-label { color: rgba(34,197,94,0.7); }
-    .hero-badge.b-indigo .float-label { color: rgba(129,140,248,0.7); }
-    .hero-badge .float-val { font-size: 0.82rem; font-weight: 800; color: #fff; }
 
-    /* Dot grid pattern */
-    .hero-right::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
+    /* Glow roxo/ciano atrás da foto */
+    .hero-photo-glow {
+      position: absolute;
+      right: 0; top: 50%; transform: translateY(-50%);
+      width: 100%; height: 85%;
+      background: radial-gradient(
+        ellipse at 60% 50%,
+        rgba(124,58,237,0.18) 0%,
+        rgba(6,182,212,0.09) 40%,
+        transparent 70%
+      );
+      filter: blur(40px);
+      z-index: 0; pointer-events: none;
     }
-    /* Diagonal deco line */
-    .hero-right::after {
-      content: '';
-      position: absolute; top: -80px; right: 60px; z-index: 0; pointer-events: none;
-      width: 1px; height: 280px;
-      background: linear-gradient(to bottom, transparent, rgba(124,58,237,0.5), transparent);
-      transform: rotate(-20deg);
+
+    /* Dot grid canto superior direito */
+    .hero-dots {
+      position: absolute; top: 0; right: 0;
+      width: 300px; height: 300px; z-index: 1; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.4;
+    }
+
+    /* Linha decorativa diagonal */
+    .hero-deco-line {
+      position: absolute; top: -60px; right: 80px; z-index: 1; pointer-events: none;
+      width: 1px; height: 260px;
+      background: linear-gradient(to bottom, transparent, rgba(124,58,237,0.25), transparent);
+      transform: rotate(-18deg);
+    }
+
+    /* A foto */
+    .hero-photo {
+      position: relative; z-index: 2;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      display: block;
+      /* Overflow levemente além da borda direita */
+      margin-right: -3%;
+      /* Máscara: funde o lado esquerdo da foto com o fundo escuro */
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,0.25) 12%,
+        rgba(0,0,0,0.75) 28%,
+        black 48%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0,0,0,0.25) 12%,
+        rgba(0,0,0,0.75) 28%,
+        black 48%
+      );
+      /* Animação flutuante */
+      animation: heroFloat 5s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero-bleed { flex-direction: column; min-height: auto; }
+
+      .hero-right {
+        order: -1;
+        flex: none;
+        width: 100%; height: 52vw; min-height: 260px;
+        overflow: hidden;
+      }
+      .hero-photo {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center top;
+        margin-right: 0;
+        -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        animation: none;
+      }
+      .hero-left {
+        flex: none; width: 100%;
+        padding: 2.5rem 1.5rem 4rem;
+        align-items: center; text-align: center;
+      }
+      .hero-eyebrow { align-self: center; }
+      .hero-desc { margin: 0 auto 1.8rem; }
+      .hero-pilares { justify-content: center; }
+      .hero-btns { justify-content: center; flex-direction: column; align-items: center; }
+      .hero-dots, .hero-deco-line { display: none; }
     }
 
     /* Dashboard main card */
@@ -1070,29 +1137,31 @@
   </div>
 </nav>
 
-<!-- ══ 2. HERO — FULL BLEED FOTO ═════════════════════════ -->
+<!-- ══ 2. HERO — DUAS COLUNAS COM FOTO DOMINANTE ═════════ -->
 <section id="inicio">
   <div class="hero-bleed">
 
-    <!-- Foto de fundo — cobre todo o banner -->
-    <img src="/assets/hero-cryia.png" alt="Juliano Sant'Ana — Marketing e IA" class="hero-bg-foto" />
-
-    <!-- Overlay de gradiente para legibilidade -->
-    <div class="hero-bg-overlay"></div>
-
-    <!-- Texto do hero (sobreposto, lado esquerdo) -->
+    <!-- ── COLUNA ESQUERDA: texto ── -->
     <div class="hero-left animar">
-      <div class="hero-eyebrow">Marketing e IA para negócios reais</div>
+
+      <span class="hero-eyebrow">
+        <span class="dot"></span>
+        Ecossistema Criativo e Estratégico
+      </span>
+
       <h1 class="hero-headline">
-        Negócios reais.
-        <em>Marketing e IA<br>acessíveis para todos.</em>
+        <span class="hl-white">Negócios reais.</span>
+        <span class="hl-grad">Estratégia com</span>
+        <span class="hl-white">a <span class="hl-cyan">IA.</span></span>
       </h1>
+
       <p class="hero-desc">
-        Para micro, pequenos e médios empreendedores que querem crescer com estratégia
-        e tecnologia. Sem precisar entender tudo. Sem ficar para trás.
-        O CRYIA conecta seu negócio à inteligência artificial com linguagem humana,
-        método claro e resultado verdadeiro.
+        Para quem quer crescer de verdade, sem precisar entender
+        tudo sobre tecnologia. A CRYIA conecta seu negócio à
+        inteligência artificial de forma humana, estratégica
+        e com resultado real.
       </p>
+
       <div class="hero-pilares">
         <span class="pilar-chip marketing">📣 Marketing</span>
         <span class="pilar-chip comunicacao">📱 Comunicação</span>
@@ -1102,25 +1171,30 @@
         <span class="pilar-chip empreend">🚀 Empreendedorismo</span>
         <span class="pilar-chip comportamento">🧠 Comportamento</span>
       </div>
+
       <div class="hero-btns">
         <a href="#ecossistema" class="btn-primario">
-          Explorar o Ecossistema
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Explorar o Ecossistema →
         </a>
         <a href="#contato" class="btn-outline">Agendar conversa</a>
       </div>
+
     </div>
 
-    <!-- Badges flutuantes no canto inferior direito -->
-    <div class="hero-badge-wrap">
-      <div class="hero-badge b-green">
-        <div class="float-label">Plataforma ao vivo</div>
-        <div class="float-val">CRYIA Community ✓</div>
-      </div>
-      <div class="hero-badge b-indigo">
-        <div class="float-label">IA aplicada</div>
-        <div class="float-val">Claude · ChatGPT · Manus</div>
-      </div>
+    <!-- ── COLUNA DIREITA: foto ── -->
+    <div class="hero-right animar delay-2">
+      <!-- Glow atrás da figura -->
+      <div class="hero-photo-glow"></div>
+      <!-- Dot grid canto superior -->
+      <div class="hero-dots"></div>
+      <!-- Linha diagonal decorativa -->
+      <div class="hero-deco-line"></div>
+      <!-- A foto principal -->
+      <img
+        src="/assets/banner-hero-cryia.png"
+        alt="Juliano Sant'Ana — IA aplicada a negócios reais"
+        class="hero-photo"
+      />
     </div>
 
   </div>
