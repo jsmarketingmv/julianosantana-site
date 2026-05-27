@@ -110,125 +110,132 @@
     .btn-nav:hover { opacity: 0.85; transform: translateY(-1px); }
     @media (max-width: 768px) { .nav-links { display: none; } }
 
-    /* ── HERO — FULL BLEED ───────────────────────────────── */
+    /* ── HERO — FULL BLEED FOTO ─────────────────────────── */
     .hero-bleed {
-      display: grid;
-      grid-template-columns: 55fr 45fr;
-      min-height: 100vh;
-      align-items: center;
       position: relative;
-      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
       overflow: hidden;
+      z-index: 1;
     }
-    @media (max-width: 960px) { .hero-bleed { grid-template-columns: 1fr; } }
 
-    .hero-left {
-      padding: clamp(7rem,12vw,11rem) clamp(1.5rem,4vw,4rem) clamp(5rem,8vw,7rem) clamp(1.5rem,8vw,8rem);
-      display: flex; flex-direction: column; gap: 0; position: relative; z-index: 2;
+    /* Foto cobre 100% do banner */
+    .hero-bg-foto {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 70% center; /* foca Juliano + elementos IA */
+      display: block;
+      z-index: 0;
     }
+
+    /* Camadas de gradiente para legibilidade do texto */
+    .hero-bg-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(to right,
+          rgba(5,6,14,0.96) 0%,
+          rgba(5,6,14,0.82) 35%,
+          rgba(5,6,14,0.40) 60%,
+          rgba(5,6,14,0.08) 80%,
+          transparent 100%
+        ),
+        linear-gradient(to top,
+          rgba(5,6,14,0.7) 0%,
+          transparent 30%
+        );
+    }
+
+    /* Conteúdo texto — fica sobre os overlays */
+    .hero-left {
+      position: relative; z-index: 2;
+      max-width: 620px;
+      padding: clamp(8rem,13vw,12rem) clamp(1.5rem,8vw,8rem) clamp(5rem,8vw,8rem);
+      display: flex; flex-direction: column;
+    }
+    @media (max-width: 700px) {
+      .hero-left { max-width: 100%; padding: 8rem 1.5rem 4rem; }
+    }
+
+    /* Esconde o antigo hero-right (já não existe na nova estrutura) */
+    .hero-right { display: none; }
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--green); background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25);
+      color: var(--green); background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
       padding: 0.32rem 1rem; border-radius: 50px; margin-bottom: 1.8rem; align-self: flex-start;
     }
     .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: dot-blink 2s ease-in-out infinite; }
-    @media (max-width: 960px) { .hero-eyebrow { align-self: center; } }
 
     .hero-headline {
-      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
-      font-weight: 900; letter-spacing: -0.045em; line-height: 0.95;
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      font-weight: 900; letter-spacing: -0.045em; line-height: 0.93;
       color: #fff; margin-bottom: 1.5rem;
     }
     .hero-headline em {
-      font-style: normal; display: block; margin-top: 0.1em;
+      font-style: normal; display: block; margin-top: 0.08em;
       background: linear-gradient(135deg, var(--green), var(--indigo), var(--purple));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    @media (max-width: 960px) { .hero-headline { text-align: center; } }
 
     .hero-desc {
-      font-size: clamp(0.92rem, 1.4vw, 1.05rem); color: rgba(255,255,255,0.55);
-      line-height: 1.85; margin-bottom: 2rem; max-width: 500px;
+      font-size: clamp(0.9rem, 1.3vw, 1.02rem); color: rgba(255,255,255,0.58);
+      line-height: 1.85; margin-bottom: 2rem; max-width: 480px;
     }
-    @media (max-width: 960px) { .hero-desc { text-align: center; margin: 0 auto 2rem; } }
 
-    .hero-pilares { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.2rem; }
-    @media (max-width: 960px) { .hero-pilares { justify-content: center; } }
+    .hero-pilares { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.4rem; }
     .pilar-chip {
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.3rem 0.8rem; border-radius: 50px; border: 1px solid var(--border); color: var(--text-dim);
+      font-size: 0.63rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.28rem 0.75rem; border-radius: 50px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.55);
     }
-    .pilar-chip.marketing      { border-color: rgba(244,114,182,0.4); color: #F472B6; }
-    .pilar-chip.comunicacao    { border-color: rgba(52,211,153,0.35); color: #34D399; }
-    .pilar-chip.tecnologia-ia  { border-color: rgba(6,182,212,0.35);  color: #22D3EE; }
-    .pilar-chip.educacao       { border-color: rgba(129,140,248,0.35); color: #818CF8; }
-    .pilar-chip.mentoria       { border-color: rgba(252,211,77,0.35);  color: #FCD34D; }
-    .pilar-chip.empreend       { border-color: rgba(251,146,60,0.35);  color: #FB923C; }
-    .pilar-chip.comportamento  { border-color: rgba(167,139,250,0.4);  color: #A78BFA; }
+    .pilar-chip.marketing      { border-color: rgba(244,114,182,0.45); color: #F472B6; background: rgba(244,114,182,0.07); }
+    .pilar-chip.comunicacao    { border-color: rgba(52,211,153,0.4);   color: #34D399; background: rgba(52,211,153,0.07); }
+    .pilar-chip.tecnologia-ia  { border-color: rgba(6,182,212,0.4);    color: #22D3EE; background: rgba(6,182,212,0.07); }
+    .pilar-chip.educacao       { border-color: rgba(129,140,248,0.4);  color: #818CF8; background: rgba(129,140,248,0.07); }
+    .pilar-chip.mentoria       { border-color: rgba(252,211,77,0.4);   color: #FCD34D; background: rgba(252,211,77,0.07); }
+    .pilar-chip.empreend       { border-color: rgba(251,146,60,0.4);   color: #FB923C; background: rgba(251,146,60,0.07); }
+    .pilar-chip.comportamento  { border-color: rgba(167,139,250,0.45); color: #A78BFA; background: rgba(167,139,250,0.07); }
 
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    @media (max-width: 960px) { .hero-btns { justify-content: center; } }
 
     .btn-primario {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.88rem 2.2rem; border-radius: var(--radius-sm);
+      padding: 0.92rem 2.4rem; border-radius: var(--radius-sm);
       background: linear-gradient(135deg, var(--indigo), var(--purple));
-      color: #fff; font-weight: 700; font-size: 0.88rem;
-      transition: all var(--t); box-shadow: 0 0 30px rgba(99,102,241,0.3);
+      color: #fff; font-weight: 700; font-size: 0.92rem;
+      transition: all var(--t); box-shadow: 0 0 35px rgba(99,102,241,0.35);
     }
-    .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(99,102,241,0.5); }
+    .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 0 55px rgba(99,102,241,0.55); }
     .btn-outline {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.88rem 2.2rem; border-radius: var(--radius-sm);
-      border: 1px solid var(--border); color: var(--text-dim);
-      font-weight: 600; font-size: 0.88rem; transition: all var(--t);
+      padding: 0.92rem 2.4rem; border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.7);
+      font-weight: 600; font-size: 0.92rem; transition: all var(--t);
+      background: rgba(255,255,255,0.04); backdrop-filter: blur(8px);
     }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
 
-    /* Hero right — foto */
-    .hero-right {
-      position: relative; height: 100vh; min-height: 600px;
-      display: flex; align-items: flex-end;
-      overflow: hidden;
+    /* Badges flutuantes no canto direito do hero */
+    .hero-badge-wrap {
+      position: absolute; right: clamp(1.5rem,4vw,4rem); bottom: clamp(2rem,5vh,5rem);
+      z-index: 2; display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-end;
     }
-    @media (max-width: 960px) { .hero-right { height: 72vw; min-height: 360px; max-height: 600px; padding: 0; } }
-    @media (max-width: 600px) { .hero-right { height: 85vw; } }
-
-    /* Foto hero */
-    .hero-foto {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-      display: block;
+    @media (max-width: 700px) { .hero-badge-wrap { display: none; } }
+    .hero-badge {
+      background: rgba(5,6,14,0.82); backdrop-filter: blur(20px);
+      border-radius: var(--radius-sm); padding: 0.6rem 1.1rem;
     }
-    /* Fade lateral esquerda para fundir com o bg */
-    .hero-foto-overlay {
-      position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background:
-        linear-gradient(to right, var(--bg) 0%, rgba(7,9,15,0.6) 30%, transparent 60%),
-        linear-gradient(to top,   var(--bg) 0%, transparent 25%);
-    }
-    /* Floating badge sobre a foto */
-    .hero-foto-badge {
-      position: absolute; bottom: 2.5rem; right: 2rem; z-index: 2;
-      background: rgba(7,9,15,0.85); backdrop-filter: blur(20px);
-      border: 1px solid rgba(99,102,241,0.35); border-radius: var(--radius-sm);
-      padding: 0.65rem 1.1rem;
-      animation: float-card 6s ease-in-out infinite;
-    }
-    .hero-foto-badge .float-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.2rem; }
-    .hero-foto-badge .float-val   { font-size: 0.88rem; font-weight: 800; color: #fff; }
-    .hero-foto-badge2 {
-      position: absolute; top: 2.5rem; right: 3.5rem; z-index: 2;
-      background: rgba(7,9,15,0.85); backdrop-filter: blur(20px);
-      border: 1px solid rgba(34,197,94,0.3); border-radius: var(--radius-sm);
-      padding: 0.55rem 1rem;
-      animation: float-card 7.5s ease-in-out infinite; animation-delay: -3s;
-    }
-    .hero-foto-badge2 .float-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(34,197,94,0.6); margin-bottom: 0.2rem; }
-    .hero-foto-badge2 .float-val   { font-size: 0.82rem; font-weight: 800; color: #22C55E; }
-    @media (max-width: 960px) { .hero-foto-badge, .hero-foto-badge2 { display: none; } }
+    .hero-badge.b-green  { border: 1px solid rgba(34,197,94,0.35); animation: float-card 6s ease-in-out infinite; }
+    .hero-badge.b-indigo { border: 1px solid rgba(99,102,241,0.35); animation: float-card 7.5s ease-in-out infinite; animation-delay: -3s; }
+    .hero-badge .float-label { font-size: 0.48rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.18rem; }
+    .hero-badge.b-green  .float-label { color: rgba(34,197,94,0.7); }
+    .hero-badge.b-indigo .float-label { color: rgba(129,140,248,0.7); }
+    .hero-badge .float-val { font-size: 0.82rem; font-weight: 800; color: #fff; }
 
     /* Dot grid pattern */
     .hero-right::before {
@@ -1063,11 +1070,17 @@
   </div>
 </nav>
 
-<!-- ══ 2. HERO — FULL BLEED ══════════════════════════════ -->
+<!-- ══ 2. HERO — FULL BLEED FOTO ═════════════════════════ -->
 <section id="inicio">
   <div class="hero-bleed">
 
-    <!-- Esquerda -->
+    <!-- Foto de fundo — cobre todo o banner -->
+    <img src="/assets/hero-cryia.png" alt="Juliano Sant'Ana — Marketing e IA" class="hero-bg-foto" />
+
+    <!-- Overlay de gradiente para legibilidade -->
+    <div class="hero-bg-overlay"></div>
+
+    <!-- Texto do hero (sobreposto, lado esquerdo) -->
     <div class="hero-left animar">
       <div class="hero-eyebrow">Marketing e IA para negócios reais</div>
       <h1 class="hero-headline">
@@ -1098,15 +1111,13 @@
       </div>
     </div>
 
-    <!-- Direita — foto Juliano com IA -->
-    <div class="hero-right">
-      <img src="/assets/juliano-ia-hero.png" alt="Juliano Sant'Ana — Marketing e IA" class="hero-foto" />
-      <div class="hero-foto-overlay"></div>
-      <div class="hero-foto-badge2">
+    <!-- Badges flutuantes no canto inferior direito -->
+    <div class="hero-badge-wrap">
+      <div class="hero-badge b-green">
         <div class="float-label">Plataforma ao vivo</div>
         <div class="float-val">CRYIA Community ✓</div>
       </div>
-      <div class="hero-foto-badge">
+      <div class="hero-badge b-indigo">
         <div class="float-label">IA aplicada</div>
         <div class="float-val">Claude · ChatGPT · Manus</div>
       </div>
