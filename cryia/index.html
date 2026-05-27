@@ -804,10 +804,31 @@
       border: 1px solid rgba(99,102,241,0.22);
       box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.08);
       animation: comm-float 7s ease-in-out infinite alternate;
+      display: block; text-decoration: none; color: inherit;
+    }
+    .comm-ss-link { cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+    .comm-ss-link:hover {
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 50px rgba(99,102,241,0.18);
     }
     .comm-ss-card:nth-child(2) {
       animation-delay: -3.5s;
       transform: translateX(16px);
+    }
+    /* Botão direto para o FLIX */
+    .comm-flix-link {
+      display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .btn-flix-acesso {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.4rem; border-radius: 10px; font-size: 0.82rem; font-weight: 800;
+      background: linear-gradient(135deg, #6366F1, #A855F7);
+      color: #fff; text-decoration: none; letter-spacing: 0.01em;
+      transition: all 0.2s; border: none; cursor: pointer;
+    }
+    .btn-flix-acesso:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(99,102,241,0.45); }
+    .comm-flix-hint {
+      font-size: 0.65rem; color: rgba(255,255,255,0.35); font-weight: 500;
     }
     @keyframes comm-float {
       0%   { transform: translateY(0); }
@@ -1478,6 +1499,14 @@
           <p>Ótimo! Vou te avisar pessoalmente quando o CRYIA Community abrir.<br>Fique de olho no seu e-mail. 🚀</p>
         </div>
 
+        <!-- Link direto para o FLIX -->
+        <div class="comm-flix-link animar">
+          <a href="https://cryia-community.vercel.app/flix" target="_blank" class="btn-flix-acesso">
+            🎬 Acessar o CRYIA FLIX
+          </a>
+          <span class="comm-flix-hint">Plataforma ao vivo · Cursos grátis disponíveis</span>
+        </div>
+
       </div>
 
       <!-- Direita: screenshots do CRYIA FLIX empilhadas -->
@@ -1485,8 +1514,7 @@
         <div class="comm-screenshots">
 
           <!-- Screenshot 1: Hero do FLIX -->
-          <!-- Substitua src por assets/flix-1.jpg quando disponível -->
-          <div class="comm-ss-card">
+          <a href="https://cryia-community.vercel.app/flix" target="_blank" class="comm-ss-card comm-ss-link">
             <div class="comm-ss-mock">
               <div class="css-flix-nav">
                 <div class="css-flix-logo">
@@ -1517,11 +1545,10 @@
                 <div class="css-flix-cover">🤖</div>
               </div>
             </div>
-          </div>
+          </a>
 
           <!-- Screenshot 2: Em Alta + Podcasts -->
-          <!-- Substitua src por assets/flix-2.jpg quando disponível -->
-          <div class="comm-ss-card">
+          <a href="https://cryia-community.vercel.app/flix" target="_blank" class="comm-ss-card comm-ss-link">
             <div class="comm-ss-mock">
               <div class="css-flix-section">
                 <div class="css-flix-section-title">Em Alta <span style="font-size:0.4rem;color:rgba(255,255,255,0.35);font-weight:500">Os mais assistidos da semana</span></div>
@@ -1566,7 +1593,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </a>
 
         </div>
       </div>
