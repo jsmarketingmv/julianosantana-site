@@ -187,13 +187,48 @@
     }
     .btn-outline:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
 
-    /* Hero right — bleed side */
+    /* Hero right — foto */
     .hero-right {
       position: relative; height: 100vh; min-height: 600px;
-      display: flex; align-items: center;
+      display: flex; align-items: flex-end;
       overflow: hidden;
     }
-    @media (max-width: 960px) { .hero-right { height: auto; min-height: auto; padding: 0 1.5rem 5rem; justify-content: center; } }
+    @media (max-width: 960px) { .hero-right { height: 72vw; min-height: 360px; max-height: 600px; padding: 0; } }
+    @media (max-width: 600px) { .hero-right { height: 85vw; } }
+
+    /* Foto hero */
+    .hero-foto {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    /* Fade lateral esquerda para fundir com o bg */
+    .hero-foto-overlay {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(to right, var(--bg) 0%, rgba(7,9,15,0.6) 30%, transparent 60%),
+        linear-gradient(to top,   var(--bg) 0%, transparent 25%);
+    }
+    /* Floating badge sobre a foto */
+    .hero-foto-badge {
+      position: absolute; bottom: 2.5rem; right: 2rem; z-index: 2;
+      background: rgba(7,9,15,0.85); backdrop-filter: blur(20px);
+      border: 1px solid rgba(99,102,241,0.35); border-radius: var(--radius-sm);
+      padding: 0.65rem 1.1rem;
+      animation: float-card 6s ease-in-out infinite;
+    }
+    .hero-foto-badge .float-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.2rem; }
+    .hero-foto-badge .float-val   { font-size: 0.88rem; font-weight: 800; color: #fff; }
+    .hero-foto-badge2 {
+      position: absolute; top: 2.5rem; right: 3.5rem; z-index: 2;
+      background: rgba(7,9,15,0.85); backdrop-filter: blur(20px);
+      border: 1px solid rgba(34,197,94,0.3); border-radius: var(--radius-sm);
+      padding: 0.55rem 1rem;
+      animation: float-card 7.5s ease-in-out infinite; animation-delay: -3s;
+    }
+    .hero-foto-badge2 .float-label { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(34,197,94,0.6); margin-bottom: 0.2rem; }
+    .hero-foto-badge2 .float-val   { font-size: 0.82rem; font-weight: 800; color: #22C55E; }
+    @media (max-width: 960px) { .hero-foto-badge, .hero-foto-badge2 { display: none; } }
 
     /* Dot grid pattern */
     .hero-right::before {
@@ -402,17 +437,9 @@
     .oqe-eixos { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
     .oqe-eixo { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.32rem 0.75rem; border-radius: var(--radius-sm); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.09); color: rgba(255,255,255,0.5); transition: all var(--t); }
     .oqe-eixo:hover { border-color: rgba(99,102,241,0.35); color: var(--text); }
-    .oqe-hub-card { background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.07)); border: 1px solid rgba(99,102,241,0.2); border-radius: var(--radius); padding: 2.5rem 2rem; position: relative; overflow: hidden; }
-    .oqe-hub-card::before { content: ''; position: absolute; inset: -8px; border-radius: 20px; border: 1px solid rgba(99,102,241,0.1); animation: pulse-ring 3s ease-in-out infinite; pointer-events: none; }
+    /* OQE right — recebe o dash-wrap do hero */
+    .oqe-dash-wrap { position: relative; display: flex; align-items: center; justify-content: center; min-height: 420px; }
     @keyframes pulse-ring { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
-    .oqe-hub-logo { height: 50px; margin: 0 auto 1.5rem; filter: drop-shadow(0 4px 16px rgba(99,102,241,0.4)); }
-    .oqe-hub-div { height: 1px; background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent); margin-bottom: 1.2rem; }
-    .oqe-proj-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .oqe-proj-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.52rem 0.8rem; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); }
-    .oqe-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .oqe-name { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.68); flex: 1; }
-    .oqe-badge { font-size: 0.46rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.1rem 0.38rem; border-radius: 4px; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.15); }
-    .oqe-badge.expand { background: rgba(6,182,212,0.1); color: #22D3EE; border-color: rgba(6,182,212,0.18); }
 
     /* ── PROJETOS CARROSSEL ───────────────────────────────── */
     .carousel-secao { position: relative; z-index: 1; padding: clamp(4rem,8vw,7rem) 0; }
@@ -1071,35 +1098,17 @@
       </div>
     </div>
 
-    <!-- Direita — bleed -->
-    <div class="hero-right animar delay-2">
-      <div class="dash-wrap">
-        <div class="dash-card-main">
-          <div class="dash-header">
-            <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="dash-logo" />
-            <span class="dash-status">Ecossistema Ativo</span>
-          </div>
-          <div class="dash-proj-list">
-            <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#818CF8;"></div><span class="dash-proj-name">Juliano Sant'Ana</span><span class="dash-proj-badge">Ativo</span></div>
-            <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#34D399;"></div><span class="dash-proj-name">Turismo Estratégico</span><span class="dash-proj-badge">Ativo</span></div>
-            <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#F59E0B;"></div><span class="dash-proj-name">Aonik</span><span class="dash-proj-badge">Ativo</span></div>
-            <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#C084FC;"></div><span class="dash-proj-name">Mapa da Verdade</span><span class="dash-proj-badge">Ativo</span></div>
-            <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#22D3EE;"></div><span class="dash-proj-name">TRAKO Circuit</span><span class="dash-proj-badge expand">Em expansão</span></div>
-          </div>
-          <div class="dash-stats-row">
-            <div class="dash-stat"><div class="dash-stat-num">5</div><div class="dash-stat-lbl">Projetos incubados</div></div>
-            <div class="dash-stat"><div class="dash-stat-num" style="background:linear-gradient(135deg,#22C55E,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">IA</div><div class="dash-stat-lbl">Em produção agora</div></div>
-          </div>
-        </div>
-        <!-- Floating accent cards -->
-        <div class="dash-float dash-float-a">
-          <div class="float-label">IA em produção</div>
-          <div class="float-val g">Los Viajeros ✓</div>
-        </div>
-        <div class="dash-float dash-float-b">
-          <div class="float-label">Próximo lançamento</div>
-          <div class="float-val c">TRAKO SaaS 🚴</div>
-        </div>
+    <!-- Direita — foto Juliano com IA -->
+    <div class="hero-right">
+      <img src="/assets/juliano-ia-hero.png" alt="Juliano Sant'Ana — Marketing e IA" class="hero-foto" />
+      <div class="hero-foto-overlay"></div>
+      <div class="hero-foto-badge2">
+        <div class="float-label">Plataforma ao vivo</div>
+        <div class="float-val">CRYIA Community ✓</div>
+      </div>
+      <div class="hero-foto-badge">
+        <div class="float-label">IA aplicada</div>
+        <div class="float-val">Claude · ChatGPT · Manus</div>
       </div>
     </div>
 
@@ -1211,16 +1220,33 @@
           <span class="oqe-eixo">🧠 Comportamento</span>
         </div>
       </div>
-      <div class="animar delay-2">
-        <div class="oqe-hub-card">
-          <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="oqe-hub-logo" />
-          <div class="oqe-hub-div"></div>
-          <div class="oqe-proj-list">
-            <div class="oqe-proj-item"><div class="oqe-dot" style="background:#818CF8;"></div><span class="oqe-name">🧭 Juliano Sant'Ana</span><span class="oqe-badge">Ativo</span></div>
-            <div class="oqe-proj-item"><div class="oqe-dot" style="background:#34D399;"></div><span class="oqe-name">🏔️ Turismo Estratégico</span><span class="oqe-badge">Ativo</span></div>
-            <div class="oqe-proj-item"><div class="oqe-dot" style="background:#F59E0B;"></div><span class="oqe-name">🌿 Aonik</span><span class="oqe-badge">Ativo</span></div>
-            <div class="oqe-proj-item"><div class="oqe-dot" style="background:#C084FC;"></div><span class="oqe-name">🗺️ Mapa da Verdade</span><span class="oqe-badge">Ativo</span></div>
-            <div class="oqe-proj-item"><div class="oqe-dot" style="background:#22D3EE;"></div><span class="oqe-name">🚴 TRAKO Circuit</span><span class="oqe-badge expand">Em expansão</span></div>
+      <div class="animar delay-2 oqe-dash-wrap">
+        <div class="dash-wrap">
+          <div class="dash-card-main">
+            <div class="dash-header">
+              <img src="/assets/logo-cryia-hub.svg" alt="CRYIA HUB" class="dash-logo" />
+              <span class="dash-status">Ecossistema Ativo</span>
+            </div>
+            <div class="dash-proj-list">
+              <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#818CF8;"></div><span class="dash-proj-name">🧭 Juliano Sant'Ana</span><span class="dash-proj-badge">Ativo</span></div>
+              <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#34D399;"></div><span class="dash-proj-name">🏔️ Turismo Estratégico</span><span class="dash-proj-badge">Ativo</span></div>
+              <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#F59E0B;"></div><span class="dash-proj-name">🌿 Aonik</span><span class="dash-proj-badge">Ativo</span></div>
+              <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#C084FC;"></div><span class="dash-proj-name">🗺️ Mapa da Verdade</span><span class="dash-proj-badge">Ativo</span></div>
+              <div class="dash-proj-item"><div class="dash-proj-dot" style="background:#22D3EE;"></div><span class="dash-proj-name">🚴 TRAKO Circuit</span><span class="dash-proj-badge expand">Em expansão</span></div>
+            </div>
+            <div class="dash-stats-row">
+              <div class="dash-stat"><div class="dash-stat-num">5</div><div class="dash-stat-lbl">Projetos incubados</div></div>
+              <div class="dash-stat"><div class="dash-stat-num" style="background:linear-gradient(135deg,#22C55E,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">IA</div><div class="dash-stat-lbl">Em produção agora</div></div>
+            </div>
+          </div>
+          <!-- Floating accent cards -->
+          <div class="dash-float dash-float-a">
+            <div class="float-label">IA em produção</div>
+            <div class="float-val g">Los Viajeros ✓</div>
+          </div>
+          <div class="dash-float dash-float-b">
+            <div class="float-label">Próximo lançamento</div>
+            <div class="float-val c">TRAKO SaaS 🚴</div>
           </div>
         </div>
       </div>
