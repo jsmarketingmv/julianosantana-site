@@ -155,9 +155,12 @@
     #hero .hero-texto {
       position: relative;
       z-index: 2;
-      padding: 0 clamp(32px, 8vw, 120px);
-      max-width: 600px;
-      width: 55%;
+      padding-top: clamp(100px, 13vh, 140px);
+      padding-bottom: clamp(60px, 8vh, 100px);
+      padding-left: clamp(48px, 9vw, 140px);
+      padding-right: clamp(24px, 4vw, 60px);
+      max-width: 640px;
+      width: 58%;
     }
 
     .hero-badge {
@@ -191,20 +194,20 @@
     }
 
     #hero h1 {
-      font-size: clamp(40px, 5.5vw, 80px);
+      font-size: clamp(36px, 4.4vw, 68px);
       font-weight: 800;
-      line-height: 1.05;
-      margin: 0 0 24px 0;
-      display: flex;
-      flex-direction: column;
-      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin: 0 0 20px 0;
+      letter-spacing: -0.03em;
     }
 
     #hero h1 .branco {
+      display: block;
       color: #ffffff;
     }
 
     #hero h1 .gradiente {
+      display: block;
       background: linear-gradient(90deg, #22c55e, #7c3aed, #06b6d4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -296,7 +299,7 @@
       #hero .hero-texto {
         width: 100%;
         max-width: 100%;
-        padding: 0 24px;
+        padding: 80px 24px 40px;
         text-align: left;
       }
     }
