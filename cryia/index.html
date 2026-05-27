@@ -718,19 +718,16 @@
       max-width: 460px; margin-bottom: 2rem;
     }
 
-    /* Contador de espera */
-    .comm-contador {
-      display: inline-flex; align-items: center; gap: 0.7rem;
-      padding: 0.6rem 1rem; border-radius: 8px; margin-bottom: 1.8rem;
-      background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.2);
+    /* Feature chips */
+    .comm-features {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.8rem;
     }
-    .comm-contador-num {
-      font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #A855F7, #6366F1);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    .comm-features span {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 0.28rem 0.75rem; border-radius: 20px;
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.22);
+      color: rgba(255,255,255,0.55);
     }
-    .comm-contador-txt { font-size: 0.72rem; color: rgba(255,255,255,0.45); line-height: 1.4; }
-    .comm-contador-txt strong { color: rgba(255,255,255,0.7); display: block; }
 
     /* Seleção de perfil */
     .comm-perfil-label {
@@ -796,144 +793,130 @@
 
     /* Mockup side */
     .community-right { position: relative; }
-    .comm-mockup-wrap { position: relative; }
-    .comm-mockup {
-      background: rgba(10,11,20,0.92);
-      border: 1px solid rgba(99,102,241,0.25);
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 60px rgba(99,102,241,0.1);
-      animation: comm-float 6s ease-in-out infinite alternate;
+    /* ── Screenshots empilhadas ─────────────────────────── */
+    .comm-screenshots {
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative;
+    }
+    .comm-ss-card {
+      width: 100%; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(99,102,241,0.22);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.08);
+      animation: comm-float 7s ease-in-out infinite alternate;
+    }
+    .comm-ss-card:nth-child(2) {
+      animation-delay: -3.5s;
+      transform: translateX(16px);
     }
     @keyframes comm-float {
       0%   { transform: translateY(0); }
-      100% { transform: translateY(-12px); }
+      100% { transform: translateY(-10px); }
     }
-
-    /* Overlay blur "em breve" */
-    .comm-mockup-overlay {
-      position: absolute; inset: 0; border-radius: var(--radius); z-index: 2;
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      background: rgba(7,9,15,0.55);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem;
+    .comm-ss-card:nth-child(2).comm-float-alt {
+      animation-name: comm-float-b;
     }
-    .comm-overlay-lock {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(168,85,247,0.15); border: 1.5px solid rgba(168,85,247,0.35);
-      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
-      animation: lock-pulse 2.5s ease-in-out infinite;
+    @keyframes comm-float-b {
+      0%   { transform: translateX(16px) translateY(0); }
+      100% { transform: translateX(16px) translateY(-10px); }
     }
-    @keyframes lock-pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(168,85,247,0.3); }
-      50%      { box-shadow: 0 0 0 10px rgba(168,85,247,0); }
+    .comm-ss-img {
+      width: 100%; display: block;
+      min-height: 200px;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(7,9,15,0.95), rgba(10,11,20,0.95));
     }
-    .comm-overlay-txt {
-      font-size: 0.85rem; font-weight: 900; color: rgba(255,255,255,0.85); letter-spacing: 0.05em;
+    /* Fallback visual quando a imagem não estiver disponível */
+    .comm-ss-mock {
+      background: #07090F; padding: 1rem 1.2rem;
     }
-    .comm-overlay-sub {
-      font-size: 0.65rem; color: rgba(255,255,255,0.4);
+    .css-flix-nav {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .comm-overlay-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
-    .comm-overlay-chips span {
-      font-size: 0.55rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px;
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.4);
+    .css-flix-logo {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.02em;
     }
-
-    .comm-browser-bar {
-      display: flex; align-items: center; gap: 0.4rem;
-      padding: 0.55rem 0.75rem;
-      background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    .css-flix-logo .red { color: #EF4444; font-style: italic; }
+    .css-flix-logo .white { color: #fff; }
+    .css-flix-nav-links {
+      display: flex; gap: 0.6rem;
     }
-    .browser-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .comm-url {
-      flex: 1; background: rgba(255,255,255,0.05); border-radius: 20px;
-      padding: 0.2rem 0.6rem; font-size: 0.5rem; color: rgba(255,255,255,0.28);
-      font-family: monospace; margin-left: 0.3rem;
+    .css-flix-nav-links span {
+      font-size: 0.45rem; color: rgba(255,255,255,0.45); font-weight: 600;
     }
-
-    .comm-screen { display: flex; min-height: 340px; }
-
-    .comm-sidebar {
-      width: 120px; flex-shrink: 0;
-      background: rgba(10,11,20,0.95);
-      border-right: 1px solid rgba(255,255,255,0.06);
-      padding: 0.9rem 0.6rem;
-      display: flex; flex-direction: column; gap: 0.5rem;
+    .css-flix-nav-links span.active { color: #fff; text-decoration: underline; }
+    .css-flix-hero {
+      display: flex; gap: 1rem; align-items: flex-start;
     }
-    .cs-logo {
-      font-size: 0.55rem; font-weight: 900; letter-spacing: 0.05em;
+    .css-flix-info { flex: 1; }
+    .css-flix-tags { display: flex; gap: 0.35rem; margin-bottom: 0.4rem; }
+    .css-flix-tag {
+      font-size: 0.42rem; font-weight: 700; padding: 0.15rem 0.45rem; border-radius: 4px;
+    }
+    .css-flix-tag.eixo { background: rgba(168,85,247,0.15); color: #C084FC; }
+    .css-flix-tag.tipo { background: rgba(99,102,241,0.15); color: #818CF8; }
+    .css-flix-tag.free { background: rgba(34,197,94,0.15); color: #22C55E; }
+    .css-flix-rating {
+      font-size: 0.42rem; color: #FBBF24; font-weight: 700; margin-bottom: 0.35rem;
+    }
+    .css-flix-title {
+      font-size: 0.85rem; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 0.3rem;
+    }
+    .css-flix-sub { font-size: 0.42rem; color: rgba(255,255,255,0.4); margin-bottom: 0.55rem; }
+    .css-flix-btns { display: flex; gap: 0.4rem; }
+    .css-flix-btn-p {
+      font-size: 0.42rem; font-weight: 800; color: #fff; padding: 0.3rem 0.65rem;
+      background: #EF4444; border-radius: 4px;
+    }
+    .css-flix-btn-s {
+      font-size: 0.42rem; font-weight: 700; color: rgba(255,255,255,0.6);
+      padding: 0.3rem 0.65rem; background: rgba(255,255,255,0.1); border-radius: 4px;
+    }
+    .css-flix-cover {
+      width: 80px; height: 80px; border-radius: 8px; flex-shrink: 0;
       background: linear-gradient(135deg, #6366F1, #A855F7);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      padding: 0 0.2rem; margin-bottom: 0.4rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      box-shadow: 0 8px 24px rgba(99,102,241,0.3);
     }
-    .cs-logo span { font-weight: 400; opacity: 0.5; -webkit-text-fill-color: rgba(255,255,255,0.35); }
-    .cs-user {
-      display: flex; align-items: center; gap: 0.4rem;
-      padding: 0.4rem 0.35rem; background: rgba(255,255,255,0.04);
-      border-radius: 5px; margin-bottom: 0.5rem;
+    /* Card 2 - Em Alta */
+    .css-flix-section { margin-bottom: 0.6rem; }
+    .css-flix-section-title {
+      font-size: 0.6rem; font-weight: 900; color: #fff;
+      display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;
     }
-    .cs-avatar {
-      width: 18px; height: 18px; border-radius: 50%;
-      background: linear-gradient(135deg, #6366F1, #A855F7);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.38rem; font-weight: 900; color: #fff; flex-shrink: 0;
+    .css-flix-section-title::before {
+      content: ''; display: inline-block; width: 3px; height: 0.6rem;
+      background: #EF4444; border-radius: 2px;
     }
-    .cs-user-name { font-size: 0.45rem; font-weight: 700; color: #fff; }
-    .cs-user-role {
-      font-size: 0.38rem; font-weight: 700; color: #F59E0B;
-      background: rgba(245,158,11,0.15); padding: 0.05rem 0.25rem; border-radius: 2px;
+    .css-flix-row { display: flex; gap: 0.5rem; overflow: hidden; }
+    .css-flix-item {
+      flex-shrink: 0; position: relative; display: flex; align-items: flex-end;
     }
-    .cs-nav { display: flex; flex-direction: column; gap: 0.15rem; }
-    .cs-nav-item {
-      font-size: 0.45rem; font-weight: 600; color: rgba(255,255,255,0.38);
-      padding: 0.35rem 0.4rem; border-radius: 4px;
-      border-left: 2px solid transparent;
+    .css-flix-num {
+      font-size: 2.5rem; font-weight: 900; line-height: 1;
+      -webkit-text-stroke: 2px; color: transparent; flex-shrink: 0;
+      margin-right: -10px; z-index: 1; letter-spacing: -0.05em;
     }
-    .cs-nav-item.active { color: #818CF8; background: rgba(99,102,241,0.12); border-left-color: #6366F1; }
-
-    .comm-main {
-      flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;
-      background: linear-gradient(160deg, rgba(99,102,241,0.04) 0%, transparent 50%);
+    .css-flix-thumb {
+      width: 56px; height: 78px; border-radius: 6px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--tc1), var(--tc2));
     }
-    .cm-greeting { font-size: 0.65rem; font-weight: 900; color: #fff; }
-    .cm-eixos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; }
-    .cm-eixo {
-      font-size: 0.42rem; font-weight: 700; color: rgba(255,255,255,0.5);
-      padding: 0.45rem 0.35rem; border-radius: 4px;
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-      text-align: center; line-height: 1.4;
-      border-bottom: 2px solid var(--c, rgba(255,255,255,0.15));
+    .css-flix-podcasts { display: flex; gap: 0.5rem; overflow: hidden; }
+    .css-flix-pod {
+      width: 60px; border-radius: 8px; overflow: hidden; flex-shrink: 0;
     }
-    .cm-badge {
-      font-size: 0.4rem; font-weight: 700; letter-spacing: 0.04em;
-      color: #818CF8; background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.2); padding: 0.35rem 0.5rem;
-      border-radius: 4px; text-align: center; margin-top: auto;
+    .css-flix-pod-img {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, var(--pc1), var(--pc2));
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
     }
-
-    /* Floating tag "Em breve" */
-    .comm-float-tag {
-      position: absolute; top: -12px; right: 24px; z-index: 3;
-      font-size: 0.62rem; font-weight: 800;
-      background: linear-gradient(135deg, #6366F1, #A855F7);
-      color: #fff; padding: 0.3rem 0.75rem; border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(99,102,241,0.45);
-      animation: tag-pulse 3s ease-in-out infinite;
-    }
-    @keyframes tag-pulse {
-      0%, 100% { box-shadow: 0 4px 16px rgba(99,102,241,0.45); }
-      50%       { box-shadow: 0 4px 28px rgba(99,102,241,0.7); }
-    }
+    .css-flix-pod-name { font-size: 0.38rem; font-weight: 700; color: rgba(255,255,255,0.6); padding: 0.25rem 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     @media (max-width: 960px) {
       .community-right { max-width: 480px; margin: 0 auto; }
-      .comm-float-tag { right: 12px; }
+      .comm-ss-card:nth-child(2) { transform: translateX(8px); }
     }
     @media (max-width: 480px) {
-      .comm-sidebar { width: 88px; }
-      .comm-screen { min-height: 260px; }
-      .cm-eixos { grid-template-columns: 1fr 1fr; }
       .comm-perfis-sel { grid-template-columns: 1fr 1fr 1fr; }
     }
   </style>
@@ -1426,26 +1409,27 @@
       <div class="community-left">
         <div class="community-badge animar">
           <span class="community-dot"></span>
-          CRYIA COMMUNITY · EM BREVE
+          CRYIA COMMUNITY · ACESSO ANTECIPADO
         </div>
 
         <h2 class="community-h2 animar">
-          Uma plataforma<br>que ainda não existe.<br>
-          <span>Mas está chegando.</span>
+          Aprenda com quem<br>faz. Cresça com<br>
+          <span>quem entende.</span>
         </h2>
 
         <p class="community-desc animar">
-          Cursos, mentorias e IA integrada — criados por quem opera negócios reais.
-          Estamos construindo algo diferente. Entre na lista e seja um dos primeiros a acessar.
+          Seis eixos de conteúdo. Cursos com mentores que operam o mercado real.
+          Podcasts exclusivos. Inteligência artificial integrada para acelerar seus resultados.
+          A plataforma está sendo construída — e você pode entrar antes de todo mundo.
         </p>
 
-        <!-- Contador -->
-        <div class="comm-contador animar">
-          <div class="comm-contador-num" id="comm-count">47</div>
-          <div class="comm-contador-txt">
-            <strong>pessoas já na lista</strong>
-            de acesso antecipado
-          </div>
+        <!-- Feature chips -->
+        <div class="comm-features animar">
+          <span>📚 Cursos por eixo</span>
+          <span>🎯 Mentorias ao vivo</span>
+          <span>🤖 IA integrada</span>
+          <span>🎙️ Podcasts</span>
+          <span>🎬 CRYIA FLIX</span>
         </div>
 
         <!-- Formulário pré-lista -->
@@ -1490,63 +1474,94 @@
 
       </div>
 
-      <!-- Direita: mockup com overlay "em breve" -->
+      <!-- Direita: screenshots do CRYIA FLIX empilhadas -->
       <div class="community-right animar">
-        <div class="comm-float-tag">Em breve 🔒</div>
-        <div class="comm-mockup-wrap">
-          <div class="comm-mockup">
-            <!-- Browser bar -->
-            <div class="comm-browser-bar">
-              <span class="browser-dot bdr"></span>
-              <span class="browser-dot bdy"></span>
-              <span class="browser-dot bdg"></span>
-              <span class="comm-url">cryia-community.vercel.app/dashboard</span>
-            </div>
-            <!-- Screen -->
-            <div class="comm-screen">
-              <div class="comm-sidebar">
-                <div class="cs-logo">CRYIA <span>Community</span></div>
-                <div class="cs-user">
-                  <div class="cs-avatar">JS</div>
-                  <div class="cs-user-info">
-                    <div class="cs-user-name">Você</div>
-                    <div class="cs-user-role">Em breve</div>
+        <div class="comm-screenshots">
+
+          <!-- Screenshot 1: Hero do FLIX -->
+          <!-- Substitua src por assets/flix-1.jpg quando disponível -->
+          <div class="comm-ss-card">
+            <div class="comm-ss-mock">
+              <div class="css-flix-nav">
+                <div class="css-flix-logo">
+                  <span class="white">CRYIA</span><span class="red">FLIX</span>
+                </div>
+                <div class="css-flix-nav-links">
+                  <span class="active">Início</span>
+                  <span>Cursos</span>
+                  <span>Podcasts</span>
+                  <span>Mentores</span>
+                </div>
+              </div>
+              <div class="css-flix-hero">
+                <div class="css-flix-info">
+                  <div class="css-flix-tags">
+                    <span class="css-flix-tag eixo">🤖 IA &amp; Inovação</span>
+                    <span class="css-flix-tag tipo">Curso</span>
+                    <span class="css-flix-tag free">GRÁTIS</span>
+                  </div>
+                  <div class="css-flix-rating">★ 98% de aprovação</div>
+                  <div class="css-flix-title">IA para Negócios<br>Reais</div>
+                  <div class="css-flix-sub">por Juliano Santana · 4h 20min</div>
+                  <div class="css-flix-btns">
+                    <div class="css-flix-btn-p">▶ Assistir agora</div>
+                    <div class="css-flix-btn-s">+ Minha lista</div>
                   </div>
                 </div>
-                <div class="cs-nav">
-                  <div class="cs-nav-item active">⚡ Dashboard</div>
-                  <div class="cs-nav-item">🧭 Eixos</div>
-                  <div class="cs-nav-item">🎓 Portal Mentor</div>
-                  <div class="cs-nav-item">✦ Central</div>
-                  <div class="cs-nav-item">🛡️ Admin</div>
-                </div>
-              </div>
-              <div class="comm-main">
-                <div class="cm-greeting">Olá, Você. 👋</div>
-                <div class="cm-eixos">
-                  <div class="cm-eixo" style="--c:#818CF8">🎯<br>Marketing</div>
-                  <div class="cm-eixo" style="--c:#34D399">🏔️<br>Turismo</div>
-                  <div class="cm-eixo" style="--c:#22D3EE">💻<br>Tecnologia</div>
-                  <div class="cm-eixo" style="--c:#A855F7">🤖<br>IA</div>
-                  <div class="cm-eixo" style="--c:#FCD34D">🧭<br>Mentorias</div>
-                  <div class="cm-eixo" style="--c:#FB923C">🚀<br>Empreend.</div>
-                </div>
-                <div class="cm-badge">✦ Central de Conteúdo · IA · Métricas · Design</div>
+                <div class="css-flix-cover">🤖</div>
               </div>
             </div>
           </div>
-          <!-- Overlay blur -->
-          <div class="comm-mockup-overlay">
-            <div class="comm-overlay-lock">🔒</div>
-            <div class="comm-overlay-txt">Preview exclusivo</div>
-            <div class="comm-overlay-sub">Entre na lista para ter acesso antecipado</div>
-            <div class="comm-overlay-chips">
-              <span>6 Eixos</span>
-              <span>Cursos + Mentorias</span>
-              <span>IA Integrada</span>
-              <span>Portal do Mentor</span>
+
+          <!-- Screenshot 2: Em Alta + Podcasts -->
+          <!-- Substitua src por assets/flix-2.jpg quando disponível -->
+          <div class="comm-ss-card">
+            <div class="comm-ss-mock">
+              <div class="css-flix-section">
+                <div class="css-flix-section-title">Em Alta <span style="font-size:0.4rem;color:rgba(255,255,255,0.35);font-weight:500">Os mais assistidos da semana</span></div>
+                <div class="css-flix-row">
+                  <div class="css-flix-item">
+                    <div class="css-flix-num" style="-webkit-text-stroke-color:rgba(99,102,241,0.55)">1</div>
+                    <div class="css-flix-thumb" style="--tc1:#1a1c3a;--tc2:#6366F1"></div>
+                  </div>
+                  <div class="css-flix-item">
+                    <div class="css-flix-num" style="-webkit-text-stroke-color:rgba(168,85,247,0.55)">2</div>
+                    <div class="css-flix-thumb" style="--tc1:#1c1530;--tc2:#A855F7"></div>
+                  </div>
+                  <div class="css-flix-item">
+                    <div class="css-flix-num" style="-webkit-text-stroke-color:rgba(52,211,153,0.55)">3</div>
+                    <div class="css-flix-thumb" style="--tc1:#0d2420;--tc2:#34D399"></div>
+                  </div>
+                  <div class="css-flix-item">
+                    <div class="css-flix-num" style="-webkit-text-stroke-color:rgba(251,146,60,0.55)">4</div>
+                    <div class="css-flix-thumb" style="--tc1:#2a1a0a;--tc2:#FB923C"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="css-flix-section">
+                <div class="css-flix-section-title">Podcasts</div>
+                <div class="css-flix-podcasts">
+                  <div class="css-flix-pod">
+                    <div class="css-flix-pod-img" style="--pc1:#1c1020;--pc2:#A855F7">🎙️</div>
+                    <div class="css-flix-pod-name">Negócios na Prática</div>
+                  </div>
+                  <div class="css-flix-pod">
+                    <div class="css-flix-pod-img" style="--pc1:#0a1f1a;--pc2:#34D399">🏔️</div>
+                    <div class="css-flix-pod-name">Turismo do Futuro</div>
+                  </div>
+                  <div class="css-flix-pod">
+                    <div class="css-flix-pod-img" style="--pc1:#0d1a2a;--pc2:#6366F1">🤖</div>
+                    <div class="css-flix-pod-name">IA Sem Mistério</div>
+                  </div>
+                  <div class="css-flix-pod">
+                    <div class="css-flix-pod-img" style="--pc1:#1a1000;--pc2:#FCD34D">🚀</div>
+                    <div class="css-flix-pod-name">Empreender no Brasil</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
 
@@ -1816,14 +1831,6 @@ document.addEventListener('keydown', e => {
 <!-- ══ COMMUNITY PRÉ-LISTA ═══════════════════════════════ -->
 <script>
 (function() {
-  // Inicializa contador com localStorage para persistir
-  var BASE = 47;
-  var stored = parseInt(localStorage.getItem('comm_count') || '0');
-  if (stored > 0) {
-    var el = document.getElementById('comm-count');
-    if (el) el.textContent = BASE + stored;
-  }
-
   // Checa se já cadastrou
   if (localStorage.getItem('comm_inscrito') === '1') {
     mostrarSucesso(localStorage.getItem('comm_nome_salvo') || '');
@@ -1856,15 +1863,8 @@ function entrarNaLista() {
   }
 
   // Salva localmente
-  var count = parseInt(localStorage.getItem('comm_count') || '0') + 1;
-  localStorage.setItem('comm_count', count);
   localStorage.setItem('comm_inscrito', '1');
   localStorage.setItem('comm_nome_salvo', nome.trim().split(' ')[0]);
-
-  // Atualiza contador na tela
-  var BASE = 47;
-  var el = document.getElementById('comm-count');
-  if (el) el.textContent = BASE + count;
 
   // Abre WhatsApp com lead info (captura real sem backend)
   var msg = encodeURIComponent(
