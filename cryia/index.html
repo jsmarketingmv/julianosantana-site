@@ -610,6 +610,73 @@
     .btn-email { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.88rem 2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); color: var(--text-dim); font-weight: 600; font-size: 0.88rem; transition: all var(--t); }
     .btn-email:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
 
+    /* ── CRYIA ACELERA ──────────────────────────────────── */
+    .acelera-secao { position: relative; z-index: 1; padding: clamp(5rem,10vw,8rem) 0; overflow: hidden; }
+    .acelera-secao::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 0%, rgba(251,146,60,0.07) 0%, transparent 60%);
+    }
+    .acelera-header { text-align: center; max-width: 620px; margin: 0 auto 4rem; position: relative; z-index: 1; }
+    .acelera-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #FB923C; padding: 0.35rem 1rem; border-radius: 20px;
+      background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.25);
+      margin-bottom: 1.5rem;
+    }
+    .acelera-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #FB923C; animation: pulse 2s infinite; }
+    .acelera-h2 { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem; }
+    .acelera-h2 em { font-style: normal; background: linear-gradient(135deg,#FB923C,#F472B6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .acelera-desc { font-size: 0.9rem; color: rgba(255,255,255,0.45); line-height: 1.8; }
+    .acelera-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem;
+      position: relative; z-index: 1;
+    }
+    @media (max-width: 900px) { .acelera-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .acelera-grid { grid-template-columns: 1fr; } }
+    .acelera-card {
+      border-radius: var(--radius-sm); padding: 1.8rem 1.6rem;
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.35s var(--ease); position: relative; overflow: hidden;
+    }
+    .acelera-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      border-radius: 2px 2px 0 0;
+    }
+    .acelera-card:hover { transform: translateY(-5px); border-color: rgba(251,146,60,0.25); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .acelera-card-status {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.22rem 0.65rem; border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .acelera-card-status.ao-vivo { background: rgba(34,197,94,0.12); color: #22C55E; border: 1px solid rgba(34,197,94,0.25); }
+    .acelera-card-status.ao-vivo::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #22C55E; animation: pulse 2s infinite; }
+    .acelera-card-status.em-dev { background: rgba(251,191,36,0.12); color: #FCD34D; border: 1px solid rgba(251,191,36,0.25); }
+    .acelera-card-status.beta { background: rgba(99,102,241,0.12); color: #818CF8; border: 1px solid rgba(99,102,241,0.25); }
+    .acelera-card-status.conceito { background: rgba(168,85,247,0.12); color: #C084FC; border: 1px solid rgba(168,85,247,0.25); }
+    .acelera-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .acelera-nome { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .acelera-seg { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.7rem; }
+    .acelera-desc-card { font-size: 0.78rem; color: rgba(255,255,255,0.42); line-height: 1.7; margin-bottom: 1rem; }
+    .acelera-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .acelera-tag { font-size: 0.58rem; font-weight: 600; padding: 0.18rem 0.55rem; border-radius: 4px; background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.08); }
+    .acelera-card-destaque { border-color: rgba(251,146,60,0.2); background: rgba(251,146,60,0.04); }
+    .acelera-card-destaque::after { background: linear-gradient(90deg,#FB923C,#F472B6); }
+    .acelera-cta {
+      text-align: center; margin-top: 4rem; padding: 2.5rem;
+      background: rgba(251,146,60,0.05); border: 1px solid rgba(251,146,60,0.18);
+      border-radius: var(--radius-sm); position: relative; z-index: 1;
+    }
+    .acelera-cta p { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .acelera-cta small { font-size: 0.78rem; color: rgba(255,255,255,0.35); display: block; margin-bottom: 1.5rem; }
+    .btn-acelera {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.88rem 2rem; border-radius: var(--radius-sm);
+      background: linear-gradient(135deg,#FB923C,#F472B6);
+      color: #fff; font-weight: 800; font-size: 0.88rem; transition: all var(--t);
+    }
+    .btn-acelera:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(251,146,60,0.35); }
+
     /* ── FOOTER ──────────────────────────────────────────── */
     .footer { border-top: 1px solid var(--border); padding: 2.5rem 0; position: relative; z-index: 1; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
@@ -961,6 +1028,7 @@
       <li><a href="#ecossistema">Ecossistema</a></li>
       <li><a href="#projetos">Projetos</a></li>
       <li><a href="#ia">IA</a></li>
+      <li><a href="#acelera" style="color:#FB923C;font-weight:700;">Acelera 🚀</a></li>
       <li><a href="#fundador">Fundador</a></li>
       <li><a href="#community" style="color:var(--purple);font-weight:700;">Community ✦</a></li>
     </ul>
@@ -1393,6 +1461,128 @@
         <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20conversar%20sobre%20IA%20no%20meu%20neg%C3%B3cio." target="_blank" class="btn-primario">📱 Falar agora →</a>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="linha-grad"></div>
+
+<!-- ══ 10. CRYIA ACELERA ════════════════════════════════ -->
+<section class="acelera-secao" id="acelera">
+  <div class="container">
+
+    <div class="acelera-header animar">
+      <div class="acelera-badge">
+        <span class="dot"></span>
+        CRYIA Acelera · Incubadora de Projetos
+      </div>
+      <h2 class="acelera-h2">Do conceito ao mercado.<br><em>Projetos reais acontecendo.</em></h2>
+      <p class="acelera-desc">
+        O ecossistema CRYIA não é só comunidade. É incubadora, estúdio de produto e laboratório de negócios.
+        Cada projeto nasce com estratégia, IA e go-to-market desde o dia um.
+      </p>
+    </div>
+
+    <div class="acelera-grid">
+
+      <!-- Los Viajeros -->
+      <div class="acelera-card acelera-card-destaque animar delay-1">
+        <div class="acelera-card-status ao-vivo">Ao vivo</div>
+        <div class="acelera-icon">⛵</div>
+        <div class="acelera-nome">Los Viajeros</div>
+        <div class="acelera-seg">SaaS · Cruzeiros de luxo · B2B</div>
+        <p class="acelera-desc-card">Plataforma de representação para cruzeiros Patagônia. Scraper de disponibilidade em tempo real, cotação instantânea e funil B2B para agências.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">React 19</span>
+          <span class="acelera-tag">Hono</span>
+          <span class="acelera-tag">Playwright</span>
+          <span class="acelera-tag">Neon DB</span>
+        </div>
+      </div>
+
+      <!-- TRAKO Circuit -->
+      <div class="acelera-card animar delay-2">
+        <div class="acelera-card-status em-dev">Em desenvolvimento</div>
+        <div class="acelera-icon">🚴</div>
+        <div class="acelera-nome">TRAKO Circuit</div>
+        <div class="acelera-seg">SaaS · Cicloturismo · Multi-tenant</div>
+        <p class="acelera-desc-card">Plataforma para circuitos de caminhada e cicloturismo. Gestão de rotas, check-in digital e marketing territorial. Cliente piloto: Vale Europeu Catarinense.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">Next.js</span>
+          <span class="acelera-tag">Supabase</span>
+          <span class="acelera-tag">Multi-tenant</span>
+          <span class="acelera-tag">QR Check-in</span>
+        </div>
+      </div>
+
+      <!-- CRYIA Community -->
+      <div class="acelera-card animar delay-3">
+        <div class="acelera-card-status ao-vivo">Ao vivo</div>
+        <div class="acelera-icon">🎓</div>
+        <div class="acelera-nome">CRYIA Community</div>
+        <div class="acelera-seg">LMS · Plataforma de educação · B2C</div>
+        <p class="acelera-desc-card">Plataforma de cursos, mentorias e comunidade. 7 eixos de conteúdo, CRYIA FLIX, portal de mentores com split automático e IA de calendário editorial.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">Next.js 16</span>
+          <span class="acelera-tag">Supabase</span>
+          <span class="acelera-tag">Kiwify</span>
+          <span class="acelera-tag">Claude AI</span>
+        </div>
+      </div>
+
+      <!-- Mapa da Verdade -->
+      <div class="acelera-card animar delay-1">
+        <div class="acelera-card-status beta">Beta</div>
+        <div class="acelera-icon">🗺️</div>
+        <div class="acelera-nome">Mapa da Verdade</div>
+        <div class="acelera-seg">IA · Diagnóstico de negócio · B2C</div>
+        <p class="acelera-desc-card">IA treinada para dar diagnósticos honestos e diretos sobre negócios. Sem enrolação, sem eufemismo. Baseada na filosofia AÇÃO e REAÇÃO.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">Claude API</span>
+          <span class="acelera-tag">Diagnóstico</span>
+          <span class="acelera-tag">Filosofia CRYIA</span>
+        </div>
+      </div>
+
+      <!-- Próximo projeto -->
+      <div class="acelera-card animar delay-2" style="border-style: dashed; opacity: 0.6;">
+        <div class="acelera-card-status conceito">Próximo</div>
+        <div class="acelera-icon">⚡</div>
+        <div class="acelera-nome">Seu Projeto Aqui</div>
+        <div class="acelera-seg">O próximo projeto incubado pode ser o seu</div>
+        <p class="acelera-desc-card">Se você tem uma ideia que precisa de estratégia, tecnologia e go-to-market real, vamos conversar. O CRYIA Acelera está selecionando projetos.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">Sua Ideia</span>
+          <span class="acelera-tag">+ IA</span>
+          <span class="acelera-tag">+ Estratégia</span>
+          <span class="acelera-tag">= Produto</span>
+        </div>
+      </div>
+
+      <!-- Aonik -->
+      <div class="acelera-card animar delay-3">
+        <div class="acelera-card-status ao-vivo">Ao vivo</div>
+        <div class="acelera-icon">🏢</div>
+        <div class="acelera-nome">Aonik Assessoria</div>
+        <div class="acelera-seg">Consultoria · Marketing territorial</div>
+        <p class="acelera-desc-card">Assessoria de comunicação e marketing para destinos, municípios e entidades do trade turístico. Estratégia, conteúdo e posicionamento regional.</p>
+        <div class="acelera-tags">
+          <span class="acelera-tag">Marketing</span>
+          <span class="acelera-tag">Turismo</span>
+          <span class="acelera-tag">Territorial</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA Acelera -->
+    <div class="acelera-cta animar">
+      <p>Tem um projeto que precisa sair do papel?</p>
+      <small>O CRYIA Acelera seleciona projetos com potencial real de mercado. Estratégia, tecnologia e tração desde o começo.</small>
+      <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20conversar%20sobre%20o%20CRYIA%20Acelera%20e%20meu%20projeto." target="_blank" class="btn-acelera">
+        🚀 Quero acelerar meu projeto
+      </a>
+    </div>
+
   </div>
 </section>
 
