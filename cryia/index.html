@@ -900,6 +900,128 @@
       background-clip: text;
     }
 
+    /* ══════════════════════════════════════════════════════
+       GALERIA AÇÃO EM MOVIMENTO — Marquee infinito direita→esquerda
+    ══════════════════════════════════════════════════════ */
+    .galeria-acao {
+      position: relative;
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 0%, rgba(124,58,237,0.10), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(34,197,94,0.08), transparent 60%),
+        #07090F;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .galeria-header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+      padding: 0 1.5rem;
+    }
+    .galeria-titulo {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      margin: 0 0 0.7rem 0;
+      color: #fff;
+    }
+    .galeria-titulo em {
+      font-style: normal;
+      background: linear-gradient(135deg, #22c55e, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .galeria-label {
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      margin: 0;
+    }
+    .galeria-label strong {
+      color: rgba(255,255,255,0.85);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    /* Marquee container com fade lateral */
+    .galeria-marquee {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg,
+        transparent 0,
+        #000 6%,
+        #000 94%,
+        transparent 100%);
+      mask-image: linear-gradient(90deg,
+        transparent 0,
+        #000 6%,
+        #000 94%,
+        transparent 100%);
+    }
+    .galeria-track {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      align-items: center;
+      animation: galeria-scroll 70s linear infinite;
+      will-change: transform;
+    }
+    .galeria-marquee:hover .galeria-track {
+      animation-play-state: paused;
+    }
+    @keyframes galeria-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Cards de altura variada */
+    .galeria-card {
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      background: #15161f;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+    }
+    .galeria-card.sz-tall  { height: 380px; }
+    .galeria-card.sz-base  { height: 320px; }
+    .galeria-card.sz-short { height: 260px; }
+    .galeria-card img {
+      height: 100%;
+      width: auto;
+      display: block;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .galeria-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35));
+      pointer-events: none;
+    }
+    .galeria-card:hover {
+      transform: scale(1.03) translateY(-4px);
+      box-shadow: 0 26px 60px rgba(124,58,237,0.25);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .galeria-card.sz-tall  { height: 300px; }
+      .galeria-card.sz-base  { height: 250px; }
+      .galeria-card.sz-short { height: 210px; }
+      .galeria-track { gap: 10px; animation-duration: 55s; }
+    }
+    @media (max-width: 480px) {
+      .galeria-card.sz-tall  { height: 240px; }
+      .galeria-card.sz-base  { height: 200px; }
+      .galeria-card.sz-short { height: 170px; }
+    }
+
     /* ── O QUE É O CRYIA HUB ────────────────────────────── */
     .oqe-secao { background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .oqe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -1815,6 +1937,58 @@
 </section>
 
 <div class="linha-grad"></div>
+
+<!-- ══ 4B. GALERIA AÇÃO EM MOVIMENTO ═════════════════════ -->
+<section class="galeria-acao" id="acao-em-movimento" aria-label="Galeria Ação em Movimento">
+  <div class="galeria-header animar">
+    <h2 class="galeria-titulo">AÇÃO <em>em movimento</em></h2>
+    <p class="galeria-label"><strong>nos palcos.</strong> nas trilhas. nas mesas de decisão.</p>
+  </div>
+
+  <div class="galeria-marquee animar delay-2">
+    <div class="galeria-track">
+      <!-- Sequência 1 (18 fotos, ordem intercalada por categoria + ritmo de altura) -->
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/13-palestrando-microfone.jpg" alt="Juliano Sant'Ana palestrando com microfone" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/03-neve-sorriso.jpg" alt="Sorriso na neve durante expedição" loading="lazy" /></div>
+      <div class="galeria-card sz-short"><img src="/assets/expedicoes/14-sala-reuniao.jpg" alt="Sala de reunião estratégica" loading="lazy" /></div>
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/01-montanha-paisagem.jpg" alt="Juliano em paisagem de montanha" loading="lazy" /></div>
+      <div class="galeria-card sz-short"><img src="/assets/expedicoes/09-mesa-painel.jpg" alt="Mesa de painel em evento" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/02-neve-casacao.jpg" alt="Expedição de inverno na neve" loading="lazy" /></div>
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/17-cadeira-amarela.jpg" alt="Retrato editorial" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/06-paisagem-mochila.jpg" alt="Caminhada com mochila em paisagem" loading="lazy" /></div>
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/12-palco-neon.jpg" alt="Palco com iluminação neon em palestra" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/04-patagonia.jpg" alt="Patagônia, paisagem icônica" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/15-sala-mendoza.jpg" alt="Conexão em Mendoza, Argentina" loading="lazy" /></div>
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/07-patagonia-close.jpg" alt="Patagônia, retrato em expedição" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/11-microfone-verde.jpg" alt="Palestrando com microfone" loading="lazy" /></div>
+      <div class="galeria-card sz-short"><img src="/assets/expedicoes/18-podcast-neon.jpg" alt="Podcast em ambiente neon" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/05-mata-verde.jpg" alt="Travessia em mata fechada" loading="lazy" /></div>
+      <div class="galeria-card sz-base"><img src="/assets/expedicoes/10-auditorio-roxo.jpg" alt="Auditório de palestra" loading="lazy" /></div>
+      <div class="galeria-card sz-short"><img src="/assets/expedicoes/16-aula-grupo.jpg" alt="Aula em grupo, mentoria" loading="lazy" /></div>
+      <div class="galeria-card sz-tall"><img src="/assets/expedicoes/08-paisagem-pe.jpg" alt="Em pé na paisagem" loading="lazy" /></div>
+
+      <!-- Sequência 2 idêntica (loop infinito sem cut) — aria-hidden para acessibilidade -->
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/13-palestrando-microfone.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/03-neve-sorriso.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-short" aria-hidden="true"><img src="/assets/expedicoes/14-sala-reuniao.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/01-montanha-paisagem.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-short" aria-hidden="true"><img src="/assets/expedicoes/09-mesa-painel.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/02-neve-casacao.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/17-cadeira-amarela.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/06-paisagem-mochila.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/12-palco-neon.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/04-patagonia.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/15-sala-mendoza.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/07-patagonia-close.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/11-microfone-verde.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-short" aria-hidden="true"><img src="/assets/expedicoes/18-podcast-neon.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/05-mata-verde.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-base" aria-hidden="true"><img src="/assets/expedicoes/10-auditorio-roxo.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-short" aria-hidden="true"><img src="/assets/expedicoes/16-aula-grupo.jpg" alt="" loading="lazy" /></div>
+      <div class="galeria-card sz-tall" aria-hidden="true"><img src="/assets/expedicoes/08-paisagem-pe.jpg" alt="" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
 
 <!-- ══ 5. O QUE É O CRYIA HUB ═══════════════════════════ -->
 <section class="secao oqe-secao" id="ecossistema">
