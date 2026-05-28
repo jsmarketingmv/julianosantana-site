@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRYIA HUB — Ecossistema de IA, Estratégia e Negócios Reais</title>
+  <title>CRYIA HUB · Ecossistema de IA, Estratégia e Negócios Reais</title>
   <meta name="description" content="CRYIA HUB é o ecossistema que conecta seu negócio à inteligência artificial de forma humana, estratégica e com resultado real. Marketing, Turismo, Tecnologia, Learning, Mentorias e Empreendedorismo." />
 
   <!-- Open Graph / WhatsApp / LinkedIn -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://www.cryia.com.br/cryia/" />
   <meta property="og:site_name"   content="CRYIA HUB" />
-  <meta property="og:title"       content="CRYIA HUB — Ecossistema de IA, Estratégia e Negócios Reais" />
+  <meta property="og:title"       content="CRYIA HUB · Ecossistema de IA, Estratégia e Negócios Reais" />
   <meta property="og:description" content="Para quem quer crescer de verdade. A CRYIA conecta seu negócio à inteligência artificial de forma humana, estratégica e com resultado real. 5 projetos incubados. Blumenau, SC." />
   <meta property="og:image"       content="https://www.julianosantana.com.br/assets/og-cryia-v3.png" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt"   content="CRYIA HUB — Ecossistema de IA, Estratégia e Negócios Reais" />
+  <meta property="og:image:alt"   content="CRYIA HUB · Ecossistema de IA, Estratégia e Negócios Reais" />
   <meta property="og:locale"      content="pt_BR" />
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="CRYIA HUB — Ecossistema de IA, Estratégia e Negócios Reais" />
+  <meta name="twitter:title"       content="CRYIA HUB · Ecossistema de IA, Estratégia e Negócios Reais" />
   <meta name="twitter:description" content="Para quem quer crescer de verdade. A CRYIA conecta seu negócio à IA de forma humana, estratégica e com resultado real." />
   <meta name="twitter:image"       content="https://www.julianosantana.com.br/assets/og-cryia-v3.png" />
 
@@ -631,6 +631,262 @@
     .ar-nome { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.75); line-height: 1.3; margin-bottom: 0.15rem; }
     .ar-txt { font-size: 0.67rem; color: rgba(255,255,255,0.35); line-height: 1.5; }
     .ar-colhe { margin-top: 2.8rem; text-align: center; font-size: 1.1rem; font-weight: 700; font-style: italic; background: linear-gradient(135deg, var(--indigo), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; padding-top: 2rem; border-top: 1px solid rgba(168,85,247,0.1); }
+
+    /* ── AR Camadas extras: FILOSOFIA · APLICAÇÃO · CAMINHADA · IA ── */
+
+    /* CAMADA 1 — Citação filosófica */
+    .ar-quote {
+      margin-top: 4rem;
+      padding: 2.5rem 2rem;
+      background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(168,85,247,0.05));
+      border: 1px solid rgba(168,85,247,0.18);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .ar-quote-frase {
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #818CF8, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ar-quote-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+      max-width: 580px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* CAMADA 2 — Onde se aplica (3 cards) */
+    .ar-aplica { margin-top: 3.5rem; }
+    .ar-aplica-titulo {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(192,132,252,0.65);
+      margin-bottom: 1.8rem;
+    }
+    .ar-aplica-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+    }
+    @media (max-width: 760px) { .ar-aplica-grid { grid-template-columns: 1fr; } }
+    .ar-aplica-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.8rem 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .ar-aplica-card:hover { border-color: rgba(124,58,237,0.35); transform: translateY(-3px); }
+    .ar-aplica-icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+    .ar-aplica-tipo {
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .ar-aplica-card p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* CAMADA 3 — Caminhada (com imagem) */
+    .ar-caminhada {
+      margin-top: 4rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .ar-caminhada-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      min-height: 380px;
+    }
+    @media (max-width: 860px) { .ar-caminhada-grid { grid-template-columns: 1fr; } }
+    .ar-caminhada-img { position: relative; overflow: hidden; min-height: 320px; }
+    .ar-caminhada-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 30% center;
+      display: block;
+    }
+    .ar-caminhada-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(10,11,20,0) 55%, rgba(10,11,20,1) 100%);
+    }
+    @media (max-width: 860px) {
+      .ar-caminhada-img::after {
+        background: linear-gradient(to bottom, rgba(10,11,20,0) 55%, rgba(10,11,20,1) 100%);
+      }
+    }
+    .ar-caminhada-texto {
+      padding: 2.5rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.1rem;
+    }
+    .ar-caminhada-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .ar-caminhada-h3 {
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: #fff;
+      margin: 0;
+    }
+    .ar-caminhada-p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .ar-caminhada-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--green);
+      width: fit-content;
+      border-bottom: 1px solid rgba(34,197,94,0.4);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .ar-caminhada-link:hover { color: #4ade80; border-color: rgba(74,222,128,0.7); }
+
+    /* CAMADA 4 — E a IA (binário adapta vs resiste) */
+    .ar-ia {
+      margin-top: 4rem;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+      background:
+        radial-gradient(ellipse at top, rgba(124,58,237,0.12), transparent 70%),
+        rgba(10,11,20,0.5);
+      border: 1px solid rgba(124,58,237,0.25);
+      border-radius: 14px;
+      text-align: center;
+    }
+    .ar-ia-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.3);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+    .ar-ia-titulo {
+      font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      color: #fff;
+    }
+    .ar-ia-titulo span {
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ar-ia-texto {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    .ar-ia-binario {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: stretch;
+      max-width: 820px;
+      margin: 0 auto 1.8rem;
+    }
+    @media (max-width: 720px) {
+      .ar-ia-binario { grid-template-columns: 1fr; }
+      .ar-ia-vs { padding: 0.4rem 0 !important; }
+    }
+    .ar-ia-coluna { text-align: left; padding: 1.5rem 1.3rem; border-radius: 10px; }
+    .ar-ia-coluna.pos { background: rgba(34,197,94,0.05); border: 1px solid rgba(34,197,94,0.22); }
+    .ar-ia-coluna.neg { background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.18); }
+    .ar-ia-coluna-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.8rem;
+    }
+    .ar-ia-coluna.pos .ar-ia-coluna-tag { color: var(--green); }
+    .ar-ia-coluna.neg .ar-ia-coluna-tag { color: #F87171; }
+    .ar-ia-coluna ul {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column;
+      gap: 0.55rem;
+    }
+    .ar-ia-coluna li {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .ar-ia-coluna li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.5rem;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .ar-ia-coluna.pos li::before { background: var(--green); }
+    .ar-ia-coluna.neg li::before { background: #F87171; }
+    .ar-ia-vs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      padding: 0 0.5rem;
+    }
+    .ar-ia-final {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
 
     /* ── O QUE É O CRYIA HUB ────────────────────────────── */
     .oqe-secao { background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -1324,24 +1580,26 @@
       </div>
 
       <h1>
-        <span class="linha linha-1">Onde negócios reais</span>
-        <span class="linha linha-2">encontram a IA.</span>
+        <span class="linha linha-1">Quem se move, evolui.</span>
+        <span class="linha linha-2">Quem para, fica para trás.</span>
       </h1>
 
       <p>
-        Para quem quer crescer de verdade, sem precisar entender
-        tudo sobre tecnologia. A CRYIA conecta seu negócio à
-        inteligência artificial de forma humana, estratégica
-        e com resultado real.
+        Ecossistema vivo de marketing, gestão e inteligência artificial
+        para micro, pequenos e médios empresários. Conteúdo de quem faz,
+        mentores que conhecem negócio real, ferramentas que funcionam no
+        dia a dia. Porque o timing é agora. Não amanhã.
       </p>
 
       <div class="tags">
         <span>📢 MARKETING</span>
         <span>💬 COMUNICAÇÃO</span>
         <span>⚡ TECNOLOGIA &amp; IA</span>
+        <span>🧭 GESTÃO</span>
         <span>📚 EDUCAÇÃO</span>
         <span>🎯 MENTORIAS</span>
         <span>🚀 EMPREENDEDORISMO</span>
+        <span>🧠 COMPORTAMENTO</span>
       </div>
 
       <div class="ctas">
@@ -1360,7 +1618,7 @@
       <span class="foto-deco-line br" aria-hidden="true"></span>
 
       <div class="foto-mask">
-        <img src="/assets/juliano-hero-v2.png" alt="Juliano Sant'Ana — fundador da CRYIA" />
+        <img src="/assets/juliano-hero-v2.png" alt="Juliano Sant'Ana, fundador da CRYIA" />
       </div>
 
       <!-- Badges flutuantes das IAs principais -->
@@ -1443,7 +1701,7 @@
         <div class="ar-lado-sub">(Atitude, Verdade e Resiliência)</div>
         <div class="ar-lado-desc">O que você provoca no mundo</div>
         <ul class="ar-principios">
-          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">01</span><div><div class="ar-nome">Diagnóstico Honesto</div><div class="ar-txt">Sem enrolação. A verdade do cenário — mesmo que doa.</div></div></li>
+          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">01</span><div><div class="ar-nome">Diagnóstico Honesto</div><div class="ar-txt">Sem enrolação. A verdade do cenário, mesmo que doa.</div></div></li>
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">02</span><div><div class="ar-nome">Atitude Proativa</div><div class="ar-txt">Ação imperfeita bate inércia elegante.</div></div></li>
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">03</span><div><div class="ar-nome">Resiliência na Execução</div><div class="ar-txt">Quem vai longe é quem continua.</div></div></li>
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">04</span><div><div class="ar-nome">Sem Promessas Vazias</div><div class="ar-txt">Vendo rotas. Com metas reais e resultados reais.</div></div></li>
@@ -1464,6 +1722,83 @@
 
     <p class="ar-colhe animar delay-2">"Aqui se colhe o que se planta."</p>
 
+    <!-- CAMADA 1: Citação filosófica -->
+    <div class="ar-quote animar delay-3">
+      <p class="ar-quote-frase">"Aqui se faz. Aqui se paga."</p>
+      <p class="ar-quote-desc">A base de toda relação humana, profissional, comercial. Tudo é colheita do que se planta. Não tem atalho. Não tem fórmula. Tem princípio.</p>
+    </div>
+
+    <!-- CAMADA 2: Onde a filosofia se aplica (3 cards) -->
+    <div class="ar-aplica animar delay-3">
+      <p class="ar-aplica-titulo">Onde a filosofia se aplica</p>
+      <div class="ar-aplica-grid">
+        <div class="ar-aplica-card">
+          <div class="ar-aplica-icon">🤝</div>
+          <div class="ar-aplica-tipo">Marcas &amp; Marcas</div>
+          <p>Toda compra empresarial tem uma pessoa decidindo. Toda parceria tem confiança no centro. B2B é, no fundo, P2P.</p>
+        </div>
+        <div class="ar-aplica-card">
+          <div class="ar-aplica-icon">💼</div>
+          <div class="ar-aplica-tipo">Marcas &amp; Pessoas</div>
+          <p>Atendimento, marca, venda, recompra. Cada interação ensina ou desensina a confiar. A reputação é o que sobra.</p>
+        </div>
+        <div class="ar-aplica-card">
+          <div class="ar-aplica-icon">👥</div>
+          <div class="ar-aplica-tipo">Pessoas &amp; Pessoas</div>
+          <p>Amizade, namoro, parceria. Todo dia estamos provando algo, convencendo, conquistando. Tudo é, de algum jeito, vender.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMADA 3: Analogia da caminhada -->
+    <div class="ar-caminhada animar delay-4">
+      <div class="ar-caminhada-grid">
+        <div class="ar-caminhada-img">
+          <img src="/assets/banner-hero-cryia.png" alt="A caminhada como metáfora da jornada empreendedora" loading="lazy" />
+        </div>
+        <div class="ar-caminhada-texto">
+          <span class="ar-caminhada-tag">A analogia da caminhada</span>
+          <h3 class="ar-caminhada-h3">Subir uma montanha exige os mesmos princípios que construir um negócio que dura.</h3>
+          <p class="ar-caminhada-p">Atitude para dar o primeiro passo. Verdade para ler o terreno. Resiliência para continuar quando a trilha aperta. Empatia com quem caminha junto. Confiança no método. Fidelidade ao destino.</p>
+          <p class="ar-caminhada-p">Não é método. É filosofia. É princípio. É jeito de viver, de empreender, de se relacionar.</p>
+          <a href="https://mapadaverdade.com.br/juliano" target="_blank" rel="noopener" class="ar-caminhada-link">
+            Conheça o Mapa da Verdade →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMADA 4: E a IA? -->
+    <div class="ar-ia animar delay-5">
+      <span class="ar-ia-tag">⚡ E a IA nisso tudo?</span>
+      <h3 class="ar-ia-titulo">Não é inovação passageira. <span>É a nova revolução industrial.</span></h3>
+      <p class="ar-ia-texto">
+        Muda comportamento. Muda cenário. Muda recurso. Muda competência. Não dá para lutar contra. Dá para abraçar, aprender, evoluir. Ou você se adapta, ou fica para trás.
+      </p>
+      <div class="ar-ia-binario">
+        <div class="ar-ia-coluna pos">
+          <div class="ar-ia-coluna-tag">QUEM SE ADAPTA</div>
+          <ul>
+            <li>Usa IA como vantagem real no dia a dia</li>
+            <li>Otimiza tempo e qualifica entregas</li>
+            <li>Decide com dados, executa com clareza</li>
+            <li>Lidera o novo jeito de fazer negócio</li>
+          </ul>
+        </div>
+        <div class="ar-ia-vs">vs.</div>
+        <div class="ar-ia-coluna neg">
+          <div class="ar-ia-coluna-tag">QUEM RESISTE</div>
+          <ul>
+            <li>Fica preso ao jeito antigo de operar</li>
+            <li>Vê concorrente avançar e segue parado</li>
+            <li>Perde tempo, margem, relevância</li>
+            <li>É esquecido pela nova cultura mundial</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ar-ia-final">Não é decisão de uma pessoa. É a nova ordem planetária. CRYIA existe para guiar quem já escolheu se mover.</p>
+    </div>
+
   </div>
 </section>
 
@@ -1476,12 +1811,13 @@
       <div class="animar">
         <div class="secao-tag">O que é o CRYIA?</div>
         <h2 class="oqe-h2">Somos a democratização<br><em>do Marketing e da IA.</em></h2>
-        <p class="oqe-p">CRYIA é a plataforma e comunidade que transforma o jeito como micro, pequenos e médios empreendedores usam o Marketing e a Inteligência Artificial. Somos conteúdo criado por quem faz, mentores que conhecem negócio real, ferramentas que funcionam no dia a dia e uma rede de empreendedores que cresce junta.</p>
-        <p class="oqe-p">Cada entrega carrega a mesma filosofia: ação real, linguagem acessível e resultado verdadeiro. <strong>Porque o timing de colocar o Marketing e a IA a favor do seu negócio é agora. Não amanhã.</strong></p>
+        <p class="oqe-p">CRYIA é a plataforma e comunidade que transforma o jeito como micro, pequenos e médios empreendedores usam Marketing, Gestão e Inteligência Artificial. Aqui o conteúdo nasce de quem faz, os mentores conhecem negócio real, as ferramentas funcionam no dia a dia. E uma rede inteira cresce junta.</p>
+        <p class="oqe-p">Cada entrega carrega a mesma filosofia. Ação real. Linguagem acessível. Resultado verdadeiro. <strong>Porque o timing de colocar a IA a favor do seu negócio é agora. Não amanhã.</strong></p>
         <div class="oqe-eixos">
           <span class="oqe-eixo">📣 Marketing</span>
           <span class="oqe-eixo">📱 Comunicação</span>
           <span class="oqe-eixo">⚡ Tecnologia &amp; IA</span>
+          <span class="oqe-eixo">🧭 Gestão</span>
           <span class="oqe-eixo">📚 Educação</span>
           <span class="oqe-eixo">🎯 Mentorias</span>
           <span class="oqe-eixo">🚀 Empreendedorismo</span>
@@ -1538,7 +1874,7 @@
       <!-- ─── CARD 1: Juliano Sant'Ana ─── -->
       <a href="https://www.julianosantana.com.br" target="_blank" class="proj-card" style="--card-accent:#818CF8;">
         <div class="card-mockup">
-          <img src="/assets/mockups/juliano-site.png" alt="Juliano Sant'Ana — site" loading="lazy" />
+          <img src="/assets/mockups/juliano-site.png" alt="Juliano Sant'Ana · site" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Marketing · Palestras · Mentorias</div>
@@ -1554,7 +1890,7 @@
       <!-- ─── CARD 2: TRAKO Circuit ─── -->
       <div class="proj-card" onclick="abrirTrako()" style="--card-accent:#22D3EE;">
         <div class="card-mockup">
-          <img src="/assets/mockups/trako-celular.png" alt="TRAKO Circuit — app" loading="lazy" />
+          <img src="/assets/mockups/trako-celular.png" alt="TRAKO Circuit · app" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">SaaS · Tecnologia · Cicloturismo</div>
@@ -1570,12 +1906,12 @@
       <!-- ─── CARD 3: Aonik Operadora ─── -->
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" style="--card-accent:#F59E0B;">
         <div class="card-mockup">
-          <img src="/assets/mockups/aonik-site.png" alt="Aonik Operadora — turismo de natureza" loading="lazy" />
+          <img src="/assets/mockups/aonik-site.png" alt="Aonik Operadora · turismo de natureza" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Turismo de Natureza · Experiências · IA</div>
           <div class="proj-nome">Aonik Operadora</div>
-          <div class="proj-desc">Site desenvolvido com IA. Turismo de natureza com propósito — experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div>
+          <div class="proj-desc">Site desenvolvido com IA. Turismo de natureza com propósito. Experiências imersivas no Vale Europeu Catarinense que unem trilha, cultura e estratégia de produto real.</div>
           <div class="proj-footer">
             <span class="proj-status">Ativo</span>
             <span class="proj-link-btn">aonik.com.br →</span>
@@ -1586,7 +1922,7 @@
       <!-- ─── CARD 4: Turismo Estratégico ─── -->
       <a href="https://www.julianosantana.com.br/turismo" target="_blank" class="proj-card" style="--card-accent:#34D399;">
         <div class="card-mockup">
-          <img src="/assets/mockups/turismo-site.png" alt="Turismo Estratégico — site" loading="lazy" />
+          <img src="/assets/mockups/turismo-site.png" alt="Turismo Estratégico · site" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Turismo · Estratégia</div>
@@ -1599,15 +1935,15 @@
         </div>
       </a>
 
-      <!-- ─── CARD 5: Aonik Reservas — SaaS ─── -->
+      <!-- ─── CARD 5: Aonik Reservas · SaaS ─── -->
       <a href="https://www.aonik.com.br" target="_blank" class="proj-card" style="--card-accent:#10B981;">
         <div class="card-mockup">
-          <img src="/assets/mockups/aonik-saas.png" alt="Aonik Reservas — plataforma SaaS" loading="lazy" />
+          <img src="/assets/mockups/aonik-saas.png" alt="Aonik Reservas · plataforma SaaS" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">SaaS · IA · Gestão Empresarial</div>
           <div class="proj-nome">Aonik Reservas</div>
-          <div class="proj-desc">SaaS com IA integrada para micro e pequenas empresas. Gestão de leads, reservas e processos comerciais centralizados — mais vendas, menos operação manual.</div>
+          <div class="proj-desc">SaaS com IA integrada para micro e pequenas empresas. Gestão de leads, reservas e processos comerciais centralizados. Mais vendas, menos operação manual.</div>
           <div class="proj-footer">
             <span class="proj-status">Ativo</span>
             <span class="proj-link-btn">aonik.com.br →</span>
@@ -1618,7 +1954,7 @@
       <!-- ─── CARD 6: Mapa da Verdade ─── -->
       <a href="https://www.mapadaverdade.com.br" target="_blank" class="proj-card" style="--card-accent:#C084FC;">
         <div class="card-mockup">
-          <img src="/assets/mockups/mapadaverdade-site.png" alt="Mapa da Verdade — plataforma IA" loading="lazy" />
+          <img src="/assets/mockups/mapadaverdade-site.png" alt="Mapa da Verdade · plataforma IA" loading="lazy" />
         </div>
         <div class="proj-body">
           <div class="proj-cat">Tecnologia · IA · Estratégia</div>
@@ -1666,7 +2002,7 @@
   <div class="container">
     <div class="cta-incub-card animar">
       <h3>Seu projeto pode ser o próximo.</h3>
-      <p>Conheça como funciona a incubação no ecossistema CRYIA. Estratégia, IA e execução real — do zero ao mercado.</p>
+      <p>Conheça como funciona a incubação no ecossistema CRYIA. Estratégia, IA e execução real, do zero ao mercado.</p>
       <a href="#contato" class="btn-primario">Quero fazer parte →</a>
     </div>
   </div>
@@ -1684,12 +2020,12 @@
     </div>
     <div class="case-featured animar delay-1">
       <div class="case-mockup">
-        <img src="/assets/mockups/losviajeros-mockup.png" alt="Los Viajeros — plataforma multi-device" class="case-mockup-img" />
+        <img src="/assets/mockups/losviajeros-mockup.png" alt="Los Viajeros · plataforma multi-device" class="case-mockup-img" />
       </div>
       <div class="case-info">
         <div class="case-cat">✈️ Turismo · Representação Premium · IA</div>
         <h3 class="case-nome">Los Viajeros</h3>
-        <p class="case-desc">Plataforma digital para representação turística premium. Conecta destinos internacionais de vinhos e hospitalidade ao mercado brasileiro — construída com IA, design estratégico e foco em resultado real. CRYIA na prática: estratégia + tecnologia + entrega.</p>
+        <p class="case-desc">Plataforma digital para representação turística premium. Conecta destinos internacionais de vinhos e hospitalidade ao mercado brasileiro, construída com IA, design estratégico e foco em resultado real. CRYIA na prática: estratégia + tecnologia + entrega.</p>
         <div class="case-tags"><span class="case-tag">Plataforma Digital</span><span class="case-tag">IA Aplicada</span><span class="case-tag">Turismo Premium</span><span class="case-tag">B2B Portal</span><span class="case-tag">Internacionalização</span></div>
         <a href="https://losviajeros.lovable.app" target="_blank" class="case-link">Ver projeto ao vivo <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
@@ -1716,7 +2052,7 @@
           <div class="ia-card-icon">🎯</div>
           <div class="ia-card-tipo">Diagnóstico</div>
           <div class="ia-card-nome">IA Estratégica</div>
-          <div class="ia-card-desc">Diagnóstico profundo do seu negócio. Identifica gargalos, oportunidades e a rota real de crescimento — sem enrolação.</div>
+          <div class="ia-card-desc">Diagnóstico profundo do seu negócio. Identifica gargalos, oportunidades e a rota real de crescimento, sem enrolação.</div>
         </div>
         <div class="ia-card animar delay-2">
           <div class="ia-card-icon">✍️</div>
@@ -1746,7 +2082,7 @@
           <div class="ia-card-icon">⚡</div>
           <div class="ia-card-tipo">Produção Real</div>
           <div class="ia-card-nome">IA Los Viajeros</div>
-          <div class="ia-card-desc">Tecnologia real, rodando agora, atendendo clientes reais no mercado de turismo premium. Não é promessa — é entrega.</div>
+          <div class="ia-card-desc">Tecnologia real, rodando agora, atendendo clientes reais no mercado de turismo premium. Não é promessa. É entrega.</div>
         </div>
       </div>
       <!-- CTA IA -->
@@ -2385,7 +2721,7 @@ function entrarNaLista() {
 
   // Abre WhatsApp com lead info (captura real sem backend)
   var msg = encodeURIComponent(
-    '🔔 *Novo lead — CRYIA Community*\n\n' +
+    '🔔 *Novo lead · CRYIA Community*\n\n' +
     '👤 Nome: ' + nome.trim() + '\n' +
     '📧 Email: ' + email.trim() + '\n' +
     '🎯 Perfil: ' + (perfil || 'Não informado') + '\n\n' +
