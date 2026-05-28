@@ -970,7 +970,10 @@
       align-items: center;
       animation: galeria-scroll 70s linear infinite;
       will-change: transform;
+      cursor: grab;
+      user-select: none;
     }
+    .galeria-track.dragging { cursor: grabbing; }
     .galeria-marquee:hover .galeria-track {
       animation-play-state: paused;
     }
@@ -2735,6 +2738,99 @@ document.addEventListener('keydown', e => {
   }, { passive: true });
 
   document.addEventListener('touchend', () => { isDragging = false; });
+})();
+
+/* ── GALERIA AÇÃO EM MOVIMENTO · DRAG ─────────────────── */
+(function() {
+  const track = document.querySelector('.galeria-track');
+  if (!track) return;
+  const marquee = track.closest('.galeria-marquee');
+
+  // Desabilita CSS animation, anima via JS
+  track.style.animation = 'none';
+
+  let pos = 0;
+  let isDragging = false;
+  let isHovering = false;
+  let startX = 0;
+  let startPos = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  const SPEED = 1.0; // px por frame (≈ 60px/s, equivalente ao marquee 70s)
+
+  function halfWidth() { return track.scrollWidth / 2; }
+
+  function clamp(p) {
+    const hw = halfWidth();
+    if (p > 0) p -= hw;
+    if (p <= -hw) p += hw;
+    return p;
+  }
+
+  function animate() {
+    if (!isDragging && !isHovering) {
+      pos = clamp(pos - SPEED);
+      track.style.transform = `translateX(${pos}px)`;
+    }
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  // Hover preserva pause (substitui CSS animation-play-state)
+  if (marquee) {
+    marquee.addEventListener('mouseenter', () => { isHovering = true; });
+    marquee.addEventListener('mouseleave', () => { isHovering = false; });
+  }
+
+  // Mouse drag
+  track.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    isDragging = true;
+    startX = e.clientX;
+    startPos = pos;
+    lastX = e.clientX;
+    lastTime = performance.now();
+    track.classList.add('dragging');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    pos = clamp(startPos + (e.clientX - startX));
+    track.style.transform = `translateX(${pos}px)`;
+    lastX = e.clientX;
+    lastTime = performance.now();
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.classList.remove('dragging');
+  });
+
+  // Touch drag
+  track.addEventListener('touchstart', e => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    startPos = pos;
+    lastX = startX;
+    lastTime = performance.now();
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    pos = clamp(startPos + (e.touches[0].clientX - startX));
+    track.style.transform = `translateX(${pos}px)`;
+    lastX = e.touches[0].clientX;
+    lastTime = performance.now();
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => { isDragging = false; });
+
+  // Prevent click drag (segura imagens dentro do track)
+  track.querySelectorAll('img').forEach(img => {
+    img.addEventListener('dragstart', e => e.preventDefault());
+  });
 })();
 </script>
 
