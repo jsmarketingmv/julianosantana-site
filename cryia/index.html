@@ -111,219 +111,346 @@
     @media (max-width: 768px) { .nav-links { display: none; } }
 
     /* ══════════════════════════════════════════════════════
-       HERO
+       HERO — Editorial Tech (foto + grafismos + tipografia)
     ══════════════════════════════════════════════════════ */
 
     #hero {
       position: relative;
       width: 100%;
-      height: 100vh;
-      min-height: 600px;
-      overflow: hidden;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-    }
-
-    #hero .hero-foto {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      /* top = mostra o topo da imagem (céu acima da cabeça),
-         empurra o rosto para abaixo do navbar */
-      object-position: right top;
-      z-index: 0;
-    }
-
-    #hero .hero-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+      overflow: hidden;
+      isolation: isolate;
       background:
-        /* Camada 1: bloqueia qualquer imagem atrás do navbar */
-        linear-gradient(
-          to bottom,
-          rgba(8, 8, 18, 1.00) 0px,
-          rgba(8, 8, 18, 1.00) 78px,
-          rgba(8, 8, 18, 0.20) 180px,
-          rgba(8, 8, 18, 0.00) 280px
-        ),
-        /* Camada 2: escurece o lado esquerdo para leitura do texto */
-        linear-gradient(
-          to right,
-          rgba(8, 8, 18, 0.96) 0%,
-          rgba(8, 8, 18, 0.90) 30%,
-          rgba(8, 8, 18, 0.50) 55%,
-          rgba(8, 8, 18, 0.10) 75%,
-          rgba(8, 8, 18, 0.00) 100%
-        );
+        radial-gradient(ellipse 60% 50% at 18% 30%, rgba(124,58,237,0.20), transparent 60%),
+        radial-gradient(ellipse 50% 60% at 82% 70%, rgba(6,182,212,0.15), transparent 60%),
+        radial-gradient(ellipse 80% 50% at 50% 100%, rgba(34,197,94,0.05), transparent 65%),
+        linear-gradient(180deg, #07090F 0%, #0a0a16 100%);
+      padding: clamp(110px, 14vh, 150px) 0 clamp(60px, 8vh, 100px);
     }
 
-    #hero .hero-texto {
-      position: relative;
-      z-index: 2;
-      padding-top: clamp(100px, 12vh, 130px);
-      padding-bottom: clamp(60px, 8vh, 100px);
-      padding-left: clamp(60px, 9vw, 130px);
-      padding-right: 48px;
-      max-width: 700px;
-      width: 62%;
+    /* Camada 1 — grid de fundo sutil */
+    .hero-bg-grid {
+      position: absolute; inset: 0;
+      z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 30%, transparent 75%);
     }
+
+    /* Camada 2 — ondas SVG fluindo */
+    .hero-waves {
+      position: absolute; inset: 0;
+      z-index: 1; pointer-events: none;
+      width: 100%; height: 100%;
+      opacity: 0.5;
+    }
+    .hero-waves path { animation: wave-draw 8s ease-in-out infinite alternate; }
+    .hero-waves path:nth-child(2) { animation-delay: -2s; }
+    .hero-waves path:nth-child(3) { animation-delay: -4s; }
+    @keyframes wave-draw {
+      0%   { stroke-dashoffset: 0; opacity: 0.6; }
+      100% { stroke-dashoffset: 40; opacity: 1; }
+    }
+
+    /* Camada 3 — partículas constellation */
+    .hero-particles {
+      position: absolute; inset: 0;
+      z-index: 1; pointer-events: none;
+    }
+    .hero-particles span {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(255,255,255,0.5);
+      animation: particle-twinkle 3s ease-in-out infinite;
+    }
+    @keyframes particle-twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50%      { opacity: 0.9; transform: scale(1.2); }
+    }
+
+    /* Grid principal */
+    .hero-grid {
+      position: relative; z-index: 3;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 4vw, 3rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(2rem, 6vw, 5.5rem);
+      align-items: center;
+    }
+
+    /* ── LADO ESQUERDO: TEXTO ─────────────────────────── */
+    .hero-texto { max-width: 620px; }
 
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      background: rgba(34, 197, 94, 0.08);
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(34,197,94,0.4);
+      background: rgba(34,197,94,0.08);
       color: #22c55e;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 11px; font-weight: 600;
       letter-spacing: 0.15em;
       padding: 6px 16px;
       border-radius: 50px;
       margin-bottom: 28px;
       text-transform: uppercase;
+      backdrop-filter: blur(8px);
     }
-
     .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+      width: 6px; height: 6px; border-radius: 50%;
       background: #22c55e;
       animation: pisca 2s infinite;
       flex-shrink: 0;
     }
-
     @keyframes pisca {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      50%      { opacity: 0.3; }
     }
 
     #hero h1 {
-      font-size: clamp(42px, 5.0vw, 76px);
+      font-size: clamp(38px, 4.8vw, 72px);
       font-weight: 800;
-      line-height: 1.06;
-      margin: 0 0 22px 0;
-      letter-spacing: -0.03em;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin: 0 0 26px 0;
     }
-
-    #hero h1 .branco {
+    #hero h1 .linha {
       display: block;
-      color: #ffffff;
+      position: relative;
     }
-
-    #hero h1 .gradiente {
-      display: block;
-      background: linear-gradient(90deg, #22c55e, #7c3aed, #06b6d4);
+    #hero h1 .linha-1 { color: #fff; }
+    #hero h1 .linha-2 {
+      background: linear-gradient(90deg, #22c55e 0%, #7c3aed 50%, #06b6d4 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
     #hero p {
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255,255,255,0.65);
       font-size: 18px;
       line-height: 1.75;
       margin: 0 0 32px 0;
-      max-width: 520px;
+      max-width: 540px;
     }
 
     .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      display: flex; flex-wrap: wrap; gap: 8px;
       margin-bottom: 40px;
     }
-
     .tags span {
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 11px;
-      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.7);
+      font-size: 11px; font-weight: 600;
       letter-spacing: 0.08em;
       padding: 5px 13px;
       border-radius: 20px;
       white-space: nowrap;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
     }
 
     .ctas {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; gap: 12px; flex-wrap: wrap;
     }
-
     .btn-roxo {
       background: #7c3aed;
-      color: #ffffff;
-      padding: 13px 24px;
+      color: #fff;
+      padding: 14px 26px;
       border-radius: 50px;
-      font-weight: 600;
-      font-size: 14px;
+      font-weight: 600; font-size: 14px;
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
       display: inline-block;
       white-space: nowrap;
+      box-shadow: 0 10px 32px rgba(124,58,237,0.35);
     }
-
     .btn-roxo:hover {
       background: #6d28d9;
       transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(124,58,237,0.5);
     }
-
     .btn-outline {
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: rgba(255, 255, 255, 0.85);
-      padding: 13px 24px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.85);
+      padding: 14px 26px;
       border-radius: 50px;
-      font-weight: 500;
-      font-size: 14px;
+      font-weight: 500; font-size: 14px;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
       display: inline-block;
       white-space: nowrap;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
     }
-
     .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.4);
     }
 
-    @media (max-width: 768px) {
+    /* ── LADO DIREITO: FOTO + BADGES IA ───────────────── */
+    .hero-foto-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 3 / 4;
+      margin: 0 auto;
+    }
+
+    /* Glow ambient atrás da foto */
+    .foto-glow {
+      position: absolute;
+      inset: -18%;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124,58,237,0.55) 0%, transparent 55%),
+        radial-gradient(circle at 70% 70%, rgba(6,182,212,0.45) 0%, transparent 55%);
+      filter: blur(55px);
+      animation: glow-breathe 6s ease-in-out infinite;
+    }
+    @keyframes glow-breathe {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50%      { opacity: 1;    transform: scale(1.06); }
+    }
+
+    /* Linha gradiente diagonal decorativa */
+    .foto-deco-line {
+      position: absolute;
+      top: -28px; left: -28px;
+      width: 70px; height: 70px;
+      border-top: 2px solid rgba(124,58,237,0.6);
+      border-left: 2px solid rgba(124,58,237,0.6);
+      border-radius: 4px 0 0 0;
+      z-index: 4;
+    }
+    .foto-deco-line.br {
+      top: auto; left: auto;
+      bottom: -28px; right: -28px;
+      border-top: none; border-left: none;
+      border-bottom: 2px solid rgba(6,182,212,0.6);
+      border-right: 2px solid rgba(6,182,212,0.6);
+      border-radius: 0 0 4px 0;
+    }
+
+    /* A foto em si */
+    .foto-mask {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 40px 80px rgba(0,0,0,0.55),
+        0 0 60px rgba(124,58,237,0.18),
+        inset 0 0 80px rgba(0,0,0,0.3);
+      animation: foto-float 7s ease-in-out infinite;
+    }
+    .foto-mask img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    @keyframes foto-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* Badges de IA flutuantes */
+    .badge-ia {
+      position: absolute;
+      z-index: 5;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px 8px 8px;
+      background: rgba(15,18,35,0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      backdrop-filter: blur(14px);
+      font-size: 12px; font-weight: 600;
+      color: #fff;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.4);
+      white-space: nowrap;
+      animation: badge-float 5s ease-in-out infinite;
+    }
+    .badge-ia .ic {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .badge-claude { top: 8%;  left: -14%; animation-delay: 0s; }
+    .badge-claude .ic { background: linear-gradient(135deg, #D97757, #B85742); }
+    .badge-gpt    { top: 40%; right: -16%; animation-delay: -1.6s; }
+    .badge-gpt    .ic { background: linear-gradient(135deg, #10A37F, #0E8C6D); }
+    .badge-manus  { bottom: 14%; left: -10%; animation-delay: -3.2s; }
+    .badge-manus  .ic { background: linear-gradient(135deg, #7c3aed, #06b6d4); }
+
+    @keyframes badge-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+
+    /* ════════════════════════════════════════════════════
+       MOBILE — coluna única, foto em cima, texto embaixo
+    ════════════════════════════════════════════════════ */
+    @media (max-width: 980px) {
       #hero {
-        align-items: flex-end;
-        padding-bottom: 48px;
+        min-height: auto;
+        padding: 96px 0 56px;
       }
-      #hero .hero-foto {
-        object-position: 70% top;
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
       }
-      #hero .hero-overlay {
-        background:
-          linear-gradient(
-            to bottom,
-            rgba(8, 8, 18, 1.00) 0px,
-            rgba(8, 8, 18, 1.00) 64px,
-            rgba(8, 8, 18, 0.10) 160px,
-            rgba(8, 8, 18, 0.00) 240px
-          ),
-          linear-gradient(
-            to top,
-            rgba(8, 8, 18, 0.97) 0%,
-            rgba(8, 8, 18, 0.90) 40%,
-            rgba(8, 8, 18, 0.40) 70%,
-            rgba(8, 8, 18, 0.00) 100%
-          );
+      .hero-foto-wrapper {
+        order: -1;
+        max-width: 300px;
       }
-      #hero .hero-texto {
-        width: 100%;
+      .hero-texto {
         max-width: 100%;
-        padding: 80px 24px 40px;
-        text-align: left;
+        text-align: center;
+        margin: 0 auto;
       }
+      .hero-badge { margin-left: auto; margin-right: auto; }
+      #hero p { margin-left: auto; margin-right: auto; }
+      .tags { justify-content: center; }
+      .ctas { justify-content: center; }
+
+      .badge-ia { font-size: 10px; padding: 6px 12px 6px 6px; }
+      .badge-ia .ic { width: 18px; height: 18px; font-size: 9px; }
+      .badge-claude { top: 6%;  left: -8%; }
+      .badge-gpt    { top: 38%; right: -8%; }
+      .badge-manus  { bottom: 10%; left: -4%; }
+
+      .foto-deco-line {
+        top: -16px; left: -16px;
+        width: 44px; height: 44px;
+      }
+      .foto-deco-line.br {
+        top: auto; left: auto;
+        bottom: -16px; right: -16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      #hero { padding: 88px 0 48px; }
+      .hero-foto-wrapper { max-width: 260px; }
+      #hero h1 { font-size: clamp(32px, 9vw, 44px); }
+      #hero p  { font-size: 16px; }
+      .ctas { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin: 0 auto; }
+      .btn-roxo, .btn-outline { text-align: center; }
     }
 
     /* Dashboard main card */
@@ -1146,45 +1273,110 @@
 <!-- ══ 2. HERO ══════════════════════════════════════════ -->
 <section id="hero">
 
-  <img
-    class="hero-foto"
-    src="/assets/banner-hero-cryia.png"
-    alt="Juliano Sant'Ana"
-  />
+  <!-- Camada 1: grid pattern sutil -->
+  <div class="hero-bg-grid" aria-hidden="true"></div>
 
-  <div class="hero-overlay"></div>
+  <!-- Camada 2: ondas SVG fluindo (esquerda → direita) -->
+  <svg class="hero-waves" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="wave-grad-1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="#22c55e" stop-opacity="0"/>
+        <stop offset="35%" stop-color="#22c55e" stop-opacity="0.6"/>
+        <stop offset="65%" stop-color="#7c3aed" stop-opacity="0.7"/>
+        <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="wave-grad-2" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="#7c3aed" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#a855f7" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M -50 480 Q 360 320 720 460 T 1490 380" stroke="url(#wave-grad-1)" stroke-width="1.5" fill="none" stroke-dasharray="6 6"/>
+    <path d="M -50 560 Q 480 700 900 540 T 1490 600" stroke="url(#wave-grad-2)" stroke-width="1.2" fill="none" stroke-dasharray="4 8"/>
+    <path d="M -50 360 Q 300 200 720 320 T 1490 280" stroke="url(#wave-grad-1)" stroke-width="1" fill="none" stroke-dasharray="2 10" opacity="0.7"/>
+  </svg>
 
-  <div class="hero-texto">
+  <!-- Camada 3: partículas constellation -->
+  <div class="hero-particles" aria-hidden="true">
+    <span style="top:12%;  left:8%;   animation-delay:0s"></span>
+    <span style="top:22%;  left:38%;  animation-delay:.6s"></span>
+    <span style="top:18%;  left:62%;  animation-delay:1.2s"></span>
+    <span style="top:35%;  left:14%;  animation-delay:.3s"></span>
+    <span style="top:48%;  left:46%;  animation-delay:1.8s"></span>
+    <span style="top:58%;  left:74%;  animation-delay:.9s"></span>
+    <span style="top:68%;  left:22%;  animation-delay:2.1s"></span>
+    <span style="top:78%;  left:54%;  animation-delay:.4s"></span>
+    <span style="top:82%;  left:88%;  animation-delay:1.5s"></span>
+    <span style="top:42%;  left:90%;  animation-delay:.7s"></span>
+    <span style="top:14%;  left:84%;  animation-delay:2.4s"></span>
+    <span style="top:88%;  left:8%;   animation-delay:1.1s"></span>
+  </div>
 
-    <div class="hero-badge">
-      <span class="dot"></span>
-      ECOSSISTEMA CRIATIVO E ESTRATÉGICO
+  <!-- Grid principal -->
+  <div class="hero-grid">
+
+    <!-- LADO ESQUERDO: TEXTO -->
+    <div class="hero-texto animar">
+
+      <div class="hero-badge">
+        <span class="dot"></span>
+        ECOSSISTEMA CRIATIVO E ESTRATÉGICO
+      </div>
+
+      <h1>
+        <span class="linha linha-1">Onde negócios reais</span>
+        <span class="linha linha-2">encontram a IA.</span>
+      </h1>
+
+      <p>
+        Para quem quer crescer de verdade, sem precisar entender
+        tudo sobre tecnologia. A CRYIA conecta seu negócio à
+        inteligência artificial de forma humana, estratégica
+        e com resultado real.
+      </p>
+
+      <div class="tags">
+        <span>📢 MARKETING</span>
+        <span>💬 COMUNICAÇÃO</span>
+        <span>⚡ TECNOLOGIA &amp; IA</span>
+        <span>📚 EDUCAÇÃO</span>
+        <span>🎯 MENTORIAS</span>
+        <span>🚀 EMPREENDEDORISMO</span>
+      </div>
+
+      <div class="ctas">
+        <a href="#ecossistema" class="btn-roxo">Explorar o Ecossistema →</a>
+        <a href="#contato" class="btn-outline">Agendar conversa</a>
+      </div>
+
     </div>
 
-    <h1>
-      <span class="branco">Negócios reais.</span>
-      <span class="gradiente">Estratégia com IA.</span>
-    </h1>
+    <!-- LADO DIREITO: FOTO + BADGES IA -->
+    <div class="hero-foto-wrapper animar delay-2">
 
-    <p>
-      Para quem quer crescer de verdade, sem precisar entender
-      tudo sobre tecnologia. A CRYIA conecta seu negócio à
-      inteligência artificial de forma humana, estratégica
-      e com resultado real.
-    </p>
+      <div class="foto-glow" aria-hidden="true"></div>
 
-    <div class="tags">
-      <span>📢 MARKETING</span>
-      <span>💬 COMUNICAÇÃO</span>
-      <span>⚡ TECNOLOGIA &amp; IA</span>
-      <span>📚 EDUCAÇÃO</span>
-      <span>🎯 MENTORIAS</span>
-      <span>🚀 EMPREENDEDORISMO</span>
-    </div>
+      <span class="foto-deco-line" aria-hidden="true"></span>
+      <span class="foto-deco-line br" aria-hidden="true"></span>
 
-    <div class="ctas">
-      <a href="#ecossistema" class="btn-roxo">Explorar o Ecossistema →</a>
-      <a href="#contato" class="btn-outline">Agendar conversa</a>
+      <div class="foto-mask">
+        <img src="/assets/juliano-editorial.png" alt="Juliano Sant'Ana, fundador da CRYIA" />
+      </div>
+
+      <!-- Badges flutuantes das IAs principais -->
+      <div class="badge-ia badge-claude">
+        <span class="ic">✦</span>
+        <span>Claude</span>
+      </div>
+      <div class="badge-ia badge-gpt">
+        <span class="ic">◉</span>
+        <span>ChatGPT</span>
+      </div>
+      <div class="badge-ia badge-manus">
+        <span class="ic">M</span>
+        <span>Manus</span>
+      </div>
+
     </div>
 
   </div>
