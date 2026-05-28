@@ -179,12 +179,12 @@
     .hero-grid {
       position: relative; z-index: 3;
       width: 100%;
-      max-width: 1320px;
+      max-width: 1360px;
       margin: 0 auto;
       padding: 0 clamp(1.5rem, 4vw, 3rem);
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-      gap: clamp(2rem, 6vw, 5.5rem);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: clamp(2rem, 5vw, 4.5rem);
       align-items: center;
     }
 
@@ -296,12 +296,12 @@
       border-color: rgba(255,255,255,0.4);
     }
 
-    /* ── LADO DIREITO: FOTO + BADGES IA ───────────────── */
+    /* ── LADO DIREITO: FOTO LANDSCAPE ─────────────────── */
     .hero-foto-wrapper {
       position: relative;
       width: 100%;
-      max-width: 460px;
-      aspect-ratio: 3 / 4;
+      max-width: 640px;
+      aspect-ratio: 3 / 2;
       margin: 0 auto;
     }
 
@@ -358,48 +358,12 @@
     .foto-mask img {
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center center;
       display: block;
     }
     @keyframes foto-float {
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-10px); }
-    }
-
-    /* Badges de IA flutuantes */
-    .badge-ia {
-      position: absolute;
-      z-index: 5;
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 14px 8px 8px;
-      background: rgba(15,18,35,0.85);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      backdrop-filter: blur(14px);
-      font-size: 12px; font-weight: 600;
-      color: #fff;
-      box-shadow: 0 14px 36px rgba(0,0,0,0.4);
-      white-space: nowrap;
-      animation: badge-float 5s ease-in-out infinite;
-    }
-    .badge-ia .ic {
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 11px; font-weight: 800;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .badge-claude { top: 8%;  left: -14%; animation-delay: 0s; }
-    .badge-claude .ic { background: linear-gradient(135deg, #D97757, #B85742); }
-    .badge-gpt    { top: 40%; right: -16%; animation-delay: -1.6s; }
-    .badge-gpt    .ic { background: linear-gradient(135deg, #10A37F, #0E8C6D); }
-    .badge-manus  { bottom: 14%; left: -10%; animation-delay: -3.2s; }
-    .badge-manus  .ic { background: linear-gradient(135deg, #7c3aed, #06b6d4); }
-
-    @keyframes badge-float {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-14px); }
     }
 
     /* ════════════════════════════════════════════════════
@@ -416,7 +380,7 @@
       }
       .hero-foto-wrapper {
         order: -1;
-        max-width: 300px;
+        max-width: 520px;
       }
       .hero-texto {
         max-width: 100%;
@@ -427,12 +391,6 @@
       #hero p { margin-left: auto; margin-right: auto; }
       .tags { justify-content: center; }
       .ctas { justify-content: center; }
-
-      .badge-ia { font-size: 10px; padding: 6px 12px 6px 6px; }
-      .badge-ia .ic { width: 18px; height: 18px; font-size: 9px; }
-      .badge-claude { top: 6%;  left: -8%; }
-      .badge-gpt    { top: 38%; right: -8%; }
-      .badge-manus  { bottom: 10%; left: -4%; }
 
       .foto-deco-line {
         top: -16px; left: -16px;
@@ -446,11 +404,12 @@
 
     @media (max-width: 640px) {
       #hero { padding: 88px 0 48px; }
-      .hero-foto-wrapper { max-width: 260px; }
+      .hero-foto-wrapper { max-width: 100%; }
       #hero h1 { font-size: clamp(32px, 9vw, 44px); }
       #hero p  { font-size: 16px; }
       .ctas { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin: 0 auto; }
       .btn-roxo, .btn-outline { text-align: center; }
+      .foto-deco-line { display: none; }
     }
 
     /* Dashboard main card */
@@ -1351,7 +1310,7 @@
 
     </div>
 
-    <!-- LADO DIREITO: FOTO + BADGES IA -->
+    <!-- LADO DIREITO: FOTO HERO -->
     <div class="hero-foto-wrapper animar delay-2">
 
       <div class="foto-glow" aria-hidden="true"></div>
@@ -1360,21 +1319,7 @@
       <span class="foto-deco-line br" aria-hidden="true"></span>
 
       <div class="foto-mask">
-        <img src="/assets/juliano-editorial.png" alt="Juliano Sant'Ana, fundador da CRYIA" />
-      </div>
-
-      <!-- Badges flutuantes das IAs principais -->
-      <div class="badge-ia badge-claude">
-        <span class="ic">✦</span>
-        <span>Claude</span>
-      </div>
-      <div class="badge-ia badge-gpt">
-        <span class="ic">◉</span>
-        <span>ChatGPT</span>
-      </div>
-      <div class="badge-ia badge-manus">
-        <span class="ic">M</span>
-        <span>Manus</span>
+        <img src="/assets/juliano-hero-v2.png" alt="Juliano Sant'Ana — fundador da CRYIA, com IA aplicada em montanha ao pôr do sol" />
       </div>
 
     </div>
