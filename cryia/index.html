@@ -189,7 +189,7 @@
     }
 
     /* ── LADO ESQUERDO: TEXTO ─────────────────────────── */
-    .hero-texto { max-width: 620px; }
+    .hero-texto { max-width: 760px; }
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -216,15 +216,16 @@
     }
 
     #hero h1 {
-      font-size: clamp(38px, 4.8vw, 72px);
+      font-size: clamp(34px, 4.2vw, 60px);
       font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.035em;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
       margin: 0 0 26px 0;
     }
     #hero h1 .linha {
       display: block;
       position: relative;
+      white-space: nowrap;
     }
     #hero h1 .linha-1 { color: #fff; }
     #hero h1 .linha-2 {
@@ -447,7 +448,8 @@
     @media (max-width: 640px) {
       #hero { padding: 88px 0 48px; }
       .hero-foto-wrapper { max-width: 260px; }
-      #hero h1 { font-size: clamp(32px, 9vw, 44px); }
+      #hero h1 { font-size: clamp(30px, 8vw, 42px); }
+      #hero h1 .linha { white-space: normal; }  /* mobile: quebra natural */
       #hero p  { font-size: 16px; }
       .ctas { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin: 0 auto; }
       .btn-roxo, .btn-outline { text-align: center; }
@@ -1836,8 +1838,8 @@
         <ul class="ar-principios">
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">01</span><div><div class="ar-nome">Diagnóstico Honesto</div><div class="ar-txt">Sem enrolação. A verdade do cenário, mesmo que doa.</div></div></li>
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">02</span><div><div class="ar-nome">Atitude Proativa</div><div class="ar-txt">Ação imperfeita bate inércia elegante.</div></div></li>
-          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">03</span><div><div class="ar-nome">Resiliência na Execução</div><div class="ar-txt">Quem vai longe é quem continua.</div></div></li>
-          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">04</span><div><div class="ar-nome">Sem Promessas Vazias</div><div class="ar-txt">Vendo rotas. Com metas reais e resultados reais.</div></div></li>
+          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">03</span><div><div class="ar-nome">Resiliência na Execução</div><div class="ar-txt">Caminho longo se faz com passos constantes.</div></div></li>
+          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(129,140,248,0.7)">04</span><div><div class="ar-nome">Sem Promessas Vazias</div><div class="ar-txt">Mostro o caminho real. Sem prometer o que não posso entregar.</div></div></li>
         </ul>
       </div>
       <div class="ar-lado ar-lado-r">
@@ -1846,8 +1848,8 @@
         <div class="ar-lado-desc">O que o mundo devolve pra você</div>
         <ul class="ar-principios">
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">01</span><div><div class="ar-nome">Empatia com o Mercado</div><div class="ar-txt">Entender quem compra, por que compra. Isso muda tudo.</div></div></li>
-          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">02</span><div><div class="ar-nome">Confiança Construída</div><div class="ar-txt">Nasce de entrega consistente ao longo do tempo.</div></div></li>
-          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">03</span><div><div class="ar-nome">Fidelidade ao Resultado</div><div class="ar-txt">O compromisso é com o resultado que o cliente precisa.</div></div></li>
+          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">02</span><div><div class="ar-nome">Confiança Construída</div><div class="ar-txt">Não se promete. Se constrói. Entrega por entrega.</div></div></li>
+          <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">03</span><div><div class="ar-nome">Fidelidade ao Resultado</div><div class="ar-txt">O cliente não compra esforço. Compra resultado.</div></div></li>
           <li class="ar-item"><span class="ar-num" style="--item-cor:rgba(192,132,252,0.7)">04</span><div><div class="ar-nome">Verdade na Rota</div><div class="ar-txt">Resultado vem com ação, constância e verdade. Sempre foi assim.</div></div></li>
         </ul>
       </div>
@@ -2066,7 +2068,68 @@
 
 <div class="linha-grad"></div>
 
-<!-- ══ 6. CRYIA ACELERA · INCUBADORA (projetos em galeria) ═══ -->
+<!-- ══ 6. IA NO CRYIA — CANVAS + CARDS ══════════════════ -->
+<section class="ia-secao" id="ia">
+  <div class="ia-canvas-wrap" aria-hidden="true">
+    <canvas id="neural-canvas"></canvas>
+  </div>
+  <div class="ia-content">
+    <div class="container">
+      <div class="secao-titulo animar">
+        <div class="secao-tag">IA no CRYIA HUB</div>
+        <h2 class="secao-h2">Inteligência artificial<br><em>aplicada em projetos reais.</em></h2>
+        <p class="secao-desc" style="max-width:560px;margin:0 auto;">Não vendemos IA genérica. Cada tipo de IA que usamos serve a uma necessidade real de negócio.</p>
+      </div>
+      <div class="ia-grid">
+        <div class="ia-card animar delay-1">
+          <div class="ia-card-icon">🎯</div>
+          <div class="ia-card-tipo">Diagnóstico</div>
+          <div class="ia-card-nome">IA Estratégica</div>
+          <div class="ia-card-desc">Diagnóstico profundo do seu negócio. Identifica gargalos, oportunidades e a rota real de crescimento, sem enrolação.</div>
+        </div>
+        <div class="ia-card animar delay-2">
+          <div class="ia-card-icon">✍️</div>
+          <div class="ia-card-tipo">Conteúdo</div>
+          <div class="ia-card-nome">IA de Conteúdo</div>
+          <div class="ia-card-desc">Copy, posicionamento e narrativa de marca gerados com inteligência e revisados com estratégia humana. Escala sem perder autenticidade.</div>
+        </div>
+        <div class="ia-card animar delay-3">
+          <div class="ia-card-icon">🏔️</div>
+          <div class="ia-card-tipo">Turismo</div>
+          <div class="ia-card-nome">IA para Turismo</div>
+          <div class="ia-card-desc">Roteirização, atendimento ao viajante e personalização de experiências para o trade turístico. Do destino à venda.</div>
+        </div>
+        <div class="ia-card animar delay-1">
+          <div class="ia-card-icon">🚴</div>
+          <div class="ia-card-tipo">SaaS</div>
+          <div class="ia-card-nome">IA para SaaS</div>
+          <div class="ia-card-desc">Plataformas inteligentes que escalam sem equipe proporcional. O TRAKO Circuit é prova: tecnologia que o trade precisava e não tinha.</div>
+        </div>
+        <div class="ia-card animar delay-2">
+          <div class="ia-card-icon">🗺️</div>
+          <div class="ia-card-tipo">Diagnóstico</div>
+          <div class="ia-card-nome">Mapa da Verdade</div>
+          <div class="ia-card-desc">IA treinada na filosofia AÇÃO &amp; REAÇÃO. Respostas honestas sobre o seu negócio, sem enrolação, em segundos. Em produção.</div>
+        </div>
+        <div class="ia-card animar delay-3">
+          <div class="ia-card-icon">⚡</div>
+          <div class="ia-card-tipo">Produção Real</div>
+          <div class="ia-card-nome">IA Los Viajeros</div>
+          <div class="ia-card-desc">Tecnologia real, rodando agora, atendendo clientes reais no mercado de turismo premium. Não é promessa. É entrega.</div>
+        </div>
+      </div>
+      <!-- CTA IA -->
+      <div class="cta-ia animar delay-2">
+        <p>Pronto para ter IA no seu negócio?</p>
+        <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20conversar%20sobre%20IA%20no%20meu%20neg%C3%B3cio." target="_blank" class="btn-primario">📱 Falar agora →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="linha-grad"></div>
+
+<!-- ══ 7. CRYIA ACELERA · INCUBADORA (projetos em galeria) ═══ -->
 <section class="carousel-secao" id="acelera">
   <div class="carousel-header container animar">
     <div class="acelera-badge">
@@ -2233,67 +2296,6 @@
       <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20conversar%20sobre%20o%20CRYIA%20Acelera%20e%20meu%20projeto." target="_blank" class="btn-acelera">
         🚀 Quero acelerar meu projeto
       </a>
-    </div>
-  </div>
-</section>
-
-<div class="linha-grad"></div>
-
-<!-- ══ 7. IA NO CRYIA — CANVAS + CARDS ══════════════════ -->
-<section class="ia-secao" id="ia">
-  <div class="ia-canvas-wrap" aria-hidden="true">
-    <canvas id="neural-canvas"></canvas>
-  </div>
-  <div class="ia-content">
-    <div class="container">
-      <div class="secao-titulo animar">
-        <div class="secao-tag">IA no CRYIA HUB</div>
-        <h2 class="secao-h2">Inteligência artificial<br><em>aplicada em projetos reais.</em></h2>
-        <p class="secao-desc" style="max-width:560px;margin:0 auto;">Não vendemos IA genérica. Cada tipo de IA que usamos serve a uma necessidade real de negócio.</p>
-      </div>
-      <div class="ia-grid">
-        <div class="ia-card animar delay-1">
-          <div class="ia-card-icon">🎯</div>
-          <div class="ia-card-tipo">Diagnóstico</div>
-          <div class="ia-card-nome">IA Estratégica</div>
-          <div class="ia-card-desc">Diagnóstico profundo do seu negócio. Identifica gargalos, oportunidades e a rota real de crescimento, sem enrolação.</div>
-        </div>
-        <div class="ia-card animar delay-2">
-          <div class="ia-card-icon">✍️</div>
-          <div class="ia-card-tipo">Conteúdo</div>
-          <div class="ia-card-nome">IA de Conteúdo</div>
-          <div class="ia-card-desc">Copy, posicionamento e narrativa de marca gerados com inteligência e revisados com estratégia humana. Escala sem perder autenticidade.</div>
-        </div>
-        <div class="ia-card animar delay-3">
-          <div class="ia-card-icon">🏔️</div>
-          <div class="ia-card-tipo">Turismo</div>
-          <div class="ia-card-nome">IA para Turismo</div>
-          <div class="ia-card-desc">Roteirização, atendimento ao viajante e personalização de experiências para o trade turístico. Do destino à venda.</div>
-        </div>
-        <div class="ia-card animar delay-1">
-          <div class="ia-card-icon">🚴</div>
-          <div class="ia-card-tipo">SaaS</div>
-          <div class="ia-card-nome">IA para SaaS</div>
-          <div class="ia-card-desc">Plataformas inteligentes que escalam sem equipe proporcional. O TRAKO Circuit é prova: tecnologia que o trade precisava e não tinha.</div>
-        </div>
-        <div class="ia-card animar delay-2">
-          <div class="ia-card-icon">🗺️</div>
-          <div class="ia-card-tipo">Diagnóstico</div>
-          <div class="ia-card-nome">Mapa da Verdade</div>
-          <div class="ia-card-desc">IA treinada na filosofia AÇÃO &amp; REAÇÃO. Respostas honestas sobre o seu negócio, sem enrolação, em segundos. Em produção.</div>
-        </div>
-        <div class="ia-card animar delay-3">
-          <div class="ia-card-icon">⚡</div>
-          <div class="ia-card-tipo">Produção Real</div>
-          <div class="ia-card-nome">IA Los Viajeros</div>
-          <div class="ia-card-desc">Tecnologia real, rodando agora, atendendo clientes reais no mercado de turismo premium. Não é promessa. É entrega.</div>
-        </div>
-      </div>
-      <!-- CTA IA -->
-      <div class="cta-ia animar delay-2">
-        <p>Pronto para ter IA no seu negócio?</p>
-        <a href="https://wa.me/5547984079480?text=Ol%C3%A1%20Juliano!%20Quero%20conversar%20sobre%20IA%20no%20meu%20neg%C3%B3cio." target="_blank" class="btn-primario">📱 Falar agora →</a>
-      </div>
     </div>
   </div>
 </section>
