@@ -416,8 +416,7 @@
         gap: 2.5rem;
       }
       .hero-foto-wrapper {
-        order: -1;
-        max-width: 300px;
+        max-width: 360px;
       }
       .hero-texto {
         max-width: 100%;
@@ -2542,12 +2541,21 @@ const io = new IntersectionObserver(entries => {
 document.querySelectorAll('.animar').forEach(el => io.observe(el));
 
 /* ── AÇÃO & REAÇÃO — split animation trigger ─────────── */
-const arSection = document.querySelector('.ar-manifesto');
-if (arSection) {
+/* Observa o .ar-display (display: AÇÃO & REAÇÃO) com threshold baixo
+   para garantir que dispara assim que o título entra na viewport,
+   inclusive em mobile onde a section toda é muito alta. A classe
+   .ar-triggered é setada no parent .ar-manifesto (CSS espera lá). */
+const arDisplay = document.querySelector('.ar-manifesto .ar-display');
+if (arDisplay) {
   const arObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('ar-triggered'); arObs.unobserve(e.target); } });
-  }, { threshold: 0.2 });
-  arObs.observe(arSection);
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.closest('.ar-manifesto').classList.add('ar-triggered');
+        arObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  arObs.observe(arDisplay);
 }
 
 /* ── NEURAL CANVAS ──────────────────────────────────── */
