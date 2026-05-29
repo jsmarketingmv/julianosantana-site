@@ -1026,6 +1026,150 @@
       .galeria-card.sz-short { height: 170px; }
     }
 
+    /* ══════════════════════════════════════════════════════
+       RITUAL · Como a CRYIA acontece
+    ══════════════════════════════════════════════════════ */
+    .ritual-secao {
+      position: relative;
+      padding: clamp(5rem, 10vw, 8rem) 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 30% 0%, rgba(34,197,94,0.08), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 70% 100%, rgba(251,146,60,0.08), transparent 60%),
+        rgba(255,255,255,0.005);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ritual-header { text-align: center; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .ritual-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.2rem;
+    }
+    .ritual-tag .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--green), var(--violet));
+      animation: pisca 2s infinite;
+    }
+    .ritual-h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+      margin: 0 0 1rem 0;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.55) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ritual-sub {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .ritual-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      position: relative;
+    }
+    /* Linha conectora sutil */
+    .ritual-grid::before {
+      content: '';
+      position: absolute;
+      top: 96px;
+      left: 12%; right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent,
+        rgba(34,197,94,0.35) 15%,
+        rgba(99,102,241,0.35) 38%,
+        rgba(168,85,247,0.35) 62%,
+        rgba(251,146,60,0.35) 85%,
+        transparent);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .ritual-card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.8rem 1.5rem;
+      transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
+    }
+    .ritual-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--ritual-cor, rgba(124,58,237,0.4));
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px var(--ritual-glow, rgba(124,58,237,0.15));
+    }
+    .ritual-card:nth-child(1) { --ritual-cor: rgba(34,197,94,0.5);  --ritual-glow: rgba(34,197,94,0.2);  }
+    .ritual-card:nth-child(2) { --ritual-cor: rgba(99,102,241,0.5); --ritual-glow: rgba(99,102,241,0.2); }
+    .ritual-card:nth-child(3) { --ritual-cor: rgba(168,85,247,0.5); --ritual-glow: rgba(168,85,247,0.2); }
+    .ritual-card:nth-child(4) { --ritual-cor: rgba(251,146,60,0.5); --ritual-glow: rgba(251,146,60,0.2); }
+
+    .ritual-icon {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: grid; place-items: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.4rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .ritual-card:hover .ritual-icon {
+      background: var(--ritual-glow);
+      border-color: var(--ritual-cor);
+    }
+    .ritual-tempo {
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: var(--ritual-cor);
+      margin-bottom: 0.5rem;
+    }
+    .ritual-nome {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.7rem;
+    }
+    .ritual-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .ritual-cta { text-align: center; margin-top: clamp(2.5rem, 5vw, 4rem); }
+    .btn-ritual {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 32px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(124,58,237,0.15));
+      border: 1px solid rgba(124,58,237,0.35);
+      color: #fff;
+      font-size: 0.9rem; font-weight: 700;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .btn-ritual:hover {
+      background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(124,58,237,0.25));
+      border-color: rgba(168,85,247,0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(124,58,237,0.25);
+    }
+    @media (max-width: 920px) {
+      .ritual-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .ritual-grid::before { display: none; }
+    }
+    @media (max-width: 540px) {
+      .ritual-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── O QUE É O CRYIA HUB ────────────────────────────── */
     .oqe-secao { background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .oqe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -2065,6 +2209,57 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="linha-grad"></div>
+
+<!-- ══ 5B. RITUAL · COMO A CRYIA ACONTECE ═══════════════ -->
+<section class="ritual-secao" id="ritual">
+  <div class="container">
+
+    <div class="ritual-header animar">
+      <div class="ritual-tag">
+        <span class="dot"></span>
+        O RITMO DO MOVIMENTO
+      </div>
+      <h2 class="ritual-h2">Como a CRYIA acontece</h2>
+      <p class="ritual-sub">A jornada tem ritmo. E ritmo cria movimento.</p>
+    </div>
+
+    <div class="ritual-grid">
+      <div class="ritual-card animar delay-1">
+        <div class="ritual-icon">📅</div>
+        <div class="ritual-tempo">SEMANAL</div>
+        <div class="ritual-nome">Check-in da rota</div>
+        <p class="ritual-desc">Onde estou? O que andei? O que falta? A IA pergunta, você responde, o caminho ajusta.</p>
+      </div>
+      <div class="ritual-card animar delay-2">
+        <div class="ritual-icon">🧭</div>
+        <div class="ritual-tempo">MENSAL</div>
+        <div class="ritual-nome">Revisão Ação &amp; Reação</div>
+        <p class="ritual-desc">O que você plantou? O que colheu? A filosofia vira ferramenta de balanço do mês.</p>
+      </div>
+      <div class="ritual-card animar delay-3">
+        <div class="ritual-icon">🏔️</div>
+        <div class="ritual-tempo">TRIMESTRAL</div>
+        <div class="ritual-nome">Travessia</div>
+        <p class="ritual-desc">Diagnóstico profundo. Quatro vezes no ano, você revisa o terreno e refaz a rota.</p>
+      </div>
+      <div class="ritual-card animar delay-4">
+        <div class="ritual-icon">⛰️</div>
+        <div class="ritual-tempo">ANUAL</div>
+        <div class="ritual-nome">Grande Rota</div>
+        <p class="ritual-desc">Próximos doze meses. A direção. O destino. A coragem de escolher pra onde subir.</p>
+      </div>
+    </div>
+
+    <div class="ritual-cta animar delay-5">
+      <a href="https://mapadaverdade.com.br/juliano" target="_blank" rel="noopener" class="btn-ritual">
+        Conhecer o método na prática →
+      </a>
+    </div>
+
   </div>
 </section>
 
