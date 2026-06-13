@@ -688,6 +688,11 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
       </div>
       <div id="clips-list"></div>
     </div>
+    <div style="text-align:center;padding:6px 0 4px">
+      <button onclick="deleteCurrentSession()" style="background:none;border:1px solid rgba(239,68,68,.25);color:rgba(252,165,165,.7);font-size:12px;padding:8px 22px;border-radius:20px;cursor:pointer">
+        🗑 Apagar este registro
+      </button>
+    </div>
   </div>
 </div>
 
@@ -856,6 +861,7 @@ const state = {
   breathTotal: 4,
   breathTimeout: null,
   prevScreen: null,
+  currentReportIdx: null,
 };
 
 const THRESHOLDS = { alta: 0.018, media: 0.030, baixa: 0.050 };
@@ -1068,6 +1074,7 @@ function endSleepSession() {
   clearActiveSession();
 
   state.prevScreen = 'home';
+  state.currentReportIdx = 0;
   cleanup();
   renderReport(session);
   renderHomeLastNight();
@@ -1857,12 +1864,14 @@ function renderHistory() {
       </div>
       <div class="hist-info"><div class="hist-date">${formatDate(s.startTime)}</div><div class="hist-dur">${formatTime(s.startTime)} — ${formatTime(s.endTime)} · ${formatDuration(s.endTime-s.startTime)}</div></div>
       ${(s.clips||[]).length?`<span class="hist-clips-badge">🎙️ ${s.clips.length}</span>`:''}
+      <button onclick="event.stopPropagation();deleteSession(${i})" style="width:32px;height:32px;border-radius:50%;background:none;border:1px solid rgba(239,68,68,.2);color:rgba(252,165,165,.55);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;margin-left:4px" title="Apagar">🗑</button>
     </div>`;
   }).join('');
 }
 
 function openHistorySession(idx) {
   state.prevScreen = 'history';
+  state.currentReportIdx = idx;
   renderReport(state.sessions[idx]);
   showScreen('report');
 }
@@ -2118,6 +2127,33 @@ function clearHistory() {
   const exitBtn = document.getElementById('demo-exit-btn');
   if (loadBtn) loadBtn.style.display = 'inline-block';
   if (exitBtn) exitBtn.style.display = 'none';
+}
+
+// ══════════════════════════════════════════════
+//  DELETE SESSION
+// ══════════════════════════════════════════════
+function deleteSession(idx) {
+  if (!confirm('Apagar este registro de sono?')) return;
+  state.sessions.splice(idx, 1);
+  saveSessions();
+  renderHistory();
+  renderHomeLastNight();
+  renderDebt();
+  renderWeek();
+}
+
+function deleteCurrentSession() {
+  if (state.currentReportIdx == null) return;
+  if (!confirm('Apagar este registro de sono?')) return;
+  const idx = state.currentReportIdx;
+  state.sessions.splice(idx, 1);
+  saveSessions();
+  renderHistory();
+  renderHomeLastNight();
+  renderDebt();
+  renderWeek();
+  state.currentReportIdx = null;
+  navBack();
 }
 
 // ══════════════════════════════════════════════
