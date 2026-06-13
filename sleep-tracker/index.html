@@ -213,6 +213,60 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
 .empty-state svg{width:60px;height:60px;stroke:var(--muted);margin-bottom:14px;opacity:.5}
 .empty-state h3{color:var(--text);font-size:16px;margin-bottom:6px}
 .empty-state p{color:var(--muted);font-size:13px;line-height:1.5}
+
+/* spiritual card */
+.spirit-card{background:linear-gradient(135deg,#0d0820,#160a35,#0e1830);border:1px solid rgba(139,92,246,.3)}
+.spirit-icon{font-size:28px;margin-bottom:8px}
+.spirit-title{font-size:15px;font-weight:700;color:#c084fc;margin-bottom:6px}
+.spirit-text{font-size:13px;color:rgba(228,234,255,.75);line-height:1.6}
+.spirit-practice{margin-top:10px;padding:10px 12px;background:rgba(139,92,246,.08);border-radius:10px;border-left:2px solid #8b5cf6;font-size:12px;color:#a78bfa;line-height:1.5;font-style:italic}
+.spirit-dots{display:flex;gap:5px;justify-content:center;margin-top:12px}
+.spirit-dot{width:5px;height:5px;border-radius:50%;background:var(--border)}
+.spirit-dot.active{background:#8b5cf6}
+.spirit-nav{display:flex;justify-content:space-between;margin-top:8px}
+.spirit-nav-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:5px 14px;border-radius:20px;font-size:11px;cursor:pointer}
+
+/* trends card */
+.trend-metric{margin-bottom:14px}
+.trend-label-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.trend-metric-name{font-size:13px;font-weight:600;color:var(--text)}
+.trend-val{font-size:13px;font-weight:700}
+.trend-change{font-size:11px;padding:2px 7px;border-radius:10px}
+.trend-up{color:#22c55e;background:rgba(34,197,94,.1)}
+.trend-down{color:#f59e0b;background:rgba(245,158,11,.1)}
+.trend-bars{display:flex;gap:5px;align-items:flex-end;height:40px}
+.trend-bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.trend-bar{width:100%;border-radius:3px 3px 0 0;min-height:2px;transition:height .5s ease}
+.trend-day-lbl{font-size:8px;color:var(--muted)}
+
+/* temp card */
+.temp-card{background:linear-gradient(135deg,#0a1a2e,#0e1830);border:1px solid rgba(6,182,212,.25)}
+.temp-big{font-size:36px;font-weight:200;color:var(--text);letter-spacing:-1px}
+.temp-ideal{font-size:11px;padding:3px 8px;border-radius:10px;margin-left:8px;vertical-align:middle}
+.temp-ok{background:rgba(34,197,94,.15);color:#4ade80}
+.temp-warn{background:rgba(245,158,11,.15);color:#fbbf24}
+.temp-forecast{display:flex;gap:6px;margin-top:10px;overflow-x:auto;padding-bottom:2px}
+.temp-day{flex-shrink:0;text-align:center;background:rgba(255,255,255,.04);border-radius:8px;padding:6px 8px;min-width:44px}
+.temp-day-name{font-size:9px;color:var(--muted);text-transform:uppercase}
+.temp-day-val{font-size:13px;font-weight:700;margin-top:2px}
+.temp-day-sleep{font-size:8px;margin-top:1px}
+
+/* diagnosis */
+.diag-section{margin-top:10px;padding:12px;background:rgba(255,255,255,.03);border-radius:12px;border:1px solid var(--border)}
+.diag-title{font-size:11px;font-weight:700;color:var(--accent2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.diag-item{display:flex;gap:8px;font-size:12px;color:var(--muted);margin-bottom:5px;line-height:1.4}
+.diag-item:last-child{margin-bottom:0}
+.diag-dot{width:4px;height:4px;border-radius:50%;background:var(--accent2);flex-shrink:0;margin-top:5px}
+.prescription-day{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid rgba(30,46,85,.3)}
+.prescription-day:last-child{border:none}
+.presc-day-name{font-size:12px;font-weight:700;color:var(--text);width:36px;flex-shrink:0}
+.presc-day-text{font-size:12px;color:var(--muted);line-height:1.4}
+
+/* spiritual morning message */
+.morning-spirit{background:linear-gradient(135deg,#0d0820,#160a35);border:1px solid rgba(139,92,246,.25);border-radius:16px;padding:16px;margin-bottom:14px;text-align:center}
+.morning-spirit-icon{font-size:32px;margin-bottom:8px}
+.morning-spirit-title{font-size:14px;font-weight:700;color:#c084fc;margin-bottom:6px}
+.morning-spirit-text{font-size:13px;color:rgba(228,234,255,.7);line-height:1.6}
 </style>
 </head>
 <body>
@@ -264,6 +318,7 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
         <span style="font-size:11px;color:var(--muted)">Potencial de energia</span>
         <span style="font-size:11px;color:#a78bfa;font-weight:700" id="energy-pct">—</span>
       </div>
+      <div id="debt-extra"></div>
     </div>
 
     <!-- Last night -->
@@ -305,6 +360,37 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
     <div class="card" id="week-card" style="display:none">
       <div class="card-title">Semana</div>
       <div class="week-row" id="week-row"></div>
+    </div>
+
+    <!-- Spiritual insight -->
+    <div class="card spirit-card" id="spirit-card">
+      <div class="card-title" style="color:#9d5cf0;border-bottom:1px solid rgba(139,92,246,.15);padding-bottom:10px;margin-bottom:12px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+        Insight Espiritual · <span id="spirit-date-label" style="font-weight:400"></span>
+      </div>
+      <div class="spirit-icon" id="spirit-icon">✨</div>
+      <div class="spirit-title" id="spirit-title">—</div>
+      <div class="spirit-text" id="spirit-text">—</div>
+      <div class="spirit-practice" id="spirit-practice" style="display:none"></div>
+      <div class="spirit-dots" id="spirit-dots"></div>
+      <div class="spirit-nav">
+        <button class="spirit-nav-btn" onclick="changeInsight(-1)">← Anterior</button>
+        <button class="spirit-nav-btn" onclick="changeInsight(1)">Próximo →</button>
+      </div>
+    </div>
+
+    <!-- Temperature -->
+    <div class="card temp-card" id="temp-card" style="display:none">
+      <div class="card-title" style="color:#06b6d4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+        Temperatura para o sono
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span class="temp-big" id="temp-now">—</span>
+        <span class="temp-ideal" id="temp-badge">—</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px" id="temp-advice">—</div>
+      <div class="temp-forecast" id="temp-forecast"></div>
     </div>
 
     <!-- Settings before sleep -->
@@ -514,6 +600,18 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
         </div>
       </div>
     </div>
+    <!-- Spiritual morning message (injected by JS) -->
+    <div id="morning-spirit-wrap"></div>
+
+    <!-- Trends vs previous week -->
+    <div class="card" id="trends-card" style="display:none">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Tendências
+      </div>
+      <div id="trends-content"></div>
+    </div>
+
     <div class="card" id="clips-card">
       <div class="card-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
@@ -587,11 +685,15 @@ const state = {
 const THRESHOLDS = { alta: 0.018, media: 0.030, baixa: 0.050 };
 
 const SOUNDS_DEF = [
-  { id: 'rain',    label: 'Chuva',      emoji: '🌧️', type: 'rain' },
-  { id: 'fire',    label: 'Fogueira',   emoji: '🔥', type: 'fire' },
-  { id: 'ocean',   label: 'Oceano',     emoji: '🌊', type: 'ocean' },
-  { id: 'wind',    label: 'Vento',      emoji: '💨', type: 'wind' },
-  { id: 'white',   label: 'Ruído branco',emoji: '📻', type: 'white' },
+  { id: 'rain',    label: 'Chuva',        emoji: '🌧️', type: 'rain',    group: 'nature' },
+  { id: 'fire',    label: 'Fogueira',     emoji: '🔥', type: 'fire',    group: 'nature' },
+  { id: 'ocean',   label: 'Oceano',       emoji: '🌊', type: 'ocean',   group: 'nature' },
+  { id: 'wind',    label: 'Vento',        emoji: '💨', type: 'wind',    group: 'nature' },
+  { id: 'white',   label: 'Ruído branco', emoji: '📻', type: 'white',   group: 'nature' },
+  { id: 'om',      label: 'OM · 136 Hz',  emoji: '🕉️', type: 'om',     group: 'spirit' },
+  { id: 'hz432',   label: '432 Hz Cura',  emoji: '✨', type: 'hz432',   group: 'spirit' },
+  { id: 'theta',   label: 'Ondas Theta',  emoji: '🌀', type: 'theta',   group: 'spirit' },
+  { id: 'bowl',    label: 'Tigela Tibetana',emoji:'🔔', type: 'bowl',   group: 'spirit' },
 ];
 
 // ══════════════════════════════════════════════
@@ -606,6 +708,8 @@ function init() {
   renderHistory();
   renderWeek();
   renderSoundList();
+  renderSpiritualCard();
+  fetchTemperature();
   hideDemoBtn();
 }
 
@@ -1013,6 +1117,63 @@ function createSoundNode(type) {
     lfo.connect(lfoGain); lfoGain.connect(gain.gain);
     src.connect(bp); bp.connect(gain);
     lfo.start();
+  } else if (type === 'om') {
+    // OM tone — 136.1 Hz (Earth's resonance), with harmonics
+    src.disconnect && src.disconnect();
+    const osc1 = ctx.createOscillator(); osc1.type='sine'; osc1.frequency.value=136.1;
+    const osc2 = ctx.createOscillator(); osc2.type='sine'; osc2.frequency.value=272.2;
+    const osc3 = ctx.createOscillator(); osc3.type='sine'; osc3.frequency.value=408.3;
+    const g1=ctx.createGain();g1.gain.value=0.5;
+    const g2=ctx.createGain();g2.gain.value=0.25;
+    const g3=ctx.createGain();g3.gain.value=0.12;
+    lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.05;
+    lfoGain=ctx.createGain();lfoGain.gain.value=0.08;
+    lfo.connect(lfoGain);lfoGain.connect(masterGain.gain);
+    osc1.connect(g1);osc2.connect(g2);osc3.connect(g3);
+    g1.connect(gain);g2.connect(gain);g3.connect(gain);
+    osc1.start();osc2.start();osc3.start();lfo.start();
+    return { src:osc1, extraOsc:[osc2,osc3], gain, masterGain, lfo, lfoGain, type };
+  } else if (type === 'hz432') {
+    // 432 Hz healing tone with gentle harmonics
+    src.disconnect && src.disconnect();
+    const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=432;
+    const osc2=ctx.createOscillator();osc2.type='sine';osc2.frequency.value=864;
+    const g2=ctx.createGain();g2.gain.value=0.15;
+    lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.08;
+    lfoGain=ctx.createGain();lfoGain.gain.value=0.06;
+    lfo.connect(lfoGain);lfoGain.connect(gain.gain);
+    osc.connect(gain);osc2.connect(g2);g2.connect(gain);
+    osc.start();osc2.start();lfo.start();
+    return { src:osc, extraOsc:[osc2], gain, masterGain, lfo, lfoGain, type };
+  } else if (type === 'theta') {
+    // Theta binaural beat: 200Hz left, 206Hz right = 6Hz perceived beat
+    src.disconnect && src.disconnect();
+    const splitter=ctx.createChannelSplitter(2);
+    const merger=ctx.createChannelMerger(2);
+    const oscL=ctx.createOscillator();oscL.type='sine';oscL.frequency.value=200;
+    const oscR=ctx.createOscillator();oscR.type='sine';oscR.frequency.value=206;
+    const gL=ctx.createGain();gL.gain.value=0.3;
+    const gR=ctx.createGain();gR.gain.value=0.3;
+    oscL.connect(gL);oscR.connect(gR);
+    gL.connect(merger,0,0);gR.connect(merger,0,1);
+    merger.connect(masterGain);
+    oscL.start();oscR.start();
+    return { src:oscL, extraOsc:[oscR], gain, masterGain, lfo:null, lfoGain:null, type };
+  } else if (type === 'bowl') {
+    // Tibetan singing bowl: exponential decay sine at ~196Hz with harmonics
+    src.disconnect && src.disconnect();
+    const striker = () => {
+      const t=ctx.currentTime;
+      const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=196;
+      const osc2=ctx.createOscillator();osc2.type='sine';osc2.frequency.value=588;
+      const g=ctx.createGain();g.gain.setValueAtTime(0.4,t);g.gain.exponentialRampToValueAtTime(0.001,t+6);
+      const g2=ctx.createGain();g2.gain.setValueAtTime(0.15,t);g2.gain.exponentialRampToValueAtTime(0.001,t+4);
+      osc.connect(g);osc2.connect(g2);g.connect(masterGain);g2.connect(masterGain);
+      osc.start(t);osc.stop(t+6.5);osc2.start(t);osc2.stop(t+4.5);
+    };
+    striker();
+    const interval = setInterval(() => { if(state.sounds['bowl']) striker(); else clearInterval(interval); }, 8000);
+    return { src:{stop:()=>{}}, gain, masterGain, lfo:null, lfoGain:null, type, interval };
   } else {
     // white noise — direct connect
     src.connect(gain);
@@ -1026,14 +1187,21 @@ function createSoundNode(type) {
 }
 
 function renderSoundList() {
-  document.getElementById('sound-list').innerHTML = SOUNDS_DEF.map(s => `
+  const nature = SOUNDS_DEF.filter(s=>s.group==='nature');
+  const spirit = SOUNDS_DEF.filter(s=>s.group==='spirit');
+  const makeRow = s => `
     <div class="sound-item">
       <div class="sound-icon" id="sicon-${s.id}" style="background:rgba(14,24,48,.8)" onclick="toggleSound('${s.id}')">${s.emoji}</div>
       <span class="sound-name">${s.label}</span>
       <input type="range" class="sound-vol" id="svol-${s.id}" min="0" max="100" value="60" disabled
         oninput="setSoundVolume('${s.id}', this.value)">
     </div>
-  `).join('');
+  `;
+  document.getElementById('sound-list').innerHTML =
+    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px">Natureza</div>` +
+    nature.map(makeRow).join('') +
+    `<div style="font-size:10px;color:#9d5cf0;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">✨ Espiritual / Binaural</div>` +
+    spirit.map(makeRow).join('');
 }
 
 function toggleSound(id) {
@@ -1048,6 +1216,8 @@ function toggleSound(id) {
     setTimeout(() => {
       try { node.src.stop(); } catch {}
       try { if (node.lfo) node.lfo.stop(); } catch {}
+      try { (node.extraOsc||[]).forEach(o=>o.stop()); } catch {}
+      try { if (node.interval) clearInterval(node.interval); } catch {}
     }, 600);
     delete state.sounds[id];
     document.getElementById(`sicon-${id}`).classList.remove('on');
@@ -1074,9 +1244,11 @@ function setSoundVolume(id, val) {
 }
 
 function stopAllSounds() {
-  for (const [id, node] of Object.entries(state.sounds)) {
+  for (const node of Object.values(state.sounds)) {
     try { node.src.stop(); } catch {}
     try { if (node.lfo) node.lfo.stop(); } catch {}
+    try { (node.extraOsc||[]).forEach(o=>o.stop()); } catch {}
+    try { if (node.interval) clearInterval(node.interval); } catch {}
   }
   state.sounds = {};
   if (state.soundTimerTimeout) clearTimeout(state.soundTimerTimeout);
@@ -1211,18 +1383,37 @@ function renderDebt() {
   const last7 = state.sessions.slice(0, 7);
   const totalDebt = last7.reduce((acc, s) => acc + Math.max(0, TARGET - (s.endTime - s.startTime)), 0);
   const debtHrs = (totalDebt / 3600000).toFixed(1);
-
   const avgScore = Math.round(last7.reduce((a,s)=>a+s.score,0) / last7.length);
-  const energy = Math.min(100, Math.round(avgScore * 0.95 + Math.random() * 5));
+  const energy = Math.min(100, Math.max(30, Math.round(100 - (totalDebt / 3600000) * 8)));
+  const avgDur = last7.reduce((a,s)=>a+(s.endTime-s.startTime),0) / last7.length;
 
   document.getElementById('debt-hours').textContent = debtHrs;
   document.getElementById('debt-sub').textContent = `nos últimos ${last7.length} dias`;
-  document.getElementById('debt-label').textContent = totalDebt === 0 ? '✅ Sem débito — excelente consistência!' :
-    debtHrs < 2 ? 'Leve déficit — quase perfeito.' :
-    debtHrs < 5 ? 'Déficit moderado — tente dormir mais cedo.' :
-    'Déficit alto — priorize uma noite mais longa.';
+
+  // Diagnosis text
+  let diagnosis = '';
+  if (totalDebt === 0) diagnosis = '✅ Sem débito acumulado. Sua consistência está excelente!';
+  else if (parseFloat(debtHrs) < 2) diagnosis = `😌 Déficit leve (${debtHrs}h). Uma noite de ${Math.ceil(8.5)}h elimina o débito.`;
+  else if (parseFloat(debtHrs) < 5) diagnosis = `⚠️ Déficit moderado (${debtHrs}h). Impacto: humor instável, concentração reduzida, imunidade mais baixa.`;
+  else diagnosis = `🚨 Déficit alto (${debtHrs}h). Efeitos: fadiga crônica, risco cardiovascular, alterações hormonais. Prioridade: recuperar o sono.`;
+  document.getElementById('debt-label').textContent = diagnosis;
+
   document.getElementById('energy-bar').style.width = energy + '%';
   document.getElementById('energy-pct').textContent = energy + '%';
+
+  // Add diagnosis detail if element exists
+  const extra = document.getElementById('debt-extra');
+  if (extra) {
+    const nightsToRecover = Math.ceil(parseFloat(debtHrs) / 1.5);
+    const avgBed = Math.round(last7.reduce((a,s)=>a+new Date(s.startTime).getHours(),0)/last7.length);
+    extra.innerHTML = `
+      <div class="diag-section" style="margin-top:10px">
+        <div class="diag-title">Diagnóstico · últimas ${last7.length} noites</div>
+        <div class="diag-item"><div class="diag-dot"></div><span>Duração média: ${formatDuration(avgDur)} por noite (meta: 8h)</span></div>
+        <div class="diag-item"><div class="diag-dot"></div><span>Horário médio de dormir: ${avgBed}h${avgBed>0?'':''} — ${avgBed>1?'tarde demais para sono profundo máximo':'bom horário'}</span></div>
+        <div class="diag-item"><div class="diag-dot"></div><span>Para zerar o débito: ${nightsToRecover} noites de +1h30 a mais do que o usual</span></div>
+      </div>`;
+  }
 }
 
 // ══════════════════════════════════════════════
@@ -1263,7 +1454,17 @@ function renderReport(session) {
   document.getElementById('phase-rem-time').textContent = minStr(dur*phases.falling);
 
   renderCycleChart(startTime, endTime, clips);
-  renderClips(clips);
+  renderClips(clips, startTime, endTime);
+  renderTrends(session);
+
+  // Spiritual morning message
+  const spirit = getSpiritualMorningMessage(score, endTime - startTime);
+  document.getElementById('morning-spirit-wrap').innerHTML = `
+    <div class="morning-spirit">
+      <div class="morning-spirit-icon">${spirit.icon}</div>
+      <div class="morning-spirit-title">${spirit.title}</div>
+      <div class="morning-spirit-text">${spirit.text}</div>
+    </div>`;
 }
 
 // ══════════════════════════════════════════════
@@ -1348,19 +1549,21 @@ function renderCycleChart(startTime, endTime, clips) {
 // ══════════════════════════════════════════════
 //  CLIPS
 // ══════════════════════════════════════════════
-function renderClips(clips) {
+function renderClips(clips, startTime, endTime) {
   const list = document.getElementById('clips-list');
   document.getElementById('clips-count-badge').textContent = (clips||[]).length;
   if (!clips?.length) { list.innerHTML='<div class="no-clips">Nenhum som detectado esta noite 🌙</div>'; return; }
-  list.innerHTML = clips.map((c,i) => `
+  list.innerHTML = clips.map((c,i) => {
+    const tag = (startTime && endTime) ? getDreamTag(c.timestamp, startTime, endTime) : { label:`Som #${i+1}`, color:'var(--accent2)' };
+    return `
     <div class="clip-item">
       <button class="play-btn" id="playbtn-${i}" onclick="playClip(${i})">
         <svg viewBox="0 0 24 24"><polygon fill="white" points="5 3 19 12 5 21 5 3"/></svg>
       </button>
       <div class="clip-info"><div class="clip-time">${formatTime(c.timestamp)}</div><div class="clip-dur">${c.duration || 8}s gravado</div></div>
-      <span class="clip-tag">Som #${i+1}</span>
-    </div>
-  `).join('');
+      <span class="clip-tag" style="color:${tag.color};border-color:${tag.color}20;background:${tag.color}18">${tag.label}</span>
+    </div>`;
+  }).join('');
 }
 
 let currentAudio = null;
@@ -1444,6 +1647,209 @@ function openHistorySession(idx) { renderReport(state.sessions[idx]); showScreen
 // ══════════════════════════════════════════════
 //  DEMO
 // ══════════════════════════════════════════════
+// ══════════════════════════════════════════════
+//  SPIRITUAL INSIGHTS
+// ══════════════════════════════════════════════
+const INSIGHTS = [
+  { icon:'🌙', title:'O Sono como Renascimento', text:'Em muitas tradições espirituais, adormecer é uma pequena morte — e acordar, um renascimento. Cada manhã é uma oportunidade de recomeçar, mais sábio e renovado. Os egípcios antigos acreditavam que durante o sono o deus do sono, Morpheus, guiava a alma a dimensões de cura.', practice:'Antes de dormir, declare em voz baixa: "Entrego meu espírito à proteção divina. Durmo em paz e acordo renovado."' },
+  { icon:'✨', title:'A Alma que Viaja', text:'Para o espiritismo, no sono profundo o espírito se desencarna temporariamente e busca orientação, cura e aprendizado no plano espiritual. O cansaço ao acordar mal descansado pode ser sinal de que seu espírito também precisava de mais tempo nesse espaço sagrado.', practice:'Ao acordar, antes de abrir o celular, pergunte: "Que mensagem ou sensação trouxe desta noite?"' },
+  { icon:'🙏', title:'A Prece como Proteção', text:'Antes de dormir, culturas de todos os continentes praticam alguma forma de oração ou reza. Esta prática não é apenas religiosa — é uma forma de limpar a mente, soltar os fardos do dia e criar um campo de proteção ao redor de si e dos entes queridos.', practice:'Reserve 2 minutos: agradeça por 3 coisas do dia e peça proteção para quem você ama.' },
+  { icon:'🌌', title:'Sonhos: Mensagens do Além', text:'Nos sonhos, a fronteira entre o consciente e o espiritual se dissolve. Muitas tradições acreditam que durante os sonhos recebemos visitas, avisos e ensinamentos de guias espirituais, ancestrais ou do próprio Criador. Por isso, vale registrar o que você sonha.', practice:'Deixe um caderno de sonhos ao lado da cama. Escreva na manhã seguinte, antes de levantar.' },
+  { icon:'💜', title:'Gratidão: A Oração Universal', text:'A gratidão antes de dormir é reconhecida por todas as tradições espirituais como o ato mais poderoso de transformação interior. Ao agradecer, você encerra o dia com abundância no coração, preparando o campo espiritual para receber bênçãos enquanto dorme.', practice:'"Obrigado pela vida, pela saúde, pelas pessoas que me amam, pelos desafios que me fazem crescer."' },
+  { icon:'🔔', title:'A Frequência do Universo', text:'O som OM (136,1 Hz) corresponde à frequência de ressonância da Terra — a mesma que os tibetanos descobriram empiricamente há milênios. Os 432 Hz estão alinhados com os padrões naturais da música universal e são usados em meditações de cura ao redor do mundo.', practice:'Ative os sons espirituais no app: OM ou 432 Hz ajudam a sintonizar sua frequência interna antes de dormir.' },
+  { icon:'🌀', title:'Ondas Theta: O Limiar do Sagrado', text:'As ondas cerebrais Theta (4-8 Hz) surgem na fronteira entre a vigília e o sono — o mesmo estado alcançado em meditação profunda e hipnose. É nesse limiar que visões, intuições e revelações espirituais costumam emergir. Os índios nativos chamavam esse estado de "pele fina".', practice:'Ao adormecer, mantenha consciência suave sem resistir ao sono — você pode testemunhar imagens e insights valiosos.' },
+  { icon:'⭐', title:'Guardiões do Sono', text:'Quase todas as tradições espirituais têm a figura de um guardião que vela pelo sono: o anjo da guarda no catolicismo, os Orixás no candomblé, os guias espirituais no espiritismo. Invocar essa proteção antes de dormir não é superstição — é uma intenção consciente de acolhimento.', practice:'"Que meus guardiões me protejam nesta noite. Que meu sono seja sagrado, restaurador e cheio de luz."' },
+  { icon:'🌿', title:'O Sono dos Ancestrais', text:'Povos indígenas brasileiros acreditam que durante o sono acessamos o tempo dos antepassados. Os sonhos são vistos como um espaço onde os ancestrais falam, avisam e ensinam. Respeitar o sono é respeitar essa conexão viva com quem veio antes de nós.', practice:'Ao deitar, reconheça mentalmente os ombros nos quais você se apoia: pais, avós, todos os que vieram antes.' },
+  { icon:'☀️', title:'Acordar como Ato Sagrado', text:'No budismo tibetano, o despertar do sono é comparado ao nascimento — um momento de consciência pura antes que a mente habitual retome o controle. Os primeiros segundos ao acordar são sagrados: é quando a mente está mais receptiva à intenção, à gratidão e ao propósito.', practice:'Ao acordar, respire 3 vezes fundo antes de qualquer pensamento ou ação. Defina uma intenção para o dia.' },
+  { icon:'🫧', title:'Energia e Renovação', text:'Segundo diversas tradições energéticas, durante o sono profundo o corpo sutil (aura, campo energético) se reorganiza e se recarrega. O cansaço que sentimos é frequentemente um cansaço energético — e um sono profundo pode renovar nossa energia de formas que a comida e o descanso físico não alcançam.', practice:'Antes de dormir, imagine uma luz branca ou dourada envolvendo seu corpo, dissolven do tensões do dia.' },
+  { icon:'🌺', title:'O Dom do Perdão Noturno', text:'Diversas tradições espirituais ensinam que não devemos carregar rancores para o sono. O perdão antes de dormir — de si mesmo e dos outros — é um ato de higiene espiritual. Dormir em paz com o mundo e consigo mesmo é a base para um sono profundo e restaurador.', practice:'"Perdoo a mim mesmo pelos erros de hoje. Perdoo quem me magoou. Durmo livre e em paz."' },
+];
+
+let currentInsightIdx = 0;
+
+function renderSpiritualCard() {
+  const today = new Date();
+  currentInsightIdx = today.getDate() % INSIGHTS.length;
+  document.getElementById('spirit-date-label').textContent = today.toLocaleDateString('pt-BR',{weekday:'long'});
+  showInsight(currentInsightIdx);
+  const dots = document.getElementById('spirit-dots');
+  dots.innerHTML = INSIGHTS.map((_,i)=>`<div class="spirit-dot${i===currentInsightIdx?' active':''}" id="sdot-${i}"></div>`).join('');
+}
+
+function showInsight(idx) {
+  const ins = INSIGHTS[idx];
+  document.getElementById('spirit-icon').textContent = ins.icon;
+  document.getElementById('spirit-title').textContent = ins.title;
+  document.getElementById('spirit-text').textContent = ins.text;
+  const practEl = document.getElementById('spirit-practice');
+  if (ins.practice) { practEl.textContent = '🕯️ ' + ins.practice; practEl.style.display='block'; }
+  else practEl.style.display = 'none';
+  document.querySelectorAll('.spirit-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+
+function changeInsight(dir) {
+  currentInsightIdx = (currentInsightIdx + dir + INSIGHTS.length) % INSIGHTS.length;
+  showInsight(currentInsightIdx);
+}
+
+function getSpiritualMorningMessage(score, durationMs) {
+  const hours = durationMs / 3600000;
+  if (score >= 85) return { icon:'☀️', title:'Noite abençoada', text:'Seu espírito descansou bem esta noite. Acorde com gratidão — você recebeu o presente de um sono profundo e restaurador. Carregue essa energia renovada com você hoje.' };
+  if (score >= 70) return { icon:'🌤️', title:'Uma noite de aprendizado', text:'Seu sono trouxe descanso suficiente. Talvez seu espírito tenha processado algo importante durante a noite. Preste atenção nas primeiras sensações e pensamentos do seu dia.' };
+  if (hours < 5) return { icon:'🌙', title:'Seu corpo pede descanso', text:'Dormir pouco é um sinal que merece atenção espiritual e física. O cansaço acumulado pede que você se recolha mais cedo esta noite. Respeitar o ritmo natural do seu corpo é um ato de amor próprio.' };
+  return { icon:'💜', title:'Uma noite difícil', text:'Nem toda noite será fácil — e tudo bem. Talvez seu espírito estivesse processando algo que precisava ser digerido. Trate-se com compaixão hoje e priorize o descanso à noite.' };
+}
+
+// ══════════════════════════════════════════════
+//  TEMPERATURE (OpenMeteo — free, no API key)
+// ══════════════════════════════════════════════
+async function fetchTemperature() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(async pos => {
+    try {
+      const { latitude: lat, longitude: lon } = pos.coords;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat.toFixed(2)}&longitude=${lon.toFixed(2)}&current_weather=true&hourly=temperature_2m&forecast_days=5&timezone=auto`;
+      const res = await fetch(url);
+      const data = await res.json();
+      renderTemperature(data);
+    } catch {}
+  }, () => {}, { timeout: 8000 });
+}
+
+function renderTemperature(data) {
+  const card = document.getElementById('temp-card');
+  if (!data?.current_weather) return;
+  card.style.display = 'block';
+
+  const now = Math.round(data.current_weather.temperature);
+  const isIdeal = now >= 16 && now <= 22;
+  document.getElementById('temp-now').textContent = now + '°C';
+  const badge = document.getElementById('temp-badge');
+  badge.textContent = isIdeal ? 'Ideal ✓' : now > 22 ? 'Quente' : 'Frio';
+  badge.className = 'temp-ideal ' + (isIdeal ? 'temp-ok' : 'temp-warn');
+  document.getElementById('temp-advice').textContent = isIdeal
+    ? 'Temperatura ambiente ótima para sono profundo (16–22°C).'
+    : now > 22
+    ? `${now > 28 ? 'Muito quente' : 'Acima do ideal'} — regule AC/ventilador para 18–21°C antes de dormir.`
+    : 'Abaixo do ideal — um cobertor a mais pode melhorar a qualidade do sono.';
+
+  // 5-day forecast (pick evening temp ~21h each day)
+  const hours = data.hourly;
+  const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  const forecast = [];
+  for (let d = 0; d < 5; d++) {
+    const idx = d * 24 + 21; // 21h each day
+    if (idx < hours.temperature_2m.length) {
+      const t = Math.round(hours.temperature_2m[idx]);
+      const date = new Date(hours.time[idx]);
+      const ideal = t >= 16 && t <= 22;
+      forecast.push({ day: days[date.getDay()], temp: t, ideal });
+    }
+  }
+  document.getElementById('temp-forecast').innerHTML = forecast.map(f => `
+    <div class="temp-day">
+      <div class="temp-day-name">${f.day}</div>
+      <div class="temp-day-val" style="color:${f.ideal?'#4ade80':f.temp>22?'#fbbf24':'#60a5fa'}">${f.temp}°</div>
+      <div class="temp-day-sleep" style="color:${f.ideal?'#4ade80':'var(--muted)'}">${f.ideal?'✓ ideal':'ajustar'}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════
+//  TRENDS (report)
+// ══════════════════════════════════════════════
+function renderTrends(currentSession) {
+  const card = document.getElementById('trends-card');
+  if (state.sessions.length < 3) { card.style.display='none'; return; }
+  card.style.display = 'block';
+
+  // last 7 sessions (excluding current if it's the first)
+  const sessions = state.sessions.slice(0, 7);
+  const prev = sessions.slice(1, 4); // previous 3 nights
+  const curr = sessions[0];
+
+  const avgScorePrev = Math.round(prev.reduce((a,s)=>a+s.score,0)/prev.length);
+  const avgDurPrev = prev.reduce((a,s)=>a+(s.endTime-s.startTime),0)/prev.length;
+  const avgClipsPrev = prev.reduce((a,s)=>a+(s.clips||[]).length,0)/prev.length;
+
+  const scoreDiff = curr.score - avgScorePrev;
+  const durDiff = (curr.endTime-curr.startTime) - avgDurPrev;
+  const clipsDiff = (curr.clips||[]).length - avgClipsPrev;
+
+  const fmt = v => v > 0 ? `+${v}` : `${v}`;
+  const fmtDur = ms => { const m=Math.round(Math.abs(ms)/60000); return (ms>0?'+':'-')+m+'min'; };
+
+  // 3-night insight
+  const pattern = analyzePattern(sessions);
+
+  document.getElementById('trends-content').innerHTML = `
+    <div class="trend-metric">
+      <div class="trend-label-row">
+        <span class="trend-metric-name">💤 Qualidade</span>
+        <span class="trend-val">${curr.score}<span class="trend-change ${scoreDiff>=0?'trend-up':'trend-down'}" style="margin-left:6px">${fmt(scoreDiff)}</span></span>
+      </div>
+      <div class="trend-bars">${sessions.slice(0,7).map(s=>`<div class="trend-bar-col"><div class="trend-bar" style="height:${s.score*.4}px;background:${s===curr?'#3b82f6':'var(--border)'}"></div><div class="trend-day-lbl">${new Date(s.startTime).toLocaleDateString('pt-BR',{weekday:'narrow'})}</div></div>`).join('')}</div>
+    </div>
+    <div class="trend-metric">
+      <div class="trend-label-row">
+        <span class="trend-metric-name">🕐 Duração</span>
+        <span class="trend-val">${formatDuration(curr.endTime-curr.startTime)}<span class="trend-change ${durDiff>=0?'trend-up':'trend-down'}" style="margin-left:6px">${fmtDur(durDiff)}</span></span>
+      </div>
+      <div class="trend-bars">${sessions.slice(0,7).map(s=>{const h=Math.min((s.endTime-s.startTime)/3600000,10);return`<div class="trend-bar-col"><div class="trend-bar" style="height:${h*4}px;background:${s===curr?'#06b6d4':'var(--border)'}"></div><div class="trend-day-lbl">${new Date(s.startTime).toLocaleDateString('pt-BR',{weekday:'narrow'})}</div></div>`}).join('')}</div>
+    </div>
+    <div class="diag-section">
+      <div class="diag-title">📊 Análise dos últimos 3 dias</div>
+      ${pattern.insights.map(i=>`<div class="diag-item"><div class="diag-dot"></div><span>${i}</span></div>`).join('')}
+    </div>
+    <div class="diag-section" style="margin-top:8px">
+      <div class="diag-title">💊 Prescrição — próximos 5 dias</div>
+      ${pattern.prescription.map(p=>`<div class="prescription-day"><div class="presc-day-name">${p.day}</div><div class="presc-day-text">${p.text}</div></div>`).join('')}
+    </div>
+  `;
+}
+
+function analyzePattern(sessions) {
+  const last3 = sessions.slice(0, 3);
+  const avgScore = Math.round(last3.reduce((a,s)=>a+s.score,0)/last3.length);
+  const avgDur = last3.reduce((a,s)=>a+(s.endTime-s.startTime),0)/last3.length;
+  const avgClips = last3.reduce((a,s)=>a+(s.clips||[]).length,0)/last3.length;
+  const avgBedtime = last3.reduce((a,s)=>a+new Date(s.startTime).getHours(),0)/last3.length;
+
+  const insights = [];
+  if (avgScore >= 80) insights.push(`Qualidade média excelente: ${avgScore} pontos — continue com essa rotina!`);
+  else if (avgScore >= 65) insights.push(`Qualidade média razoável: ${avgScore} pontos — há espaço para melhoras.`);
+  else insights.push(`Qualidade média baixa: ${avgScore} pontos — seu sono precisa de atenção.`);
+
+  insights.push(`Duração média: ${formatDuration(avgDur)} por noite ${avgDur<7*3600000?'— abaixo do recomendado (7–9h)':'— dentro da faixa ideal'}.`);
+
+  if (avgClips > 4) insights.push(`Média de ${avgClips.toFixed(1)} distúrbios por noite — considere avaliar fatores ambientais (barulho, temperatura).`);
+  else if (avgClips > 1) insights.push(`Pequenas interrupções detectadas (${avgClips.toFixed(1)}/noite) — podem indicar leve apneia ou ambiente ruidoso.`);
+  else insights.push('Noites bastante tranquilas — poucas interrupções sonoras detectadas.');
+
+  if (avgBedtime > 1) insights.push(`Você tem dormido tarde (média ${Math.floor(avgBedtime)}h${Math.round((avgBedtime%1)*60).toString().padStart(2,'0')}) — dormir antes da meia-noite melhora a qualidade do sono profundo.`);
+
+  const days = ['Dom','Seg','Ter','Qua','Qui'];
+  const target = Math.min(9, Math.max(7, (8 * 3600000 + (8*3600000 - avgDur)) / 3600000));
+  const prescription = days.map((day, i) => {
+    if (avgScore < 65 && i === 0) return { day, text: `Prioridade máxima — tente dormir ${Math.ceil(target)}h. Desligue telas 1h antes.` };
+    if (avgDur < 6.5 * 3600000 && i < 3) return { day, text: `Meta: ${Math.ceil(target)}h de sono. Adote horário fixo de deitar.` };
+    if (i === 2) return { day, text: `Ponto crítico da semana — não abra mão do sono. Meta: ${Math.ceil(target)}h.` };
+    return { day, text: `Manter consistência — deitar no mesmo horário reforça o ritmo circadiano.` };
+  });
+
+  return { insights, prescription };
+}
+
+// ══════════════════════════════════════════════
+//  DREAM TAGGING
+// ══════════════════════════════════════════════
+function getDreamTag(timestamp, startTime, endTime) {
+  const t = (timestamp - startTime) / (endTime - startTime);
+  if (t < 0.15) return { label: '😴 Adormecer', color: '#8b5cf6' };
+  if (t < 0.50) return { label: '🌑 Sono profundo', color: '#3b82f6' };
+  if (t < 0.75) return { label: '💤 Sono leve', color: '#06b6d4' };
+  return { label: '💭 Possível sonho', color: '#f59e0b' };
+}
+
 function loadDemoSessions() {
   const hour = 3600000;
   function makeSession(daysAgo,startH,durH,clips,score){
