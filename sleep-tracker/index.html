@@ -629,7 +629,10 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
 <!-- ══ HISTORY ══ -->
 <div id="screen-history" class="screen">
   <div class="scroll-area">
-    <div class="app-header"><span class="app-logo">Histórico</span></div>
+    <div class="app-header">
+      <span class="app-logo">Histórico</span>
+      <button onclick="clearHistory()" style="background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer">Limpar</button>
+    </div>
     <div id="history-list">
       <div class="empty-state">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -1867,6 +1870,19 @@ function loadDemoSessions() {
 }
 
 function hideDemoBtn() { if(state.sessions.length) { const w=document.getElementById('demo-wrap'); if(w) w.style.display='none'; } }
+
+function clearHistory() {
+  if (!confirm('Apagar todo o histórico de noites?')) return;
+  state.sessions = [];
+  localStorage.removeItem('sleeptrack_sessions');
+  localStorage.removeItem('sleeptrack_active');
+  renderHistory();
+  renderHomeLastNight();
+  renderDebt();
+  renderWeek();
+  const demo = document.getElementById('demo-wrap');
+  if (demo) demo.style.display = 'block';
+}
 
 // ══════════════════════════════════════════════
 //  BOOT
