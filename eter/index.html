@@ -510,10 +510,14 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
 <div class="sound-overlay" id="sound-overlay" onclick="closeSoundPanel(event)">
   <div class="sound-panel" id="sound-panel">
     <div class="sound-handle"></div>
-    <h3>Sons para dormir 🎵</h3>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h3 style="margin:0">Sons para dormir 🎵</h3>
+      <button onclick="document.getElementById('sound-overlay').classList.remove('open')" style="width:30px;height:30px;border-radius:50%;background:var(--card2);border:1px solid var(--border);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
+    </div>
     <div id="sound-list">
       <!-- rendered by JS -->
     </div>
+    <p style="font-size:10px;color:var(--muted);text-align:center;margin:6px 0 0;line-height:1.4">🎧 Ondas Theta requerem fone de ouvido para efeito binaural completo</p>
     <div class="sound-timer-row">
       <span>Desligar sons em:</span>
       <div class="timer-btns">
@@ -695,15 +699,16 @@ const state = {
 const THRESHOLDS = { alta: 0.018, media: 0.030, baixa: 0.050 };
 
 const SOUNDS_DEF = [
+  { id: 'pad',     label: 'Meditação',    emoji: '🎹', type: 'pad',     group: 'spirit' },
+  { id: 'om',      label: 'OM · 136 Hz',  emoji: '🕉️', type: 'om',     group: 'spirit' },
+  { id: 'hz432',   label: '432 Hz Cura',  emoji: '✨', type: 'hz432',   group: 'spirit' },
+  { id: 'theta',   label: 'Ondas Theta',  emoji: '🌀', type: 'theta',   group: 'spirit' },
+  { id: 'bowl',    label: 'Tigela Tibetana',emoji:'🔔', type: 'bowl',   group: 'spirit' },
   { id: 'rain',    label: 'Chuva',        emoji: '🌧️', type: 'rain',    group: 'nature' },
   { id: 'fire',    label: 'Fogueira',     emoji: '🔥', type: 'fire',    group: 'nature' },
   { id: 'ocean',   label: 'Oceano',       emoji: '🌊', type: 'ocean',   group: 'nature' },
   { id: 'wind',    label: 'Vento',        emoji: '💨', type: 'wind',    group: 'nature' },
   { id: 'white',   label: 'Ruído branco', emoji: '📻', type: 'white',   group: 'nature' },
-  { id: 'om',      label: 'OM · 136 Hz',  emoji: '🕉️', type: 'om',     group: 'spirit' },
-  { id: 'hz432',   label: '432 Hz Cura',  emoji: '✨', type: 'hz432',   group: 'spirit' },
-  { id: 'theta',   label: 'Ondas Theta',  emoji: '🌀', type: 'theta',   group: 'spirit' },
-  { id: 'bowl',    label: 'Tigela Tibetana',emoji:'🔔', type: 'bowl',   group: 'spirit' },
 ];
 
 // ══════════════════════════════════════════════
@@ -1127,38 +1132,72 @@ function createSoundNode(type) {
     lfo.connect(lfoGain); lfoGain.connect(gain.gain);
     src.connect(bp); bp.connect(gain);
     lfo.start();
-  } else if (type === 'om') {
-    // OM tone — 136.1 Hz (Earth's resonance), with harmonics
+  } else if (type === 'pad') {
+    // Ambient meditation pad — slow chord pads (Am pentatonic)
     src.disconnect && src.disconnect();
-    const osc1 = ctx.createOscillator(); osc1.type='sine'; osc1.frequency.value=136.1;
-    const osc2 = ctx.createOscillator(); osc2.type='sine'; osc2.frequency.value=272.2;
-    const osc3 = ctx.createOscillator(); osc3.type='sine'; osc3.frequency.value=408.3;
+    masterGain.connect(ctx.destination);
+    const chords = [
+      [110, 165, 220, 277],   // Am drone
+      [130.81, 196, 261.63],  // C maj
+      [174.61, 220, 261.63],  // F maj
+      [146.83, 220, 293.66],  // Dm
+    ];
+    let chordIdx = 0;
+    const allOscs = [];
+    const playChord = () => {
+      const t = ctx.currentTime;
+      chords[chordIdx % chords.length].forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        o.type = i === 0 ? 'sine' : 'sine';
+        o.frequency.value = freq;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(i === 0 ? 0.18 : 0.09, t + 4);
+        g.gain.setValueAtTime(i === 0 ? 0.18 : 0.09, t + 9);
+        g.gain.linearRampToValueAtTime(0, t + 13);
+        o.connect(g); g.connect(masterGain);
+        o.start(t); o.stop(t + 14);
+        allOscs.push(o);
+      });
+      chordIdx++;
+    };
+    playChord();
+    const interval = setInterval(() => { if (state.sounds['pad']) playChord(); else clearInterval(interval); }, 10000);
+    return { src:{stop:()=>{}}, extraOsc: allOscs, gain, masterGain, lfo:null, lfoGain:null, type, interval };
+
+  } else if (type === 'om') {
+    src.disconnect && src.disconnect();
+    const osc1=ctx.createOscillator(); osc1.type='sine'; osc1.frequency.value=136.1;
+    const osc2=ctx.createOscillator(); osc2.type='sine'; osc2.frequency.value=272.2;
+    const osc3=ctx.createOscillator(); osc3.type='sine'; osc3.frequency.value=408.3;
     const g1=ctx.createGain();g1.gain.value=0.5;
     const g2=ctx.createGain();g2.gain.value=0.25;
     const g3=ctx.createGain();g3.gain.value=0.12;
     lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.05;
     lfoGain=ctx.createGain();lfoGain.gain.value=0.08;
-    lfo.connect(lfoGain);lfoGain.connect(masterGain.gain);
+    lfo.connect(lfoGain); lfoGain.connect(masterGain.gain);
     osc1.connect(g1);osc2.connect(g2);osc3.connect(g3);
     g1.connect(gain);g2.connect(gain);g3.connect(gain);
+    gain.connect(masterGain); masterGain.connect(ctx.destination);
     osc1.start();osc2.start();osc3.start();lfo.start();
     return { src:osc1, extraOsc:[osc2,osc3], gain, masterGain, lfo, lfoGain, type };
+
   } else if (type === 'hz432') {
-    // 432 Hz healing tone with gentle harmonics
     src.disconnect && src.disconnect();
     const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=432;
     const osc2=ctx.createOscillator();osc2.type='sine';osc2.frequency.value=864;
     const g2=ctx.createGain();g2.gain.value=0.15;
     lfo=ctx.createOscillator();lfo.type='sine';lfo.frequency.value=0.08;
     lfoGain=ctx.createGain();lfoGain.gain.value=0.06;
-    lfo.connect(lfoGain);lfoGain.connect(gain.gain);
-    osc.connect(gain);osc2.connect(g2);g2.connect(gain);
+    lfo.connect(lfoGain); lfoGain.connect(gain.gain);
+    osc.connect(gain); osc2.connect(g2); g2.connect(gain);
+    gain.connect(masterGain); masterGain.connect(ctx.destination);
     osc.start();osc2.start();lfo.start();
     return { src:osc, extraOsc:[osc2], gain, masterGain, lfo, lfoGain, type };
+
   } else if (type === 'theta') {
-    // Theta binaural beat: 200Hz left, 206Hz right = 6Hz perceived beat
+    // Theta binaural beat — requires headphones for full effect
     src.disconnect && src.disconnect();
-    const splitter=ctx.createChannelSplitter(2);
     const merger=ctx.createChannelMerger(2);
     const oscL=ctx.createOscillator();oscL.type='sine';oscL.frequency.value=200;
     const oscR=ctx.createOscillator();oscR.type='sine';oscR.frequency.value=206;
@@ -1166,12 +1205,13 @@ function createSoundNode(type) {
     const gR=ctx.createGain();gR.gain.value=0.3;
     oscL.connect(gL);oscR.connect(gR);
     gL.connect(merger,0,0);gR.connect(merger,0,1);
-    merger.connect(masterGain);
+    merger.connect(masterGain); masterGain.connect(ctx.destination);
     oscL.start();oscR.start();
     return { src:oscL, extraOsc:[oscR], gain, masterGain, lfo:null, lfoGain:null, type };
+
   } else if (type === 'bowl') {
-    // Tibetan singing bowl: exponential decay sine at ~196Hz with harmonics
     src.disconnect && src.disconnect();
+    masterGain.connect(ctx.destination);
     const striker = () => {
       const t=ctx.currentTime;
       const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=196;
@@ -1184,6 +1224,7 @@ function createSoundNode(type) {
     striker();
     const interval = setInterval(() => { if(state.sounds['bowl']) striker(); else clearInterval(interval); }, 8000);
     return { src:{stop:()=>{}}, gain, masterGain, lfo:null, lfoGain:null, type, interval };
+
   } else {
     // white noise — direct connect
     src.connect(gain);
@@ -1208,10 +1249,10 @@ function renderSoundList() {
     </div>
   `;
   document.getElementById('sound-list').innerHTML =
-    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px">Natureza</div>` +
-    nature.map(makeRow).join('') +
-    `<div style="font-size:10px;color:#9d5cf0;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">✨ Espiritual / Binaural</div>` +
-    spirit.map(makeRow).join('');
+    `<div style="font-size:10px;color:#9d5cf0;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px">✨ Espiritual / Binaural</div>` +
+    spirit.map(makeRow).join('') +
+    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">🌿 Natureza</div>` +
+    nature.map(makeRow).join('');
 }
 
 function toggleSound(id) {
