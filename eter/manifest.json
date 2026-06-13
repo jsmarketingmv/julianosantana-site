@@ -1,0 +1,30 @@
+{
+  "name": "Éter · Sono da Alma",
+  "short_name": "Éter",
+  "description": "Monitor espiritual de sono — sons sagrados, insights e diagnóstico da sua noite",
+  "start_url": "/eter/",
+  "scope": "/eter/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06091a",
+  "theme_color": "#8b5cf6",
+  "lang": "pt-BR",
+  "categories": ["health", "lifestyle"],
+  "icons": [
+    {
+      "src": "/eter/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Iniciar sono",
+      "short_name": "Dormir",
+      "url": "/eter/",
+      "icons": [{ "src": "/eter/icon.svg", "sizes": "any" }]
+    }
+  ]
+}
