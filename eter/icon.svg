@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#0d0820"/>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="48%" r="52%">
+      <stop offset="0%" stop-color="#4a1a7a" stop-opacity=".8"/>
+      <stop offset="100%" stop-color="#0d0820" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="moonGrad" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#e9d5ff"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </radialGradient>
+  </defs>
+  <circle cx="256" cy="248" r="200" fill="url(#glow)"/>
+  <!-- Moon crescent -->
+  <circle cx="240" cy="230" r="110" fill="url(#moonGrad)"/>
+  <circle cx="290" cy="200" r="92" fill="#0d0820"/>
+  <!-- Stars -->
+  <circle cx="360" cy="300" r="7" fill="#e9d5ff" opacity=".9"/>
+  <circle cx="140" cy="330" r="5" fill="#c4b5fd" opacity=".7"/>
+  <circle cx="385" cy="170" r="4" fill="#e9d5ff" opacity=".8"/>
+  <circle cx="170" cy="160" r="3" fill="#c4b5fd" opacity=".6"/>
+  <circle cx="330" cy="130" r="3" fill="#e9d5ff" opacity=".5"/>
+  <!-- Small sparkle at top right star -->
+  <line x1="360" y1="292" x2="360" y2="308" stroke="#e9d5ff" stroke-width="2" opacity=".7"/>
+  <line x1="352" y1="300" x2="368" y2="300" stroke="#e9d5ff" stroke-width="2" opacity=".7"/>
+</svg>
