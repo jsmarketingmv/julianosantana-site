@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>SleepTrack</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+
+:root{
+  --bg:#06091a;
+  --card:#0e1830;
+  --card2:#132040;
+  --border:#1e2e55;
+  --accent:#4a8ef8;
+  --accent2:#60d4ff;
+  --text:#e4eaff;
+  --muted:#6678a0;
+  --deep-color:#3b82f6;
+  --light-color:#06b6d4;
+  --rem-color:#8b5cf6;
+  --awake-color:#f59e0b;
+}
+
+html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);overscroll-behavior:none}
+
+body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
+
+/* ── screens ── */
+.screen{display:none;min-height:100dvh;animation:fadeIn .25s ease}
+.screen.active{display:flex;flex-direction:column}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── bottom nav ── */
+.bottom-nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:430px;
+  background:rgba(6,9,26,.92);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom));
+  z-index:100;
+}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;padding:4px 0;transition:color .2s}
+.nav-btn.active{color:var(--accent)}
+.nav-btn svg{width:22px;height:22px;stroke-width:1.8}
+
+/* ── scrollable content ── */
+.scroll-area{flex:1;overflow-y:auto;padding:0 16px 100px;padding-top:max(16px,env(safe-area-inset-top))}
+
+/* ── header ── */
+.app-header{padding:20px 0 12px;display:flex;align-items:center;justify-content:space-between}
+.app-logo{font-size:22px;font-weight:700;letter-spacing:-.5px;background:linear-gradient(135deg,#7eb8ff,#60d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-date{font-size:13px;color:var(--muted)}
+
+/* ── cards ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:14px}
+.card-title{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+
+/* ── score gauge ── */
+.score-ring-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.score-ring{position:relative;width:110px;height:110px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .track{fill:none;stroke:var(--border);stroke-width:10}
+.score-ring .progress{fill:none;stroke-width:10;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1);stroke:url(#scoreGrad)}
+.score-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-number{font-size:30px;font-weight:800;letter-spacing:-1px;color:var(--text)}
+.score-word{font-size:10px;color:var(--accent2);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── stats row ── */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px}
+.stat-box{text-align:center}
+.stat-label{font-size:10px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.stat-val{font-size:15px;font-weight:700;color:var(--text)}
+.stat-sub{font-size:11px;color:var(--muted);margin-top:1px}
+
+/* ── big start button ── */
+.start-btn-wrap{display:flex;flex-direction:column;align-items:center;padding:30px 0 10px}
+.start-btn{
+  width:160px;height:160px;border-radius:50%;border:none;cursor:pointer;
+  background:radial-gradient(circle at 35% 35%,#2563eb,#1e40af,#0f172a);
+  box-shadow:0 0 60px rgba(59,130,246,.35),0 0 120px rgba(59,130,246,.15),inset 0 1px 1px rgba(255,255,255,.1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;
+}
+.start-btn::before{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 60% 65%,transparent 40%,rgba(0,0,0,.3));pointer-events:none}
+.start-btn:active{transform:scale(.95)}
+.start-btn svg{width:40px;height:40px;stroke:#93c5fd;stroke-width:1.5}
+.start-btn-label{color:#93c5fd;font-size:13px;font-weight:600;letter-spacing:.5px}
+.start-hint{font-size:12px;color:var(--muted);margin-top:10px;text-align:center}
+
+/* ── phase bars ── */
+.phases-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phase-item{display:flex;align-items:center;gap:8px}
+.phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.phase-info{flex:1}
+.phase-name{font-size:12px;color:var(--muted)}
+.phase-pct{font-size:14px;font-weight:700;color:var(--text)}
+.phase-time{font-size:11px;color:var(--muted)}
+
+/* ── canvas charts ── */
+.chart-canvas{width:100%;border-radius:8px}
+
+/* ── clips list ── */
+.clip-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.clip-item:last-child{border:none}
+.play-btn{width:36px;height:36px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s}
+.play-btn:hover{background:var(--accent)}
+.play-btn svg{width:16px;height:16px;fill:var(--text);stroke:none}
+.clip-info{flex:1}
+.clip-time{font-size:13px;font-weight:600;color:var(--text)}
+.clip-dur{font-size:11px;color:var(--muted)}
+.clip-wave{flex:1;height:28px}
+.clip-tag{font-size:10px;color:var(--accent2);background:rgba(74,142,248,.12);border-radius:20px;padding:2px 8px;flex-shrink:0}
+.no-clips{text-align:center;color:var(--muted);font-size:13px;padding:16px 0}
+
+/* ── empty state ── */
+.empty-state{text-align:center;padding:50px 20px}
+.empty-state svg{width:60px;height:60px;stroke:var(--muted);margin-bottom:14px;opacity:.5}
+.empty-state h3{color:var(--text);font-size:16px;margin-bottom:6px}
+.empty-state p{color:var(--muted);font-size:13px;line-height:1.5}
+
+/* ── week overview ── */
+.week-row{display:flex;gap:6px;justify-content:space-between}
+.week-day{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.week-bar-bg{height:50px;width:100%;background:var(--border);border-radius:6px;position:relative;overflow:hidden}
+.week-bar-fill{position:absolute;bottom:0;width:100%;border-radius:6px;background:linear-gradient(to top,var(--deep-color),var(--light-color));transition:height .8s cubic-bezier(.4,0,.2,1)}
+.week-day-label{font-size:10px;color:var(--muted);font-weight:500}
+.week-day-score{font-size:10px;color:var(--accent2);font-weight:700}
+
+/* ── sleeping screen ── */
+#screen-sleeping{background:radial-gradient(ellipse at 50% -20%,#0d2060 0%,#050a1a 60%);position:relative;overflow:hidden}
+.stars-canvas{position:absolute;inset:0;pointer-events:none}
+.sleeping-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:20px;position:relative;z-index:2}
+.sleeping-clock{font-size:64px;font-weight:200;letter-spacing:-3px;color:rgba(255,255,255,.9);text-shadow:0 0 30px rgba(100,160,255,.4)}
+.sleeping-date{font-size:14px;color:rgba(255,255,255,.4);margin-top:4px;margin-bottom:50px}
+
+.pulse-ring{width:120px;height:120px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:30px}
+.pulse-ring::before,.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;border:1px solid rgba(74,142,248,.4);animation:pulse-expand 3s ease-in-out infinite}
+.pulse-ring::after{animation-delay:1.5s}
+.pulse-inner{width:80px;height:80px;border-radius:50%;background:rgba(14,24,48,.8);border:1px solid rgba(74,142,248,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+@keyframes pulse-expand{0%{transform:scale(1);opacity:.6}100%{transform:scale(2);opacity:0}}
+
+.monitoring-label{font-size:16px;color:rgba(255,255,255,.7);font-weight:300;letter-spacing:1px;margin-bottom:4px}
+.monitoring-sub{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:40px}
+
+.level-bar-wrap{width:200px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-bottom:8px;overflow:hidden}
+.level-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--deep-color),var(--accent2));width:0%;transition:width .1s}
+.level-label{font-size:11px;color:rgba(255,255,255,.25);margin-bottom:50px}
+
+.events-badge{background:rgba(14,24,48,.6);border:1px solid var(--border);border-radius:30px;padding:8px 20px;display:flex;align-items:center;gap:8px;margin-bottom:50px}
+.events-dot{width:8px;height:8px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.events-text{font-size:13px;color:rgba(255,255,255,.6)}
+.events-count{font-size:13px;font-weight:700;color:#fbbf24}
+
+.wake-btn{padding:14px 50px;border-radius:40px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:15px;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.5px}
+.wake-btn:active{transform:scale(.97)}
+.wake-btn:hover{background:rgba(255,255,255,.14)}
+
+/* ── history screen ── */
+.history-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .15s}
+.history-item:hover{background:var(--card2)}
+.hist-score-mini{width:48px;height:48px;flex-shrink:0;position:relative}
+.hist-score-mini svg{transform:rotate(-90deg)}
+.hist-score-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800}
+.hist-info{flex:1}
+.hist-date{font-size:14px;font-weight:600;color:var(--text)}
+.hist-dur{font-size:12px;color:var(--muted);margin-top:2px}
+.hist-clips-badge{font-size:10px;color:var(--accent2);background:rgba(74,142,248,.1);border-radius:10px;padding:2px 8px}
+
+/* ── report screen ── */
+#screen-report .scroll-area{padding-bottom:120px}
+.report-header{padding:20px 0 14px;display:flex;align-items:center;gap:12px}
+.back-btn{width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:18px;height:18px;stroke:var(--text)}
+.report-title{font-size:18px;font-weight:700}
+
+.score-header-row{display:flex;align-items:center;gap:20px;margin-bottom:6px}
+.score-msg{flex:1;font-size:14px;line-height:1.5;color:var(--muted)}
+.score-msg strong{color:var(--text);display:block;font-size:15px;margin-bottom:3px}
+
+/* ── transitions ── */
+.score-ring .progress{animation:none}
+
+/* ── responsive small screens ── */
+@media(max-height:700px){
+  .sleeping-clock{font-size:48px}
+  .pulse-ring{width:90px;height:90px;margin-bottom:20px}
+  .pulse-inner{width:60px;height:60px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HOME SCREEN ══ -->
+<div id="screen-home" class="screen active">
+  <div class="scroll-area">
+    <div class="app-header">
+      <span class="app-logo">SleepTrack</span>
+      <span class="header-date" id="home-date"></span>
+    </div>
+
+    <!-- Last night summary (hidden until there's data) -->
+    <div class="card" id="last-night-card" style="display:none">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+        Última noite
+      </div>
+      <div class="score-header-row">
+        <div class="score-ring-wrap">
+          <div class="score-ring" style="width:90px;height:90px">
+            <svg viewBox="0 0 100 100" width="90" height="90">
+              <defs>
+                <linearGradient id="scoreGrad2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3b82f6"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+              </defs>
+              <circle class="track" cx="50" cy="50" r="42"/>
+              <circle id="home-progress" class="progress" cx="50" cy="50" r="42" style="stroke:url(#scoreGrad2);stroke-dasharray:264"/>
+            </svg>
+            <div class="score-label">
+              <span class="score-number" id="home-score-num" style="font-size:24px">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="score-msg">
+          <strong id="home-score-msg">—</strong>
+          <span id="home-score-sub">—</span>
+        </div>
+      </div>
+      <div class="stats-row" style="margin-top:16px">
+        <div class="stat-box">
+          <div class="stat-label">Adormecer</div>
+          <div class="stat-val" id="home-stat-start">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Duração</div>
+          <div class="stat-val" id="home-stat-dur">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Acordou</div>
+          <div class="stat-val" id="home-stat-end">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week view -->
+    <div class="card" id="week-card" style="display:none">
+      <div class="card-title">Semana</div>
+      <div class="week-row" id="week-row"></div>
+    </div>
+
+    <!-- Start button -->
+    <div class="start-btn-wrap">
+      <button class="start-btn" id="start-btn" onclick="startSleepSession()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+        <span class="start-btn-label">INICIAR SONO</span>
+      </button>
+      <span class="start-hint">Toque para começar o monitoramento</span>
+    </div>
+
+    <!-- Demo button (shown only when no sessions exist) -->
+    <div id="demo-wrap" style="text-align:center;margin-bottom:6px">
+      <button onclick="loadDemoSessions()" style="background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:8px 20px;border-radius:20px;cursor:pointer">
+        Ver demonstração com dados simulados
+      </button>
+    </div>
+
+    <!-- Tips -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Como funciona
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(74,142,248,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🎙️</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">Monitoramento inteligente</div>
+            <div style="font-size:12px;color:var(--muted)">O microfone escuta apenas quando detecta sons — não grava continuamente.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(74,142,248,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">📊</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">Análise de qualidade</div>
+            <div style="font-size:12px;color:var(--muted)">Pontuação, fases do sono e duração analisados automaticamente.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="width:28px;height:28px;border-radius:8px;background:rgba(74,142,248,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🔔</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px">Detecção de ronco</div>
+            <div style="font-size:12px;color:var(--muted)">Clipes de áudio são salvos quando sons repetitivos são detectados.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLEEPING SCREEN ══ -->
+<div id="screen-sleeping" class="screen">
+  <canvas class="stars-canvas" id="stars-canvas"></canvas>
+  <div class="sleeping-content">
+    <div class="sleeping-clock" id="sleep-clock">00:00</div>
+    <div class="sleeping-date" id="sleep-date-label"></div>
+
+    <div class="pulse-ring">
+      <div class="pulse-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(147,197,253,.6)" stroke-width="1.5" style="width:28px;height:28px"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      </div>
+    </div>
+
+    <div class="monitoring-label">Monitorando seu sono</div>
+    <div class="monitoring-sub">Deixe o aparelho perto de você</div>
+
+    <div class="level-bar-wrap">
+      <div class="level-bar" id="level-bar"></div>
+    </div>
+    <div class="level-label">NÍVEL DE ÁUDIO</div>
+
+    <div class="events-badge">
+      <div class="events-dot"></div>
+      <span class="events-text">Sons detectados:</span>
+      <span class="events-count" id="events-count">0</span>
+    </div>
+
+    <button class="wake-btn" onclick="endSleepSession()">☀️ &nbsp;Acordar</button>
+  </div>
+</div>
+
+<!-- ══ REPORT SCREEN ══ -->
+<div id="screen-report" class="screen">
+  <div class="scroll-area">
+    <div class="report-header">
+      <button class="back-btn" onclick="showScreen('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div>
+        <div class="report-title">Relatório do Sono</div>
+        <div style="font-size:12px;color:var(--muted)" id="report-date-label"></div>
+      </div>
+    </div>
+
+    <!-- Score card -->
+    <div class="card">
+      <div class="score-header-row">
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg viewBox="0 0 100 100" width="110" height="110">
+              <defs>
+                <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3b82f6"/>
+                  <stop offset="100%" stop-color="#06b6d4"/>
+                </linearGradient>
+              </defs>
+              <circle class="track" cx="50" cy="50" r="45"/>
+              <circle class="progress" id="report-score-ring" cx="50" cy="50" r="45"/>
+            </svg>
+            <div class="score-label">
+              <span class="score-number" id="report-score-num">—</span>
+              <span class="score-word">pontos</span>
+            </div>
+          </div>
+        </div>
+        <div class="score-msg">
+          <strong id="report-score-msg">—</strong>
+          <span id="report-score-sub">—</span>
+        </div>
+      </div>
+      <div class="stats-row" style="margin-top:16px">
+        <div class="stat-box">
+          <div class="stat-label">Adormecer</div>
+          <div class="stat-val" id="rep-start">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Duração</div>
+          <div class="stat-val" id="rep-dur">—</div>
+          <div class="stat-sub" id="rep-dur-sub">—</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Acordou</div>
+          <div class="stat-val" id="rep-end">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sleep cycle chart -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Ciclo de Sono
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:2px;background:var(--deep-color)"></div><span style="font-size:10px;color:var(--muted)">Profundo</span></div>
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:2px;background:var(--light-color)"></div><span style="font-size:10px;color:var(--muted)">Leve</span></div>
+        <div style="display:flex;align-items:center;gap:4px"><div style="width:8px;height:8px;border-radius:2px;background:var(--awake-color)"></div><span style="font-size:10px;color:var(--muted)">Acordado</span></div>
+      </div>
+      <canvas id="sleep-cycle-chart" class="chart-canvas" height="120"></canvas>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span id="chart-start-label" style="font-size:10px;color:var(--muted)"></span>
+        <span id="chart-end-label" style="font-size:10px;color:var(--muted)"></span>
+      </div>
+    </div>
+
+    <!-- Sleep phases -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Fases de Sono
+      </div>
+      <div style="display:flex;align-items:center;gap:20px">
+        <canvas id="phases-donut" width="120" height="120" style="flex-shrink:0"></canvas>
+        <div class="phases-grid" style="flex:1">
+          <div class="phase-item">
+            <div class="phase-dot" style="background:var(--deep-color)"></div>
+            <div class="phase-info">
+              <div class="phase-name">Profundo</div>
+              <div class="phase-pct" id="phase-deep-pct">—</div>
+              <div class="phase-time" id="phase-deep-time">—</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot" style="background:var(--light-color)"></div>
+            <div class="phase-info">
+              <div class="phase-name">Leve</div>
+              <div class="phase-pct" id="phase-light-pct">—</div>
+              <div class="phase-time" id="phase-light-time">—</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot" style="background:var(--awake-color)"></div>
+            <div class="phase-info">
+              <div class="phase-name">Acordado</div>
+              <div class="phase-pct" id="phase-awake-pct">—</div>
+              <div class="phase-time" id="phase-awake-time">—</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-dot" style="background:var(--rem-color)"></div>
+            <div class="phase-info">
+              <div class="phase-name">Adormecer</div>
+              <div class="phase-pct" id="phase-rem-pct">—</div>
+              <div class="phase-time" id="phase-rem-time">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recordings -->
+    <div class="card" id="clips-card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="width:14px;height:14px"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        Sons Gravados
+        <span id="clips-count-badge" style="background:rgba(74,142,248,.15);color:var(--accent2);border-radius:20px;padding:1px 8px;font-size:10px;font-weight:700"></span>
+      </div>
+      <div id="clips-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HISTORY SCREEN ══ -->
+<div id="screen-history" class="screen">
+  <div class="scroll-area">
+    <div class="app-header">
+      <span class="app-logo">Histórico</span>
+    </div>
+    <div id="history-list">
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <h3>Nenhuma noite registrada</h3>
+        <p>Inicie o monitoramento e seus dados aparecerão aqui.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-btn active" data-screen="home" onclick="navTo('home', this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Início
+  </button>
+  <button class="nav-btn" data-screen="history" onclick="navTo('history', this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Histórico
+  </button>
+</nav>
+
+<script>
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+const state = {
+  currentScreen: 'home',
+  session: null,        // active session
+  sessions: [],         // history
+  audioCtx: null,
+  analyser: null,
+  stream: null,
+  mediaRecorder: null,
+  isRecordingClip: false,
+  clips: [],            // [{blob, url, timestamp}]
+  eventCount: 0,
+  animFrame: null,
+  clockInterval: null,
+  starsCtx: null,
+  starsArr: [],
+};
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+function init() {
+  loadSessions();
+  updateHomeDate();
+  renderHomeLastNight();
+  renderHistory();
+  renderWeek();
+}
+
+function loadSessions() {
+  try {
+    state.sessions = JSON.parse(localStorage.getItem('sleeptrack_sessions') || '[]');
+  } catch { state.sessions = []; }
+}
+
+function saveSessions() {
+  // Sessions store metadata only (no blobs — those are ephemeral)
+  const toSave = state.sessions.map(s => ({
+    ...s,
+    clips: s.clips.map(c => ({ timestamp: c.timestamp, duration: c.duration }))
+  }));
+  localStorage.setItem('sleeptrack_sessions', JSON.stringify(toSave));
+}
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + name).classList.add('active');
+  const nav = document.getElementById('bottom-nav');
+  nav.style.display = (name === 'sleeping') ? 'none' : 'flex';
+  state.currentScreen = name;
+}
+
+function navTo(screen, btn) {
+  if (state.session) return; // don't navigate away during sleep
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  showScreen(screen);
+}
+
+// ══════════════════════════════════════════════
+//  DATE HELPERS
+// ══════════════════════════════════════════════
+function formatTime(ts) {
+  return new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+function formatDuration(ms) {
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+function formatDate(ts) {
+  return new Date(ts).toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+function updateHomeDate() {
+  document.getElementById('home-date').textContent =
+    new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+// ══════════════════════════════════════════════
+//  SLEEP SESSION — START
+// ══════════════════════════════════════════════
+async function startSleepSession() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+    });
+
+    state.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (state.audioCtx.state === 'suspended') await state.audioCtx.resume();
+
+    const source = state.audioCtx.createMediaStreamSource(stream);
+    state.analyser = state.audioCtx.createAnalyser();
+    state.analyser.fftSize = 512;
+    state.analyser.smoothingTimeConstant = 0.85;
+    source.connect(state.analyser);
+
+    state.stream = stream;
+    state.clips = [];
+    state.eventCount = 0;
+    state.session = { startTime: Date.now() };
+
+    showScreen('sleeping');
+    initStars();
+    startClock();
+    monitorAudio();
+
+  } catch (err) {
+    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+      alert('🎙️ Permita o acesso ao microfone para monitorar seu sono.\n\nVá em Configurações > Privacidade > Microfone e habilite o acesso para este site.');
+    } else {
+      alert('Erro ao acessar microfone: ' + err.message);
+    }
+  }
+}
+
+// ══════════════════════════════════════════════
+//  SLEEP SESSION — STOP
+// ══════════════════════════════════════════════
+function endSleepSession() {
+  if (!state.session) return;
+
+  const endTime = Date.now();
+  const session = {
+    startTime: state.session.startTime,
+    endTime,
+    clips: state.clips.map(c => ({ timestamp: c.timestamp, duration: c.duration, url: c.url })),
+    score: calcScore(state.session.startTime, endTime, state.clips.length),
+    phases: calcPhases(state.session.startTime, endTime, state.clips.length),
+  };
+
+  state.sessions.unshift(session);
+  saveSessions();
+
+  // Cleanup audio
+  if (state.animFrame) cancelAnimationFrame(state.animFrame);
+  if (state.clockInterval) clearInterval(state.clockInterval);
+  if (state.stream) state.stream.getTracks().forEach(t => t.stop());
+  if (state.audioCtx) state.audioCtx.close();
+  state.analyser = null;
+  state.stream = null;
+  state.session = null;
+
+  renderReport(session);
+  renderHomeLastNight();
+  renderHistory();
+  renderWeek();
+  showScreen('report');
+}
+
+// ══════════════════════════════════════════════
+//  AUDIO MONITORING
+// ══════════════════════════════════════════════
+function monitorAudio() {
+  const bufLen = state.analyser.frequencyBinCount;
+  const data = new Uint8Array(bufLen);
+  let lastClipEnd = 0;
+  const THRESHOLD = 0.055;
+  const MIN_GAP = 12000; // 12s between clips
+
+  function loop() {
+    if (!state.analyser) return;
+    state.analyser.getByteTimeDomainData(data);
+
+    let sum = 0;
+    for (let i = 0; i < bufLen; i++) {
+      const v = (data[i] - 128) / 128;
+      sum += v * v;
+    }
+    const rms = Math.sqrt(sum / bufLen);
+
+    // Update UI bar
+    const pct = Math.min(100, rms * 800);
+    document.getElementById('level-bar').style.width = pct + '%';
+
+    const now = Date.now();
+    if (rms > THRESHOLD && !state.isRecordingClip && (now - lastClipEnd) > MIN_GAP) {
+      state.isRecordingClip = true;
+      recordClip(state.stream, (blob, url) => {
+        state.clips.push({ blob, url, timestamp: now, duration: 8 });
+        state.eventCount++;
+        lastClipEnd = Date.now();
+        state.isRecordingClip = false;
+        document.getElementById('events-count').textContent = state.eventCount;
+      });
+    }
+
+    state.animFrame = requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function recordClip(stream, cb) {
+  const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4']
+    .find(t => MediaRecorder.isTypeSupported(t)) || '';
+
+  const rec = new MediaRecorder(stream, mime ? { mimeType: mime } : {});
+  const chunks = [];
+  rec.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+  rec.onstop = () => {
+    const blob = new Blob(chunks, { type: rec.mimeType });
+    const url = URL.createObjectURL(blob);
+    cb(blob, url);
+  };
+  rec.start();
+  setTimeout(() => { if (rec.state === 'recording') rec.stop(); }, 8000);
+}
+
+// ══════════════════════════════════════════════
+//  CLOCK (sleeping screen)
+// ══════════════════════════════════════════════
+function startClock() {
+  function tick() {
+    const now = new Date();
+    document.getElementById('sleep-clock').textContent =
+      now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('sleep-date-label').textContent =
+      now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+  tick();
+  state.clockInterval = setInterval(tick, 10000);
+}
+
+// ══════════════════════════════════════════════
+//  STARS ANIMATION
+// ══════════════════════════════════════════════
+function initStars() {
+  const canvas = document.getElementById('stars-canvas');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  const ctx = canvas.getContext('2d');
+
+  const stars = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.2,
+    o: Math.random(),
+    speed: Math.random() * 0.005 + 0.002,
+    phase: Math.random() * Math.PI * 2,
+  }));
+
+  function drawStars(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const s of stars) {
+      const opacity = 0.2 + 0.6 * Math.abs(Math.sin(t * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180,210,255,${opacity})`;
+      ctx.fill();
+    }
+    if (state.session) requestAnimationFrame(t2 => drawStars(t2 / 500));
+  }
+  requestAnimationFrame(t => drawStars(t / 500));
+}
+
+// ══════════════════════════════════════════════
+//  SCORING
+// ══════════════════════════════════════════════
+function calcScore(start, end, numClips) {
+  const hours = (end - start) / 3600000;
+  let score = 100;
+  if (hours < 5)      score -= 30;
+  else if (hours < 6) score -= 18;
+  else if (hours < 7) score -= 8;
+  else if (hours > 9.5) score -= 5;
+  score -= Math.min(30, numClips * 4);
+  return Math.max(20, Math.min(100, Math.round(score)));
+}
+
+function scoreMessage(score) {
+  if (score >= 85) return ['Boa noite de sono! 🌟', 'Você descansou bem e está pronto para o dia.'];
+  if (score >= 70) return ['Sono razoável', 'Sua noite foi adequada, mas há espaço para melhorar.'];
+  if (score >= 55) return ['Sono irregular', 'Foram detectadas diversas interrupções durante a noite.'];
+  return ['Sono com perturbações', 'Sua noite teve muitas interrupções. Tente dormir mais cedo.'];
+}
+
+function calcPhases(start, end, numClips) {
+  const dur = end - start;
+  const hours = dur / 3600000;
+
+  // Simulate realistic distributions
+  const awakeBase = 0.05 + numClips * 0.02;
+  const awake = Math.min(0.25, awakeBase);
+  const falling = Math.min(0.2, 15 / (hours * 60)); // ~15min to fall asleep
+  const deep = Math.max(0.08, 0.18 - numClips * 0.01 - Math.max(0, hours - 8) * 0.02);
+  const light = 1 - awake - falling - deep;
+
+  return { deep, light, awake, falling };
+}
+
+function minStr(ms) {
+  const total = Math.round(ms / 60000);
+  if (total >= 60) return `${Math.floor(total / 60)}h ${total % 60}m`;
+  return `${total}m`;
+}
+
+// ══════════════════════════════════════════════
+//  RENDER — REPORT
+// ══════════════════════════════════════════════
+function renderReport(session) {
+  const { startTime, endTime, score, phases, clips } = session;
+  const dur = endTime - startTime;
+
+  // Date label
+  document.getElementById('report-date-label').textContent = formatDate(startTime);
+
+  // Score
+  document.getElementById('report-score-num').textContent = score;
+  const [msg, sub] = scoreMessage(score);
+  document.getElementById('report-score-msg').textContent = msg;
+  document.getElementById('report-score-sub').textContent = sub;
+
+  // Animate score ring (circumference = 2π * 45 ≈ 283)
+  const circ = 2 * Math.PI * 45;
+  const offset = circ * (1 - score / 100);
+  setTimeout(() => {
+    const ring = document.getElementById('report-score-ring');
+    ring.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)';
+    ring.style.strokeDasharray = circ;
+    ring.style.strokeDashoffset = offset;
+  }, 100);
+
+  // Stats
+  document.getElementById('rep-start').textContent = formatTime(startTime);
+  document.getElementById('rep-end').textContent = formatTime(endTime);
+  document.getElementById('rep-dur').textContent = formatDuration(dur);
+  document.getElementById('rep-dur-sub').textContent = formatDate(startTime);
+
+  // Phases donut
+  renderDonut(phases);
+
+  // Phase text
+  document.getElementById('phase-deep-pct').textContent = Math.round(phases.deep * 100) + '%';
+  document.getElementById('phase-deep-time').textContent = minStr(dur * phases.deep);
+  document.getElementById('phase-light-pct').textContent = Math.round(phases.light * 100) + '%';
+  document.getElementById('phase-light-time').textContent = minStr(dur * phases.light);
+  document.getElementById('phase-awake-pct').textContent = Math.round(phases.awake * 100) + '%';
+  document.getElementById('phase-awake-time').textContent = minStr(dur * phases.awake);
+  document.getElementById('phase-rem-pct').textContent = Math.round(phases.falling * 100) + '%';
+  document.getElementById('phase-rem-time').textContent = minStr(dur * phases.falling);
+
+  // Cycle chart
+  renderCycleChart(startTime, endTime, clips);
+
+  // Clips
+  renderClips(clips);
+
+  // Home card
+  renderHomeLastNight();
+}
+
+// ══════════════════════════════════════════════
+//  CHARTS
+// ══════════════════════════════════════════════
+function renderDonut(phases) {
+  const canvas = document.getElementById('phases-donut');
+  const ctx = canvas.getContext('2d');
+  const cx = 60, cy = 60, r = 48, iw = 22;
+
+  const segs = [
+    { pct: phases.deep,    color: '#3b82f6' },
+    { pct: phases.light,   color: '#06b6d4' },
+    { pct: phases.awake,   color: '#f59e0b' },
+    { pct: phases.falling, color: '#8b5cf6' },
+  ];
+
+  ctx.clearRect(0, 0, 120, 120);
+  let start = -Math.PI / 2;
+  for (const seg of segs) {
+    const angle = seg.pct * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, start, start + angle);
+    ctx.arc(cx, cy, r - iw, start + angle, start, true);
+    ctx.closePath();
+    ctx.fillStyle = seg.color;
+    ctx.fill();
+    start += angle + 0.015; // small gap
+  }
+
+  // Center label
+  ctx.fillStyle = '#e4eaff';
+  ctx.font = 'bold 11px -apple-system,sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('Fases', cx, cy - 7);
+  ctx.fillStyle = '#6678a0';
+  ctx.font = '9px -apple-system,sans-serif';
+  ctx.fillText('do sono', cx, cy + 6);
+}
+
+function renderCycleChart(startTime, endTime, clips) {
+  const canvas = document.getElementById('sleep-cycle-chart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 360;
+  const H = 120;
+  canvas.width = W;
+  canvas.height = H;
+
+  const dur = endTime - startTime;
+  const N = 180; // data points
+
+  // Generate sleep depth curve
+  function sleepDepth(t) { // t: 0→1
+    const cycleMs = 90 * 60 * 1000;
+    const phase = ((t * dur) % cycleMs) / cycleMs;
+    let d;
+    if (phase < 0.25)       d = phase / 0.25;
+    else if (phase < 0.55)  d = 1;
+    else if (phase < 0.82)  d = 1 - (phase - 0.55) / 0.27;
+    else                    d = 0.08;
+
+    // Shallower toward morning
+    d *= (1 - t * 0.45);
+
+    // Noise
+    d += (seededRand(t) - 0.5) * 0.06;
+
+    // Spikes at clip times
+    for (const c of clips) {
+      const ct = (c.timestamp - startTime) / dur;
+      const dist = Math.abs(t - ct);
+      if (dist < 0.025) d = Math.min(1, d + 0.55 * (1 - dist / 0.025));
+    }
+
+    return Math.max(0.02, Math.min(1, d));
+  }
+
+  const pts = Array.from({ length: N }, (_, i) => {
+    const t = i / (N - 1);
+    return { x: t * W, y: H * 0.08 + sleepDepth(t) * H * 0.84 };
+  });
+
+  // Background gradient zones
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(245,158,11,.08)');    // awake (top)
+  grad.addColorStop(0.3, 'rgba(6,182,212,.08)');   // light
+  grad.addColorStop(1, 'rgba(59,130,246,.15)');    // deep (bottom)
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Fill under curve
+  const fillGrad = ctx.createLinearGradient(0, 0, 0, H);
+  fillGrad.addColorStop(0, 'rgba(59,130,246,0)');
+  fillGrad.addColorStop(1, 'rgba(59,130,246,.25)');
+
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, H);
+  pts.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.lineTo(pts[pts.length - 1].x, H);
+  ctx.closePath();
+  ctx.fillStyle = fillGrad;
+  ctx.fill();
+
+  // Draw line
+  const lineGrad = ctx.createLinearGradient(0, 0, W, 0);
+  lineGrad.addColorStop(0, '#3b82f6');
+  lineGrad.addColorStop(0.5, '#06b6d4');
+  lineGrad.addColorStop(1, '#8b5cf6');
+
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length - 1; i++) {
+    const mx = (pts[i].x + pts[i + 1].x) / 2;
+    const my = (pts[i].y + pts[i + 1].y) / 2;
+    ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+  }
+  ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+  ctx.strokeStyle = lineGrad;
+  ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // Clip markers
+  for (const c of clips) {
+    const ct = (c.timestamp - startTime) / dur;
+    const x = ct * W;
+    const idx = Math.round(ct * (N - 1));
+    const y = pts[Math.min(idx, pts.length - 1)].y;
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#f59e0b';
+    ctx.fill();
+    ctx.strokeStyle = '#fbbf24';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  // Time labels
+  document.getElementById('chart-start-label').textContent = formatTime(startTime);
+  document.getElementById('chart-end-label').textContent = formatTime(endTime);
+}
+
+function seededRand(seed) {
+  const x = Math.sin(seed * 9301 + 49297) * 233280;
+  return x - Math.floor(x);
+}
+
+// ══════════════════════════════════════════════
+//  RENDER — CLIPS LIST
+// ══════════════════════════════════════════════
+function renderClips(clips) {
+  const list = document.getElementById('clips-list');
+  const badge = document.getElementById('clips-count-badge');
+  badge.textContent = clips.length;
+
+  if (!clips.length) {
+    list.innerHTML = '<div class="no-clips">Nenhum som detectado esta noite 🌙</div>';
+    return;
+  }
+
+  list.innerHTML = clips.map((c, i) => `
+    <div class="clip-item">
+      <button class="play-btn" onclick="playClip(${i})" data-playing="false" id="playbtn-${i}">
+        <svg viewBox="0 0 24 24"><polygon fill="white" points="5 3 19 12 5 21 5 3"/></svg>
+      </button>
+      <div class="clip-info">
+        <div class="clip-time">${formatTime(c.timestamp)}</div>
+        <div class="clip-dur">${c.duration}s gravado</div>
+      </div>
+      <span class="clip-tag">Som #${i + 1}</span>
+    </div>
+  `).join('');
+}
+
+let currentAudio = null;
+function playClip(idx) {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  const clip = state.clips[idx] || state.sessions[0]?.clips?.[idx];
+  if (!clip?.url) return;
+  currentAudio = new Audio(clip.url);
+  currentAudio.play();
+}
+
+// ══════════════════════════════════════════════
+//  RENDER — HOME LAST NIGHT
+// ══════════════════════════════════════════════
+function renderHomeLastNight() {
+  const card = document.getElementById('last-night-card');
+  if (!state.sessions.length) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+
+  const s = state.sessions[0];
+  const circ = 2 * Math.PI * 42;
+  const offset = circ * (1 - s.score / 100);
+  document.getElementById('home-score-num').textContent = s.score;
+  const ring = document.getElementById('home-progress');
+  ring.style.strokeDasharray = circ;
+  setTimeout(() => {
+    ring.style.transition = 'stroke-dashoffset 1.2s ease';
+    ring.style.strokeDashoffset = offset;
+  }, 200);
+
+  const [msg, sub] = scoreMessage(s.score);
+  document.getElementById('home-score-msg').textContent = msg;
+  document.getElementById('home-score-sub').textContent = sub;
+  document.getElementById('home-stat-start').textContent = formatTime(s.startTime);
+  document.getElementById('home-stat-dur').textContent = formatDuration(s.endTime - s.startTime);
+  document.getElementById('home-stat-end').textContent = formatTime(s.endTime);
+}
+
+// ══════════════════════════════════════════════
+//  RENDER — WEEK VIEW
+// ══════════════════════════════════════════════
+function renderWeek() {
+  const weekCard = document.getElementById('week-card');
+  if (!state.sessions.length) { weekCard.style.display = 'none'; return; }
+  weekCard.style.display = 'block';
+
+  const days = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const today = new Date();
+  const row = document.getElementById('week-row');
+
+  // Build 7-day array
+  const dayData = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - i);
+    const dateStr = d.toDateString();
+    const sess = state.sessions.find(s => new Date(s.startTime).toDateString() === dateStr);
+    dayData.push({ label: days[d.getDay()], session: sess, isToday: i === 0 });
+  }
+
+  row.innerHTML = dayData.map(d => `
+    <div class="week-day">
+      <div class="week-bar-bg">
+        <div class="week-bar-fill" style="height:${d.session ? Math.round(d.session.score * 0.5) + '%' : '0%'}"></div>
+      </div>
+      <div class="week-day-label" style="color:${d.isToday ? 'var(--accent)' : ''}">${d.label}</div>
+      ${d.session ? `<div class="week-day-score">${d.session.score}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════════
+//  RENDER — HISTORY
+// ══════════════════════════════════════════════
+function renderHistory() {
+  const list = document.getElementById('history-list');
+  if (!state.sessions.length) {
+    list.innerHTML = `<div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <h3>Nenhuma noite registrada</h3><p>Inicie o monitoramento e seus dados aparecerão aqui.</p>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = state.sessions.map((s, i) => {
+    const circ = 2 * Math.PI * 18;
+    const offset = circ * (1 - s.score / 100);
+    const scoreColor = s.score >= 85 ? '#06b6d4' : s.score >= 70 ? '#3b82f6' : s.score >= 55 ? '#8b5cf6' : '#f59e0b';
+    return `
+    <div class="history-item" onclick="openHistorySession(${i})">
+      <div class="hist-score-mini">
+        <svg viewBox="0 0 40 40" width="48" height="48">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="var(--border)" stroke-width="4"/>
+          <circle cx="20" cy="20" r="18" fill="none" stroke="${scoreColor}" stroke-width="4"
+            stroke-dasharray="${circ}" stroke-dashoffset="${offset}" stroke-linecap="round"/>
+        </svg>
+        <div class="hist-score-num" style="color:${scoreColor}">${s.score}</div>
+      </div>
+      <div class="hist-info">
+        <div class="hist-date">${formatDate(s.startTime)}</div>
+        <div class="hist-dur">${formatTime(s.startTime)} — ${formatTime(s.endTime)} · ${formatDuration(s.endTime - s.startTime)}</div>
+      </div>
+      ${s.clips.length ? `<span class="hist-clips-badge">🎙️ ${s.clips.length}</span>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function openHistorySession(idx) {
+  const s = state.sessions[idx];
+  renderReport(s);
+  showScreen('report');
+}
+
+// ══════════════════════════════════════════════
+//  DEMO MODE
+// ══════════════════════════════════════════════
+function loadDemoSessions() {
+  const now = Date.now();
+  const day = 86400000;
+  const hour = 3600000;
+
+  function makeSession(daysAgo, startHour, durHours, numClips, score) {
+    const start = new Date();
+    start.setDate(start.getDate() - daysAgo);
+    start.setHours(startHour, Math.floor(Math.random() * 40), 0, 0);
+    const startTime = start.getTime();
+    const endTime = startTime + durHours * hour;
+    const phases = calcPhases(startTime, endTime, numClips);
+
+    const clips = Array.from({ length: numClips }, (_, i) => {
+      const offset = (0.15 + (i / numClips) * 0.7) * durHours * hour;
+      return { timestamp: startTime + offset, duration: 8 };
+    });
+
+    return { startTime, endTime, score, phases, clips };
+  }
+
+  state.sessions = [
+    makeSession(0, 23, 7.5, 3, 83),
+    makeSession(1, 0, 6.2, 6, 64),
+    makeSession(2, 22, 8.1, 1, 91),
+    makeSession(3, 23, 5.8, 8, 52),
+    makeSession(4, 0, 7.8, 2, 87),
+    makeSession(5, 22, 6.9, 4, 76),
+    makeSession(6, 23, 7.2, 3, 79),
+  ];
+
+  saveSessions();
+  renderHomeLastNight();
+  renderHistory();
+  renderWeek();
+  document.getElementById('demo-wrap').style.display = 'none';
+}
+
+function hideDemoBtn() {
+  if (state.sessions.length) {
+    const w = document.getElementById('demo-wrap');
+    if (w) w.style.display = 'none';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  BOOT
+// ══════════════════════════════════════════════
+init();
+hideDemoBtn();
+</script>
+</body>
+</html>
