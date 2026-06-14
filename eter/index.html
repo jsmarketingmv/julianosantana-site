@@ -872,11 +872,11 @@ const SOUNDS_DEF = [
   { id: 'hz432',   label: '432 Hz Cura',  emoji: '✨', type: 'hz432',   group: 'spirit' },
   { id: 'theta',   label: 'Ondas Theta',  emoji: '🌀', type: 'theta',   group: 'spirit' },
   { id: 'bowl',    label: 'Tigela Tibetana',emoji:'🔔', type: 'bowl',   group: 'spirit' },
-  { id: 'rain',    label: 'Chuva',        emoji: '🌧️', type: 'rain',    group: 'nature' },
-  { id: 'fire',    label: 'Fogueira',     emoji: '🔥', type: 'fire',    group: 'nature' },
-  { id: 'ocean',   label: 'Oceano',       emoji: '🌊', type: 'ocean',   group: 'nature' },
-  { id: 'wind',    label: 'Vento',        emoji: '💨', type: 'wind',    group: 'nature' },
-  { id: 'white',   label: 'Ruído branco', emoji: '📻', type: 'white',   group: 'nature' },
+  { id: 'piano',    label: 'Piano Zen',       emoji: '🎵', type: 'piano',    group: 'music' },
+  { id: 'harp',     label: 'Harpa Etérea',    emoji: '🎶', type: 'harp',     group: 'music' },
+  { id: 'flute',    label: 'Flauta de Bambu', emoji: '🌬️', type: 'flute',    group: 'music' },
+  { id: 'strings',  label: 'Cordas',          emoji: '🎻', type: 'strings',  group: 'music' },
+  { id: 'hangdrum', label: 'Hang Drum',       emoji: '🪘', type: 'hangdrum', group: 'music' },
 ];
 
 // ══════════════════════════════════════════════
@@ -1258,55 +1258,18 @@ function skipBreathing() {
 // ══════════════════════════════════════════════
 //  SLEEP SOUNDS
 // ══════════════════════════════════════════════
-function makeNoiseBuffer(ctx, dur = 3) {
-  const n = ctx.sampleRate * dur;
-  const buf = ctx.createBuffer(1, n, ctx.sampleRate);
-  const d = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
-  return buf;
-}
-
 function createSoundNode(type) {
   const ctx = state.audioCtx;
   if (!ctx) return null;
-  const buf = makeNoiseBuffer(ctx, 4);
-  const src = ctx.createBufferSource();
-  src.buffer = buf;
-  src.loop = true;
 
   const gain = ctx.createGain();
   gain.gain.value = 0;
   const masterGain = ctx.createGain();
   masterGain.gain.value = 0.5;
-
   let lfo = null, lfoGain = null;
 
-  if (type === 'rain') {
-    const bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=2200; bp.Q.value=0.4;
-    const hp = ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=800;
-    src.connect(bp); bp.connect(hp); hp.connect(gain);
-  } else if (type === 'fire') {
-    const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=700;
-    lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=5;
-    lfoGain = ctx.createGain(); lfoGain.gain.value=0.15;
-    lfo.connect(lfoGain); lfoGain.connect(gain.gain);
-    src.connect(lp); lp.connect(gain);
-    lfo.start();
-  } else if (type === 'ocean') {
-    const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=350;
-    lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.08;
-    lfoGain = ctx.createGain(); lfoGain.gain.value=0.35;
-    lfo.connect(lfoGain); lfoGain.connect(masterGain.gain);
-    src.connect(lp); lp.connect(gain);
-    lfo.start();
-  } else if (type === 'wind') {
-    const bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=600; bp.Q.value=0.8;
-    lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.25;
-    lfoGain = ctx.createGain(); lfoGain.gain.value=0.25;
-    lfo.connect(lfoGain); lfoGain.connect(gain.gain);
-    src.connect(bp); bp.connect(gain);
-    lfo.start();
-  } else if (type === 'pad') {
+  // ── Espiritual / Binaural ──
+  if (type === 'pad') {
     // Ambient meditation pad — slow chord pads (Am pentatonic)
     src.disconnect && src.disconnect();
     masterGain.connect(ctx.destination);
@@ -1399,20 +1362,123 @@ function createSoundNode(type) {
     const interval = setInterval(() => { if(state.sounds['bowl']) striker(); else clearInterval(interval); }, 8000);
     return { src:{stop:()=>{}}, gain, masterGain, lfo:null, lfoGain:null, type, interval };
 
-  } else {
-    // white noise — direct connect
-    src.connect(gain);
+  // ── Música Instrumental ──
+  } else if (type === 'piano') {
+    masterGain.connect(ctx.destination);
+    const penta=[261.63,293.66,329.63,392,440,523.25,587.33,659.25];
+    const pats=[[0,2,4,5,4,2,0,2,4,7,5,4],[2,4,5,7,5,4,2,0,4,5,4,2],[0,4,2,5,4,7,5,4,2,0,2,4]];
+    let pi=0,ni=0;
+    const dly=ctx.createDelay(0.4);const dg=ctx.createGain();dg.gain.value=0.22;
+    dly.connect(dg);dg.connect(masterGain);
+    const playNote=()=>{
+      const freq=penta[pats[pi%pats.length][ni%12]];const t=ctx.currentTime;
+      const osc=ctx.createOscillator();osc.type='triangle';osc.frequency.value=freq;
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.28,t+0.015);
+      g.gain.exponentialRampToValueAtTime(0.001,t+1.6);
+      osc.connect(g);g.connect(masterGain);g.connect(dly);osc.start(t);osc.stop(t+1.7);
+      ni++;if(ni%12===0){pi++;ni=0;}
+    };
+    playNote();
+    const interval=setInterval(()=>{if(state.sounds['piano'])playNote();else clearInterval(interval);},450);
+    return{src:{stop:()=>{}},gain,masterGain,lfo:null,lfoGain:null,type,interval};
+
+  } else if (type === 'harp') {
+    masterGain.connect(ctx.destination);
+    const hn=[174.61,220,261.63,329.63,392,440,523.25,659.25];
+    let hni=0,hd=1;
+    const pluck=()=>{
+      const freq=hn[hni];const t=ctx.currentTime;
+      [[1,0.28,2.8],[2.003,0.11,1.5],[3.014,0.045,0.7]].forEach(([mult,vol,dur])=>{
+        const osc=ctx.createOscillator();osc.type='triangle';osc.frequency.value=freq*mult;
+        const g=ctx.createGain();
+        g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+        osc.connect(g);g.connect(masterGain);osc.start(t);osc.stop(t+dur+0.1);
+      });
+      hni+=hd;if(hni>=hn.length-1||hni<=0)hd=-hd;
+    };
+    pluck();
+    const interval=setInterval(()=>{if(state.sounds['harp'])pluck();else clearInterval(interval);},550);
+    return{src:{stop:()=>{}},gain,masterGain,lfo:null,lfoGain:null,type,interval};
+
+  } else if (type === 'flute') {
+    masterGain.connect(ctx.destination);
+    const phrases=[
+      [523.25,587.33,659.25,587.33,523.25,440,523.25,587.33],
+      [440,523.25,587.33,659.25,587.33,523.25,392,440],
+      [659.25,587.33,523.25,440,523.25,587.33,659.25,783.99],
+    ];
+    let fpi=0,fni=0;
+    const blow=()=>{
+      const phrase=phrases[fpi%phrases.length];const freq=phrase[fni%phrase.length];
+      const t=ctx.currentTime;const dur=fni%4===3?0.65:0.40;
+      const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=freq;
+      const vib=ctx.createOscillator();vib.type='sine';vib.frequency.value=5.5;
+      const vg=ctx.createGain();vg.gain.value=freq*0.007;
+      vib.connect(vg);vg.connect(osc.frequency);
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.22,t+0.06);
+      g.gain.setValueAtTime(0.20,t+dur-0.08);g.gain.linearRampToValueAtTime(0,t+dur);
+      osc.connect(g);g.connect(masterGain);vib.start(t);osc.start(t);vib.stop(t+dur);osc.stop(t+dur);
+      fni++;if(fni%phrase.length===0){fpi++;fni=0;}
+    };
+    blow();
+    const interval=setInterval(()=>{if(state.sounds['flute'])blow();else clearInterval(interval);},440);
+    return{src:{stop:()=>{}},gain,masterGain,lfo:null,lfoGain:null,type,interval};
+
+  } else if (type === 'strings') {
+    masterGain.connect(ctx.destination);
+    const chords=[
+      [130.81,164.81,196,246.94,329.63],
+      [110,138.59,164.81,220,277.18],
+      [174.61,220,261.63,329.63,349.23],
+      [146.83,185,220,293.66,369.99],
+    ];
+    let ci=0;const allOscs=[];
+    const swell=()=>{
+      const t=ctx.currentTime;
+      chords[ci%chords.length].forEach(freq=>{
+        [-0.008,0,0.008,0.015].forEach(dt=>{
+          const osc=ctx.createOscillator();osc.type='sawtooth';osc.frequency.value=freq*(1+dt);
+          const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=900;lp.Q.value=0.5;
+          const g=ctx.createGain();
+          g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.022,t+3);
+          g.gain.setValueAtTime(0.022,t+9);g.gain.linearRampToValueAtTime(0,t+12);
+          osc.connect(lp);lp.connect(g);g.connect(masterGain);osc.start(t);osc.stop(t+12.5);
+          allOscs.push(osc);
+        });
+      });
+      ci++;
+    };
+    swell();
+    const interval=setInterval(()=>{if(state.sounds['strings'])swell();else clearInterval(interval);},10000);
+    return{src:{stop:()=>{}},extraOsc:allOscs,gain,masterGain,lfo:null,lfoGain:null,type,interval};
+
+  } else if (type === 'hangdrum') {
+    masterGain.connect(ctx.destination);
+    const scale=[146.83,164.81,196,220,246.94,293.66,329.63,369.99];
+    const pats=[[0,3,5,3,7,5,3,0,2,5,3,2],[2,5,7,5,3,2,0,3,5,7,5,3],[0,2,3,5,3,2,0,7,5,3,2,0]];
+    let hpi=0,hni=0;
+    const hit=()=>{
+      const freq=scale[pats[hpi%pats.length][hni%12]];const t=ctx.currentTime;
+      [[1,0.38,2.0],[2.756,0.12,1.0],[5.42,0.06,0.5]].forEach(([mult,vol,dur])=>{
+        const osc=ctx.createOscillator();osc.type='sine';osc.frequency.value=freq*mult;
+        const g=ctx.createGain();
+        g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+        osc.connect(g);g.connect(masterGain);osc.start(t);osc.stop(t+dur+0.1);
+      });
+      hni++;if(hni%12===0){hpi++;hni=0;}
+    };
+    hit();
+    const interval=setInterval(()=>{if(state.sounds['hangdrum'])hit();else clearInterval(interval);},650);
+    return{src:{stop:()=>{}},gain,masterGain,lfo:null,lfoGain:null,type,interval};
   }
 
-  gain.connect(masterGain);
-  masterGain.connect(ctx.destination);
-  src.start();
-
-  return { src, gain, masterGain, lfo, lfoGain, type };
+  return null;
 }
 
 function renderSoundList() {
-  const nature = SOUNDS_DEF.filter(s=>s.group==='nature');
+  const music = SOUNDS_DEF.filter(s=>s.group==='music');
   const spirit = SOUNDS_DEF.filter(s=>s.group==='spirit');
   const makeRow = s => `
     <div class="sound-item">
@@ -1425,8 +1491,8 @@ function renderSoundList() {
   document.getElementById('sound-list').innerHTML =
     `<div style="font-size:10px;color:#9d5cf0;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px">✨ Espiritual / Binaural</div>` +
     spirit.map(makeRow).join('') +
-    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">🌿 Natureza</div>` +
-    nature.map(makeRow).join('');
+    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">🎵 Música Instrumental</div>` +
+    music.map(makeRow).join('');
 }
 
 function toggleSound(id) {
@@ -2188,7 +2254,7 @@ function hideBreathingHelp() {
 function renderSoundsHomeList() {
   const el = document.getElementById('sounds-home-list');
   if (!el) return;
-  const nature = SOUNDS_DEF.filter(s => s.group === 'nature');
+  const music = SOUNDS_DEF.filter(s => s.group === 'music');
   const spirit = SOUNDS_DEF.filter(s => s.group === 'spirit');
   const makeRow = s => `
     <div class="sound-item">
@@ -2200,8 +2266,8 @@ function renderSoundsHomeList() {
   el.innerHTML =
     `<div style="font-size:10px;color:#9d5cf0;text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin-bottom:6px">✨ Espiritual / Binaural</div>` +
     spirit.map(makeRow).join('') +
-    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">🌿 Natureza</div>` +
-    nature.map(makeRow).join('');
+    `<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600;margin:10px 0 6px">🎵 Música Instrumental</div>` +
+    music.map(makeRow).join('');
   const badge = document.getElementById('sounds-active-badge');
   if (badge) badge.style.display = Object.keys(state.sounds).length > 0 ? 'inline-block' : 'none';
 }
