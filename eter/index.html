@@ -2374,7 +2374,16 @@ function changeInsightSpirit(dir) {
 init();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/eter/sw.js').catch(() => {});
+  let swRefreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (swRefreshing) return;
+    swRefreshing = true;
+    location.reload(); // nova versão assumiu o controle → recarrega uma vez
+  });
+  navigator.serviceWorker.register('/eter/sw.js').then(reg => {
+    reg.update().catch(() => {});
+    setInterval(() => reg.update().catch(() => {}), 60 * 60 * 1000); // checa atualização a cada hora
+  }).catch(() => {});
 }
 </script>
 </body>
