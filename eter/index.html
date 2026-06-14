@@ -722,8 +722,27 @@ body{max-width:430px;margin:0 auto;position:relative;overflow-x:hidden}
       </div>
       <span id="sounds-active-badge" style="display:none;background:rgba(74,142,248,.15);color:var(--accent2);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:600">▶ Tocando</span>
     </div>
+
+    <!-- Música real (Spotify) -->
+    <div class="card" style="background:linear-gradient(135deg,#0a1f14,#0e1830);border:1px solid rgba(30,215,96,.25)">
+      <div class="card-title" style="color:#1ed760;margin-bottom:6px">🎵 Música para Dormir</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.5">Playlist instrumental de piano (sem voz, harmonia suave). Requer internet e, para faixas completas, estar logado no Spotify.</p>
+      <div id="music-player">
+        <iframe id="music-iframe" style="border-radius:12px;display:block" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXaKgOqDv3HpW?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+      <div class="sound-timer-row" style="margin-top:14px">
+        <span>Parar música em:</span>
+        <div class="timer-btns">
+          <button class="timer-btn active" onclick="setMusicTimer(0,this)">Não parar</button>
+          <button class="timer-btn" onclick="setMusicTimer(15,this)">15m</button>
+          <button class="timer-btn" onclick="setMusicTimer(30,this)">30m</button>
+          <button class="timer-btn" onclick="setMusicTimer(60,this)">60m</button>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
-      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5">Toque um som para ativar. Os sons continuarão ao iniciar o monitoramento do sono.</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5">Ou use os sons gerados pelo app (funcionam offline e a noite toda). Toque para ativar.</p>
       <div id="sounds-home-list"></div>
       <p style="font-size:10px;color:var(--muted);text-align:center;margin:12px 0 0;line-height:1.4">🎧 Ondas Theta requerem fone de ouvido para efeito binaural completo</p>
     </div>
@@ -862,7 +881,10 @@ const state = {
   breathTimeout: null,
   prevScreen: null,
   currentReportIdx: null,
+  musicTimer: null,
 };
+
+const MUSIC_EMBED = '<iframe id="music-iframe" style="border-radius:12px;display:block" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXaKgOqDv3HpW?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
 
 const THRESHOLDS = { alta: 0.018, media: 0.030, baixa: 0.050 };
 
@@ -1556,7 +1578,8 @@ function closeSoundPanel(e) {
 }
 
 function setSoundTimer(minutes, btn) {
-  document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+  const row = btn.closest('.timer-btns');
+  if (row) row.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   if (state.soundTimerTimeout) clearTimeout(state.soundTimerTimeout);
   if (minutes === 0) return;
@@ -2285,6 +2308,29 @@ function toggleSoundHome(id) {
   if (vol2) vol2.disabled = !state.sounds[id];
   const badge = document.getElementById('sounds-active-badge');
   if (badge) badge.style.display = Object.keys(state.sounds).length > 0 ? 'inline-block' : 'none';
+}
+
+// ══════════════════════════════════════════════
+//  MÚSICA (Spotify embed) — timer de desligar
+// ══════════════════════════════════════════════
+function setMusicTimer(minutes, btn) {
+  const row = btn.closest('.timer-btns');
+  row.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (state.musicTimer) { clearTimeout(state.musicTimer); state.musicTimer = null; }
+  if (minutes === 0) return;
+  state.musicTimer = setTimeout(stopMusic, minutes * 60000);
+}
+
+function stopMusic() {
+  const player = document.getElementById('music-player');
+  if (!player) return;
+  player.innerHTML = `<button onclick="restartMusic()" style="width:100%;padding:16px;border-radius:12px;background:rgba(30,215,96,.12);border:1px solid rgba(30,215,96,.35);color:#1ed760;font-size:14px;font-weight:600;cursor:pointer">▶ Música pausada pelo timer — tocar novamente</button>`;
+}
+
+function restartMusic() {
+  const player = document.getElementById('music-player');
+  if (player) player.innerHTML = MUSIC_EMBED;
 }
 
 // ══════════════════════════════════════════════
