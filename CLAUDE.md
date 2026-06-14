@@ -77,12 +77,21 @@ Grupo **Espiritual/Binaural**:
 - `theta` — Ondas Theta binaural (200 Hz esq + 206 Hz dir = 6 Hz percebido)
 - `bowl` — Tigela Tibetana (percussão 196 Hz + 588 Hz, a cada 8s)
 
-Grupo **Natureza**:
-- `rain` — Chuva (ruído branco filtrado bandpass 2200 Hz + highpass 800 Hz)
-- `fire` — Fogueira (lowpass 700 Hz + LFO 5 Hz)
-- `ocean` — Oceano (lowpass 350 Hz + LFO 0.08 Hz)
-- `wind` — Vento (bandpass 600 Hz + LFO 0.25 Hz)
-- `white` — Ruído branco (direto)
+Grupo **Música Instrumental** (substituiu os sons de natureza em 2026-06-14):
+- `piano` — Piano Zen (arpejos pentatônicos triangle + delay)
+- `harp` — Harpa Etérea (harpejos com harmônicos naturais)
+- `flute` — Flauta de Bambu (frases pentatônicas sine + vibrato)
+- `strings` — Cordas (acordes em swell sawtooth filtrado, troca a cada 10s)
+- `hangdrum` — Hang Drum (padrões em Ré dórico, parciais inarmônicos)
+
+> Sons de natureza removidos: rain, fire, ocean, wind, white.
+
+#### Música real para dormir (Spotify embed — tela Sons)
+- Player oficial do Spotify embutido: playlist **Peaceful Piano** (`37i9dQZF1DXaKgOqDv3HpW`)
+- URL embed: `https://open.spotify.com/embed/playlist/37i9dQZF1DXaKgOqDv3HpW`
+- Timer "Parar música em" (15/30/60 min) → remove o iframe via JS (`stopMusic`/`restartMusic`)
+- Limitação: requer internet + login Spotify p/ faixas completas; pausa se a tela bloquear
+- ⚠️ MP3 self-hosted NÃO foi possível: ambiente de build bloqueia download de archive.org/Pixabay (host_not_allowed). Para hospedar MP3s reais offline, adicionar esses hosts à allowlist de egress do ambiente.
 
 #### Telas / Navegação
 Bottom nav com **4 abas**: Início · Sons · Espiritual · Histórico
