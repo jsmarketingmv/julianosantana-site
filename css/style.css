@@ -148,17 +148,18 @@ p  { font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.8rem;
   list-style: none;
 }
 .nav-links a {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: rgba(245,240,232,0.8);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   transition: color var(--transicao);
   position: relative;
+  white-space: nowrap;
 }
 .nav-links a::after {
   content: '';
@@ -172,6 +173,7 @@ p  { font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
 .nav-links a:hover { color: var(--areia); }
 .nav-links a:hover::after { transform: scaleX(1); }
 .nav-cta { display: flex; align-items: center; gap: 1rem; }
+.nav-cta .btn { padding: 0.6rem 1.4rem; font-size: 0.82rem; }
 .hamburger {
   display: none;
   flex-direction: column;
